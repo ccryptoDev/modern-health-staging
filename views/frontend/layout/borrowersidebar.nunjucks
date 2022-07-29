@@ -1,0 +1,156 @@
+{% if req.path =='/dashboard' or  req.path =='/editprofile'  or  req.path =='/createnewapplication' %}
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <section class="sidebar" style="height: auto;">
+
+      <div class="user-panel">
+        &nbsp;
+      </div>
+      
+      <ul class="sidebar-menu tabs">
+          {%  if req.path =='/dashboard' %}
+           <li class="active sidemenu" rel="myprofiletab" id="myprofiletabmenu" ><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>My Profile</span></a></li>    
+          {% else %}  
+           <li class="active sidemenu" rel="myprofiletab" id="myprofiletabmenu"  ><a href="/dashboard" style="cursor:pointer;"><i class="fa fa-tasks"></i><span>My Profile</span></a></li>
+          {% endif %} 
+       </ul>
+
+       {%  if req.path =='/dashboard' %}
+         <ul class="sidebar-menu" id="dashboardmenus">
+
+            <!-- Incomplete Application starts -->
+            {% set incompleteloop = 1 %} 
+            {%  if incompleteCount>0 %}
+                {% for screeninfo  in screenData %}
+                  <li class="treeview" id="mainlist_{{ screeninfo.id }}_{{ incompleteloop }}_incomplete">
+                    <a href="javascript:void(0);">
+                      <i class="fa fa-tasks"></i> <span>App ({{ screeninfo.applicationReference }})</span> &nbsp; <small><i class="fa fa-star error" aria-hidden="true"></i></small>
+                      <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu tabs" id="mainlisttreeview_{{ screeninfo.id }}_{{ incompleteloop }}_incomplete" >
+                         <li rel="todolisttab_{{ screeninfo.id }}_{{ incompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>To do List ({{ screeninfo.totdocount }})</span></a></li>
+                         <li rel="agreementstab_{{ screeninfo.id }}_{{ incompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Agreements</span></a></li>
+                         <li rel="appDetailstab_{{ screeninfo.id }}_{{ incompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Application Details</span></a></li>
+                         <li rel="paymentscheduletab_{{ screeninfo.id }}_{{ incompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Payment Schedule</span></a></li>
+                         <li rel="makepaymenttab_{{ screeninfo.id }}_{{ incompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Make Payment</span></a></li>
+                    </ul>
+                 </li>
+                  {% set incompleteloop = incompleteloop+1 %}
+                {% endfor %}
+            {% endif %}
+
+            <!-- Other Application starts -->
+            {% set loanloop = incompleteloop %} 
+            {%  if loanCount >0 %}
+
+              {% for loaninfo  in loanData %}
+                <li class="treeview" id="mainlist_{{ loaninfo.id }}_{{ loanloop }}_loan">
+                    <a href="javascript:void(0);">
+                      <i class="fa fa-tasks"></i> <span>App ({{loaninfo.loanReference}})</span>
+                      <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a> 
+
+                    <ul class="treeview-menu tabs" id="mainlisttreeview_{{ loaninfo.id }}_{{ loanloop }}_loan">
+                         <li rel="todolisttab_{{ loaninfo.id }}_{{loanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>To do List ({{ loaninfo.totdocount }}) </span></a></li>
+                         <li rel="agreementstab_{{ loaninfo.id }}_{{loanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Agreements</span></a></li>
+                         <li rel="appDetailstab_{{ loaninfo.id }}_{{loanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Application Details</span></a></li>
+                         <li rel="paymentscheduletab_{{ loaninfo.id }}_{{loanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Payment Schedule</span></a></li>
+                         <li rel="makepaymenttab_{{ loaninfo.id }}_{{loanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Make Payment</span></a></li>
+                    </ul>
+                 </li>
+                 {% set loanloop = loanloop+1 %}
+                {% endfor %}
+            {% endif %}
+              <li rel="pastloantab" class="sidemenu" id="pastloantabmenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Past Loan</span></a></li>
+            </ul>  
+
+            <ul class="sidebar-menu tabs">
+              {% if req.session.incompleteCount >0 %}                  
+
+                    {% if req.session.incompleteredirectUrl !='' %}
+                         <li  class="sidemenu"><a href="{{ req.session.incompleteredirectUrl }}" style="cursor:pointer;" ><i class="fa fa-tasks"></i><span>Incomplete Application</span></a></li>
+                    {% else %}
+                         <li  class="sidemenu"><a href="/addbankaccount/{{req.user.id}}" style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Incomplete Application</span></a></li>
+                    {% endif %}
+
+              {% else %}
+                <li  class="sidemenu"><a style="cursor:pointer;" href="/createnewapplication"><i class="fa fa-tasks"></i><span>Create Application</span></a></li>
+              {% endif %}
+            </ul>
+
+          {% else %}
+
+            <ul class="sidebar-menu" id="redirectdashboardmenus">
+
+              <!-- Incomplete Application starts -->
+              {% set otherincompleteloop = 1 %} 
+              {%  if otherincompleteloop>0 %}
+                  {% for screeninfo  in screenData %}
+                    <li class="treeview">
+                      <a href="javascript:void(0);">
+                        <i class="fa fa-tasks"></i> <span>App ({{ screeninfo.applicationReference }})</span> &nbsp; <small><i class="fa fa-star error" aria-hidden="true"></i></small>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                      </a>
+                      <ul class="treeview-menu tabs">
+                           <li rel="todolisttab_{{ screeninfo.id }}_{{ otherincompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>To do List ({{ screeninfo.totdocount }}) </span></a></li>
+                           <li rel="agreementstab_{{ screeninfo.id }}_{{ otherincompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Agreements</span></a></li>
+                           <li rel="appDetailstab_{{ screeninfo.id }}_{{ otherincompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Application Details</span></a></li>
+                           <li rel="paymentscheduletab_{{ screeninfo.id }}_{{ otherincompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Payment Schedule</span></a></li>
+                           <li rel="makepaymenttab_{{ screeninfo.id }}_{{ otherincompleteloop }}_incomplete" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Make Payment</span></a></li>
+                      </ul>
+                   </li>
+                    {% set otherincompleteloop = otherincompleteloop+1 %}
+                  {% endfor %}
+              {% endif %}
+
+              <!-- Other Application starts -->
+            {% set otherloanloop = otherincompleteloop %} 
+            {%  if loanCount >0 %}
+
+              {% for loaninfo  in loanData %}
+                <li class="treeview">
+                    <a href="javascript:void(0);">
+                      <i class="fa fa-tasks"></i> <span>App ({{loaninfo.loanReference}})</span>
+                      <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a> 
+
+                    <ul class="treeview-menu tabs">
+                         <li rel="todolisttab_{{ loaninfo.id }}_{{otherloanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>To do List ({{ loaninfo.totdocount }}) </span></a></li>
+                         <li rel="agreementstab_{{ loaninfo.id }}_{{otherloanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Agreements</span></a></li>
+                         <li rel="appDetailstab_{{ loaninfo.id }}_{{otherloanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Application Details</span></a></li>
+                         <li rel="paymentscheduletab_{{ loaninfo.id }}_{{otherloanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Payment Schedule</span></a></li>
+                         <li rel="makepaymenttab_{{ loaninfo.id }}_{{otherloanloop}}_loan" class="sidemenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Make Payment</span></a></li>
+                    </ul>
+                 </li>
+                 {% set otherloanloop = otherloanloop+1 %}
+                {% endfor %}
+              {% endif %}
+              <li rel="pastloantab" class="sidemenu" id="pastloantabmenu"><a style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Past Financing</span></a></li>
+            </ul> 
+          
+
+            <ul class="sidebar-menu tabs">
+              {% if req.session.incompleteCount >0 %}
+                  <li  class="sidemenu">
+
+                    {% if req.session.incompleteredirectUrl !='' %}
+                         <li  class="sidemenu"><a href="{{ req.session.incompleteredirectUrl }}" style="cursor:pointer;" ><i class="fa fa-tasks"></i><span>Incomplete Application</span></a></li>
+                    {% else %}
+                         <li  class="sidemenu"><a href="/addbankaccount/{{req.user.id}}" style="cursor:pointer;"><i class="fa fa-tasks"></i><span>Incomplete Application</span></a></li>
+                    {% endif %}
+
+                  </li>
+              {% else %}
+                <li  class="sidemenu"><a style="cursor:pointer;" href="/createnewapplication"><i class="fa fa-tasks"></i><span>Create Application</span></a></li>
+              {% endif %}
+            </ul>
+          
+          {% endif %}
+      
+
+      <p>&nbsp;</p>
+
+    </section>
+  </aside>
+{% endif %}

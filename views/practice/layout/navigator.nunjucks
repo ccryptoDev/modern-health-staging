@@ -1,0 +1,29 @@
+
+	<div class="list-of-tabs">
+		<ul>
+			<li class="completed">
+				<span></span>
+				<a href="">Start</a>
+				<i class="line"></i>
+			</li>
+			<li class="selected">
+				<span></span>
+				<a href="">Personal</a>
+				<i class="line"></i>
+			</li>
+			<li>
+				<span></span>
+				<a href="">Financial Action</a>
+				<i class="line"></i>
+			</li>
+			<li>
+				<span></span>
+				<a href="">Finish</a>
+				<i class="line"></i>
+			</li>
+			<li>
+				<span></span>
+				<a href="">Finish</a>
+			</li>
+		</ul>
+	</div>

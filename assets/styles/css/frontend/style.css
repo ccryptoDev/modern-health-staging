@@ -1,0 +1,263 @@
+
+
+.consent-ul{border-bottom:1px solid #9cb8d2;margin-bottom:4%;padding-bottom:4%}
+
+.block-content-box  p{padding-left: 10px; line-height: 22px;}
+.block-content-box1{min-height: auto;}
+
+.sublist-check{left:4%}
+
+.selectBox select.form-control option {  color: #fff;  font-weight: 500; cursor: pointer;}
+.selectBox .form-control{color: #FFFFFF !important; font-weight: 300;}
+
+.block-content-consent {border-bottom:1px solid #9cb8d2;margin-bottom:4%;padding-bottom:4%;}
+.needassign{padding-top: 1px;}
+.needassign a{padding-right: 1px !important;}
+.form-rounded {border-radius: 1rem;}
+.question{color: #ffffff; margin-left: 1%; padding-bottom: 1%;}
+.secoundform{/*background: url("../images/lake.jpg") no-repeat; border-radius: 1rem; border: 1px solid #fff;*/ background-size: 100%;margin: 5% 0;width: 100%;height:275px;}
+.userloginform{background-color: #fff; width: 35% height: auto; margin: 5% 30%; padding: 2%;}
+.userloginform input{margin: 2%; border-radius: 0px !important;}
+.userloginform a {text-decoration: none;}
+.secoundform .btn:hover, .btn:focus{color: #FFF !important; text-decoration: none;}
+.btn-Main .btn:hover, .btn:focus{color: #FFF !important; text-decoration: none;}
+.input-color{color: #fff;}
+.securty{margin-top: 3%;}
+.blueBtn3{background-color:#0B6EFD; color:#fff;}
+.dropDown:after{top: 32px;}
+.blueBtn4{ background: transparent none repeat scroll 0 0; border: 1px solid #ddd;border-radius: 20px;color: #ddd;display: inline-block;font-size: 15px;font-weight: 600;padding: 8px 60px;}
+.blueBtn2{background-color: #838287;border: 1px solid #838287;border-radius: 20px;color: #FFF;float: right;display: inline-block;font-size: 12px;margin: 2% 3% 0;padding: 3px 10px;}
+
+.user-token{margin-left:61%;}
+.whitetext{color: #fff !important;font-weight: 500;}
+.greentext{color:#35CCA7;}
+.stlbluetxt{color: #9cb8d2; font-size: 12px;}
+.bgdrakblue{background-color: #243748;}
+.bgtransparent{background-color: transparent; border: 1px solid; }
+.bgtransparent:hover, .bgtransparent:focus, .bgtransparent:active{background-color: transparent; border: 1px solid;}
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus{outline: none;}
+
+.mt-1{margin-top: 1px;}
+.mt-2{margin-top: 5px;}
+.mt-3{margin-top: 10px;}
+.mt-4{margin-top: 20px;}
+.mTB-1{margin:1% 0;}
+.mTB-2{margin:3% 0;}
+.mTB-3{margin:5% 0;}
+.mLR-1{margin: 0 3px;}
+.mLR-2{margin: 0 5px;}
+.mLR-3{margin: 0 10px;}
+.mb-0{margin-bottom: 0px;}
+.mb-1{margin-bottom: 1px;}
+.mb-2{margin-bottom: 5px;}
+.mb-3{margin-bottom: 10px;}
+.mb-4{margin-bottom: 20px;}
+.mb-5{margin-bottom: 30px;}
+.nopadding{padding: 0 !important;}
+.nopaddingTB{padding-top: 0;padding-bottom: 0;}
+.nopaddingTB1{padding-top: 4px;padding-bottom: 4px;}
+.nopaddingLR{padding-left: 0;padding-right: 0;}
+.nopaddingLR1{padding-left: 4px;padding-right: 4px;}
+.nopaddingLR2{padding-left: 8px;padding-right: 8px;}
+.float-left{float: left;}
+.float-right{float: right;}
+.delete i.fa {display: inline-block; border-radius: 60px; box-shadow: 0px 0px 2px #FFF; padding: 0.3em 0.4em; margin-left: 0.5em; color:#FFF;}
+p{margin:0;padding:0;}
+.page-header1 { border-bottom: 1px solid #304253;margin: 40px 0 20px;padding-bottom: 9px;}
+.page-header2 {border-bottom: 1px solid #304253; border-top: 1px solid #304253;margin:10px 0;padding: 9px;min-height: 310px;}
+.proceduredetail{padding: 0 !important;margin: 2% 0;}
+/*Header Section Start*/
+.chatBtn #chatsupportdiv {padding: 5px 30px; font-size:12px;}
+
+/* Landing page css*/
+.landingtop{ padding-top: 60px; }
+.landingpage h1{margin:20px 0;text-align:center;font-size:28px;color:#9cb8d2;font-weight:700;}
+.landingpage .center-block { width: 75%;}
+.commonBtn{ border-radius: 20px; border:none;padding:8px 20px;display:inline-block;font-size:13px;font-weight:500;}
+.commonBtn:hover{color:#fff;}
+
+.greenBtn{border-radius: 20px;border: 1px solid #32deb9; background:#32DEB9; background-image: -moz-linear-gradient( 90deg, rgb(50,222,185) 0%, rgb(91,209,255) 100%);background-image: -webkit-linear-gradient( 90deg, rgb(50,222,185) 0%, rgb(50,222,185) 100%);background-image: -ms-linear-gradient( 90deg, rgb(50,222,185) 0%, rgb(50,222,185) 100%); color:#203344; min-width: 20%;}
+
+.primaryblueBtn{background:#3aa9ff; background-image: -moz-linear-gradient( 90deg, rgb(58,169,255) 0%, rgb(58,169,255) 100%);background-image: -webkit-linear-gradient( 90deg, rgb(58,169,255) 0%, rgb(58,169,255) 100%);background-image: -ms-linear-gradient( 90deg, rgb(58,169,255) 0%, rgb(58,169,255) 100%);/* color:#FFF;*/}
+
+.contentpadding{margin:20px 0px;}
+.landingcontentheader{ font-size:20px;}
+
+.landing-content-box{background:#0E161E;box-shadow:0 0px 15px rgba(0,0,0,0.5);min-height:250px;padding:15px;border-radius:5px;}
+.landing-content-box h2{font-size:15px;color:#8093a5;;font-weight:600;}
+
+.form-group .error{background: solid;border-radius: 40px;border-color: rgba(186,60,99,1);color: rgba(186,60,99,1);font-size:14px;text-transform:none;}
+
+.form-group input .error{
+color: rgba(186,60,99,1);
+}
+.form-group .error:focus{-webkit-box-shadow: 0 0 15px rgba(186, 60, 99 ,1);box-shadow:0 0 15px rgba(186, 60, 99 ,1);border-color: #ba3c63;}
+.error{ color:rgba(186,60,99,1); }
+#checkError,#consentError,#firstnameError,#lastnameError,#socialError{ float:left; display:none; }
+.phone_number{ min-height:80px; }
+label[id*="-error"]{position:absolute;left;0;
+     margin-bottom: 5px !important; font-size:13px !important;}
+/* Practice Landing page css*/
+/*.disableBtn{border-radius: 20px;background:#182736; border:none;padding:8px 60px;display:inline-block;font-size:15px;color:#314455;}
+.disableBtn:hover{border-radius: 20px;background:#182736; border:none;padding:8px 60px;display:inline-block;font-size:15px;color:#FFF;}*/
+
+
+ /*Lender Merchant Fees Start*/
+     .lenderwidth{width: 96%;}
+     .lenderdelete{/*width: 4%;*/padding: 1% 0;}
+     .lenderwidth .selectBox:after{top: 15px !important}
+
+     .addstaffmenberwidth{width: 100%;}
+     .addstaffwidth{width: 20%; float: left;}
+
+
+ /*Plaid Start*/
+
+.emptyAccountDiv{text-align:center;}
+.img-Div{width:100%;display:block;padding:0 0 50px;}
+.addCircleBtn{width:80px;height:80px;border-radius:100%;-webkit-border-radius:100%;-moz-border-radius:100%;-o-border-radius:100%;background:rgb(12,212,183);border:none;display:inline-block;padding:0;position: absolute; float:left;top: 69%; left:610px;border-radius: 90px !important;left: 0; right: 0; margin: 80px auto;}
+.addCircleBtn:focus{outline: none;}
+/*.addCircleBtn{background:#0cd4b7;background-image: -moz-linear-gradient( 90deg, rgb(6,178,120) 0%, rgb(13,212,181) 100%);background-image: -webkit-linear-gradient( 90deg, rgb(6,178,120) 0%, rgb(13,212,181) 100%);background-image: -ms-linear-gradient( 90deg, rgb(6,178,120) 0%, rgb(13,212,181) 100%);color:#fff;tex-shadow:0 1px 1px rgba(0,0,0,0.5)};*/
+
+.addCircleBtn i{display:block;}
+.addCircleBtn span{display:block;font-size:17px;}
+.plaid-img{height:274px;}
+.addCircleBtn span{display:block;font-size:14px;color:#fff;}
+
+
+.tt-menu {
+ border: 1px solid rgba(0, 0, 0, 0.2);
+ border-radius: 8px;
+ box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+ margin-top: 12px;
+ width: 422px;
+}
+.tt-suggestion {
+ font-size: 14px;
+ padding: 3px 20px;
+ background-color: #243748;
+    border: none;
+	color: rgba(90,125,161,0.5);
+}
+.tt-suggestion:hover {cursor: pointer;background-color: #3c8dbc;color: #FFFFFF;}
+.tt-suggestion p { margin: 0;}
+
+
+
+/*signstart */
+
+.checkbox label a{color: #0cd4b7;text-decoration: blink;}
+.modal-content{background-color: #223345;}
+.modal-dialog{margin-top: 6%;width: 800px;}
+.modal-content .close{opacity: 1; color: rgb(221, 221, 221); margin: 1%;}
+.modal-body {background-color: #1A2A39; border:0.1rem solid #9cb8d2;border-radius: 10px;margin: 2.6%;/*height: 400px;overflow-y: scroll;*/}
+.modal-body p {  color: #F2FEFF; font-size:13px;line-height: 20px;padding: 8px 0px;}
+.policy-with1{width:20%;height:auto;float:left;}
+.policy-with2{width:80%height:auto;}
+.policy-bg1{background-color:#000;color:#fff;border:1px solid #000;}
+.policy-bg2{background-color:#9ca4ab;color:#fff;border:1px solid #ddd;}
+.policy-txt1{color:#9ca4ab;}
+.policy-header{border-bottom: 2px solid #000;color: #000;padding-top: 20px;}
+.modal-body ul{list-style-type: circle; margin:2%;}
+.modal-body strong{font-weight:500;}
+.modal-body  p{ color:#8093a5;}
+/*-- PROMISSORY NOTE --*/
+.docTextWhite{color: #8093a5;}
+.promissory-underline_1{ border-bottom: 1px solid #8093a5; width: 60px;}
+.promissory-underline_2{ border-bottom: 1px solid #8093a5; width: 200px;min-height: 20px;}
+.checkbox a i {  font-size: 11px;margin-left: -2px;}
+
+.ajaxloadermodal .modal-dialog{margin-top: 12%;width: 100% !important;}
+
+/*datepicker*/
+
+#ui-datepicker-div{background: #243748 none repeat scroll 0 0; width: 320px;}
+#ui-datepicker-div .ui-widget-header {color: #000; }
+#ui-datepicker-div .ui-widget-header {background: #243748 none repeat scroll 0 0; border-bottom: 2px solid #555555; border-radius: 0;color: #000;}
+
+/*Loader */
+#ajaxLoaderPlaid{position:fixed;top:50%;left:50%;width:15%;	transform: translate(-50%, -50%);}
+
+/*#ajaxLoader{background: #0e161e none repeat scroll 0 0;}*/
+
+#applicationoffer h1{color:#9cb8d2;}
+#applicationoffer .box {
+/*    background: #111c26 none repeat scroll 0 0;
+   border-top: 3px solid #111c26;*/
+    width: 80%;
+    margin: 0 auto;
+	position: relative;
+    border-radius: 3px;
+	box-shadow:0 1px 1px rgba(0,0,0,0.1);
+}
+#applicationoffer .table {color:#9cb8d2;}
+#applicationoffer .table>tbody>tr>td,#applicationoffer .table>thead >tr>th{border:solid 1px #e4ebf3 !important;}
+#applicationoffer .checkbox label:before{content:''	}
+#applicationoffer span,#applicationoffer p{	color:#9cb8d2;}
+#applicationoffer .blueBtn4{font-weight:400 !important;}
+#applicationoffer .btn:hover{color: #FFFFFF !important;}
+
+/*monthly payement */
+
+.boxSize-5{min-height: 150px;width: 290px;}
+.boxSize-5 h5{color:#9cb8d2;}
+.boxSize-5 table { border-collapse: collapse;width: 100%;}
+.boxSize-5 td, th {border: 1px solid #dddddd;}
+#selectofferform .lightBlueBtn2 {background: #182736 none repeat scroll 0 0;border: medium none;border-radius: 20px;color: #304253;display: inline-block;font-size: 11px;font-weight: 500;padding: 1px 10px;}
+.detailsMB-5{margin-top: -20px;}
+.boxSize-5 .lightBlueBtn:hover{background-color:#182736; color:#304253 !important;}
+#loandetaamount sub{bottom: 0;font-size: 20px; }
+#loandetaamount{font-size: 33px;}
+.selectedborderbox{ border: 1px solid #35CCA7;   box-shadow: 0 0px 5px #35CCA7;}
+.btn-default:active{background: #3caaff;}
+
+.list-of-monthPayment{text-align:center;}
+.list-of-monthPayment li{display:inline-block;margin:0 15px 30px 0; }
+.recommend_txt{ color:#8093a5; font-size:13px; margin:10px 0px 10px 0px; }
+.fullloanterms tr td{ padding:5px;}
+
+/*Contact us page */
+
+.contact-bg{/*background: url("../images/checking-mobile.png") no-repeat;*/ padding: 10% 0;}
+.contact-icon1{font-size:36px; transform: translate(0%, 60%); text-align: center; color: #FFFFFF;}
+.circleBtn{background: rgba(83,150,65,0.85) none repeat scroll 0 0; border: medium none; border-radius: 90px !important; display: inline-block; height: 80px; left: 0; padding: 0; right: 0; width: 80px;}
+.contactText h1, h2, h3, h4, h5, h6 p {color: #8093a5;margin: 1%}
+.contactText strong{color: #8093a5;}
+.contactText ul li { list-style: outside !important; color: #8093a5; margin-left: 40px;}
+.contactText table, tr, td, th {padding: 10px;color: #8093a5;}
+.contactText table{border-collapse: collapse; }
+.zerointerest{ font-size: 12px !important; margin-top:15px;}
+
+
+
+#applicationoffer .checkbox label::before{border: 1px solid #9cb8d2;}
+#applicationoffer .checkbox {margin: 0 0 0 13% !important;}
+
+
+/*Financial Information */
+
+#financedata ul, li { list-style-type: decimal-leading-zero; color: #8093a5;}
+
+.panel-heading{background-color: #2e4456;
+    border-color: #2e4456;
+    color: #FFF;
+    text-align: left;}
+#collapse1 table, tbody, tr, td{border: 1px solid #2e4456;}
+
+/*Application Management login start*/
+
+.linealignBG{background-image:  url("/images/img/managementLogin.PNG");background-repeat: no-repeat; background-size: cover;}
+.linealignBG .landingpage{opacity: 0.8;padding-top: 120px;}
+.linealignBG .greenBtn{padding: 8px 40px;}
+.linealignBG .blueBtn{padding: 8px 50px; color: #203344}
+#applicationSignin h6 a:hover, a:focus {color: #35CCA7; text-decoration: blink;}
+#applicationLogin a button:hover{color: #FFFFFF; font-weight: 700;}
+.transparentBtn {background: transparent none repeat scroll 0 0; border: 1px solid #0e161e;border-radius: 20px;color: #304253;display: inline-block;font-size: 15px;font-weight: 500;padding: 3px 15px;}
+.transparentBtn:hover{background: transparent none repeat scroll 0 0;border: 1px solid #455e74;}
+.transparentBtn:focus{background: transparent none repeat scroll 0 0;border: 1px solid #455e74;}
+.transparentBtn:active{background: transparent none repeat scroll 0 0;border: 1px solid #455e74;}
+.borderBlock{border: 1px solid #455e74;}
+.borderNone{border: 1px solid #0e161e;}
+
+/*Loan promissory note */
+#ElectronicFundsConditions-error { margin-left: 130px;}

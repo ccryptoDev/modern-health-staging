@@ -1,0 +1,78 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        Badge
+        <small>preview of Badge</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Badges</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Badge Table</h3>
+		     <span class="pull-right"><a href="/admin/createNewBadge"><button type="button" class="btn btn-primary">Create Badge</button></a></span>
+        </div>
+        <div class="box-body">
+
+          {% if (creatererrorval)  %}
+           <div class="alert alert-danger">
+            {{creatererrorval}}
+            </div>
+            <br>
+          {% endif %}
+
+          {% if (createsuccessval)  %}
+             <div class="alert alert-success">
+              {{createsuccessval}}
+            </div>
+            <br>
+          {% endif %}
+
+          {% if (badgeupdatesuccess)  %}
+             <div class="alert alert-success">
+              {{badgeupdatesuccess}}
+            </div>
+            <br>
+          {% endif %}
+
+          {% if (badgeinvaliderror)  %}
+           <div class="alert alert-danger">
+            {{badgeinvaliderror}}
+            </div>
+            <br>
+          {% endif %}
+
+          {% if (badgedeletesuccess)  %}
+           <div class="alert alert-danger">
+            {{badgedeletesuccess}}
+            </div>
+            <br>
+          {% endif %}
+
+          <table class="table table-striped table-bordered  dataTable" id="badges_table">
+            <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Title</th>
+              <th>Sub Title</th>
+              <th>Note</th>
+              <th>Image</th>
+              <th>Condition Label</th>
+              <th>Condition Logic</th>
+              <th>Condition type</th>
+              <th>Condition value</th>
+              <th>Created Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+           
+            </tbody></table>
+        </div>
+      </div>
+    </section>
+{% endblock %}

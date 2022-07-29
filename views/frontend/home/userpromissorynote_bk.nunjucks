@@ -1,0 +1,42 @@
+{% extends "frontend/layout/layout.nunjucks" %}
+{% block body %}
+
+<div class="modal-dialog modal-md">
+	<div class="modal-content">
+		<span class="stlbluetxt"><h2 class="modal-title mTB-1 nopaddingLR2">PROMISSORY NOTE</h2></span>
+	<div class="modal-body" style="overflow: auto; height: 500px;">
+		<div class="" >
+			<div class="promissory" >
+				<p>
+				<!-- {% include "document/californiaretail.nunjucks" %} -->
+				<!-- {% include "document/kentuckretail.nunjucks" %} -->
+				{% include "document/pennsylvaniaretail.nunjucks" %}
+				</P>
+			</div>
+		</div>
+		<div class="agree" >
+			<p id="signatureimg"></p>
+			<form  role="form"  method="post" enctype="multipart/form-data" id="esignature">
+			<table>
+			<tr>
+			<td style="border:none;">
+				<span class="date">
+					<p> Borrower Name</p>
+					<p>{{LenderShortName}}</p>
+					<!-- <p>{{fname}} {{lname}}</p> -->
+					<p>Today&rsquo;s Date: <span id="dateval" style="border-bottom:1px solid #FFF;width:150px;display:inline-block;">08/03/2018 <!-- {{obj.date}} --></span></p>
+					<p>Ip:111.93.237.186 <!-- {{ip}} --></p>
+				</span>
+			</td>
+			</tr>
+			</table>
+			</form>
+		</div>
+	</div>
+	<div class="btn-Main">
+		  <button type="button" data-dismiss="modal" class="btn btn-default blueBtn4" onclick="checkdocstatus();">Dismiss</button>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+<header class="main-header">
+  <!-- Logo -->
+  <a href="/dashboard" class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><b>MHF</b></span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><img src="/images/img/logo.png" class="img-responsive" style="width:100px; margin-top:10px;" /></span>
+  </a>
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </a>
+
+    {% if req.path =='/dashboard' or  req.path =='/editprofile'  or  req.path =='/createnewapplication' %}
+      <div  class="col-lg-10 col-md-9 col-sm-8 col-xs-7 text-right" style="margin-top: 24px;">
+         {% if req.session.incompleteCount >0 %}
+
+            {% if req.session.incompleteredirectUrl !='' %}
+                 <a href="{{ req.session.incompleteredirectUrl }}" class="btn btn-default createapplication">Incomplete Application </a>
+            {% else %}
+                 <a href="/addbankaccount/{{req.user.id}}" class="btn btn-default createapplication">Incomplete Application </a>
+            {% endif %}
+         {% else %}
+          <a href="/createnewapplication" class="btn btn-default createapplication">Create Application </a>
+         {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user" style="font-size:30px; color:#FFF; padding:5px 0px 0px 15px;"></i>
+            <span class="hidden-xs">{{req.user.firstname}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+               <i class="fa fa-user" style="font-size:30px; color:#FFF; padding:5px 0px 0px 15px;"></i>
+              <p>
+               {{req.user.firstname}} <small>Member since {{req.user.createdAt}}</small>
+              </p>
+            </li>
+
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="/editprofile" class="btn btn-default btn-flat">Change Password</a>
+              </div>
+              <div class="pull-right">
+                <a href="/userlogout" class="btn btn-default btn-flat">Sign out</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!-- Control Sidebar Toggle Button -->
+      </ul>
+    </div>
+  </nav>
+</header>

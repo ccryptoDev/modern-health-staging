@@ -1,0 +1,180 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+<style>
+.table{
+width: 80% !important;
+margin: 25px auto !important;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{
+border: 1px solid #ddd;
+}
+.table th,td{
+text-align:center;
+}
+</style>
+<section class="content-header">
+  <h1> Financing Offer Information <small>preview of Incomplete Application</small> </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+    <li><a href="/admin/incompleteApplication"><i class="fa fa fa-building"></i>Incomplete Application</a></li>
+    <li class="active">Financing Offer Information</li>
+  </ol>
+</section>
+<section class="content">
+
+  <div class="box">
+     <div class="box-header with-border">
+      <h3 class="box-title">Financing Offer Information</h3>
+      <span class="pull-right"><a href="/admin/incompleteApplication"> <button type="button" class="btn btn-primary">Back</button> </a></span>
+	 </div>
+	 <button type="button" class="btn btn-primary pull-right" style="margin:20px;" onclick="changeincome();">Change Income</button>
+     <div class="box-body">
+
+	  {% if errorcode==201  %}
+		 <div class="alert alert-danger">
+		  {{errormsg}}
+		 </div>
+
+	  {% elseif errorcode == '401' %}
+	  	 <div class="alert alert-danger alert-important">
+		   Account not linked for this customer
+		 </div>
+
+	  {% elseif loanstatus == 'Declined' %}
+		 <div class="alert alert-danger alert-important">
+			Unable to approve the financing, Because your income is low. Try again! <br> Income Amount - ${{incomeamount}}
+		 </div>
+	  {% else %}
+
+
+         <form name="myofferform" id="myofferform" method="post" action="/">
+			    <input type="hidden" name="totalcost" id="totalcost" value="{{fullData.financedAmount}}">
+				<input type="hidden" name="userid" id="userid" value="{{fullData.userid}}">
+				<input type="hidden" name="productid" id="productid" value="{{fullData.productid}}">
+				<input type="hidden" name="fullOffer" id="fullOffer" value="{{fullDataString}}" >
+				<table class="table">
+						<thead>
+							<tr class="headerbg" style="border: 1px solid #ccc;">
+								<th scope="rowgroup" class="attributes" style="border-right:2px solid white;">Items</th>
+
+								<th> Values</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr class="headerbg">
+							<td>Monthly Income Input</td>
+							<td class="changeNumberFormatComma">{{fullData.incomeamount}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>State</td>
+							<td>{{fullData.state}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Payment Freq (BiWeekly)</td>
+							<td>{{fullData.paymentFeq}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Term or  # of Payment Cycles </td>
+							<td>{{fullData.loanTerm}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Rate Per Cycle </td>
+							<td>{{fullData.interestRate}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>APR% </td>
+							<td>{{fullData.APR}}%</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Financing Amount  </td>
+							<td class="changeNumberFormatComma">{{fullData.financedAmount}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Financing Payment Per Cycle </td>
+							<td class="changeNumberFormatComma">{{fullData.loanPaymentCycle}} </td>
+							</tr>
+
+							<!--<tr class="headerbg">
+							<td scope="">Monthly Payment </td>
+							<td class="changeNumberFormatComma">{{fullData.monthlyPayment}}</td>
+							</tr>-->
+
+							<tr class="headerbg">
+							<td>pre Total Monthly Payment </td>
+							<td class="changeNumberFormatComma">{{fullData.perTotMonthlyPayment}} </td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Post Total Monthly Payment </td>
+							<td class="changeNumberFormatComma">{{fullData.postTotMonthlyPayment}} </td>
+							</tr>
+
+							<tr class="headerbg">
+							<td><b>preDTI</b> </td>
+							<td>{{fullData.preDTI}}%</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td><b>PostDTI </b> </td>
+							<td>{{fullData.postDTI}}%</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td><b>PostDTI T Threshold </b> </td>
+							<td>{{fullData.postDTIThreshold}}%</td>
+							</tr>
+							<tr class="headerbg">
+							<td><b>Financing Status </b> </td>
+							<td><b>{{fullData.loanstatus}}</b></td>
+							</tr>
+							</tbody>
+					</table>
+				<div class="pull-right">
+					<button type="submit" class="btn btn-primary" name="saveform" id="saveform" onclick="chgAction('save')">Save</button>
+					<button type="submit" class="btn btn-primary" name="submitform" id="submitform" onclick="chgAction('submit')">Submit</button>
+				</div>
+			</form>
+		 {% endif %}
+
+     </div>
+  </div>
+</section>
+<div id="changeincome" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	  <form name="chnageincome" id="chnageincome" method="post" action="/admin/changeincomefromincomplete/{{fullData.userAccountres.id}}">
+		<div class="modal-header bg-primary">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Change Income</h4>
+		</div>
+		<div class="modal-body bgColorWhite">
+
+		 <input class="" type="hidden" id="apptype" name="apptype" value="incomplete">
+		  <table class="table table-bordered">
+				  <tbody>
+				  <tr>
+						<th width="30%"> Annual income </th>
+						<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="incomeamount" name="incomeamount" required></div></td>
+				  </tr>
+		  </table>
+
+		</div>
+		<div class="modal-footer bg-info">
+		  <button type="submit"  class="btn btn-primary" id="changeincome">Confirm</button>
+		  <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	  </div>
+      </form>
+	</div>
+  </div>
+  </div>
+
+{% endblock %}

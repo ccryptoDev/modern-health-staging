@@ -1,0 +1,20 @@
+<footer class="main-footer">
+     <div class="pull-center hidden-xs text-center">
+	 &copy; 2018 {{LenderShortName}}. ALL Rights Reserved.
+     </div>
+     <br>
+</footer>
+{% if req.user.id != "" %}
+	<script type = "text/javascript" >
+		function preventBack(){window.history.forward();}
+		setTimeout("preventBack()", 0);
+		window.onunload=function(){null};
+	</script>
+{% endif %}
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112758211-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-112758211-1');
+</script>

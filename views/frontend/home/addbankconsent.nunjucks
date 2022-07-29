@@ -1,0 +1,169 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+
+<style>
+
+
+.checklist {
+	display: flex;
+	justify-content: center;
+}
+
+.orientationblock {
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 1;
+	justify-content: left;
+}
+
+.item {
+	flex-shrink: 1;
+	text-align: left;
+	font-size: 20px;
+	margin-bottom: 10px;
+	display: flex;
+}
+
+.cb {
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.textoption {
+	margin: 8px;
+}
+
+.facheckbox {
+	z-index: 0;
+	text-align: left;
+	font-size: 15px;
+	color: #333;
+}
+
+</style>
+
+<div class="container">
+{% if (successval)  %}
+  <div class="successmsg" style="margin-top:30px;">
+    <div class="alert alert-success">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		{{successval}}
+	</div>
+  </div>
+{% endif %}
+
+
+	<div class="whitebox infoForm" style="max-width: 1090px;">
+		<div class="v-center">
+			<div class="h-center">
+<div style="text-align:center; padding-bottom: 20px;" class="partner-logos-go-here">
+	<h2 style="color:#395789; text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 5px;font-size: {% if eftaSignatureRequired %}36px{% else %}24px{% endif %};" id="theDirective">Agreements and Consents</h2>
+
+	{% if eftaSignatureRequired %}
+	<div class="consentTitle" style="text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 15px;font-size: 20px;" id="theDirective">Please review this document, sign below and click 'Accept' to confirm that you agree to the terms.</div>
+	<div>
+	{% include eftaPath %}
+	</div>
+	{% else %}
+	<div class="consentTitle" style="text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 15px;font-size: 20px;" id="theDirective">Please review the following document, check the box and click 'Accept' to confirm that you agree to the terms.</div>
+	<div class="checklist">
+		<div class="orientationblock">
+			<div class="item"><div class="facheckbox"><input type="checkbox" name="eftaCB" id="eftaCB" onchange="checkStatus();"><label for="eftaCB" id="eftaLabel"></label></div><div class="textoption"> I consent to the <a href="javascript:void(0)" style="color: #395789;" onclick="$( '#eftadocument' ).modal('show');"><strong>Electronic Funds Transfer Authorization</strong></a></div></div>
+		</div>
+	</div>
+	{% endif %}
+
+	<div>
+		<button id="acceptBtn" class="btn-primary-type btn-application" onclick="saveConsent();" disabled>Accept</button>
+	</div>
+</div>
+
+<style>
+	.modal-header {
+		border-radius: 5px 5px 0px 0px;
+	}
+
+	.modal-body {
+		text-align: left;
+	}
+
+	.modal-content p {
+	color: black;
+	}
+</style>
+
+{% if not eftaSignatureRequired %}
+<div id="eftadocument" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header bg-tcpa user-modal-header">
+				<span class="modal-title" style="color:#FFFF; font-size: 26px;">Electronic Funds Transfer Authorization</span>
+				<button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+			</div>
+			<div class="modal-body bgColorWhite">
+				{% if eftaPath %}
+					{% include eftaPath %}
+				{% endif %}
+			</div>
+			<div class="text-center">
+				<button type="button" data-dismiss="modal" class="btn-application">Continue</button>
+			</div>
+			<br /><br />
+		</div>
+	</div>
+</div>
+{% endif %}
+
+
+	{% if ( errorval )  %}
+		<div class="errormsg">
+			<div class="alert alert-danger">
+				<a href="#" class="close" data-dismiss="alert" style="">&times;</a>
+				{{ errorval }}
+			</div>
+		</div>
+	{% endif %}
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% if eftaSignatureRequired %}
+<script language='javascript' src='/js/js/signaturepad.js'></script>
+<script src="/js/js/signaturepad-promnote.js"></script>
+{% endif %}
+
+<script>
+	$( document ).ready( () => {
+		checkStatus();
+		{% if eftaSignatureRequired %}
+		setTimeout( initJustEFTAPad, 500 );
+		{% endif %}
+	});
+	function getStatus() {
+		{% if eftaSignatureRequired %}
+			return ( $( "#stamp-eft" ).has('img').length > 0 );
+		{% else %}
+			return $( "#eftaCB" ).prop('checked');
+		{% endif %}
+	}
+	function checkStatus() {
+		if( getStatus() ) {
+			$( "#acceptBtn" ).prop("disabled", false );
+		} else {
+			$( "#acceptBtn" ).prop("disabled", true );
+		}
+	}
+
+	function saveConsent() {
+		window.location.href = "/addbank/saveconsent/{{ accountID }}"
+	}
+
+	function openmodal( id ){
+		$( id ).modal('show');
+	}
+</script>
+
+{% endblock %}

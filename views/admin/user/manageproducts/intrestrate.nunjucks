@@ -1,0 +1,175 @@
+<div id="interestrate" class="tab-pane fade">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					
+						<section class="content" style="margin-top:25px;">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+									<h3 class="box-title">Create/Update Interest Rate</h3>
+									</div>
+									<form class="form-horizontal" id="loan_intrestrate" method="POST" action="">
+										<div class="box-body">
+											<div class="form-group">
+												<div class="succ-notification-interestrate" style="text-align:center;color:green;font-size:20px;"></div>
+											</div>
+											<div class="form-group">
+												<div class="fail-notification-interestrate" style="text-align:center;color:red;font-size:20px;"></div>
+											</div>
+											<div class="form-group">
+												<label for="minscoreinterestrate" class="col-sm-2 control-label">Minimum Creditscore</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="minscoreinterestrate" name="minscoreinterestrate" placeholder="Input minimum creditscore">
+													<span class="minscoreinterestrate-error" style="display:none;color:red;">This field is required.</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="maxscoreintrestrate" class="col-sm-2 control-label">Maximum Creditscore</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="maxscoreinterestrate" name="maxscoreinterestrate" placeholder="Input maximum creditscore">
+													<span class="maxscoreinterestrate-error" style="display:none;color:red;">This field is required.</span>
+												</div>
+											</div>
+										{% if( producttype == 'loanproductsettings') %}
+											<div class="form-group">
+												<label for="" class="col-sm-2 control-label">Interest Rate</label>
+											</div>
+											{% for loanproductsettings in loanproductsettings %}
+											<div class="form-group">
+												<label for="intrestrate[{{loanproductsettings.month}}]" class="col-sm-2 control-label">{{loanproductsettings.month}}</label>
+												<div class="col-sm-8">
+													<input class="form-control interestrate_common_fields" id="interestrate_{{loanproductsettings.month}}" name="interestrate_{{loanproductsettings.month}}" placeholder="Input interest Rate">
+													<span class="interestrate_common_fields_error" style="display:none;color:red;">This field is required.</span>
+												</div>
+											</div>
+											{% endfor %}
+										{% endif %}
+										
+										{% if( producttype == 'loanproductincome') %}
+											<div class="form-group">
+												<label for="" class="col-sm-2 control-label">Interest Rate Income Range</label>
+											</div>
+											{% for loanproductincome in loanproductincome %}
+											<div class="form-group">
+												<label for="intrestrate_{{loanproductincome.minimumincome}}" class="col-sm-2 control-label">${{loanproductincome.minimumincome}} - ${{loanproductincome.maximumincome}}</label>
+												<div class="col-sm-8">
+													<input class="form-control interestrate_common_fields" id="interestrate_{{loanproductincome.minimumincome}}" name="interestrate_{{loanproductincome.minimumincome}}" placeholder="Input interest Rate">
+													<span class="interestrate_common_fields_error" style="display:none;color:red;">This field is required.</span>
+												</div>
+											</div>
+											{% endfor %}
+										{% endif %}
+										
+										</div>
+											<input type="hidden" name="intrestrate_product_id" id="intrestrate_product_id" value="{{ productid }}"/>
+											<input type="hidden" name="intrestrate_id" id="intrestrate_id" value=""/>
+											<input type="hidden" name="loan_intrestrate_action" id="loan_intrestrate_action" value="create"/>
+											<input type="hidden" name="interestrate_product_type" id="interestrate_product_type" value="{{producttype}}"/>
+											<div class="box-footer">
+											<button type="button" id="createupdateintrestrate" class="btn btn-info" style="margin-left:17%">Submit</button>
+											<button type="button" id="clearintrestrate" class="btn btn-info" style="margin-left:1%">Clear</button>
+											</div>
+									</form>
+								</div>
+							</div>
+						</section>
+						
+						
+						{% if( producttype == 'loanproductsettings') %}
+						<section class="content">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+										<h3 class="box-title">Interest Rate Lists Based On Monthly</h3>
+									</div>
+									<div class="inner-cont-table-interestrate"> 
+										<table class="table table-bordered" style="margin-top: 25px;margin-bottom: 25px;">
+											<thead>
+												  <tr>
+													<th rowspan="2" scope="rowgroup" class="attributes"> # </th>
+													<th rowspan="2" scope="rowgroup" class="attributes"> Product Name </th>
+													<th rowspan="2" scope="rowgroup" class="attributes"> Minimum Maximum Creditscore </th>
+													<th colspan="5" scope="colgroup"> Interest Rates </th>
+													<th rowspan="2" scope="rowgroup" style="border:1px solid #F4F4F4"> Action </th>
+												  </tr>
+												  <tr>
+													{% for loanproductsettings in loanproductsettings %}
+														<th scope="col">{{ loanproductsettings.month }}</th>
+													{% endfor %}	
+												  </tr>
+											</thead>
+											<tbody>
+											
+												{% for loaninterestrate in loaninterestrate %}
+													<tr>
+														<td>{{loop.index}}</td>
+														<td>{{productname}}</td>
+														<td>{{loaninterestrate.mincreditscore}} - {{loaninterestrate.maxcreditscore}}</td>
+											
+															{% for interestkey, item in loaninterestrate.intrestrate %}
+															<td>{{ loaninterestrate.intrestrate[interestkey] }}% </td>
+															{% endfor %}
+																							
+														<td><a href="javascript:void(0)" value="{{loaninterestrate.id}}" product_type="{{producttype}}" class="interetrate-1-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>														
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</section>
+						{% endif %}
+						
+						{% if( producttype == 'loanproductincome') %}
+						<section class="content">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+										<h3 class="box-title">Interest Rate Lists Based On Income</h3>
+									</div>
+									<div class="inner-cont-table-interestrate"> 
+										<table class="table table-bordered" style="margin-top: 25px;margin-bottom: 25px;">
+											<thead>
+												  <tr>
+													<th rowspan="2" scope="rowgroup" class="attributes"> # </th>
+													<th rowspan="2" scope="rowgroup" class="attributes"> Product Name </th>
+													<th rowspan="2" scope="rowgroup" class="attributes"> Minimum Maximum Creditscore </th>
+													<th colspan="5" scope="colgroup"> Interest Rates Income </th>
+													<th rowspan="2" scope="rowgroup" style="border:1px solid #F4F4F4"> Action </th>
+												  </tr>
+												  <tr>
+														<!--<th scope="col">25-34</th>
+														<th scope="col">35-44</th>
+														<th scope="col">45-54</th>
+														<th scope="col">55-64</th>
+														<th scope="col">65+</th>-->
+													{% for loanproductincome in loanproductincome %}
+														<th scope="col">{{ loanproductincome.minimumincome }}-{{ loanproductincome.maximumincome }}</th>
+													{% endfor %}
+														
+												  </tr>
+											</thead>
+											<tbody>
+												{% for loaninterestrate in loaninterestrate %}
+													<tr>
+														<td>{{loop.index}}</td>
+														<td>{{productname}}</td>
+														<td>{{loaninterestrate.mincreditscore}} - {{loaninterestrate.maxcreditscore}}</td>
+														
+														{% for loaninterestrateincome in loaninterestrate.intrestrate %}
+															<td>{{loaninterestrateincome.amount}}%</td>
+														{% endfor %}
+														
+														<td><a href="javascript:void(0)" value="{{loaninterestrate.id}}" product_type="{{producttype}}" class="interetrate-1-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</section>
+						{% endif %}
+					
+					</div>
+				</div>

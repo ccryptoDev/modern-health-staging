@@ -1,0 +1,119 @@
+<h3>Financing Details </h3>
+{% if appType=='loan' %}
+    <div class="table-responsive">
+		<table class="table table-bordered">
+		    <tbody>
+			  	<tr>
+				  <th>Financing Reference</th>
+				  <td> {{paymentmanagementdata.loanReference}} </td>
+				</tr>
+				<tr>
+				  <th>Financing Amount</th>
+				  <td> 
+				  	{% if paymentmanagementdata.achstatus==2 %}
+				  		{% if paymentmanagementdata.payOffAmount %}
+				  			${{paymentmanagementdata.payOffAmount}}
+				  		{% else %}
+				  			$0.00
+				  		{% endif %}
+				  	{% else %}					  		
+				  		${{paymentmanagementdata.payOffAmount}}
+				  	{% endif %}
+				  </td>
+				</tr>
+				<tr>
+				  <th>Remaining Balance</th>
+				  <td> 
+				  	{% if paymentmanagementdata.achstatus==2 %}
+				  		{% if paymentmanagementdata.payOffAmount %}
+				  			${{paymentmanagementdata.payOffAmount}}
+				  		{% else %}
+				  			$0.00
+				  		{% endif %}
+				  	{% else %}					  		
+				  		${{paymentmanagementdata.payOffAmount}}
+				  	{% endif %}
+				  </td>
+				</tr>
+				<tr>
+				  <th>Rate per cycle</th>
+				  <td> {{paymentmanagementdata.interestapplied}}% </td>
+				</tr>
+				<tr>
+				  <th>Application Fee (in %)</th>
+				  <td>0%</td>
+				</tr>
+				<tr>
+				  <th>Application Fee (in $)</th>
+				  <td> ${{paymentmanagementdata.fundingfee}}</td>
+				</tr>
+				<tr>
+				  <th>APR</th>
+				  <td> {{paymentmanagementdata.apr}}% </td>
+				</tr>
+				<tr>
+				  <th>Financing Term</th>
+				  <td> {{paymentmanagementdata.loantermcount}} </td>
+				</tr>
+				<tr>
+				  <th>Financing Status</th>
+				    <td> 
+				  		{% if paymentmanagementdata.achstatus==1 %}
+						  {% if paymentmanagementdata.status =='PAID OFF' %}
+								PAID OFF
+						  {% elseif paymentmanagementdata.status =='CLOSED' %}
+								CLOSED
+						  {% else %}
+							{% if paymentmanagementdata.transferstatus==2 %}
+								 FUNDED
+							{% else %}
+								IN PROGRESS
+							{% endif %}
+						  {% endif %}	
+						{% elseif paymentmanagementdata.achstatus==2 %}
+						  DENIED
+						{% else %}
+						  {% if todocount==0 %}
+							PENDING PROCEDURE DATE - Contact {{ practiceName }} to Schedule date - {{ practicePhone }}
+						  {% else %}
+							PENDING
+						  {% endif %}  
+						{% endif %} 
+				    </td>
+				</tr>  	
+				<tr>
+				  <th>Maturity Date</th>
+				  <td>{{ paymentmanagementdata.maturityDate }}</td>
+				</tr>
+				<tr>
+				  <th>Next Payment Schedule Date</th>
+				  <td> {{ nextpaymentDate }} </td>
+				</tr>
+				<tr>
+				  <th>Payment Status</th>
+				  <td> {{ PaymentScheduleStatus }} </td>
+				</tr>
+				{% if transactionStatus!='' %}
+				   <tr>
+					<th>Transaction Status</th>
+					<td> {{ transactionStatus }} </td>
+				  </tr>
+			    {% endif %}	
+			    {% if paymentmanagementdata.paymentSchedule[0].transaction!='' %}
+					<tr>
+						<th>Transaction Id </th>
+						<td> 
+						   {% if paymentmanagementdata.paymentSchedule[0].transaction == 1 %}
+							  --
+						   {% else %}                    
+							{{paymentmanagementdata.paymentSchedule[0].transaction}}
+						  {% endif %} 
+						</td>
+					 </tr>
+				{% endif %}			
+			</tbody>
+		</table>
+	</div>			
+{% else %}
+  <div class="alert alert-danger text-center"> Your application has been incomplete.</div>  
+{% endif %}

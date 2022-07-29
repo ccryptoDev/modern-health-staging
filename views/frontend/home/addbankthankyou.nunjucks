@@ -1,0 +1,77 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+
+<style>
+
+
+
+
+</style>
+
+<div class="container">
+{% if (successval)  %}
+  <div class="successmsg" style="margin-top:30px;">
+    <div class="alert alert-success">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		{{successval}}
+	</div>
+  </div>
+{% endif %}
+
+
+	<div class="whitebox infoForm" style="max-width: 1090px;">
+		<div class="v-center">
+			<div class="h-center">
+<div style="text-align:center; padding-bottom: 20px;" class="partner-logos-go-here">
+	<h2 style="color:#395789; text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 5px;font-size: 24px;" id="theDirective">Thank you!</h2>
+
+	<div class="consentTitle" style="text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 15px;font-size: 20px;" id="theDirective">Your bank account has been successfully added.</div>
+	{% if applicationIncomplete %}
+	<div class="consentTitle" style="text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 15px;font-size: 20px;" id="theDirective">Click next to continue your application.</div>
+	{% else %}
+	<div class="consentTitle" style="text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 15px;font-size: 20px;" id="theDirective">You can review the status of your account using the online dashboard.</div>
+	<div class="consentTitle" style="text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 15px;font-size: 20px;" id="theDirective">Click the 'Next' button below to go there now.</div>
+	<div class="consentTitle" style="text-align:center; font-weight:400;margin-top: 40px;margin-bottom: 15px;font-size: 20px;" id="theDirective">You can also login at anytime using the email address '{{ email }}' and the associated password.</div>
+	{% endif %}
+	<button id="acceptBtn" class="btn-primary-type btn-application" onclick="gotoDashboard();" >Next</button>
+</div>
+
+<style>
+	.modal-header {
+		border-radius: 5px 5px 0px 0px;
+		background-color: rgb( 47,97,183 );
+	}
+
+	.modal-body {
+		text-align: left;
+	}
+
+	.modal-content p {
+	color: black;
+	}
+</style>
+
+
+
+	{% if ( errorval )  %}
+		<div class="errormsg">
+			<div class="alert alert-danger">
+				<a href="#" class="close" data-dismiss="alert" style="">&times;</a>
+				{{ errorval }}
+			</div>
+		</div>
+	{% endif %}
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+function gotoDashboard() {
+	window.location.href = "/dashboard";
+}
+</script>
+
+{% endblock %}

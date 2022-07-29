@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html style="margin: 0;padding: 0;font-family:Arial, Helvetica, sans-serif;font-size: 18px; box-sizing: border-box; overflow-x:hidden;" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width"/>
+		<style>
+			.bucket {
+				max-width: 2048px;
+			}
+			.logo {
+				text-align: center;
+				width: 100%;
+			}
+			.logo > img {
+				max-width: 100%;
+			}
+			.info {
+				display: block;
+				margin-left: 66%;
+				margin-right: 0;
+			}
+			.content {
+				text-align: left;
+			}
+
+			.welcome {
+				padding: 0 12%;
+				text-align: center;
+			}
+
+			li {
+				padding: 10px 0;
+			}
+			ul.dashed {
+				list-style-type: none;
+			}
+
+			ul.dashed > li:before {
+				content: "-";
+
+				margin-right: 5px;
+			}
+			td {
+				padding: 5px;
+				text-align: center;
+			}
+			.data {
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+			.payment-info {
+				padding-left: 100px;
+			}
+			.emailBody {
+				font-size: 20px;
+				padding:0px 12%
+			}
+			.emailBodyMessage {
+				margin-bottom: 50px;
+
+			}
+			hr {
+				width: 200px;
+				border-top: dashed 2px black;
+			}
+			.manageAccountTitle {
+				text-decoration: underline;
+			}
+			.manage {
+				padding-bottom: 20px;
+			}
+			li.parens:before {
+				content: ") ";
+				margin-left: 1px;
+			}
+			.parens {
+				list-style-type: lower-alpha;
+
+			}
+			.signature {
+				text-align: center;
+			}
+			.signature > h3 {
+				color: gray;
+			}
+			.sender {
+				padding: 0;
+				margin-top: 1.3em;
+			}
+		</style>
+	</head>
+	{# heading image #}
+	<div class="bucket">
+		<div class="letterhead">
+			<div class="logo">
+				<a href="http://www.modernhealthfinance.com/register/"><img src="{{hostName}}/images/imgv3/logo.png" alt="Modern Health Finance"></a>
+		</div>
+		<div class="info">
+			<p class="content">
+				<span >
+					<strong>Account &#35;: </strong>{{accountNum}}</span>
+				<br>
+				<span>
+					<strong>Original Merchant: </strong>{{practiceName}}</span>
+				<br>
+				<span>
+					<strong>Financed Amount: </strong>{{financedAmount|$format}}</span>
+				<br>
+			</p>
+		</div>
+
+	</div>
+	<div class="welcome">
+		<h1>Welcome to Modern Health Finance!</h1>
+		<h2>Please Read Carefully. This is an Important Confirmation of your Financing Details:</h2>
+
+	</div>
+	{% block body %}
+		
+	{% endblock %}
+
+	{# email signature #}
+	<div class="signature">
+		<h3>Thank you,</h3>
+		<h3>Modern Health Finance Team<h3>
+				<h3 class="sender">
+					<a href="mailto:ModernHealthFinance@acct-admin.com">ModernHealthFinance@acct-admin.com</a>
+				</h3>
+			</div>
+		</div>
+
+	</body>
+</html>

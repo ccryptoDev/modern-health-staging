@@ -1,0 +1,29 @@
+<h3>Financing Agreement Documents</h3>
+<div class="table-responsive" class="loan-agree-left">
+	<table class="table table-striped">
+	  <tr>
+		<th> # </th>
+		<th> Documents </th>
+		<th> PDF </th>
+	  </tr>
+	  <tbody>
+	  {% if pdfdocument.length > 0 %}
+		  {% set p = 0 %}
+		  {% for pdfdocument in  pdfdocument %} 
+			{% set p = p+1 %}
+			  <tr>
+				<td>{{ p }}</td>
+				<td>{% if pdfdocument.documentName == 'tcpa' %} TCPA {% elseif pdfdocument.documentName== 'TargetFastCashCreditAuthorization'%} Target Fast Cash Credit Authorization{% else %} {{ pdfdocument.documentName }} {% endif %}</td>
+				<td><a href="{{ pdfdocument.agreementpath }}" target="_blank"><img src="/images/img/frontend/loan-document.png" ></a> <a href="{{ pdfdocument.agreementpath }}"  download="{{pdfdocument.documentName}}" target="_blank"><img src="/images/img/frontend/loan-document-download.png" ></a></td>
+			  </tr>
+		  {% endfor %}
+	  {% else %}
+	    <tr>
+		 <td colspan="3">  
+		 	 No Document list found
+	    </td>
+	   </tr>	
+	  {% endif %}
+	  </tbody>
+	</table>
+</div>

@@ -1,0 +1,29 @@
+ <!-- Header Section -->
+<header id="header">
+	<div class="head-wrapper">
+		<div class="container-fluid">
+			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 navbrand nopaddingLR">
+			{% if req.session.appPracticeSlug %}
+				<a href="/{{req.session.appPracticeSlug}}" class="navbar-brand"><img src="/images/img/logo.png" class="img-responsive" /></a>
+			{% elseif appPracticeSlug %}
+				<a href="/{{appPracticeSlug}}" class="navbar-brand"><img src="/images/img/logo.png" class="img-responsive" /></a>
+		    {% else %}
+		    	<a href="/" class="navbar-brand"><img src="/images/img/logo.png" class="img-responsive" /></a>
+		    {% endif %}
+				<div class="appid" style="display: none;"><p>App ID : <span>PFIA1350</span></p></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 navbarSec">
+				<div class="navbar navbar-default">
+				<ul class="nav navbar-nav navbar-right mt-3">
+					<!-- <li class="needassign"><a href="">Need Assistance?</a></li> -->
+					<!-- <li class="chatBtn"><a href="javascript:void(0)" id="chatsupportdiv">Chat Support</a></li> -->
+					<!-- <li class="chatBtn"><a href="javascript:void(0)" onclick="chatSupport();">Chat Support</a></li>
+					 {% if saveforlater == 'yes' %}<li class="saveBtn"><a href="">Save for Later</a></li>}{% endif%}
+					<li class="searchBtn"><a href=""><i class="fa fa-search" style="font-size: 17px;"></i></a></li> -->
+				</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- End of Header Section

@@ -1,0 +1,397 @@
+<style>
+.fb-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: stretch;
+}
+table.table {
+	margin-bottom: 0;
+}
+table td.col-label {
+	width: 50%;
+	white-space: nowrap;
+	text-align: right;
+}
+table td.col-label label {
+	line-height: 34px;
+}
+.table.table-borderless th,
+.table.table-borderless td {
+	border:0;
+}
+input:focus {
+	outline-color: #3c8dbc;
+	outline-width: 2px;
+}
+
+#counterMode {
+	font-size: 20px;
+	margin-bottom: 12px;
+}
+
+</style>
+<div class="box-body">
+	<div class="row">
+		<h3 class="col-xs-6">Counter Offer</h3>
+	</div>
+	<div class="col-md-10 col-md-offset-1" align="center">
+		<div class="bankDetails selectaccountinfo">
+			<div class="table-reponsive">
+				{% if achstatus and achstatus == 1  %}
+					{% if (req.session.rolename =='Admin' or req.session.rolename =='PracticeAdmin') and (paymentmanagementdata.status =='OPENED' or paymentmanagementdata.status == "Current") %}
+						<form name="resetToPendingForm" method="post" action="/admin/resetToPendingState">
+							<input type="hidden" name="payID" value="{{paymentmanagementdata.id}}">
+							<input type="hidden" name="userID" value="{{user.id}}">
+							<button type="submit" class="btn btn-primary">Reset to Pending</button>
+						</form>
+					{% else %}
+						<p><strong>A counter offer can not be performed on an approved loan.</strong></p>
+					{% endif %}
+				{% elseif achstatus and achstatus == 3  %}
+					<p><strong>Your application is in blocked state in the system. You can change financing amount when application is moved from blocked to pending state.</strong></p>
+				{% elseif user.registeredtype == 'mhf-import'  %}
+					<p><strong>Counter offer is not available for imported users</strong></p>
+				{% elseif screentracking.deniedByCounterOffer  %}
+					<p><strong>A counter offer has already been created for this loan.</strong></p>
+				{% else %}
+					{% if screentracking.incomeamount %}
+					<div class="container-fluid" align="center">
+							<form name="" id="changeLoanFormValidate" class="" action="javascript:void(0);">
+								<input type="hidden" id="oldloanamount" value="{{ screentracking.offerdata[0].requestedLoanAmount }}" />
+								<input type="hidden" id="screenid" value="{{ screentracking.id }}" />
+								<input type="hidden" id="pagename" value="getOpenApplicationDetails" />
+								<input type="hidden" id="paymentid" value="" />
+								<input type="hidden" id="minloanamount" value="{{ minloanamount }}" />
+								<input type="hidden" id="maxloanamount" value="{{ creditTier.maxloanamount }}" />
+								<input type="hidden" id="minincomeamount" value="{{ minincomeamount }}" />
+								<input type="hidden" id="maxaprrate" value="{{ interestRate }}" />
+								<input type="hidden" id="userrole" value="{{ req.user.rolename }}" />
+								{% if achstatus %}
+								<input type="hidden" name="type" id="type" value="loan" />
+								{% else %}
+								<input type="hidden" name="type" id="type" value="incomplete" />
+								{% endif %}
+								<div class="bankDetails selectaccountinfo">
+									<div id="response_msg" class="error text-center"></div>
+									{% if( screentracking.user.registeredtype == 'mhf-import' ) %}
+									<p><strong>Counter offer is not available for imported users</strong></p>
+									{% elseif( screentracking.lastlevel >= 3 ) %}
+									<div class="fb-container">
+										<div style="width:50%;">
+											<table class="table table-reponsive table-borderless">
+												<tbody>
+													<tr>
+														<td class="col-label">Total Procedure Cost:</td>
+														<td>{{ ( screentracking.offerdata[ 0 ].requestedLoanAmount | $format ) if screentracking.offerdata[ 0 ] else "--" }}</td>
+													</tr>
+													<tr>
+														<td class="col-label">Down Payment:</td>
+														<td>{{ ( screentracking.offerdata[ 0 ].downPayment | $format ) if screentracking.offerdata[ 0 ] else "--" }}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div style="width:50%;">
+											<table class="table table-reponsive table-borderless">
+												<tbody>
+													<tr>
+														<td class="col-label">Monthly Income:</td>
+														<td>{{ screentracking.incomeamount | $format }}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<hr>
+
+									<div>
+										<select name="counterMode" id="counterMode">
+											<option value="auto" selected>Generate Counter Offer</option>
+											{% if req.user.rolename != 'PracticeStaff' %}
+												<option value="manual">Create Custom Counter Offer</option>
+											{% endif %}
+										</select>
+									</div>
+
+									<div class="fb-container">
+										<div style="width:50%;">
+											<table class="table table-reponsive table-borderless">
+												<tbody>
+													<tr class="manualrow hidden">
+														<td class="col-label">
+															<label for="loanamount">APR:</label>
+															<p id="invalidAPR" style="display: none; color: red">Invalid APR amount for the selected Tier.</p>
+														</td>
+														<td>
+															<input type="text" class="form-control" value="" name="apr" id="apr" />
+															<br>
+															<label style="color: red; display: none;" id="maxAprExceeded">Max APR: {{ interestRate }}%</label> 
+														</td>
+													</tr>
+													<tr>
+														<td class="col-label">
+															<label for="loanamount">Change Procedure Cost:</label>
+														</td>
+														<td>
+															<input type="text" class="form-control" value="{{ screentracking.offerdata[ 0 ].requestedLoanAmount | $format }}" name="loanamount" id="loanamount" />
+															<br>
+															<label style="color: red; display: none;" id="maxAmountExceeded">Max loan amount: ${{ creditTier.maxLoanAmount }}</label> 
+														</td>
+													</tr>
+													<tr>
+														<td class="col-label">
+															<label for="downpayment">Change Down Payment:</label>
+														</td>
+														<td>
+															<input type="text" class="form-control" value="{{ screentracking.offerdata[ 0 ].downPayment | $format }}" name="downpayment" id="downpayment" />
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div style="width:50%;">
+											<table class="table table-reponsive table-borderless">
+												<tbody>
+													<tr class="manualrow hidden">
+														<td class="col-label">
+															<label for="paymentCount">Term:</label>
+														</td>
+														<td>
+															<input type="text" value="" name="paymentCount" id="paymentCount" class="form-control" />
+															<br>
+															<label style="color: red; display: none;" id="maxTermExceeded">Max term: 24</label> 
+														</td>
+													</tr>
+													<tr>
+														<td class="col-label">
+															<label for="userincome">Change Monthly Income:</label>
+														</td>
+														<td>
+															<input type="text" value="{{ screentracking.incomeamount | $format }}" name="userincome" id="userincome" class="form-control" />
+														</td>
+													</tr>
+													<tr class="manualrow hidden">
+														<td class="col-label">
+															<label for="tier">Tier:</label>
+														</td>
+														<td>
+															<select class="form-control" name="tier" id="tier">
+																<option>--</option>
+																<option value="A_85">A_85</option>
+																<option value="B_80">B_80</option>
+																<option value="C_70">C_70</option>
+																<option value="D_50">D_50</option>
+																<option value="E_40">E_40</option>
+																<option value="F_25">F_25</option>
+																<option value="G_20">G_20</option>
+															</select>
+														</td>
+													</tr>
+													<tr class="manualrow hidden">
+														<td class="col-label">
+															<label for="tier">Housing Payment:</label>
+														</td>
+														<td>
+															<input type="text" value="{{ screentracking.housingExpense | $format }}" name="housingexpense" id="housingexpense" class="form-control" />
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<br/>
+									<div class="text-center">
+										<button type="submit" class="btn btn-primary" id="counterOfferSubmit">Get Offers</button>
+									</div>
+
+									{% else %}
+									<p><strong>Application has not been completed enough to have any offers.</strong></p>
+									{% endif %}
+								</div>
+								<div id="offerlisting"></div>
+							</form>
+						</div>
+					</div>
+					{% else %}
+							<p><strong>Your application is incomplete. You have not requested for financing amount in offer page.</strong></p>
+					{% endif %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="loanTermModal" class="modal fade" role="dialog">
+	{% include "admin/screentracking/loantermoptions.nunjucks" %}
+</div>
+<script>
+
+function updateUI() {
+	if( $("#offerlisting").html().length > 0 ) {
+		$("#counterOfferSubmit").html( "Update Offers" );
+	} else {
+		$("#counterOfferSubmit").html( "Get Offers" );
+	}
+	var lockedToG = "{{lockedToG}}";
+	var counterMode = $( "#counterMode" ).children("option:selected").val();
+	if( counterMode == "auto" ) {
+		$( ".manualrow" ).addClass("hidden");
+		if( lockedToG == "" ) {
+			$( ".warning" ).addClass("hidden");
+		} else {
+			$( ".warning" ).removeClass("hidden");
+		}
+	} else {
+		$( ".warning" ).addClass("hidden");
+		$( ".manualrow" ).removeClass("hidden");
+	}
+}
+
+function setDefaultCustomCounterOfferTier(){
+	let defaultTier = "{{screentracking.offerdata[0].creditTier}}" + "_" + "{{screentracking.offerdata[0].fundingRate}}";
+	$("#tier option[value = '" + defaultTier + "']").attr("selected", true);
+}
+
+$( document ).ready( () => {
+	$( "#counterMode" ).change( () => {
+		$( "#offerlisting" ).html("");
+		updateUI();
+		setDefaultCustomCounterOfferTier();
+	} );
+} );
+
+function validateAprBasedOnTier() {
+	let apr = $( "#apr" ).val();
+		const tier = $( "#tier" ).val();
+		apr = Number(apr);
+
+		$('#invalidAPR').hide();
+		$('#counterOfferSubmit').prop('disabled', false);
+
+		switch (tier) {
+			case 'A_85':
+				if (apr < 18.9 || apr > 20.9) {
+					$('#invalidAPR').show();
+					$('#counterOfferSubmit').prop('disabled', true);
+				}
+			break;
+			case 'B_80':
+				if (apr < 20.9 || apr > 22.9) {
+					$('#invalidAPR').show();
+					$('#counterOfferSubmit').prop('disabled', true);
+				}
+			break;
+			case 'C_70':
+				if (apr < 21.9 || apr > 23.9) {
+					$('#invalidAPR').show();
+					$('#counterOfferSubmit').prop('disabled', true);
+				}
+			break;
+			case 'D_50':
+				if (apr < 22.9 || apr > 24.9) {
+					$('#invalidAPR').show();
+					$('#counterOfferSubmit').prop('disabled', true);
+				}
+			break;
+			case 'E_40':
+				if (apr < 23.9 || apr > 25.9) {
+					$('#invalidAPR').show();
+					$('#counterOfferSubmit').prop('disabled', true);
+				}
+			break;
+			case 'F_25':
+				if (apr < 24.9 || apr > 26.9) {
+					$('#invalidAPR').show();
+					$('#counterOfferSubmit').prop('disabled', true);
+				}
+			break;
+			case 'G_20':
+				if (apr < 25.9 || apr > 29.9) {
+					$('#invalidAPR').show();
+					$('#counterOfferSubmit').prop('disabled', true);
+				}
+			break;
+			default:
+				break;
+		}
+}
+
+$( function() {
+	$( "#loanamount" ).inputmask( { alias: "currency", rightAlign: false } );
+	$( "#housingexpense" ).inputmask( { alias: "currency", rightAlign: false } );
+	$( "#downpayment" ).inputmask( { alias: "currency", rightAlign: false } );
+	$( "#userincome" ).inputmask( { alias: "currency", rightAlign: false } );
+	$('#apr').change(function () {
+		validateAprBasedOnTier();
+	});
+	$('#tier').change(function () {
+		validateAprBasedOnTier();
+	});
+	$( "#changeLoanFormValidate" ).submit( function( e ) {
+		e.preventDefault();
+		var loanamount = $( "#loanamount" ).val();
+		var apr = $( "#apr" ).val();
+		var term = $( "#paymentCount" ).val();
+		var isValid = $( "#changeLoanFormValidate" ).valid();
+		var loanamountConverted = Number(loanamount.replace(/[^0-9.-]+/g,""));
+		var errors = 0;
+		if ( $("#tier").val() == "--") {
+			errors++;
+		}
+		if (parseInt(term) > 24) {
+			$("#maxTermExceeded").css('display', "")
+			errors++;
+		}
+		if( ! isValid || errors > 0 ) return;
+		$( "#loaderid" ).show();
+
+		var tier = $( "#tier" ).val();
+		var loanamount = $( "#loanamount" ).val();
+		var downpayment = $( "#downpayment" ).val();
+		var userincome = $( "#userincome" ).val();
+		var housingexpense = $( "#housingexpense" ).val();
+		var	screenid = $( "#screenid" ).val();
+		
+		var formdata = {
+			loanamount: loanamount,
+			downpayment: downpayment,
+			userincome: userincome,
+			screenid: screenid,
+			housingexpense: housingexpense
+		};
+
+		if( $( "#counterMode" ).val() == "manual" ) {
+			formdata.apr = apr;
+			formdata.term = term;
+			formdata.tier = tier;
+		}
+
+		$.ajax( {
+			url: "/admin/getChangeLoanOfferDetails",
+			data: formdata,
+			dataType: "json",
+			type: "POST",
+			success: function( res ) {
+				if( res.status == 200 ) {
+					$( "#offerlisting" ).removeClass( "error" );
+					$( "#offerlisting" ).html( res.listdata );
+				} else {
+					$( "#offerlisting" ).html( res.message );
+					$( "#offerlisting" ).addClass( "error" );
+				}
+				return false;
+			},
+			complete: function() {
+				$( "#loaderid" ).hide();
+				$("#maxTermExceeded").css('display', "none")
+				$("#maxAprExceeded").css('display', "none")
+				$("#maxAmountExceeded").css('display', "none")
+				window.changeLoanFormValidator.resetForm();
+				updateUI();
+			}
+		} );
+	} );
+} );
+</script>

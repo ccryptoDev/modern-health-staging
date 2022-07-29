@@ -1,0 +1,59 @@
+{% extends "emailTemplates/procedureconfirmedlayout.nunjucks" %}
+{% block body %}
+	<div class="emailBody">
+		<h4 class="greetings">Hello {{borrower.firstName | capitalize}},</h4>
+		<div class="emailBodyMessage">
+			<p>We hope you are pleased with the services you recently received from <strong>{{practiceName}}</strong>. Modern Health Finance (“MHF”) has acquired the Retail Installment Sales Agreement you signed with <strong>{{practiceName}}</strong> for the services you financed on <strong>{{financialStartDate | date("MM/DD/YYYY")}}</strong>.</p>
+			<p>First, take a moment to confirm that we have your proper contact information up to date. Please notify us at <a href='mailto:ModernHealthFinance@acct-admin.com'>ModernHealthFinance@acct-admin.com</a> of any corrections needed to your information:</p>
+			<table class="outer-table" align="center" cellpadding="0" cellspacing="0" width="80%" border="1">
+				<tr>
+					<td align="center" valign="top">
+						<table border="1" cellpadding="0" cellspacing="0" width="100%" class="">
+							<tbody>
+								<tr>
+									<td class="data">Name:</td>
+									<td class="data">{{borrower.firstName}} {{borrower.lastName}}</td>
+								</tr>
+								<tr>
+									<td class="data">Street Address:</td>
+									<td class="data">{{borrower.street}}</td>
+								</tr>
+								<tr>
+									<td class="data">City, State, Zip</td>
+									<td class="data">{{borrower.city}}, {{borrower.state}}, {{borrower.zipCode}}</td>
+								</tr>
+								<tr>
+									<td class="data">Phone Number:</td>
+									<td class="data">{{borrower.phone}}</td>
+								</tr>
+								<tr>
+									<td class="data">Last 4 of SSN:</td>
+									<td class="data">{{borrower.ssn}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<ul class="payment-info dashed">
+				<li>The 1st Monthly Payment of <strong> {{monthlyPayment|$format }}</strong> is scheduled for <strong>{{firstPaymentDate | date("MM/DD/YYYY")}}</strong>.</li>
+				<li></li>
+				<li>Automatic Payment Enrollment Status: 
+				{% if bank.autopay == "ACH" %}
+							Y
+					{% else %}
+							N
+					{% endif %}
+				<ul class="inner-list">
+					<li>Name of your Bank: {{bank.bankName | capitalize}}</li>
+					<li>Type of Account: {{bank.accountType | capitalize}}</li>
+					<li>Last 4 Digits of Account Provided: {{bank.accountLast4}} </li>
+				</ul></li>
+		</ul>
+	</div>
+	<hr>
+{% include "./manageAccount.nunjucks" %}
+</div>
+
+{% endblock %}

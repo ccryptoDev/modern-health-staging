@@ -1,0 +1,83 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+
+{% if req.user.rolename =='Underwriter' or req.user.rolename =='Customer service' %}
+<style type="text/css">
+.blockdeleteuser{
+  display:none;
+}
+</style>
+{% endif %}
+    <section class="content-header">
+      <h1>
+        Manage Patients
+        <small>preview of Manage Patients</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Manage Patients</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Manage Patients Table</h3>
+        </div>
+        <div class="box-body">
+           {% if (errorval)  %}
+       <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{errorval}}
+       </div>
+         <br>
+    {% endif %}
+    {% if (successmsg)  %}
+       <div class="alert alert-success">
+         <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{successmsg}}
+      </div>
+      <br>
+     {% endif %}
+          <table class="table table-striped table-bordered dataTable" id="manageuser_table">
+            <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>User Reference</th>
+              <th>Name</th>
+              <th>Email Address</th>
+              <th>Phone Number</th>
+              <th>Register Status</th>
+              <th>Practice Name</th>
+              <th>Created Date</th>
+            </tr>
+            </thead>
+            <tbody>
+           
+            </tbody>
+            </table>
+        </div>
+        <div id="new-pagination" style="display: flex; justify-content: flex-end; padding-right: 20px; padding-bottom: 20px;">
+              <button type="button" id="previous-button" class="btn btn-primary">Previous</button>
+              <input type="text" disabled id="currentPage" value="1" style="text-align: center; width:50px" />
+              <button type="button" id="next-button" class="btn btn-primary">Next</button>
+            </div>
+      </div>
+      
+    </section>
+
+    <script>
+      $("#next-button").click(() => {
+        const curPage = $("#currentPage").val();
+        $("#currentPage").val( parseInt(curPage) + 1);
+        fetchUserList('manageuser_table');
+      });
+      $("#previous-button").click(() => {
+        const curPage = $("#currentPage").val();
+        $("#currentPage").val( parseInt(curPage) - 1);
+        if (parseInt($("#currentPage").val()) <= 0) {
+          $("#currentPage").val("1");
+        }
+        fetchUserList('manageuser_table');
+      });
+    </script>
+{% endblock %}

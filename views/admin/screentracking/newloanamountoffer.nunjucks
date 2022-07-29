@@ -1,0 +1,84 @@
+<style type="text/css">
+.table > thead > tr > td,.table > tbody > tr > td{
+	border:solid 2px #F4F4F4;
+}
+.box{
+	border:solid 1px #F4F4F4 !important;
+}
+</style>
+
+<section class="content">
+	<h1 class="text-center">  Offer Information </h1>
+	<div class="box text-center">
+
+		<div class="table-reponsive">
+			<form name="changeloanform" method="post" action="javascript:void(0);" id="changeloanform" onsubmit="savenewloanamount();">
+				<input type="hidden" name="screenid" id="screenid" value="{{data.screenid}}">
+				{# <input type="hidden" name="offers" id="offers" value="{{data.offers}}"> #}
+				{# <input type="hidden" name="totalcost" id="totalcost" value="{{data.financedAmount}}"> #}
+ 				<table class="table">
+					<tbody>
+						<tr>
+							<td style="padding-top: 20px;"><span class="warning" style="color: #FD0003;">Locked to Tier G</span></td>
+							{% for i in range( 0, data.offers.length ) %}
+							<td>
+								<div class="checkbox">
+									<input type="radio" name="offerarray" {% if(i == 0) %}checked="checked"{% endif %} value="{{i}}" id="checkboxOne_{{i}}" />
+									<label class="check-box" for="checkboxOne_{{i}}"></label>
+								</div>
+							</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<td>Monthly Payment</td>
+							{% for i in range( 0, data.offers.length ) %}
+								{% set monthlyPayment = data.offers[ i ].monthlyPayment %}
+								<td>{{ monthlyPayment | $format(true, 2) }}</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<td>Terms</td>
+							{% for i in range( 0, data.offers.length ) %}
+								{% set terms = data.offers[ i ].term %}
+								<td>{{ terms }} Months</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<td>Interest Rates</td>
+							{% for i in range( 0, data.offers.length ) %}
+								{% set interestRate = data.offers[ i ].interestRate %}
+								<td>{{ interestRate }}%</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<td>APR</td>
+							{% for i in range( 0, data.offers.length ) %}
+								{% set apr = data.offers[ i ].apr %}
+								<td>{{ apr }}%</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<td>Payment Frequency</td>
+							{% for i in range( 0, data.offers.length ) %}
+								{% set paymentFrequency = data.offers[ i ].paymentFrequency %}
+								<td>{{ paymentFrequency }}</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<td>Financed Amount</td>
+							{% for i in range( 0, data.offers.length ) %}
+								{% set finAmount = data.offers[ i ].financedAmount %}
+								<td>{{ finAmount | $format(true, 2) }}</td>
+							{% endfor %}
+						</tr>
+					</tbody>
+				</table>
+			<span id="changeLoanLoader"></span>
+			<br/>
+			<div class="text-center">
+				<button class="btn btn-primary" type="submit" id="changeloanformbtn" >Send Counter Offer</button>
+			</div>
+			<p>&nbsp;</p>
+		</form>
+	</div>
+</section>

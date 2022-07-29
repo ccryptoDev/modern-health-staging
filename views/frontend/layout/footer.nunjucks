@@ -1,0 +1,57 @@
+<!-- Footer section -->
+<footer id="footer">
+		<div class="container">
+			<a href="" class="ft-navbar-brand"><img src="/images/img/logo.png" class="img-responsive img-full" /></a>
+			<ul class="ft-menu">
+				<li><a href="/termsconditions">Terms & Conditions</a></li>
+				<li><a href="/privacypolicy">Privacy Policy</a></li>
+				<li><a href="/contactus">Contact</a></li>
+				<li><a href="/californiaconsumer">California Consumer Privacy Act Notice</a></li>
+			</ul>
+			<ul class="ft-social">
+				<li><a href=""><i class="fab fa-twitter-square"></i></a></li>
+				<li><a href=""><i class="fab fa-instagram"></i></a></li>
+			</ul>
+		</div>
+    </footer>
+
+<!-- End of Footer section -->
+<!-- Comment js Section-->
+<!-- <script src="/js/frontend/jquery.js" type="text/javascript"></script> -->
+
+<script src="/js/frontend/jquery.js"></script>
+<script src="/js/frontend/jquery-ui.js"></script>
+
+<!-- Bootstrap Js Section-->
+<script src="/js/frontend/bootstrap.js" type="text/javascript"></script>
+<script src="/js/js/jquery.validate.js"></script>
+<script src="/js/js/jquery.mask.js" type="text/javascript"></script>
+<script src="/js/js/jquery.maskMoney.js" type="text/javascript"></script>
+<script src="/js/js/loaderplaid.js" type="text/javascript"></script>
+<!-- <script src="/js/frontend/moment.js" type="text/javascript"></script> -->
+<script src="/js/frontend/allcommon.js?ver=4" type="text/javascript"></script>
+<!-- <script src="/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script> -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112758211-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-112758211-1');
+</script>
+-->
+{% if req.path =='/' or homepage==1 %}
+	{% if (error) or (successval)  %}
+		<script>
+
+				if(document.getElementById('applicationLogin'))
+				{
+					  $("#applicationLogin").css("display","none");
+					  $("#memberLogin").css("display","block");
+					  $("#member").removeClass("borderNone").addClass("borderBlock");
+					  $("#app").removeClass("borderBlock").addClass("borderNone");
+				}
+
+		</script>
+	{% endif %}
+{% endif %}

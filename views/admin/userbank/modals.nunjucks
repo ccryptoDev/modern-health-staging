@@ -1,0 +1,445 @@
+<!-- Bank Changed -->
+<div id="bankchangedModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content" style="float: left;width: 100%;">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Bank Account Selected</h4>
+			</div>
+			<div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+				This account will now be used when scheduling payments.
+				<br>
+				<br>
+				Notice: Payments already scheduled will use the selected acount at the time they were scheduled.
+				<br>
+				<br>
+				<div style="float: left;width: 100%;">
+					<button type="button" data-dismiss="modal" class="btn btn-primary" style="float: right;">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- changebank Modal -->
+<div id="achangebankModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Change Bank Confirmation</h4>
+			</div>
+			<div class="modal-body bgColorWhite">
+				<p><strong>Are you sure you want to send link to user to add another bank account?</strong></p>
+			</div>
+			<div class="modal-footer bg-info">
+				<button type="button" data-dismiss="modal" class="btn btn-primary" id="changebankconfirm" onclick="this.disabled = true;this.value='Processing...';this.form.submit();">Confirm</button>
+				<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- send add bank invitation Modal -->
+<div id="sendaddbankinvitationModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Confirm Add Bank Invitation</h4>
+			</div>
+			<div class="modal-body bgColorWhite">
+				<p><strong>Are you sure you want send an email to the user requesting they add another bank account?</strong></p>
+			</div>
+			<div class="modal-footer bg-info">
+				<button type="button" data-dismiss="modal" class="btn btn-primary" id="sendaddbankinvitationconfirm" >Confirm</button>
+				<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Repullplaid Modal -->
+<div id="repullplaidModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+				<h4 class="modal-title">Repull Confirmation</h4>
+			</div>
+			<div class="modal-body bgColorWhite">
+				<p><strong>Are you sure you want to repull plaid information for user linked bank account?</strong></p>
+			</div>
+			<div class="modal-footer bg-info">
+				<span id="repull_loading" style="display:none;margin-left:5px;"><img src="/images/img/loading.gif"></span>
+				<button type="button" data-dismiss="modal" class="btn btn-primary" id="repullconfirm">Confirm</button>
+				<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Manual Bank Account Modal -->
+<div id="manual-bank-form" class="modal fade primary-modal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content user-modal-content">
+            <div class="modal-header user-modal-header">
+                <h4 class="modal-title manual-bank-title">Bank Account Information For Auto-Pay</h4>
+                {# <a type="button" class="close" data-dismiss="modal">&times;</a> #}
+            </div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="error-msg"></div>
+				</div>
+			</div>
+            <div class="modal-body">
+                <div class="modal-body-inner manual-bank-info">
+                    <form role="form" id="bank-info-form" name="bank-info-form">
+						<div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group manual-bank-name center-form-div">
+                                    <div class="bank-name-div form-input-titles">Bank Name</div>
+                                    <input type="text" class="form-control form-application bank-name-input" id="bank-name-input" name="bank-name-input" value="" required />
+                                    <div id="bank-name-error" class="error bank-name-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-bank-account-holder">
+                                    <div class="bank-account-holder-div form-input-titles">Primary Account Holder</div>
+                                    <input type="text" class="form-control form-application account-holder-input" id="account-holder-input" name="account-holder-input" value="" required />
+                                    <div id="bank-account-holder-error" class="error bank-account-holder-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-bank-routing">
+                                    <div class="bank-routing-div form-input-titles">Routing Number</div>
+                                    <input type="text" class="form-control form-application routing-input" id="routing-input" name="routing-input" value="" required />
+                                    <div id="bank-routing-error" class="error bank-routing-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-account-number">
+                                    <div class="account-number-div form-input-titles">Account Number</div>
+                                    <input type="text" class="form-control form-application account-number-input" id="account-number-input" name="account-number-input" value="" required />
+                                    <div id="account-number-error" class="error account-number-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-confirm-number">
+                                    <div class="confirm-number-div form-input-titles">Confirm Account Number</div>
+                                    <input type="text" class="form-control form-application confirm-number-input" id="confirm-number-input" name="confirm-number-input" value="" required />
+                                    <div id="confirm-number-error" class="error confirm-number-error" style="display: none;"></div>
+                                </div>
+                            </div>
+						 </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn-application isDisabled" name="bank-submit" id="bank-submit" onclick="saveBankAccount();">Save</button>
+                <button type="button" data-dismiss="modal" class="btn-application">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	function enableManualBankModal() {
+		$( "#manual-bank-form" ).modal( { backdrop: "static", keyboard: false, show: true } );
+		jQuery.validator.addMethod( "abarouting", function( value, element ) { return this.optional( element ) || validateABARouting( value ); }, "Invalid ABA Routing Number." );
+		$( "#bank-info-form" ).validate( {
+			rules: {
+				"bank-name-input": { required: true },
+				"account-holder-input": { required: true },
+				"routing-input": { required: true, digits: true, minlength: 9, maxlength: 9, abarouting: true },
+				"account-number-input": { required: true, digits: true, minlength: 6, maxlength: 17 },
+				"confirm-number-input": { required: true, digits: true, equalTo: "#account-number-input" },
+				"eftaCB": { required: true}
+			},
+			messages: {
+				"bank-name-input": { required: "Please enter the name of your bank." },
+				"account-holder-input": { required: "Please enter primary account holder's name." },
+				"routing-input": { required: "Please enter your bank routing number.", digits: "Please enter a valid routing number.", minlength: "Routing number is too short.", maxlength: "Routing number is too long." },
+				"account-number-input": { required: "Please enter your bank account number.", digits: "Please enter a valid account number.", minlength: "Account number is too short.", maxlength: "Account number is too long."},
+				"confirm-number-input": { required: "Please confirm your bank account number.", digits: "Please enter a valid account number.", equalTo: "Account numbers must match." }
+			},
+			errorPlacement: function( error, element ) {
+				if( element.attr( "name" ) == "eftaCB" ) {
+			    	error.appendTo( "#eftconsentsign" );
+				} else {
+			    	error.insertAfter( element );
+			  	}
+		  	},
+			onkeyup: enableBtn,
+			onfocusout: enableBtn,
+			onclick: enableBtn,
+		} );
+		$( "#bank-info-form" ).on( "submit", function( e ) {
+			console.log( "#bank-info.submit" );
+			return saveBankAccount( e );
+		} );
+	}
+
+    $( document ).ready( function() {
+		jQuery.validator.addMethod( "abarouting", function( value, element ) { return this.optional( element ) || validateABARouting( value ); }, "Invalid ABA Routing Number." );
+		$( "#bank-info-form" ).validate( {
+			rules: {
+				"bank-name-input": { required: true },
+				"account-holder-input": { required: true },
+				"routing-input": { required: true, digits: true, minlength: 9, maxlength: 9, abarouting: true },
+				"account-number-input": { required: true, digits: true, minlength: 6, maxlength: 17 },
+				"confirm-number-input": { required: true, digits: true, equalTo: "#account-number-input" }
+			},
+			messages: {
+				"bank-name-input": { required: "Please enter the name of your bank." },
+				"account-holder-input": { required: "Please enter primary account holder's name." },
+				"routing-input": { required: "Please enter your bank routing number.", digits: "Please enter a valid routing number.", minlength: "Routing number is too short.", maxlength: "Routing number is too long." },
+				"account-number-input": { required: "Please enter your bank account number.", digits: "Please enter a valid account number.", minlength: "Account number is too short.", maxlength: "Account number is too long."},
+				"confirm-number-input": { required: "Please confirm your bank account number.", digits: "Please enter a valid account number.", equalTo: "Account numbers must match." }
+			},
+			onkeyup: enableBtn,
+			onfocusout: enableBtn
+		} );
+		$( "#bank-info-form" ).on( "submit", function( e ) {
+			console.log( "#bank-info.submit" );
+			return saveBankAccount( e );
+		} );
+
+		$('#sendaddbankinvitationconfirm').click(function(ev) {
+			this.disabled = true;
+			this.value='Processing...';
+			$('#sendaddbankinvitationModal').modal('toggle');
+			const payid = "{{ paymentmanagementdata.id }}";
+			let id;
+			if( payid ) {
+				id = "p" + payid;
+			} else {
+				id = "s" + "{{ screentracking.id }}";
+			}
+			location.href = "/admin/sendaddbankinvite/" + id;
+			return false;
+		});
+    } );
+
+	function enableBtn() {
+		if( $( "#bank-info-form" ).valid() ) {
+			$( "#bank-submit" ).removeClass( "isDisabled" );
+			return;
+		}
+		$( "#bank-submit" ).addClass( "isDisabled" );
+	}
+
+	function routingNumberIsValid(routingNumber) {
+		let number = parseInt(routingNumber);
+		let digits;
+		if (number.length !== 9 || isNaN(number)) {
+			return false;
+		}
+		else {
+			digits = number.split("");
+		}
+		var sum = digits[0] * 7 + digits[1] * 3 + digits[2] 
+					+ digits[3] * 7 + digits[4] * 3 + digits[5] 
+				+ digits[6] * 7 + digits[7] * 3 + digits[8];
+				
+		return sum % 10 === 0;
+	}
+
+	function saveBankAccount( event ) {
+		console.log( "saveBankAccount() = ", $( "#bank-info-form" ).valid() );
+		var addBankRequest = window.location.pathname.startsWith('/addbank/');
+		var adminAddBankRequest = window.location.pathname.includes('/getAchUserDetails/');
+		var userid = "{{ user.id }}";
+		var payid = "{{ paymentmanagementdata.id }}";
+		var screenid = "{{ screentracking.id }}";
+
+		/*
+		if(!routingNumberIsValid($( "#routing-input" ).val())) {
+			$("#bank-routing-error").css("display", "");
+			$("#bank-routing-error").html("Invalid routing number");
+			return false;
+		} else {
+			$("#bank-routing-error").css("display", "none");
+		}
+		*/
+
+		if( $( "#bank-info-form" ).valid() ) {
+			$( "#bank-info-form" ).modal( "hide" );
+			var bankData = {
+				bankname: $( "#bank-name-input" ).val(),
+				accountholder: $( "#account-holder-input" ).val(),
+				routingno: $( "#routing-input" ).val(),
+				bankaccno: $( "#account-number-input" ).val(),
+				cbankaccno: $( "#confirm-number-input" ).val()
+			};
+			if( adminAddBankRequest ) {
+				if( userid ) {
+					bankData.userid = userid;
+				}
+				if( payid ) {
+					bankData.payid = payid;
+				}
+
+				if( screenid ) {
+					bankData.screenid = screenid;
+				}
+				bankData.successMsg = "The new bank has been added successfully";
+				bankData.failureMsg = "Failed to add the new bank.";
+				bankData.consentToEFTA = true;
+			}
+			$.ajax( {
+				type: "POST",
+				url: "/savebankinfo",
+				dataType: 'json',
+				data: bankData,
+				success : function( result ) {
+					if( result.status == 200 ) {
+						console.log( "success:", result );
+						if( addBankRequest ) {
+							window.location.assign( "/addbank/savebankdata" );
+							return;
+						}
+						if( addBankRequest ) {
+							window.location.assign( "/addbank/savebankdata" );
+							return;
+						}
+						window.location.href = window.location.href;
+					} else {
+						console.log( "error-msg" );
+						$( "#manual-bank-form" ).modal( { backdrop: "static", keyboard: false, show: true } );
+						$( ".error-msg" ).show();
+					}
+				},
+				error: function( xhr, resp, text ) {
+					console.log( "error:", xhr, resp, text );
+				}
+			} );
+		}
+		return false;
+	}
+
+	function validateABARouting( aba ) {
+		if( typeof aba === "number" ) {
+			aba = aba.toString();
+		}
+		var n = 0;
+		for( var i = 0; i < aba.length; i += 3 ) {
+			n += ( parseInt( aba.charAt( i ), 10 ) * 3 ) + ( parseInt( aba.charAt( i + 1 ), 10 ) * 7 ) + ( parseInt( aba.charAt( i + 2 ), 10 ) );
+		}
+		// If the resulting sum is an even multiple of ten (but not zero), the aba routing number is good.
+		return ( n != 0 && n % 10 == 0 );
+	}
+
+	function requestRepullPlaidAccount( userbankaccountID ) {
+		$( "#repullplaidModal" ).modal( "show" );
+		$( "#repull_loading" ).css( "display", "block" );
+
+		$( "#repullconfirm" ).unbind();
+		$( "#repullconfirm" ).click( function( ev ) {
+			$( "#repullconfirm" ).attr( "disabled", true );
+			$( "#repull_loading" ).css( "display", "inline-block" );
+			$.ajax( {
+				url: "/admin/repullPlaidInfo",
+				data: {
+					userbankaccountID: userbankaccountID
+				},
+				dataType: "json",
+				type: "POST",
+				success: function( res ) {
+					// alert("status: "+res.status);
+					$( "#repullplaidModal" ).modal( "toggle" );
+					$( "#repullconfirm" ).attr( "disabled", false );
+					$( "#repull_loading" ).css( "display", "none" );
+					if( res.status == 200 ) {
+						location.reload();
+					} else {
+						$( "#pliadrepull_error" ).html( res.message );
+						$( "#repullexistsModal" ).modal( "show" );
+					}
+					return false;
+				}
+			} );
+			return false;
+		} );
+	}
+
+
+</script>
+
+<style>
+	.error-msg {
+		color: red;
+		text-align: center;
+		padding-top: 5px;
+		display: none;
+	}
+	.modal-header {
+		border-radius: 5px 5px 0 0;
+		text-align: center;
+	}
+	.center-form-div {
+		margin: 0 auto;
+		margin-bottom: 21px;
+		max-width: 404px;
+	}
+	.form-input-titles {
+		margin-left: 8px;
+	}
+	.manual-bank-info {
+		margin: 15px;
+	}
+	.primary-modal .modal-header {
+		background-color: #395781 !important;
+		background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.1)),to(transparent)) !important;
+		background-image: linear-gradient(180deg,rgba(0,0,0,.1),transparent) !important;
+		color: #fff;
+	}
+	.facheckbox {
+		z-index: 0;
+		text-align: left;
+		font-size: 15px;
+		color: #333;
+	}
+	.facheckbox {
+		padding: 0;
+		margin: 10px;
+		position: relative;
+	}
+	.facheckbox > label:before {
+		position: relative;
+		z-index: 1000;
+		content: '';
+		display: inline-block;
+		width: 19px;
+		height: 19px;
+		background: #fff;
+		border: 1px solid #212122;
+		text-align: center;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		padding: 2px;
+		box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+	}
+	.facheckbox > input[type=checkbox]:checked + label:after {
+		content: "\f00c";
+		position: absolute;
+		z-index: 1001;
+		top: 1px;
+		left: 3px;
+		font-family: "Font Awesome 5 Free";
+		font-size: 13px;
+		font-weight: 900;
+		color: #333;
+	}
+</style>

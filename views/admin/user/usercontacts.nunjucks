@@ -1,0 +1,19 @@
+
+<div class="table-responsive"> 
+  <input class="" type="hidden" id="contactUserID" name="contactUserID" value="{{ user.id }}">          
+  <table class="table table-striped table-bordered dataTable" id="usercontacts_table">
+    <thead>
+     <tr>
+    <th>#</th>
+    <th>Email</th>
+    <th>Phone Number</th>
+    <th>Invited</th>   
+    <th>Referral Completed</th>               
+    </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+  </table>
+</div>
+      

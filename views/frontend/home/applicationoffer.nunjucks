@@ -1,0 +1,179 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<div id="applicationoffer">
+<style type="text/css">p{	color: #5A7DA1;}</style>
+<div class="container">
+	<div class="inner-content">
+		<div class="heading">
+            <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+        </div>
+		<div class="row">
+			<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-10 col-lg-offset-1 personalInfoInner text-center">
+				{% include "frontend/layoutv3/navigator.nunjucks" %}
+				<h1  class="title">Hooray! Select your offer.</h1>
+				<!-- <button class="btn btn-default light-Grey-Btn prequalifiedTxt">YOU ARE PRE-QUALIFIED FOR AN AMOUNT FINANCED UP TO ${{responseDetails.maxprequalifiedAmount}} *</button> -->
+			</div>
+
+		<div class="content-tabs applicationoffers" style="padding-top: 15px;">
+
+			<form class="formclass" id="selectofferform" action="/loanofferdetails" method="post" data-validation="btnDisable" name="userinfofullData">
+				<input type="hidden" name="offerid" id="offerid">
+				<input type="hidden" name="screenid" id="screenid" value="{{responseDetails.screenid}}">
+				<input type="hidden" name="totalcost" id="totalcost" value="{{responseDetails.financedAmount}}">
+				<input type="hidden" name="monthterm" id="monthterm" value="">
+				<!-- <ul class="list-of-monthPayment"> -->
+ 				{% set k = 1 %}
+ 				{% set p = 0 %}
+				{% set j = 0 %}
+
+				{% for loanData in responseDetails.loanDetails %}
+ 					{% if loanData.settingenableTerm == 1 %}
+					<!-- <li> -->
+
+						<!-- <div class="{% if responseDetails.loanDetails.length == 4 %}col-lg-3 col-md-3 {% else %} col-lg-4 col-md-4 {% endif %} col-sm-12 col-xs-12"> -->
+
+							{% if responseDetails.loanDetails.length ==4 %}
+ 								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 nopadding offerMain 4">
+ 							{% elseif  responseDetails.loanDetails.length ==3 %}
+ 								<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 nopadding offerMain 3">
+ 							{% elseif  responseDetails.loanDetails.length ==2 and k==1 %}
+ 								<div class="col-xs-12 col-sm-4 col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2 nopadding offerMain">
+ 							{% elseif  responseDetails.loanDetails.length ==2 %}
+ 								<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4  nopadding offerMain">
+ 							{% else %}
+ 								<div class="col-xs-12 col-sm-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 nopadding offerMain">
+ 							{% endif %}
+
+							{% if p == 0 and ( loanData.loanTerm == '24' or loanData.loanTerm == '36' or loanData.loanTerm == '48' ) %}
+								{% set p = 1 %}
+							{% else %}
+								<!-- <div class="text-center nopaddingTB1" style="min-height: 60px;">
+									&nbsp;&nbsp;
+								</div> -->
+							{% endif %}
+ 						<!-- <div class="block-content-box  {% if responseDetails.loanDetails.length != 4 %}boxSize-5{%else%}block-content-box1{% endif %} center-block {% if loanData.settingenableTerm == 1 %} mt-3 selectedborderbox{% endif %}" id="offerbox"> -->
+
+
+
+ 							{% if responseDetails.loanDetails.length ==4  and k==1 %}
+							        {% if j == 0 and ( loanData.loanTerm == '24' or loanData.loanTerm == '36' or loanData.loanTerm == '48' ) %}
+ 									<div class="block-content-box whitebox selectedBox detail-Box-xs col-xs-12 col-sm-3 col-md-3 col-lg-3" id="offerbox">
+								{% else %}
+									<div class="block-content-box whitebox offerboxbg detail-Box-xs col-xs-12 col-sm-3 col-md-3 col-lg-3" id="offerbox">
+								{% endif %}
+ 							{% elseif  responseDetails.loanDetails.length ==3  and k==1 %}
+							        {% if j == 0 and ( loanData.loanTerm == '24' or loanData.loanTerm == '36' or loanData.loanTerm == '48' ) %}
+ 									<div class="block-content-box whitebox selectedBox detail-Box-sm col-xs-12 col-sm-4 col-md-4 col-lg-4" id="offerbox">
+								{% else %}
+									<div class="block-content-box whitebox offerboxbg detail-Box-sm col-xs-12 col-sm-4 col-md-4 col-lg-4" id="offerbox">
+								{% endif %}
+ 							{% elseif  responseDetails.loanDetails.length ==2 and k==1 %}
+							        {% if j == 0 and ( loanData.loanTerm == '24' or loanData.loanTerm == '36' or loanData.loanTerm == '48' ) %}
+ 									<div class="block-content-box whitebox selectedBox detail-Box-md col-xs-12 col-sm-4 col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2" id="offerbox">
+								{% else %}
+									<div class="block-content-box whitebox offerboxbg detail-Box-md col-xs-12 col-sm-4 col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2" id="offerbox">
+								{% endif %}
+ 							{% elseif  responseDetails.loanDetails.length ==1 and k==1 %}
+ 								{% if j == 0 and ( loanData.loanTerm == '24' or loanData.loanTerm == '36' or loanData.loanTerm == '48' ) %}
+ 									<div class="block-content-box whitebox selectedBox detail-Box-lg col-xs-12 col-sm-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4" id="offerbox">
+								{% else %}
+									<div class="block-content-box whitebox offerboxbg detail-Box-lg col-xs-12 col-sm-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4" id="offerbox">
+								{% endif %}
+ 							{% else %}
+								{% if j == 0 and ( loanData.loanTerm == '24' or loanData.loanTerm == '36' or loanData.loanTerm == '48' ) %}
+ 									<div class="block-content-box whitebox selectedBox detail-Box-xl col-xs-12 col-sm-4 col-md-4 col-lg-4" id="offerbox">
+								{% else %}
+									<div class="block-content-box whitebox offerboxbg detail-Box-xl col-xs-12 col-sm-4 col-md-4 col-lg-4" id="offerbox">
+								{% endif %}
+ 							{% endif %}
+
+							{% if j == 0 and ( loanData.loanTerm == '24' or loanData.loanTerm == '36' or loanData.loanTerm == '48' ) %}
+								{% set j = 1 %}
+							{% endif %}
+
+ 							<div class="" id="backDetail_{{k}}">
+ 								<div class="row pfi-bottom-03">
+ 								<div class="gray-Text-06 col-xs-6">
+ 									<span class="" style="display: none;"><i class="fa fa-location-arrow"></i></span>
+ 									<span class="" style="display: none;"><i class="fa fa-print"></i></span>
+ 								</div>
+								 <div class="float-right col-xs-6">
+									<button type="button" class="btn btn-default grey-Btn details" id="detailSec_{{k}}" onclick="showDetailpage({{k}})">DETAILS</button>
+								</div>
+								</div>
+ 								<div class="app-Amount offer-box" style="height:59px;color:#63944C;font-family:Lato;">
+								 	<span class="currency" style="font-size:24px;font-weight:700;display:inline-block;vertical-align:top;margin-top:12px;">$</span><span id="loandetaamount" style="font-size: 54px;">{{loanData.fullnumberamount}}</span><span class="green-text" style="font-size: 24px;font-weight: 700;">{{loanData.decimalamount}}</span><span class="grayText05" style="font-size:24px;font-weight:500;"> / month</span>
+								</div>
+								<h5 class="text-center gray-Text-06 pfi-top-02">{{loanData.loanTerm}} months</h5>
+								<p class="zerointerest pfi-top-02">0% APR if amount financed is paid<br/>in full within 6 months.<span class="green-text">**</span></p>
+								<div class="btn-Main">
+									<button type="button" class="btn btn-default {% if loanData.settingenableTerm == 1 %}blueBtn{%else%}lightBlueBtn{% endif %}" onclick="processOffer('{{loanData.loanID}}','{{loanData.loanTerm}}');" {% if loanData.settingenableTerm != 1 %}disabled{% endif %} >View Offer</button>
+								</div>
+							</div>
+							<div class="" id="showDetail_{{k}}" style="display: none;">
+								<div class="col-xs-4 float-left">
+								</div>
+								<p class="col-xs-4">DETAILS</p>
+								<div class="col-xs-4 float-right">
+									<button type="button" class="btn btn-default grey-Btn details" id="detailBack_{{k}}" onclick="showOfferpage({{k}})">&#60;</button>
+								</div>
+
+								<div class="table-responsive" style="clear: left;">
+									<table {% if responseDetails.loanDetails.length == 4 %} {% endif %} class="table table-bordered fullloanterms">
+										<tr>
+											<td>
+												<p>FINANCING AMOUNT</p>
+												<p>${{loanData.financedAmount}}</p>
+											</td>
+											<td>
+												<p>PAYMENT<span class="green-text">*</span></p>
+												<p>${{loanData.monthpayment}}</p>
+											</td>
+											<td>
+												<p>APR<span class="green-text">*</span></p>
+												<p>{{loanData.apr}}%</p>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>TERM LENGTH</p>
+												<p>{{loanData.loanTerm}} months</p>
+											</td>
+											<td colspan="2">
+												<p>INTERST & FEES<span class="green-text">*</span></p>
+												<p>${{loanData.interestfeeamount}}</p>
+												<!-- <p>{{loanData.loanGrade}}</p> -->
+											</td>
+										</tr>
+									</table>
+									<!-- <P class="mTB-3">Show rate disclosure and lender detauils </P>	 -->
+								</div>
+
+							</div>
+						</div>
+
+					<!-- </li> -->
+					</div>
+					{% set k = k+1 %}
+					{% endif %}
+
+				{% endfor %}
+			<!-- </ul> -->
+			</form>
+
+		</div>
+		</div>
+		<br/><br/>
+		<div class="recommend_txt col-xs-12 col-md-7 col-md-offset-3 mb-4">
+			<p class="gray-Text-06 text-center pfi-bottom-02">{{LenderShortName}} performs soft credit checks. Finishing the application <span style="border-bottom:1px solid #63944C;">will not</span> hurt your credit score.</p>
+			<div class="row pfi-bottom-02">
+			<p class="col-xs-11 nopadding" style="color:#63944C;">{{LenderShortName}} Recommends! Based on similar borrower profiles and detailed analysis of your monthly budget, we recommend this financing offer for you.</p>
+			</div>
+			<p style="margin:5px 0;"><span class="green-text">*</span>Anticipated Financed Amount will be based on the total cost LESS any fees due prior to treatment. Please contact the healthcare provider and confirm how much is due prior to treatment and how much is eligible for financing.</p>
+			<p style="margin:5px 0;"><span class="green-text">**</span>Interest accrues during promotional financing period, but will be waived if amount financed is paid in full within 6 months. Select View Offer for more information.</p>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}

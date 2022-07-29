@@ -1,0 +1,85 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<div id="signupstart">
+
+<div class="container">
+	<div class="inner-content">
+		<div class="heading">
+            <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+        </div>
+		<div class="row">
+        	<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-10 col-lg-offset-1 personalInfoInner">
+				{% include "frontend/layoutv3/navigator.nunjucks" %}
+            	<h1 class="title">Welcome! Let's begin.</h1>
+				<form class="formclass" id="termsform" action="/userinformation" method="post" data-validation="btnDisable" name="termsform">
+					<div class="whitebox infoForm pfi-left">
+						<p>First, please review this document and confirm that you agree to the terms.</p>
+						<ul class="list-of-goroups consent-ul">
+							<li>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox1" class="doublecheck" required name="TermsConditions[]" value="120" onchange="removeConsentErrorMsg(this);">
+									<label for="checkbox1">
+										<span> <a href="javascript:void(0)" onclick="openelectronic();">Consent for Use of Electronic Records and Signatures</a><br/> Yes, by selecting this box, I agree that I reviewed this, confirmed that I can print or save electronic records and consent to use of electronic records and signatures as described in this document.</span> <!--<i class="fa fa-caret-right"></i>-->
+									</label>
+									<span id="consentError" class="error">You must select this option.</span>
+								</div>
+							</li>
+
+						</ul>
+
+						<div class="block-content-consent">
+							<p>Next, please review the following documents and confirm that you understand and agree to their terms.</p>
+							<ul class="list-of-goroups list-consent">
+								<li>
+									<div class="checkbox">
+										<input type="checkbox" id="checkbox2" class="selectall" name="checkbox2" required onchange="selectAll('selectall','singlecheck')" >
+										<label for="checkbox2"><p>Select all</p></label>
+									</div>
+								</li>
+
+								<ul class="list-of-goroups ">
+									<li>
+										<div class="checkbox sublist-check">
+											<input type="checkbox" id="checkbox3" name="TermsConditions[]" value="121" class="singlecheck" value="Consent and Authorization" required onchange="removeSelectallErrorMsg();">
+											<label for="checkbox3"><span><a href="javascript:void(0)" onclick="opencreditreport();">Consent and Authorization to Obtain and Use Consumer Reports and Related Information</a><br/>By selecting this box, I agree that I reviewed this and agree to its terms.</span></label>
+										</div>
+									</li>
+									<li>
+										<div class="checkbox sublist-check">
+											<input type="checkbox" id="checkbox4" name="TermsConditions[]" value="122" class="singlecheck" value="Prior Express Consent" required onchange="removeSelectallErrorMsg();">
+											<label for="checkbox4"><span><a href="javascript:void(0)" onclick="opentelemarketing();">Prior Express Consent for Non-Telemarketing Calls and Texts</a><br/> By selecting this box, I agree that I reviewed this and agree to its terms.</span></label>
+										</div>
+									</li>
+									<li>
+										<div class="checkbox sublist-check">
+											<input type="checkbox" id="checkbox5" name="TermsConditions[]" value="123" value="Privacy Policy" class="singlecheck" required onchange="removeSelectallErrorMsg();" >
+											<label for="checkbox5"><span><a href="javascript:void(0)" onclick="openpolicy();">Financial Privacy Policy</a><br/>
+											By selecting this box, I agree that I received this and understand its terms.</span></label>
+										</div>
+									</li>
+								</ul>
+
+
+							</ul>
+							<span id="checkError" class="error">You must select all options.</span>
+						</div>
+						<div class="text-center mt-4">
+ 						<button type="submit" class="btn btn-default lightBlueBtn" id="regSubmit">Continue</button>
+                        </div>
+
+
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	{% include "frontend/home/signupstartconsent.nunjucks" %}
+
+</div>
+
+</div>
+{% endblock %}

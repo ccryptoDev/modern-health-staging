@@ -1,0 +1,1021 @@
+
+<style type="text/css">
+	#transunionpanel > .panel-default > .panel-heading{
+		margin: 10px !important;
+	}
+	.subpanel-heading {
+		background-color: #f5f5f5;
+		border-color: #ddd;
+		color: #333;
+		margin: 10px !important;
+	}
+	.panel-group .panel-heading + .panel-collapse > .list-group, .panel-group .panel-heading + .panel-collapse > .panel-body{
+		border:none !important;
+	}
+</style>
+
+
+
+{% if showtransData == 0 %}
+  <p><strong>No transunion information captured for the user.</strong></p>
+{% endif %}
+
+{% if not transData or transData.responsedata.code == "413" %}
+	<p><strong>Credit Report Restricted.</strong></p>
+{% else %}
+
+<div class="tab-pane active in fade" >
+	<div class="panel-group" id="transunionpanel">
+		<div class="panel panel-default panel-faq">
+			<!-- User Information-->
+			<div class="panel-heading">
+				<a data-toggle="collapse" data-parent="#transunionpanel" role="button" href="#drop-down-userinfo"><h4 align="left">User Information<i class="pull-right more-less glyphicon glyphicon-plus"></i></h4></a>
+			</div>
+			<div id="drop-down-userinfo" class="panel-collapse subaccount collapse">
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tbody>
+							<tr>
+								<th style="width: 50%">First Name</th>
+								<td>
+								{% if transData.first_name %}
+										{{ transData.first_name }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Last Name</th>
+								<td>
+								{% if transData.last_name %}
+									{{ transData.last_name }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Middle Name</th>
+								<td>
+								{% if transData.middle_name %}
+									{{ transData.middle_name }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Social Security Number</th>
+								<td>
+								{% if transData.socialSecurity %}
+									{{ transData.socialSecurity }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Credit score</th>
+								<td>
+								{% if transData.score %}
+									{{ transData.score }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>User Ref Number</th>
+								<td>
+								{% if transData.response.transactionControl.userRefNumber %}
+									{{ transData.response.transactionControl.userRefNumber }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Product Code</th>
+								<td>
+								{% if transData.response.product.code %}
+									{{ transData.response.product.code }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Subscriber Industry Code</th>
+								<td>
+								{% if transData.response.transactionControl.subscriber.industryCode %}
+									{{ transData.response.transactionControl.subscriber.industryCode }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Subscriber Member Code</th>
+								<td>
+								{% if transData.response.transactionControl.subscriber.memberCode %}
+									{{ transData.response.transactionControl.subscriber.memberCode }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>Subscriber Inquiry PrefixCode</th>
+								<td>
+								{% if transData.response.transactionControl.subscriber.inquirySubscriberPrefixCode %}
+									{{ transData.response.transactionControl.subscriber.inquirySubscriberPrefixCode }}
+								{% else %}
+									--
+								{% endif %}
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		<!-- Credit Information-->
+		<div class="panel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-creditinfo">
+			<h4 align="left">Credit Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4></a>
+		</div>
+		<div id="drop-down-creditinfo" class="panel-collapse collapse">
+				<div class="panel-body">
+
+					<!-- Trade Information-->
+					<div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-tradeinfo">
+					<h4 align="left">Trade Information <i id="tradeinfo" class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-tradeinfo" class="panel-collapse collapse">
+						<div class="panel-body">
+							{% for trade in transData.trade %}
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th style="width: 50%">Subscriber Industry Code</th>
+										<td>{{ trade.subscriber.industryCode if trade.subscriber.industryCode else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Subscriber Member Code</th>
+										<td>{{ trade.subscriber.memberCode if trade.subscriber.memberCode else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Subscriber Name</th>
+										<td>{{ trade.subscriber.name.unparsed if trade.subscriber.name else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Portfolio Type</th>
+										<td>{{ trade.portfolioType if trade.portfolioType else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Account Number</th>
+										<td>{{ trade.accountNumber if trade.accountNumber else "--" }}</td>
+									</tr>
+									<tr>
+										<th>ECOA Designator</th>
+										<td>{{ trade.ECOADesignator if trade.ECOADesignator else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Date Opened</th>
+										<td>{{ trade.dateOpened._val if trade.dateOpened else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Date Closed</th>
+										<td>{{ trade.dateClosed._val if trade.dateClosed else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Date Paid Out</th>
+										<td>{{ trade.datePaidOut._val if trade.datePaidOut else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Current Balance</th>
+										<td>{{ ( trade.currentBalance | $format ) if trade.currentBalance else "--" }}</td>
+									</tr>
+									<tr>
+										<th>High Credit</th>
+										<td>{{ ( trade.highCredit | $format ) if trade.highCredit else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Credit Limit</th>
+										<td>{{ ( trade.creditLimit | $format ) if trade.creditLimit else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Terms</th>
+										<td>
+											{% if trade.terms %}
+												{% if( trade.terms.paymentScheduleMonthCount == "MIN" ) %}
+												{{ trade.terms.paymentScheduleMonthCount }}{{ trade.terms.scheduledMonthlyPayment | int }}
+												{% else %}
+												Month Count: {{ trade.terms.paymentScheduleMonthCount | int }}<br/>
+												Payment Frequency: {{ trade.terms.paymentFrequency }}<br/>
+												Monthly Payment: {{
+													( trade.terms.scheduledMonthlyPayment | int )
+													if( ( trade.terms.scheduledMonthlyPayment | int ) > 0 )
+													else (
+														trade.terms.scheduledMonthlyPayment
+														if trade.terms.scheduledMonthlyPayment
+														else "--"
+													) }}
+												{% endif %}
+											{% else %}
+												--
+											{% endif %}
+										</td>
+									</tr>
+									<tr>
+										<th>Payment Pattern</th>
+										<td>
+											{% if( trade.paymentHistory.paymentPattern.text.length > 24 ) %}
+											<div style="font-family:monospace;">Months&nbsp;&nbsp;1-12: {{ trade.paymentHistory.paymentPattern.text.slice( 0, 12 ) }}</div>
+											<div style="font-family:monospace;">Months 13-24: {{ trade.paymentHistory.paymentPattern.text.slice( 12, 24 ) }}</div>
+											<div style="font-family:monospace;">Months 25-36: {{ trade.paymentHistory.paymentPattern.text.slice( 24, 36 ) }}</div>
+											{% else %}
+												{% if( trade.paymentHistory.paymentPattern.text.length > 12 ) %}
+												<div style="font-family:monospace;">Months&nbsp;&nbsp;1-12: {{ trade.paymentHistory.paymentPattern.text.slice( 0, 12 ) }}</div>
+												<div style="font-family:monospace;">Months 13-24: {{ trade.paymentHistory.paymentPattern.text.slice( 12, 24 ) }}</div>
+												{% else %}
+													{% if( trade.paymentHistory.paymentPattern.text.length > 0 ) %}
+													<div style="font-family:monospace;">Months 1-12: {{ trade.paymentHistory.paymentPattern.text }}</div>
+													{% endif %}
+												{% endif %}
+											{% endif %}
+										</td>
+									</tr>
+									<tr>
+										<th>Account Rating</th>
+										<td>{{ trade.accountRating if trade.accountRating else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Remark Code</th>
+										<td>{{ trade.remark.code if trade.remark else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Remark Type</th>
+										<td>{{ trade.remark.type if trade.remark else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Past Due</th>
+										<td>{{ ( trade.pastDue | $format ) if trade.pastDue else "--" }}</td>
+									</tr>
+									<tr>
+										<th>Most Recent Payment</th>
+										<td>{{ trade.mostRecentPayment.date._val if trade.mostRecentPayment else "--" }}</td>
+									</tr>
+								</tbody>
+							</table>
+							<br/>
+							{% else %}
+								No Data Received
+							{% endfor %}
+						</div>
+					</div>
+
+					<!-- Collection Information-->
+					<div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-collectioninfo">
+					<h4 align="left">Collection Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-collectioninfo" class="panel-collapse collapse">
+						<div class="panel-body">
+
+							{% if transData.credit_collection %}
+							{% for creditData in transData.credit_collection %}
+								<table class="table table-bordered">
+								<tbody>
+									<tr>
+									<th style="width: 50%">Name</th>
+									<td>
+										{% if creditData.subscriber.name.unparsed %}
+											{{ creditData.subscriber.name.unparsed }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Portfolio Type</th>
+									<td>
+										{% if creditData.portfolioType %}
+											{{ creditData.portfolioType }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Account Number</th>
+									<td>
+										{% if creditData.accountNumber %}
+											{{ creditData.accountNumber }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>ECOA Designator</th>
+									<td>
+										{% if creditData.ECOADesignator %}
+											{{ creditData.ECOADesignator }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date Opened</th>
+									<td>
+										{% if creditData.dateOpened._val %}
+											{{ creditData.dateOpened._val }}
+										{% else %}
+											{{creditData.dateOpened}}
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date Effective</th>
+									<td>
+										{% if creditData.dateEffective._val %}
+											{{ creditData.dateEffective._val }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Current Balance</th>
+									<td>
+										{% if creditData.currentBalance %}
+											{{ creditData.currentBalance }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Account Rating</th>
+									<td>
+										{% if creditData.accountRating %}
+											{{ creditData.accountRating }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Remark Code</th>
+									<td>
+										{% if creditData.remark.code %}
+											{{ creditData.remark.code }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Remark Type</th>
+									<td>
+										{% if creditData.remark.type %}
+											{{ creditData.remark.type }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Past Due</th>
+									<td>
+										{% if creditData.pastDuee %}
+											{{ creditData.pastDue }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Most Recent Payment</th>
+									<td>
+										{% if creditData.mostRecentPayment.date._val %}
+											{{ creditData.mostRecentPayment.date._val }}
+										{% else %}
+											{{ creditData.mostRecentPayment.date}}
+										{% endif %}
+									</td>
+									</tr>
+								</tbody>
+								</table>
+							{% endfor %}
+							{% else %}
+							No Data Received
+							{% endif %}
+						</div>
+					</div>
+
+					<!-- Inquiry Information-->
+					<div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-inquiryinfo">
+					<h4 align="left">Inquiry Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-inquiryinfo" class="panel-collapse collapse">
+						<div class="panel-body">
+							{% if transData.inquiry %}
+							{% for inquiryData in transData.inquiry %}
+								<table class="table table-bordered">
+								<tbody>
+									<tr>
+									<th style="width: 50%">Name</th>
+									<td>
+										{% if inquiryData.subscriber.name.unparsed %}
+											{{ inquiryData.subscriber.name.unparsed }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>ECOA Designator</th>
+									<td>
+										{% if inquiryData.ECOADesignator %}
+											{{ inquiryData.ECOADesignator}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Industry Code</th>
+									<td>
+										{% if inquiryData.subscriber.industryCode %}
+											{{ inquiryData.subscriber.industryCode }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Member Code</th>
+									<td>
+										{% if inquiryData.subscriber.memberCode %}
+											{{ inquiryData.subscriber.memberCode }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Prefix Code</th>
+									<td>
+										{% if inquiryData.subscriber.inquirySubscriberPrefixCode %}
+											{{ inquiryData.subscriber.inquirySubscriberPrefixCode }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date</th>
+									<td>
+										{% if inquiryData.date._val %}
+											{{ inquiryData.date._val}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+								</tbody>
+								</table>
+							{% endfor %}
+							{% else %}
+							No Data Received
+							{% endif %}
+
+						</div>
+					</div>
+
+
+
+					<!-- Public Record Information-->
+					<div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-publicrecord">
+					<h4 align="left">Public Record Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-publicrecord" class="panel-collapse collapse">
+						<div class="panel-body">
+							{% if transData.publicrecord and transData.publicrecord[0].type %}
+							{% for publicrecordData in transData.publicrecord %}
+								<table class="table table-bordered">
+								<tbody>
+								<tr>
+									<th style="width: 50%">Type</th>
+									<td>
+										{% if publicrecordData.type %}
+											{{ publicrecordData.type }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th style="width: 50%">Industry Code</th>
+									<td>
+										{% if publicrecordData.subscriber.industryCode %}
+											{{ publicrecordData.subscriber.industryCode }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Member Code</th>
+									<td>
+										{% if publicrecordData.subscriber.memberCode %}
+											{{ publicrecordData.subscriber.memberCode }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Docket Number</th>
+									<td>
+										{% if publicrecordData.docketNumber %}
+											{{ publicrecordData.docketNumber}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Attorney</th>
+									<td>
+										{% if publicrecordData.attorney %}
+											{{ publicrecordData.attorney }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>ECOA Designator</th>
+									<td>
+										{% if publicrecordData.ECOADesignator %}
+											{{ publicrecordData.ECOADesignator }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Source</th>
+									<td>
+										{% if publicrecordData.source.type %}
+											{{ publicrecordData.source.type }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date Filed</th>
+									<td>
+										{% if publicrecordData.dateFiled._val %}
+											{{ publicrecordData.dateFiled._val}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date Paid</th>
+									<td>
+										{% if publicrecordData.datePaid._val %}
+											{{ publicrecordData.datePaid._val}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+								</tbody>
+								</table>
+							{% endfor %}
+							{% else %}
+							No Data Received
+							{% endif %}
+
+						</div>
+					</div>
+
+				</div>
+		</div>
+
+		<!-- Product Information-->
+		<div class="panel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-productinfo">
+			<h4 align="left">Product Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4></a>
+		</div>
+
+		<div id="drop-down-productinfo" class="panel-collapse collapse">
+				<div class="panel-body">
+
+
+					<div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-addonproduct">
+					<h4 align="left">Add on Product <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-addonproduct" class="panel-collapse collapse">
+						<div class="panel-body">
+							{% if transData.addOnProduct %}
+							{% for productData in transData.addOnProduct %}
+								<table class="table table-bordered">
+								<tbody>
+									<tr>
+									<th align="left" style="width: 50%">code</th>
+									<td>
+										{% if productData.code %}
+											{{ productData.code}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th align="left">status</th>
+									<td>
+										{% if productData.status %}
+											{{ productData.status}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<td colspan="2" bgcolor="lightcyan" align="center">
+										<b>scoreModel</b>
+									</td>
+									</tr>
+
+									<tr>
+									<td colspan="2">
+										<table class="table table-bordered">
+										<tbody>
+											<tr>
+											<td colspan="2" bgcolor="lightcyan" align="center"><b>score</b></td>
+											</tr>
+											<tr>
+											<td colspan="2">
+												<table class="table table-bordered">
+												<tbody>
+													<tr>
+														<th align="left" style="width: 50%">results</th>
+														<td>
+															{% if productData.scoreModel.score.results %}
+																{{ productData.scoreModel.score.results }}
+															{% else %}
+																	--
+															{% endif %}
+														</td>
+													</tr>
+													<tr>
+													<th align="left">derogatoryAlert</th>
+														<td>
+														{% if productData.scoreModel.score.derogatoryAlert %}
+															{{ productData.scoreModel.score.derogatoryAlert }}
+														{% else %}
+																--
+														{% endif %}
+														</td>
+													</tr>
+													<tr>
+														<th align="left">fileInquiriesImpactedScore</th>
+														<td>
+														{% if productData.scoreModel.score.fileInquiriesImpactedScore %}
+															{{ productData.scoreModel.score.fileInquiriesImpactedScore }}
+														{% else %}
+																--
+														{% endif %}
+
+														</td>
+													</tr>
+													<tr>
+														<td colspan="2" bgcolor="lightcyan" align="center"><b>factors</b></td>
+													</tr>
+													<tr>
+														<td colspan="2">
+														<table class="table table-bordered">
+															<tbody>
+															<tr>
+																<td colspan="2" bgcolor="lightcyan" align="center"><b>factor</b></td>
+															</tr>
+															<tr>
+																<td colspan="2">
+																{% if productData.scoreModel.score.factors.factor %}
+																	{% for factorData in productData.scoreModel.score.factors.factor %}
+																	<table class="table table-bordered">
+																		<tbody>
+																		<tr>
+																			<th style="width: 50%">Rank</th>
+																			<td>
+																			{% if factorData.rank %}
+																				{{ factorData.rank}}
+																			{% else %}
+																					--
+																			{% endif %}
+																			</td>
+																		</tr>
+																		<tr>
+																			<th>Code</th>
+																			<td>
+																			{% if factorData.code %}
+																				{{ factorData.code}}
+																			{% else %}
+																					--
+																			{% endif %}
+																			</td>
+																		</tr>
+																		</tbody>
+																	</table>
+																	{% endfor %}
+																{% else %}
+																No Data Received
+																{% endif %}
+																</td>
+															</tr>
+
+															</tbody>
+														</table>
+														</td>
+													</tr>
+												</tbody>
+												</table>
+												</td>
+											</tr>
+										</tbody>
+										</table>
+									</td>
+									</tr>
+								</tbody>
+								</table>
+							{% endfor %}
+							{% else %}
+							No Data Received
+							{% endif %}
+
+						</div>
+					</div>
+
+
+					<!-- <div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-filesummary">
+					<h4 align="left">File Summary<i class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-filesummary" class="panel-collapse collapse">
+						<div class="panel-body">
+							File Summary
+						</div>
+					</div> -->
+
+				</div>
+		</div>
+
+		<!-- Other Information-->
+		<div class="panel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-otherinfo">
+			<h4 align="left">Other Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4></a>
+		</div>
+
+		<div id="drop-down-otherinfo" class="panel-collapse collapse">
+				<div class="panel-body">
+
+					<!-- Address Information -->
+					<div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-addressinfo">
+					<h4 align="left">Address Information<i class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-addressinfo" class="panel-collapse collapse">
+						<div class="panel-body">
+							{% if transData.house_number %}
+							{% for houseData in transData.house_number %}
+
+								<table class="table table-bordered">
+								<tbody>
+									<tr>
+									<th style="width: 50%">Status</th>
+									<td>
+										{% if houseData.status %}
+											{{ houseData.status}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Qualifier</th>
+									<td>
+										{% if houseData.qualifier %}
+											{{ houseData.qualifier}}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Address</th>
+									<td align="center">
+									<table class="table table-bordered">
+										<tr>
+											<td style="width: 50%">Number</td>
+											<td>
+											{% if houseData.street.number %}
+												{{ houseData.street.number }}
+											{% else %}
+													--
+											{% endif %}
+											</td>
+										</tr>
+										<tr>
+											<td>Street Name</td>
+											<td>
+											{% if houseData.street.name %}
+												{{ houseData.street.name }}
+											{% else %}
+													--
+											{% endif %}
+											</td>
+										</tr>
+										<tr>
+											<td>Type</td>
+											<td>
+											{% if houseData.street.type %}
+												{{ houseData.street.type }}
+											{% else %}
+													--
+											{% endif %}
+											</td>
+										</tr>
+										</table>
+									</td>
+									</tr>
+								</tbody>
+								</table>
+							{% endfor %}
+							{% else %}
+							No Data Received
+							{% endif %}
+
+						</div>
+					</div>
+
+					<!-- Employment Information -->
+					<div class="panel-heading subpanel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-employeeinfo">
+					<h4 align="left">Employment Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4> </a>
+					</div>
+
+					<div id="drop-down-employeeinfo" class="panel-collapse collapse">
+						<div class="panel-body">
+							{% if transData.employment %}
+							{% for employeeData in transData.employment %}
+								<table class="table table-bordered">
+								<tbody>
+									<tr>
+									<th style="width: 50%">Employer</th>
+									<td>
+										{% if employeeData.employer.unparsed %}
+											{{ employeeData.employer.unparsed }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Occupation</th>
+									<td>
+										{% if employeeData.occupation %}
+											{{ employeeData.occupation }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date Hired</th>
+									<td>
+										{% if employeeData.dateHired %}
+											{{ employeeData.dateHired }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date On File Since</th>
+									<td>
+										{% if employeeData.dateOnFileSince._val %}
+											{{ employeeData.dateOnFileSince._val }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+									<tr>
+									<th>Date Effective</th>
+									<td>
+										{% if employeeData.dateEffective._val %}
+											{{ employeeData.dateEffective._val }}
+										{% else %}
+											--
+										{% endif %}
+									</td>
+									</tr>
+								</tbody>
+								</table>
+							{% endfor %}
+							{% else %}
+							No Data Received
+							{% endif %}
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<!-- Track Information-->
+		<!-- <div class="panel-heading"> <a data-toggle="collapse" data-parent="" href="#drop-down-trackerinfo">
+			<h4 align="left">Tracker Information <i class="pull-right more-less glyphicon glyphicon-plus"></i></h4></a>
+		</div>
+
+		<div id="drop-down-trackerinfo" class="panel-collapse collapse">
+				<div class="panel-body">
+				Tracker Information
+				</div>
+		</div> -->
+
+
+	</div>
+	</div>
+
+{% endif %}
+
+
+<script>
+	$('#drop-down-userinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-userinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	});
+
+	$('#drop-down-creditinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-creditinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	});
+
+	$('#drop-down-tradeinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-tradeinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+		$('#drop-down-creditinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	});
+
+	$('#drop-down-collectioninfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-collectioninfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+		$('#drop-down-creditinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	});
+
+	$('#drop-down-inquiryinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-inquiryinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+		$('#drop-down-creditinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+
+	});
+
+	$('#drop-down-publicrecord').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-publicrecord').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+		$('#drop-down-creditinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+
+	});
+
+	$('#drop-down-productinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-productinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	});
+
+	$('#drop-down-addonproduct').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-addonproduct').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+		$('#drop-down-productinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+
+	});
+
+	$('#drop-down-otherinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-otherinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	});
+
+	$('#drop-down-addressinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-addressinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+		$('#drop-down-otherinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+
+	});
+
+	$('#drop-down-employeeinfo').on('hidden.bs.collapse shown.bs.collapse', function() {
+		$('#drop-down-employeeinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+		$('#drop-down-otherinfo').prev().find("i").toggleClass("glyphicon-plus glyphicon-minus");
+
+	});
+
+</script>

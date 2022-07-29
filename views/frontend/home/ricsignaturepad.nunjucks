@@ -1,0 +1,25 @@
+
+<style>
+    .back-sign-pad{
+        border:1px solid;
+        border-radius: 7px;
+        min-height: 60px;
+        background-color: #FFF;
+    }
+</style>
+<div style="text-align: center;">
+    <div id="signature-pad-RIC" class="signature-pad-RIC" style="width:875; height:180;">
+        <div id="nosignErrorRIC" style="display:none; color: red;"><strong><span id="nosignErrorRICText">Please sign the signature pad.</span></strong></div>
+        <div class="signature-pad--body">
+            <canvas height="115" style="width: 100%; height:115px;" class="back-sign-pad"></canvas><br>
+        </div>
+        <br>
+        <div class="signature-pad--actions">
+            <button type="button" class="btn btn-info finalizeBtn" data-action="" id="clearSignatureRIC">Clear</button>&nbsp;
+            <button type="button" class="btn btn-info finalizeBtn" data-action="save-png" id="acceptSignatureRIC">Accept</button>
+            <input type="hidden" name="checkCanvasEmptyRIC" id="checkCanvasEmptyRIC" class="form-control input-normal" value="{{ signatureExistRIC }}">
+            <input type="hidden" name="hiddensignatureidRIC" id="hiddensignatureidRIC" class="form-control input-normal" value="{{ signatureIdRIC }}">
+        </div>
+    </div>
+</div>
+

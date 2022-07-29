@@ -1,0 +1,91 @@
+	
+<!-- Consent For Use Of Electronic Records and Signatures -->
+<div id="electronicDocument" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md pfi-model">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="text-center">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <div style="position: absolute; right: 45px; top: 20px;"><span class="glyphicon glyphicon-save" onclick="downloadDocument('120');"></span>&nbsp;&nbsp;
+			<span class="glyphicon glyphicon-print" onclick="printDocument1('electronicDocument');"></span></div>
+		  <span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Consent For Use Of Electronic Records and Signatures</h3></span>
+		</div>
+		<div class="modal-body">
+		    {% include "document/Electronic_Records_and_Signatures.nunjucks" %}
+		</div>
+		<div class="btn-Main">
+		  <button type="button" data-dismiss="modal" class="btn btn-default blueBtn" onclick="checkdocstatus();">Dismiss</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Consent and Authorization to Obtain and Use Credit Report -->
+<div id="creditReportDocument" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md pfi-model">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="text-center">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <div style="position: absolute; right: 45px; top: 20px;"><span class="glyphicon glyphicon-save" onclick="downloadDocument('121');"></span>&nbsp;&nbsp;
+			<span class="glyphicon glyphicon-print" onclick="printDocument1('creditReportDocument');"></span></div>
+		  <span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Consent and Authorization to Obtain and Use Credit Report</h3></span>
+		</div>
+		<div class="modal-body">
+ 		    {% include "document/Authorization_to_Obtain_Credit_Report.nunjucks" %}
+		</div>
+		
+		<div class="btn-Main">
+		  <button type="button" data-dismiss="modal" class="btn btn-default blueBtn" onclick="checkdocstatus();">Dismiss</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- Prior Express Consent For Non-Telemarketing Calls/Texts. -->
+<div id="telemarketingDocument" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md pfi-model">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="text-center">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <div style="position: absolute; right: 50px; top: 20px;"><span class="glyphicon glyphicon-save" onclick="downloadDocument('122');"></span>&nbsp;&nbsp;
+			<span class="glyphicon glyphicon-print" onclick="printDocument1('telemarketingDocument');"></span></div>
+		  <span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Prior Express Consent For Non-Telemarketing Calls/Texts.</h3></span>
+		</div>
+		<div class="modal-body">
+ 		    {% include "document/Non-Telemarketing_Calls_and_Texts.nunjucks" %}
+		</div>
+		
+		<div class="btn-Main">
+		  <button type="button" data-dismiss="modal" class="btn btn-default blueBtn" onclick="checkdocstatus();">Dismiss</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!-- DO WITH YOUR PERSONAL INFORMATION?-->
+<div id="policyDocument" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md pfi-model">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="text-center">
+		  	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		  	<div style="position: absolute; right: 50px; top: 20px;"><span class="glyphicon glyphicon-save" onclick="downloadDocument('123');"></span>&nbsp;&nbsp;
+			<span class="glyphicon glyphicon-print" onclick="printDocument('policyDocument');"></span></div>
+		  	<span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Financial Privacy Policy</h3></span>
+		</div>
+		<div class="modal-body" id="privacypolicy">
+			<div class="cssforPrint" style="display: none;">
+				<link href="/styles/css/frontend/bootstrap.css" media="print" rel="stylesheet" type="text/css" >
+			</div>
+		    {% include "document/Privacy_Policy.nunjucks" %}
+		</div>
+		
+		<div class="btn-Main">
+		  <button type="button" data-dismiss="modal" class="btn btn-default blueBtn" onclick="checkdocstatus();">Dismiss</button>
+		</div>
+	  </div>
+	</div>
+</div>
+

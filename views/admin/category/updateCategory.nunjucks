@@ -1,0 +1,39 @@
+{% extends "layout/layout.nunjucks" %}
+  {% block body %}
+    <section class="content-header">
+      <h1>
+        Categories
+        <small>preview of categories</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="/admin/category-list"><i class="fa fa fa-book"></i>Categories</a></li>
+        <li><a href="/admin/categoryDetail?id={{ category.id }}">Category Details</a></li>
+        <li class="active">Update Categories</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box-wrapper">
+        <div class="box box-info">
+          <div class="box-header with-border">
+            <h3 class="box-title">Update category</h3>
+          </div>
+          <form class="form-horizontal" method="POST" action="/admin/updateCategory?id={{ category.id }}">
+            <div class="box-body">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Category Name</label>
+                <div class="col-sm-8">
+                  <input class="form-control" id="categoryName" name="categoryName" value="{{ category.categoryName }}">
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="_csrf" value="{{ _csrf }}"/>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-info" style="margin-left:17%">Update</button>
+              <button type="submit" onclick="location.href = '/admin/category-list';" class="btn btn-danger" style="margin-left:10%">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  {% endblock %}

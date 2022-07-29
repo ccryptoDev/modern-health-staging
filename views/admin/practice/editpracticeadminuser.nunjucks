@@ -1,0 +1,88 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Edit Practice Admin User
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/managepracticeadmin"><i class="fa fa fa-building"></i>Practice Admin User List</a></li>
+      <li class="active">Edit Practice Admin User</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+	      {% if (approveerror)  %}
+				 <div class="alert alert-danger">
+				    <a href="#" class="cloAse" data-dismiss="alert">&times;</a>
+				  {{approveerror}}
+				 </div>
+				<br>
+				{% endif %}
+
+				{% if (approvesuccess)  %}
+					 <div class="alert alert-success">
+					     <a href="#" class="close" data-dismiss="alert">&times;</a>
+					  {{approvesuccess}}
+					</div>
+					<br>
+				{% endif %}
+
+	      <form role="form" method="POST"  enctype="multipart/form-data" id="practiceAdminAddUser" name="schoolAdminAddUser" action="/admin/updatepracticeAdminUser/{{userData.id}}">
+          <table class="table table-bordered">
+            <tbody>
+  		       <tr>
+              <th>Practice Name</th>
+  			       <td><input readonly type="text" class="form-control" id="schoolName" name="schoolName" value="{{userData.practiceManagementName}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>  
+            <tr>
+              <th>Location Name</th>
+              <td ><input readonly type="text" class="form-control" id="BranchName" name="BranchName" value="{{userData.BranchName}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>
+  		      <tr>
+              <th>Role</th>
+			  {% if userData.role == "PracticeAdmin" %}
+              <td><input readonly type="text" class="form-control" id="role" name="role" value="admin" style="width:50%;"></td>
+			   {% elseif userData.role == "PracticeStaff" %}
+			  <td><input readonly type="text" class="form-control" id="role" name="role" value="staff" style="width:50%;"></td>
+			   {% else %}
+			  <td><input readonly type="text" class="form-control" id="role" name="role" value="doctor" style="width:50%;"></td>
+			   {% endif %}
+            </tr>
+  		      <tr>
+              <th>Username</th>
+              <td><input type="text" class="form-control" id="Username" name="Username" value="{{userData.username}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>
+  		      <tr>
+              <th>First Name</th>
+              <td><input type="text" class="form-control" id="firstname" name="firstname" value="{{userData.firstname}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>
+  		      <tr>
+              <th>Last Name</th>
+              <td><input type="text" class="form-control" id="lastname" name="lastname" value="{{userData.lastname}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td><input type="email" class="form-control" id="email" name="email" value="{{userData.email}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>
+            <tr>
+              <th>Phone Number</th>
+              <td><input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{userData.phoneNumber}}" style="width:50%;" required autocomplete="off" data-mask="(000) 000-0000"></td>
+            </tr>
+  		      <tr>
+              <th>Status</th>
+              <td><select name="status" d="status" required><option value="1">Active</option><option value="2">In Active</option></select></td>
+            </tr>
+            <tr>
+              <th>&nbsp;</th>
+              <td>
+  			       <button type="submit" class="btn btn-primary">Submit</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+		    </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}

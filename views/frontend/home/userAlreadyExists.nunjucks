@@ -1,0 +1,32 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<div id="loanfailure">
+
+<div class="container-fluid">
+	<div class="heading">
+		<div class="logoMiddle"><img src="/images/imgv3/logo.png" class="img-reponsive" /></div>
+	</div>
+	<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+		<div class="whitebox emailinuse-whitebox">
+			<p><b>You already have an account with us.</b><br><br>Please contact us at <b>contact@modernhealthfinance.com</b> or <b>Login</b> to your customer portal.</p>
+			<a href="/login">
+			<div class="btn-Main"><button class="btn-application">Login</button></div>
+			</a>
+		</div>
+	</div>
+</div>
+</div>
+	<style>
+		.emailinuse-whitebox {
+			width: 444px;
+		}
+		#loanfailure .btn-application {
+			width: unset;
+		}
+		#loanfailure .failure-icon-container {
+			margin:20px;
+		}
+		#loanfailure .failure-icon-container
+	</style>
+{% endblock %}

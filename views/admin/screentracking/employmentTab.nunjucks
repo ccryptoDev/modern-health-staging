@@ -1,0 +1,847 @@
+<div class="employment-backoffice-tab-partial">
+    <div class="panel-group">
+        <div class="panel panel-default panel-faq">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Current Employer Info
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="employment-info-panel">
+                    <div class="employee-info-display-section flex-box-table-col display-only-section" style="display: none;">
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Employer Name:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-name">{{ currentEmploymentHistory.employerName if currentEmploymentHistory.employerName else ''}}</span>
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Employer Phone:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-phone">{{ currentEmploymentHistory.phone if currentEmploymentHistory.phone else ''}}</span>
+                                <p>{{ currentEmploymentHistory.phone if currentEmploymentHistory.phone else ''}}</p>
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Employer Address:</span>
+                            </div>
+                            <div class="flex-box-item value-item address-display-section">
+                                <span class="employment-address">{{ currentEmploymentHistory.employerAddress if currentEmploymentHistory.employerAddress else ''}}&nbsp;</span>
+                                <span class="employment-city-state-zip">{{ currentEmploymentHistory.employerCity if currentEmploymentHistory.employerCity else ''}}{{ currentEmploymentHistory.employerState if currentEmploymentHistory.employerState else '' }}</span>
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Employer Status:</span>
+                            </div>
+                            <div class="flex-box-item value-item address-display-section">
+                                <span>{{ currentEmploymentHistory.employerStatus if currentEmploymentHistory.employerStatus else ''}}</span>                           
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Supervisor Name:</span>
+                            </div>
+                            <div class="flex-box-item value-item address-display-section">
+                                <span>
+                                    {{ currentEmploymentHistory.supervisorFirstName if currentEmploymentHistory.supervisorFirstName else ''}}
+                                    {{ currentEmploymentHistory.supervisorMiddleName if currentEmploymentHistory.supervisorFirstName and currentEmploymentHistory.supervisorMiddleName else ''}}
+                                    {{ currentEmploymentHistory.supervisorLastName if currentEmploymentHistory.supervisorLastName else ''}}
+                                </span>                            
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Job Title:</span>
+                            </div>
+                            <div class="flex-box-item value-item address-display-section">
+                                <span>
+                                    {{ currentEmploymentHistory.jobTitle if currentEmploymentHistory.jobTitle else ''}}
+                                </span>                            
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Employment Status:</span>
+                            </div>
+                            <div class="flex-box-item value-item address-display-section">
+                                <span>
+                                    {{ currentEmploymentHistory.employmentStatus if currentEmploymentHistory.employmentStatus else ''}}
+                                </span>                            
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Job Start Date:</span>
+                            </div>
+                            <div class="flex-box-item value-item address-display-section">
+                                <span>
+                                    {{ currentEmploymentHistory.jobStartDate if currentEmploymentHistory.jobStartDate else ''}}
+                                </span>                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="employee-info-section flex-box-table-col edit-section" style="display: none;" >
+                        <form role="form" id="employeeInfoForm" class="employee-info-form" method="POST" action="/employmentHistory">
+                            <input class="" type="hidden" name="userId" value="{{ currentEmploymentHistory.user }}"/>
+                            <input class="" type="hidden" name="paymentmanagement" value="{{ paymentmanagementdata.id }}"/> 
+                            {# <input type="hidden" id="employmentHistoryId" name="employmentHistoryId" value=""/> #}
+                            <div class="employee-info-section form-group flex-box-table-row">
+                                <div class="field-section flex-box-item">
+                                    <label class="header-item" for="txtemployerName">Employer Name</label>
+                                    <input type="text" id="txtemployerName" name="employerName"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item">
+                                    <label class="header-item" for="txtemployerAddress">Employer Address</label>
+                                    <input type="text" id="txtemployerAddress" name="employerAddress"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-third">
+                                    <label class="header-item" for="txtemployerCity">Employer City</label>
+                                    <input type="text" id="txtemployerCity" name="employerCity"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-third">
+                                    <label class="header-item state-label" for="txtemployerState">Employer State</label>
+                                    <input type="text" id="txtemployerState" name="employerState"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-third">
+                                    <label class="header-item" for="txtemployerZip">Employer Zip</label>
+                                    <input type="text" id="txtemployerZip" name="employerZip"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtemployerPhone">Employer Phone</label>
+                                    <input type="text" id="txtemployerPhone" name="employerPhone"
+                                            class="form-control form-application input-item" maxlength="12" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtCurrentIncome">Current Income</label>
+                                    <input type="text" id="txtCurrentIncome" name="currentIncome"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtTypeOfIncome">Type of Income</label>
+                                    <input type="text" id="txtTypeOfIncome" name="typeOfIncome"
+                                            class="form-control form-application input-item" />
+                                </div>
+
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtTypeOfPayroll">Type Of Payroll</label>
+                                    <input type="text" id="txtTypeOfPayroll" name="typeOfPayroll"
+                                            class="form-control form-application input-item" />
+                                </div>
+
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtPeriodicity">Periodicity</label>
+                                    <input type="text" id="txtPeriodicity" name="periodicity"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtLastPayDate">Last Pay Date</label>
+                                    <input type="text" id="txtLastPayDate" name="lastPayDate"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtNextPayDate">Next Pay Date</label>
+                                    <input type="text" id="txtNextPayDate" name="nextPayDate"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtSecondPayDate">Second Pay Date</label>
+                                    <input type="text" id="txtSecondPayDate" name="secondPayDate"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtPayFrequency">Pay Frequency</label>
+                                    <input type="text" id="txtPayFrequency" name="payFrequency"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item col-half">
+                                    <label class="header-item" for="txtIsAfterHoliday">Is After Holiday</label>
+                                    <input type="text" id="txtIsAfterHoliday" name="isAfterHoliday"
+                                            class="form-control form-application input-item" />
+                                </div>
+                                <div class="field-section flex-box-item" style="text-align: right;margin: 30px 0 0 0;">
+                                    <button id="btnCancelUpdateEmployment" name="btnCancelUpdateEmployment" class="btn btn-primary save-button" style="display: none">Cancel</button>
+                                    <button id="btnUpdateEmployment" name="btnUpdateEmployment" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                            <div class="error upload-file-error">
+                                <input type="hidden" id="upload-file-error" name="upload-file-error" value=""/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if  currentEmploymentHistory %}
+        <div class="employment-income-information-panel">
+            <div class="section-header">
+                <h4 class="panel-title">
+                    Income Information
+                </h4>
+            </div>
+            <div class="flex-box-table-col"> 
+                {# {% if paymentmanagementdata.screentracking.needsReviewing and paymentmanagementdata.screentracking.hasIncomeChanged %}
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item" style="flex: 1 1 auto;">
+                                <span class="warning-message"><i class="fa fa-exclamation-triangle" style="margin-right: 5px;" aria-hidden="true"></i>
+                                    {% if paymentmanagementdata.screentracking.hasIncomeChanged  %}
+                                        {%  if req.user.rolename !== "Admin" %}
+                                            Employment or annual income has changed and is under review.
+                                            {% else %}
+                                                Employment or annual income has changed and needs to be verified.
+                                        {% endif %}
+                                     {% elseif paymentmanagementdata.screentracking.hasGracePeriodEnded  %}
+                                            Grace period has ended. Income verification is needed.
+                                     {% endif %}
+                                </span>
+                            </div>
+                        </div> #}
+                        {# <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span >Annual Income Changed From (Current): </span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-current-income">{{ currentEmploymentHistory.previousSetIncome | $format(true,0) if currentEmploymentHistory.previousSetIncome else 0 | $format(true,0)}}</span>
+                            </div>
+                        </div> 
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Annual Income Changed To:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-current-income-non-change">{{ currentEmploymentHistory.currentIncome | $format(true,0) if currentEmploymentHistory.currentIncome else ''}}</span>
+                            </div>
+                        </div>
+                {% else %}
+                    {% if paymentmanagementdata.screentracking.needsReviewing and paymentmanagementdata.screentracking.hasGracePeriodEnded %}
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item" style="flex: 1 1 auto;">
+                                    <span class="warning-message"><i class="fa fa-exclamation-triangle" style="margin-right: 5px;" aria-hidden="true"></i>Grace period has ended. Income verification is needed.</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    #}
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Current Annual Income:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-current-income-non-change">{{ currentEmploymentHistory.currentIncome | $format(true,0) if currentEmploymentHistory.currentIncome else ''}}</span>
+                            </div>
+                        </div>    
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Pay Frequency:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                {% if currentEmploymentHistory.payFrequency == "B" %}
+                                    <span class="employment-freq">Bi-weekly</span>
+                                {% elif currentEmploymentHistory.payFrequency == "S" %}
+                                    <span class="employment-freq">Semi-monthly</span>
+                                {% elif currentEmploymentHistory.payFrequency == "W" %}
+                                    <span class="employment-freq">Weekly</span>
+                                {% else %}
+                                    <span class="employment-freq">Monthly</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Last Pay Date:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-lastPay">{{ currentEmploymentHistory.lastPayDate if currentEmploymentHistory.lastPayDate else ''}}</span>
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Next Pay Date:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-nextPay">{{ currentEmploymentHistory.nextPayDate if currentEmploymentHistory.nextPayDate else ''}}</span>
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Second Pay Date:</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-secondPay">{{ currentEmploymentHistory.secondPayDate if currentEmploymentHistory.secondPayDate else ''}}</span>
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row">
+                            <div class="flex-box-item header-item">
+                                <span>Bank Holiday (before/after):</span>
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <span class="employment-isAfterHoliday">{{ "After Holiday" if currentEmploymentHistory.isAfterHoliday == 1 else "After Holiday"}}</span>
+                            </div>
+                        </div>
+                        <div class="flex-box-item flex-box-table-row change-employer-button">
+                            <div class="flex-box-item header-item">
+                            </div>
+                            <div class="flex-box-item value-item">
+                                <button id="btnChangeEmployer" class="btn btn-primary">Change Employment Info</button>
+                            </div>
+                        </div>
+
+                {# {% endif %}
+                {% if req.user.rolename == "Admin"  %}
+                    <div class="flex-box-item flex-box-table-row  verify-income-input">
+                        <div class="flex-box-item header-item">
+                            <span>Verified Annual Income:</span>
+                        </div>
+                        <div class="flex-box-item value-item">
+                            <span>
+                                <input type="text" id="txtVerifiedIncome" name="verifiedIncome"
+                                         class="form-control form-application input-item verified-income-toggle-edit"
+                                         value="" {% if currentEmploymentHistory.isEmploymentIncomeVerified %}style="display: none;"{% endif %}/>
+                                <span class="verified-income-display verified-income-toggle-display" {% if not currentEmploymentHistory.isEmploymentIncomeVerified %}style="display: none;"{% endif %}>
+                                    {{ currentEmploymentHistory.verifiedIncome | $format(true,0) if (currentEmploymentHistory and currentEmploymentHistory.verifiedIncome) or currentEmploymentHistory.verifiedIncome == 0}}
+                                </span>
+                            </span>
+                        </div>
+                        <div class="flex-box-item value-item verify-button">
+                            <span>
+                                <button id="btnVerifyIncome" name="btnVerifyIncome" class="btn btn-primary verified-income-toggle-edit" {% if currentEmploymentHistory.isEmploymentIncomeVerified %}style="display: none;"{% endif %}>Verify and Update ISA</button>
+                                <button id="btnEditVerifyIncome" name="btnEditVerifyIncome" class="btn btn-primary verified-income-toggle-display" {% if not currentEmploymentHistory.isEmploymentIncomeVerified %}style="display: none;"{% endif %}>Edit Verified Income</button>
+                            </span>
+                        </div>
+                    </div>
+                {% endif %} #}
+            </div>
+            <div class="verify-income-error error" style="display:none;font-weight: 700;margin:15px 0;">There was an error trying to verify income. This could be caused by the following: this contract may not have a program end date (graduation) set, current employer does not exist, or ISA contract details (Ex. payment cap, minimum income, grace period, share percentage, etc) is not set up for this contract.</div>
+        </div>
+    {% else %}
+        {# <div class="non-employment-warning">
+                {% if paymentmanagementdata.screentracking.needsReviewing and paymentmanagementdata.screentracking.hasGracePeriodEnded %}
+                        <span class="warning-message" style="color:#f39c12;"><i class="fa fa-exclamation-triangle" style="margin-right: 5px;color:#f39c12;"
+                                                         aria-hidden="true"></i>Grace period has ended. Income verification is needed.</span>
+                {% endif %}
+        </div> #}
+    {% endif %}
+    {# <div class="employment-document-upload-panel">
+        <div class="section-header">
+            <h4 class="header-item">
+                Uploaded Documents
+            </h4>
+        </div>
+        {% set userId = user.id %}
+        {% if currentEmploymentHistory %}
+        {% set currentEmploymentHistoryId = currentEmploymentHistory.id %}
+        {% endif %}
+        {% set employmentHistoryObj = currentEmploymentHistory  %}
+        {% set isForEmploymentHistoryDisplay = false %}
+        <div id="employment-document-upload-content" class="employment-document-upload-content">
+            {% include "admin/partials/employment/employmentHistoryBackofficeDocUploadPartial.nunjucks" %}
+        </div>
+    </div> #}
+    {# <div class="employment-history-info-panel">
+        <div class="section-header">
+            <h4 class="panel-title">
+                Past Employer Info
+            </h4>
+        </div>
+
+        <div class="flex-box-table-col employment-history-panel-content">
+            {% if employmentHistories and employmentHistories.length > 0 %}
+            {% for employmentHistoryObj in  employmentHistories %}
+            <div class="tab-pane active in fade flex-box-item" id="employment-history-{{loop.index}}">
+                <div class="panel-group " id="employment-history-cat-{{ loop.index }}">
+                    <div class="panel panel-default panel-faq">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" data-parent="#accordion-cat-1"
+                               href="#employmentHistory{{ loop.index }}">
+                                <h4 class="panel-title prev-employment-history-accordion-header flex-box-table-row">
+                                    <span class="prev-employer-name flex-box-item">{{ employmentHistoryObj.employerName }}</span><span class="prev-employer-created flex-box-item">Date Added: {{ employmentHistoryObj.createdAt | formatDate }}</span>
+                                    <span class="pull-right"><i class="glyphicon glyphicon-plus"></i></span>
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="employmentHistory{{ loop.index }}" class="panel-collapse collapse account">
+                            <div class="panel-body">
+                                <div class=employment-info-panel">
+                                    <div class="section-header">
+                                        <h4 class="panel-title">
+                                            Previous Employer Info
+                                        </h4>
+                                    </div>
+                                    <div class="employee-info-display-section flex-box-table-col">
+                                        <div class="flex-box-item flex-box-table-row">
+                                            <div class="flex-box-item header-item">
+                                                <span>Employer Name:</span>
+                                            </div>
+                                            <div class="flex-box-item value-item">
+                                                <span>{{ employmentHistoryObj.employerName if employmentHistoryObj.employerName else '' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-box-item flex-box-table-row">
+                                            <div class="flex-box-item header-item">
+                                                <span>Employer Phone:</span>
+                                            </div>
+                                            <div class="flex-box-item value-item">
+                                                <span>{{ employmentHistoryObj.employerPhone if employmentHistoryObj.employerPhone else '' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-box-item flex-box-table-row">
+                                            <div class="flex-box-item header-item">
+                                                <span>Employer Address:</span>
+                                            </div>
+                                            <div class="flex-box-item value-item address-display-section">
+                                                <span>{{ employmentHistoryObj.employerAddress if employmentHistoryObj.employerAddress else '' }}&nbsp;</span>
+                                                <span>{{ employmentHistoryObj.employerCity if employmentHistoryObj.employerCity else '' }}, {{ employmentHistoryObj.employerState if employmentHistoryObj.employerState else '' }} {{ employmentHistoryObj.employerZip if employmentHistoryObj.employerZip else '' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=employment-income-information-panel">
+                                    <div class="section-header">
+                                        <h4 class="panel-title">
+                                            Previous Income Information
+                                        </h4>
+                                    </div>
+                                    <div class="employee-info-display-section flex-box-table-col">
+                                        <div class="flex-box-item flex-box-table-row">
+                                            <div class="flex-box-item header-item">
+                                                <span>Income:</span>
+                                            </div>
+                                            <div class="flex-box-item value-item address-display-section">
+                                                <span>{{ employmentHistoryObj.currentIncome | $format(true,0)  if employmentHistoryObj.currentIncome else '' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-box-item flex-box-table-row">
+                                            <div class="flex-box-item header-item">
+                                                <span>Verified Income:</span>
+                                            </div>
+                                            <div class="flex-box-item value-item address-display-section">
+                                                <span>{{ employmentHistoryObj.verifiedIncome | $format(true,0)  if employmentHistoryObj.verifiedIncome or employmentHistoryObj.verifiedIncome == 0 }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-box-item flex-box-table-row">
+                                            <div class="flex-box-item header-item">
+                                                <span>Verified By:</span>
+                                            </div>
+                                            <div class="flex-box-item value-item address-display-section">
+                                                <span>{{ employmentHistoryObj.verifiedByUser if employmentHistoryObj.verifiedByUser else '' }}</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="flex-box-item flex-box-table-row">
+                                            <div class="flex-box-item header-item">
+                                                <span>Verified On:</span>
+                                            </div>
+                                            <div class="flex-box-item value-item address-display-section">
+                                                <span>{{ employmentHistoryObj.lastVerifiedDate | formatDate }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="employment-document-upload-panel">
+                                    <div class="section-header">
+                                        <h4 class="header-item">
+                                            Uploaded Documents
+                                        </h4>
+                                    </div>
+                                    <div class="employment-document-upload-content employment-history-uploaded-documents-view">
+                                        {% set isForEmploymentHistoryDisplay = true %}
+                                        {% include "admin/partials/employment/employmentHistoryBackofficeDocUploadPartial.nunjucks" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="flex-box-table-col employment-history-panel-content" style="border:0; text-align: center;">
+                <div>There is not past employment information.</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+ #}
+
+</div>
+<style type="text/css">
+
+    /* flex-box-item data sections */
+    .employment-backoffice-tab-partial .flex-box-table-row .flex-box-item {
+        padding: 5px;
+    }
+    .employment-backoffice-tab-partial .flex-box-table-row .flex-box-item span {
+       width: 100%;
+    }
+    .employment-backoffice-tab-partial .flex-box-item .header-item {
+        font-weight: 700;
+        flex: 0 0 25%;
+    }
+    .employment-backoffice-tab-partial .verify-income-input .value-item {
+        flex: 0 1 250px;
+
+    }
+    .employment-income-information-panel .verify-income-input {
+        flex-wrap: wrap;
+    }
+    .employment-income-information-panel .verify-income-input .header-item {
+
+    }
+    .employment-income-information-panel .verify-income-input .verify-button {
+        flex: 1 1 auto;
+    }
+    .employment-backoffice-tab-partial .section-header {
+        padding: 8px 0;
+    }
+    .employment-backoffice-tab-partial .flex-box-table-col:not(.employee-info-section) .flex-box-table-row .flex-box-item {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .employment-backoffice-tab-partial .employment-income-information-panel, .employment-backoffice-tab-partial .employment-history-info-panel {
+        margin-top: 20px;
+    }
+    /* end flex-box-item data sections */
+
+    /* border stuff */
+    .employment-backoffice-tab-partial .flex-box-item.header-item {
+        border-left: 1px solid #ddd;
+        min-width: 170px;
+    }
+    .employment-backoffice-tab-partial .flex-box-table-row:not(.change-employer-button) .flex-box-item {
+        border-bottom: 1px solid #ddd;
+    }
+    .employment-backoffice-tab-partial .flex-box-table-row:first-child .flex-box-item {
+        border-top: 1px solid #ddd;
+    }
+    .employment-backoffice-tab-partial .flex-box-item.value-item, .employment-backoffice-tab-partial .flex-box-item.header-item {
+        border-right: 1px solid #ddd;
+    }
+    .employment-backoffice-tab-partial .change-employer-button, .employment-backoffice-tab-partial .change-employer-button .flex-box-item, .employment-backoffice-tab-partial .employee-info-section .flex-box-item  {
+        border: 0 !important;
+    }
+    .employment-history-info-panel .employment-history-panel-content {
+        border: 1px solid #ddd;
+    }
+    /* end border stuff */
+
+    /* specific sections */
+    .employment-backoffice-tab-partial .address-display-section span{
+        display: block;
+        width: 100%;
+    }
+    .employment-backoffice-tab-partial .panel-body {
+        padding-bottom: 0;
+    }
+    .employment-income-information-panel .panel-title, .employment-history-info-panel .panel-title {
+        margin-left: 15px;
+    }
+    /* end specific sections */
+
+    /* employment form section */
+    .employment-backoffice-tab-partial .employee-info-section {
+        margin-bottom: 5px;
+    }
+    .employment-backoffice-tab-partial .employee-info-section.flex-box-table-row {
+        flex-wrap: wrap;
+    }
+    .employment-backoffice-tab-partial .employee-info-section .field-section input[type=text],  .employee-info-section .field-section input[type=number],
+    .employment-backoffice-tab-partial .employee-info-section .field-section select, .employment-backoffice-tab-partial .employment-income-information-panel input[type=text]{
+        padding: 10px;
+        border: 1px solid #808080;
+        border-radius: 5px;
+        background-color: #f6f6f6 !important;
+        font-family: 'Source Sans Pro',sans-serif;
+    }
+    .employment-backoffice-tab-partial .employee-info-section input:-webkit-autofill,
+    .employment-backoffice-tab-partial .employee-info-section input:-webkit-autofill:hover,
+    .employment-backoffice-tab-partial .employee-info-section input:-webkit-autofill:focus,
+    .employment-backoffice-tab-partial .employee-info-section select:-webkit-autofill,
+    .employee-info-section select:-webkit-autofill:hover,
+    .employment-backoffice-tab-partial .employee-info-section select:-webkit-autofill:focus {
+        -webkit-text-fill-color: #3F576C !important;
+    }
+    .employment-backoffice-tab-partial .employee-info-section .field-section label {
+        padding: 5 10px 0px 0;
+    }
+
+    .employment-backoffice-tab-partial .employee-info-section .field-section.col-third {
+        flex: 1 1 calc(33.3333% - 20px);
+    }
+    .employment-backoffice-tab-partial .employee-info-section .field-section.col-half {
+        flex: 0 0 calc(50% - 20px);
+    }
+    .employment-backoffice-tab-partial .employee-info-section .flex-box-item {
+        padding: 5;
+        margin: 3px 3px;
+    }
+    .employment-backoffice-tab-partial .btn-primary {
+        padding: 8px 20px;
+    }
+    .employment-backoffice-tab-partial #btnCancelUpdateEmployment {
+        margin-right: 5px;
+    }
+    /* employment form section */
+
+    /* employment history section */
+    .employment-history-info-panel .employment-history-panel-content{
+        padding: 10px;
+    }
+    .employment-history-info-panel .tab-pane {
+        padding: 5;
+        margin-top: 10px;
+    }
+    .employment-history-info-panel .tab-pane:first-child {
+        margin-top: 0;
+    }
+    .employment-history-info-panel .panel-group {
+        margin-bottom: 0;
+    }
+    .employment-history-info-panel .prev-employment-history-accordion-header {
+        margin: 0;
+    }
+    .employment-history-info-panel .prev-employment-history-accordion-header .prev-employer-name {
+        flex: 1 1 400px;
+
+    }
+    .employment-history-info-panel .prev-employment-history-accordion-header .flex-box-item {
+        padding: 0 !important;
+        border: 0 !important;
+        margin: 0;
+    }
+    .employment-history-info-panel .employment-history-uploaded-documents-view .upload-input-container {
+        display: none !important;
+    }
+    .employment-backoffice-tab-partial .warning-message, .employment-backoffice-tab-partial .warning-message i.fa {
+        color: #A94442;
+        font-weight: bold;
+    }
+    /* end employment history section */
+
+</style>
+<script type="text/javascript">
+	var currentEmploymentHistory = {{ currentEmploymentHistory | stringify if currentEmploymentHistory else "" | stringify }};
+	$(document).ready(function() {
+		showLoadingSpinner();
+		{# getStates().then(function(stateData) {
+			$(".state-select").append($("<option value=\"\" selected disabled hidden />"));
+
+			var currentStateCode = {{ currentEmploymentHistory.employerState | stringify if currentEmploymentHistory.employerState else '' | stringify}};
+			stateData.forEach(function(state) {
+				var optionElement = $("<option/>");
+				optionElement.val(state.stateCode);
+				optionElement.html(state.stateName);
+				if(state.stateCode === "NY") {
+					optionElement.attr("selected","selected");
+				}
+				$(".state-select").append(optionElement);
+			});
+		}, function(errorObj) {
+			console.error("There was an error getting states. " + errorObj.message);
+			$(".state-select").attr("disabled","disabled");
+		}); #}
+
+		$("#btnUpdateEmployment").on("click", function(e) {
+			e.preventDefault();
+			saveEmploymentHistory();
+		});
+		$("#btnCancelUpdateEmployment").on("click", function(e) {
+			e.preventDefault();
+			toggleEmployeeDisplay();
+        });
+
+		$("#btnChangeEmployer").on("click", function(e) {
+			e.preventDefault();
+			toggleEmployeeEdit(currentEmploymentHistory);
+		});
+		$("#btnVerifyIncome").on("click", function(e) {
+			e.preventDefault();
+			updateVerifiedIncome();
+        });
+		$("#btnEditVerifyIncome").on('click', function(e) {
+			e.preventDefault();
+			toggleVerifiedIncomeSection(null);
+        });
+		$(".tabs_wrapper ul li, .nav.nav-tabs li a").on("click", function() {
+			$("#txtEmployeeOtherDescription").attr("disabled","disabled");
+			$("#txtEmployeeOtherDescription").val("");
+			$(".employment-other-text-area").hide();
+			$(".employmentDocuTypeSelect").val("");
+			$("#employmentProofdocument").val("");
+			$(".employmentDocuTypeSelect option").removeAttr("selected");
+			$(".employmentDocuTypeSelect option:disabled").attr("selected", "selected");
+
+			if(!!currentEmploymentHistory){
+				toggleEmployeeDisplay(currentEmploymentHistory);
+			}else {
+				toggleEmployeeEdit(currentEmploymentHistory)
+			}
+		});
+		$("#txtemployerPhone").on("keyup paste drop", function(){
+			$(this).val(formatUSPhoneNumber($(this).val()));
+		});
+		$("#txtCurrentIncome, #txtVerifiedIncome").on('keyup paste drop', function() {
+			var incomeElement = $( this );
+			var val = parseFloat(incomeElement.val().replace( /[^0-9\.]/g, "" )) || "";
+			if( val != "" ){
+
+				incomeElement.val( "$" + val.toLocaleString( "en-US", { maximumFractionDigits: 2, minimumFractionDigits: 0 } ) );
+			}
+		})
+
+		if(!!currentEmploymentHistory){
+			toggleEmployeeDisplay(currentEmploymentHistory);
+		}else {
+			toggleEmployeeEdit(currentEmploymentHistory)
+		}
+		hideLoadingSpinner();
+	});
+	function updateVerifiedIncome() {
+		$(".verify-income-error.error").hide();
+		var verifiedIncome = $("#txtVerifiedIncome").val().replace(/[^0-9]/g, "");
+		if(!!currentEmploymentHistory && (currentEmploymentHistory.id || currentEmploymentHistory._id) ){
+			ajaxPost("/verifyEmploymentIncome", {employmentHistoryId: currentEmploymentHistory.id || currentEmploymentHistory._id, verifiedIncome: verifiedIncome, paymentManagementId: currentEmploymentHistory.paymentmanagement}).then(function(results) {
+				if(results && results.employmentHistory && results.paymentSchedule && results.paymentSchedule.length > 0) {
+					// toggleVerifiedIncomeSection(results.employmentHistory);
+						window.location.href = "/admin/getContracts/Performing";
+                }else {
+					$(".verify-income-error.error").show();
+                }
+            }, function( errorObj) {
+                console.error(errorObj.message);
+				$(".verify-income-error.error").show();
+            })
+		}
+    }
+    function toggleVerifiedIncomeSection(employmentHistory) {
+		if(employmentHistory && employmentHistory.isEmploymentIncomeVerified){
+			var newVerifiedIncome = employmentHistory.verifiedIncome? employmentHistory.verifiedIncome.toLocaleString( "en-US", {style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }):"";
+			$("#txtVerifiedIncome").val(newVerifiedIncome);
+			$(".verified-income-display").html(newVerifiedIncome);
+			$(".verified-income-toggle-edit").hide();
+			$(".verified-income-toggle-display").show();
+        }else {
+			$(".verified-income-toggle-display").hide();
+			$(".verified-income-toggle-edit").show();
+        }
+    }
+	function resetEmploymentInfoForm(withData = false) {
+		if(withData && !!currentEmploymentHistory){
+			$("#txtemployerName").val(currentEmploymentHistory.employerName || "");
+			$("#txtemployerAddress").val(currentEmploymentHistory.employerAddress || "");
+			$("#txtemployerCity").val(currentEmploymentHistory.employerCity || "");
+			$("#txtemployerState").val(currentEmploymentHistory.employerState || "").find("option").first().removeAttr("selected").find("option[value=" + currentEmploymentHistory.employerState + "]").attr("selected","selected");
+			$("#txtemployerZip").val(currentEmploymentHistory.employerZip || "");
+			$("#txtemployerPhone").val(currentEmploymentHistory.employerPhone || "");
+			$("#txtCurrentIncome").val(currentEmploymentHistory.currentIncome || "");
+            $("#txtTypeOfIncome").val(currentEmploymentHistory.typeOfIncome || "");
+			$("#txtTypeOfPayroll").val(currentEmploymentHistory.typeOfPayroll || "");
+			$("#txtPeriodicity").val(currentEmploymentHistory.periodicity || "");
+            $("#txtLastPayDate").val(currentEmploymentHistory.lastPayDate || "");
+			$("#txtNextPayDate").val(currentEmploymentHistory.nextPayDate || "");
+			$("#txtSecondPayDate").val(currentEmploymentHistory.secondPayDate || "");
+            $("#txtPayFrequency").val(currentEmploymentHistory.payFrequency || "");
+            $("#txtIsAfterHoliday").val(String(currentEmploymentHistory.isAfterHoliday) || "");
+			$("#employmentHistoryId").val(currentEmploymentHistory.id || currentEmploymentHistory._id);
+			if(!!currentEmploymentHistory.currentIncome) {
+				$("#txtCurrentIncome").trigger("keyup");
+			}
+			if(!!currentEmploymentHistory.employerPhone) {
+				$("#txtemployerPhone").trigger("keyup");
+			}
+		}else {
+			$(".employee-info-form input[type=text]").val("");
+			$(".employee-info-form select").val("");
+			$(".employee-info-form select option").removeAttr("selected").first().attr("selected", "selected");
+			$( "#employmentHistoryDocuments" ).val("");
+			$("#employmentHistoryId").val("")
+		}
+	}
+	function toggleEmployeeEdit(employeeHistoryResponse = null) {
+		if(!!employeeHistoryResponse){
+			resetEmploymentInfoForm(true);
+		}
+		$(".employment-backoffice-tab-partial .display-only-section").hide();
+        $(".employment-income-information-panel").hide();
+		$(".employment-backoffice-tab-partial .edit-section").show();
+		resetUploadInputSection();
+		if(!!currentEmploymentHistory){
+			$("#btnCancelUpdateEmployment").removeAttr("style");
+		}
+	}
+	function toggleEmployeeDisplay(employeeHistoryResponse = null) {
+		if(!employeeHistoryResponse && !!currentEmploymentHistory){
+			employeeHistoryResponse = currentEmploymentHistory;
+		}
+		if(employeeHistoryResponse) {
+			$(".employment-name").html(employeeHistoryResponse.employerName);
+			$(".employment-address").html(employeeHistoryResponse.employerAddress);
+			if( !!employeeHistoryResponse.employerCity && !!employeeHistoryResponse.employerState ) {
+                $(".employment-city-state-zip").html([employeeHistoryResponse.employerCity+ ",",employeeHistoryResponse.employerState,employeeHistoryResponse.employerZip].join(" "));
+            }
+			$(".employment-phone").html(!!employeeHistoryResponse.employerPhone?formatUSPhoneNumber(employeeHistoryResponse.employerPhone):"");
+			if(employeeHistoryResponse.currentIncome === null || employeeHistoryResponse.currentIncome === undefined || employeeHistoryResponse.currentIncome < 0) {
+				employeeHistoryResponse.currentIncome = 0;
+            }
+			$(".employment-current-income-non-change").html(employeeHistoryResponse.currentIncome.toLocaleString( "en-US", {style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 } ));
+
+			$(".employment-backoffice-tab-partial .edit-section").hide();
+			$(".employment-backoffice-tab-partial .display-only-section").show();
+            $(".employment-income-information-panel").show();
+
+			resetUploadInputSection();
+		}
+	}
+	function resetUploadInputSection() {
+		$("#txtEmployeeOtherDescription").attr("disabled","disabled");
+		$("#txtEmployeeOtherDescription").val("");
+		$(".employment-other-text-area").hide();
+		$(".employmentDocuTypeSelect").val("");
+		$("#employmentProofdocument").val("");
+		$(".employmentDocuTypeSelect option").removeAttr("selected").first().attr("selected", "selected");
+	}
+	function saveEmploymentHistory() {
+		//submit
+		var employeeInfoForm = $("#employeeInfoForm");
+		if(true){
+			var formData = {};
+			employeeInfoForm.serializeArray().forEach((formElement)=> {
+				if(formElement.name === "currentIncome"){
+					formElement.value = formElement.value.replace(/[^0-9]/g, "");
+				}
+				formData[formElement.name] = formElement.value;
+			});
+		$.ajax( {
+			url: `/employmentHistory/${formData.userId}`,
+			type: 'POST',
+			data: formData,
+			success: function( employeeHistoryResponse ) {
+				if(employeeHistoryResponse ) {
+                    window.location.reload();
+				}
+				hideLoadingSpinner();
+			},
+			error: function( err ) {
+				hideLoadingSpinner();
+			}
+		});
+		}
+	}
+	function updateUploadPartialOnSuccess(jsonData) {
+		if(jsonData && jsonData.statusCode === 200 && !!jsonData.htmlData){
+			$("#employment-document-upload-content").html(jsonData.htmlData);
+		}else {
+			$(".upload-input-container .upload-input-button").append($("<div />").addClass("error upload-content-error require-employment").html("There was an error uploading this employment document."))
+		}
+	}
+</script>

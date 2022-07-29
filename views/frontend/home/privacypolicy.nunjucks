@@ -1,0 +1,189 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="privacypolicy">
+
+<div class="container">
+	<div class="inner-content documentary">
+		<div class="heading">
+			<div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+			<div style="display: none;">{% include "frontend/layout/navigator.nunjucks" %}</div>
+		</div>
+		<div class="whitebox block-content-box mTB-3">
+<!--Title of Document-->
+		<center><h2 class="bold">CONSUMER PRIVACY POLICY NOTICE</h2></center>
+		<br>
+<!--Facts:-->
+        <table width = "100%">
+          <tbody>
+            <tr>
+              <td style="border:1px solid black; background-color:black; text-align: right;  padding-right: 15px" width = "15%"><font size="5"  color="white"><strong>FACTS</strong></font></td>
+              <td style="border:1px solid black; padding-left: 15px; padding-top: 15px; padding-bottom: 15px"><strong>WHAT DOES MODERN HEALTH FINANCE DO <br> WITH YOUR PERSONAL INFORMATION?</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+<!--WHY? WHAT? HOW?-->
+       <table>
+         <tbody>
+           <tr>
+             <td style="border:1px solid black; background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px" width = "15%"><font color="white"><strong>Why?</strong></font></td>
+             <td style="border:1px solid black; padding-left: 15px; padding-top: 15px; padding-bottom: 15px">Financial companies choose how they share your personal information. Federal law gives
+                consumers the right to limit some but not all sharing. Federal law also requires us to tell you how
+                 we collect, share, and protect your personal information. Please read this notice carefully to
+                  understand what we do.</td>
+           </tr>
+         </tbody>
+       </table>
+       <br>
+       <table>
+         <tbody>
+           <tr>
+              <td style="border:1px solid black; background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px" width = "15%"><font color="white"><strong>What?</strong></font></td>
+              <td style="border:1px solid black; padding-left: 15px; padding-top: 15px; padding-bottom: 15px">The types of personal information we collect and share depend on the product or service
+                 you have with us. This information can include:
+                 <ul>
+                   <li>Social Security number and income</li>
+                   <li>Account balances, account transactions and payment history</li>
+                   <li>Credit history and credit scores</li>
+                 </ul>
+                 When you are no longer our customer, we continue to share your information as described in this notice.
+                  </td>
+            </tr>
+         </tbody>
+       </table>
+       <br>
+       <table>
+         <tbody>
+            <tr>
+                <td style="border:1px solid black; background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px" width = "15%"><font color="white"><strong>How?</strong></font></td>
+                <td style="border:1px solid black; padding-left: 15px; padding-top: 15px; padding-bottom: 15px">All financial companies need to share customers' personal information to run their
+                   everyday business. In the section below, we list the reasons financial companies can share their customers' personal information; the reasons Modern Health Finance chooses to share;
+                   and whether you can limit this sharing.</td>
+              </tr>
+         </tbody>
+       </table>
+       <br>
+<!--Personal Information Table-->
+        <table width = "100%">
+            <tbody>
+            <tr>
+            <td style="background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px" width = "50%"><font color="white">Reasons we can share your personal information</td>
+            <td style="background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px" width = "25%"><font color="white">Does Modern Health Finance Share?</font></td>
+            <td style="background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px" width = "25%"><font color="white">Can you limit this sharing?</font></td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>For our everyday business purposes-</strong><br /> Such as to process your transactions, maintain your
+              account(s), respond to court orders and legal Investigations, or report to credit bureaus</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">Yes</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">No</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>For Our Marketing Purposes-</strong><br /> To offer our products and services to you</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">No</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">We don't share</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>For joint marketing with other financial companies</strong></td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">No</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">We don't share</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>For our affiliates' everyday business purposes</strong><br /> Information about your creditworthiness</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">No</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">We don't share</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>For non&shy;affiliates to market you</strong></td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">No</td>
+            <td style="border:1px solid black; text-align: center; vertical-align: middle;">We don't share</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+
+<!--What we do-->
+        <table width = "100%">
+            <tbody>
+            <tr>
+            <td style="background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px" colspan="2"><font color="white">What we do</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px" width="40%"><strong>How does Modern Health Finance protect my personal information?	</strong></td>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px ">To protect your personal information from unauthorized access and use, we use security measures that comply with federal law.
+              These measures include computer safeguards and secured files and buildings.</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>How does Modern Health Finance collect my personal information?	</strong></td>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px ">We collect your personal information, for example, when you:
+                <ul>
+                  <li>Apply for a credit sale</li>
+                  <li>Give us your income information;</li>
+                  <li>Provide employment information</li>
+                  <li>Give us your contact information</li>
+                  <li>Pay us by check</li>
+                </ul>
+                We also collect your personal information from others, such as credit bureaus, affiliates, or other companies.</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>Why can't I limit all sharing?	</strong></td>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px ">Federal law gives you the right to limit only
+              <ul>
+                <li>sharing for affiliates' everyday business purposes-information about your creditworthiness</li>
+                <li>affiliates from using your information to market to you</li>
+                <li>sharing for nonaffiliates to market to you</li>
+              </ul>
+              State laws and individual companies may give you additional rights to limit sharing.</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+ <!--Definitions-->
+        <table width = "100%">
+            <tbody>
+            <tr>
+            <td style="background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px" colspan="2"><font color="white">Definitions</td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px" width="40%"><strong>Affiliates</strong></td>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px ">Companies related by common ownership or control.
+              They can be financial and nonfinancial companies.
+              <ul>
+                <li><i>Modern Health Finance has no affiliates.</i></li>
+              </ul>
+              </td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>Non-affiliates</strong></td>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px ">Companies not related by common ownership or control. They can
+               be financial and nonfinancial companies.
+                <ul>
+                  <li><i>Modern Health Finance does not share information with nonaffiliates so they can market to you</i></li>
+                </ul>
+            </td>
+            </tr>
+            <tr>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"><strong>Joint marketing</strong></td>
+            <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px ">A formal agreement between nonaffiliated financial companies
+               that together market financial products or services to you.
+              <ul>
+                <li><i>Modern Health Finance doesn't jointly Market.</i></li>
+              </ul>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+<!--Other Important Info-->
+        <table width="100%">
+          <tbody>
+            <tr>
+              <td style="background-color:rgb(90, 90, 90); padding-left: 15px; padding-right: 15px; padding-top: 12px; padding-bottom: 12px"><font color="white">Other important information</font></td>
+            </tr>
+            <tr>
+              <td style="border:1px solid black; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px"> We will notify you if any of the information in this Notice changes.</td>
+            </tr>
+          </tbody>
+        </table>
+	</div>
+</div>
+</div>
+{% endblock %}

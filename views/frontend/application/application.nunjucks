@@ -1,0 +1,841 @@
+
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#jobstartdate" ).datepicker({
+        format: "mm/dd/yyyy",
+    });
+  } );
+  </script>
+<div id="application">
+<style>
+    .document-divider {
+        overflow: visible;
+        padding: 0;
+        border: none;
+        border-top: medium double #333;
+        color: #333;
+        opacity: .1;
+        text-align: center;
+        height: 3px;
+    }
+    @media (min-width: 768px) {
+        .flinksconnect { width: 100%; }
+    }
+    #userinfoform .stateDiv:before, .birthmonthDiv:before, .birthdayDiv:before, .birthyearDiv:before  {
+        content: '';
+        width: 14px;
+        height: 13px;
+        background: url('../../../images/img/frontend/chevron-down.png') no-repeat;
+        background-size: 100%;
+        position: absolute;
+        right: 20px;
+        top: 21px;
+        z-index: 0;
+		pointer-events: none;
+    }
+    .selectBox:focus {
+        border-color: 1px solid #63944C !important;
+    }
+    .spanLink {
+        color: #63944C;
+        cursor:pointer;
+    }
+    .spanLink:hover {
+        text-decoration:underline;
+    }
+    @media only screen and (max-width: 988px) {
+        .fixZip {
+            width: 102%;
+            margin: 22px 0px 0px -9px;
+        }
+        .birthdayDiv {
+            margin-top: 22px;
+        }
+        .birthyearDiv {
+            margin-top: 22px;
+        }
+    }
+</style>
+<input type="hidden" id="reapplyerror" value="{{ reapplyerror }}">
+<input type="hidden" id="dupusererror" value="{{ dupusererror }}">
+<div class="container has-practice-name-header-shown">
+	<div class="inner-content">
+		<div class="heading">
+	        <div class="logoMiddle">
+                <img src="images/imgv3/logo.png" class="img-reponsive" />
+                <h1>{{ practice.id }}</h1>
+	        </div>
+	    </div>
+        <div class="row" id="loaderIdCreateTracking" style="display:none;">
+            <div class="" align="center" style="text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,0.7);">
+                <div style="height:100%;width:100%;background:url('/images/img/ajaxloader.gif') no-repeat center;margin-top:-233px;"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 personalInfoInner">
+            <div class="whitebox infoForm">
+                <div class="v-center">
+                    <div class="h-center">
+						<form class="formclass signupForm" id="userinfoform" action="/createapplication" method="POST" data-validation="btnDisable" onsubmit="return validateAddress()" name="userinfo" autocomplete="off">
+							<input type="hidden" id="practicemanagement" name="practicemanagement" value="{{ practice.id }}" />
+                            <br />
+                            <h3 style="color:#8093a5;margin: 0%">Tell us more about yourself.</h3>
+                            <br /><br />
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="hidden" style="display: none;" id="street" name="street" placeholder="Street Address" autocomplete="nope" tabindex="1" required value="{{ userinfo.street }}" autocomplete="off" />
+                                        <input type="text" class="form-control form-application noEnterSubmit" id="streetsearch" name="streetsearch" placeholder="Street Address" autocomplete="nope" tabindex="1" required value="{{ userinfo.street }}" />
+                                        <label id="invalid-address" style="display: none;" class="error" for="streetsearch">Invalid address</label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="unit" placeholder="Unit/Apartment" name="unitapt" autocomplete="off" tabindex="3" value="{{ userinfo.unitapt }}" />
+                                    </div>
+                                    <input type="hidden" style="display: none;" id="city" name="city" placeholder="City" autocomplete="off" tabindex="3" required value="{{ userinfo.city }}"/>
+                                    <div class="form-group">
+                                        <span class="fa fa-fw field-icon toggle-password fa-eye eyespan" toggle="#social" onclick="maskSSN(this)"></span>
+                                        <input type="hidden" id="ssn-val" name="ssn_number" value=""/>
+                                        <input type="text" class="form-control form-application" id="social" name="ssn" placeholder="Social Security Number" autocomplete="new-password" tabindex="5" value="" required />
+                                    </div>
+                                    <div class="form-group stateDiv">
+                                        <select name="residenceType" id="residenceType" class="form-control form-application selectBox" tabindex="7" required>
+                                            <option value="" selected disabled hidden>Type of Residence</option>
+                                            <option value="own" {% if screenTracking.residenceType and screenTracking.residenceType == 'own' %}selected{% endif %}>Own</option>
+                                            <option value="rent" {% if screenTracking.residenceType and screenTracking.residenceType == 'rent' %}selected{% endif %}>Rent</option>
+                                            <option value="other" {% if screenTracking.residenceType and screenTracking.residenceType == 'other' %}selected{% endif %}>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    
+
+                                    <input type="hidden" name="state" id="state" tabindex="4" required style="display: none;" />
+                                    <input type="hidden" id="zip" style="display: none;" name="zip" placeholder="Zip" autocomplete="off" tabindex="5" value="{{ userinfo.zipCode }}" required />
+
+
+                                    <div class="form-group">
+                                        <div class="container-fluid">
+                                            <div class="row">
+												<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 birthmonthDiv">
+													<select id="birthmonth" name="birthmonth" class="form-control form-application selectBox" required tabindex="2">
+														<option value="" selected disabled hidden>Birth Month</option>
+														<option value="01">January</option>
+														<option value="02">February</option>
+														<option value="03">March</option>
+														<option value="04">April</option>
+														<option value="05">May</option>
+														<option value="06">June</option>
+														<option value="07">July</option>
+														<option value="08">August</option>
+														<option value="09">September</option>
+														<option value="10">October</option>
+														<option value="11">November</option>
+														<option value="12">December</option>
+													</select>
+												</div>
+												<div class="col-xs-0 col-sm-0 col-md-1 col-lg-1 leftspaceDiv"></div>
+												<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 birthdayDiv">
+													<select id="birthday" name="birthday" class="form-control form-application selectBox" required tabindex="2">
+														<option value="" selected disabled hidden>Day</option>
+														<option value="01">1</option>
+														<option value="02">2</option>
+														<option value="03">3</option>
+														<option value="04">4</option>
+														<option value="05">5</option>
+														<option value="06">6</option>
+														<option value="07">7</option>
+														<option value="08">8</option>
+														<option value="09">9</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="22">22</option>
+														<option value="23">23</option>
+														<option value="24">24</option>
+														<option value="25">25</option>
+														<option value="26">26</option>
+														<option value="27">27</option>
+														<option value="28">28</option>
+														<option value="29">29</option>
+														<option value="30">30</option>
+														<option value="31">31</option>
+													</select>
+												</div>
+												<div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 rightspaceDiv"></div>
+												<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 birthyearDiv">
+													<select id="birthyear" name="birthyear" class="form-control form-application selectBox" required tabindex="2">
+														<option value="" selected disabled hidden>Year</option>
+														{% for year in birthYears %}
+														<option value="{{year}}">{{year}}</option>
+														{% endfor %}
+													</select>
+                                                    <p id="under18Message" style="color: red; display: none;">Must be over 18 years old</p>
+												</div>
+											</div>
+										</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="housingExpense" name="housingExpense"  placeholder="Monthly Mortgage or Rent Payment" value="{{ screenTracking.housingExpense }}" tabindex="4" autocomplete="off" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '')" required/>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="incomeamount" placeholder="Monthly Gross Income (Pre-Tax)" name="incomeamount" autocomplete="off" value="{{ screenTracking.incomeamount if screenTracking.incomeamount else userinfo.incomeamount}}" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '')" tabindex="6" />
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <hr class="document-divider">
+                                    <h3 style="color:#8093a5;margin: 0%">Employment information.</h3>
+                                    <br /><br />
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group stateDiv">
+                                        <select class="form-control form-application selectBox" name="employmentstatus" id="employmentstatus" tabindex="8">
+                                            <option value>Select Employement status</option>
+                                            <option value="Employed">Employed</option>
+                                            <option value="SelfEmployed">Self Employed</option>
+                                            <option value="Military">Military</option>
+                                            <option value="Homemaker">Homemaker</option>
+                                            <option value="Retired">Retired</option>
+                                            <option value="Unemployed">Unemployed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="employername" name="employername" placeholder="Employer Name" value="" tabindex="9">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="phoneemployer" name="phoneemployer" placeholder="Employer Phone" data-mask="000-000-0000" maxlength="12" value="" tabindex="10">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="jobstartdate" name="jobstartdate" placeholder="Date Hired" data-date-format="dd/mm/yyyy" tabindex="11">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="jobtitle" name="jobtitle" placeholder="Your Job Title" value="" tabindex="12">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group stateDiv">
+                                        <select class="form-control form-application selectBox" name="payFrequency" id="payFrequency" tabindex="13">
+                                            <option value>Select Your Payroll Frequency</option>
+                                            <option value="B">Bi-Weekly</option>
+                                            <option value="M">Monthly</option>
+                                            <option value="S">Semi-Monthly</option>
+                                            <option value="W">Weekly</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group stateDiv">
+                                        <select class="form-control form-application selectBox" name="preferredDueDate" id="preferredDueDate" tabindex="13">
+                                            <option value>Choose Your Preferred Monthly Payment Due Date</option>
+                                            <option value="01">1</option>
+                                            <option value="02">2</option>
+                                            <option value="03">3</option>
+                                            <option value="04">4</option>
+                                            <option value="05">5</option>
+                                            <option value="06">6</option>
+                                            <option value="07">7</option>
+                                            <option value="08">8</option>
+                                            <option value="09">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="lastPayDate" name="lastPayDate" placeholder="Last Payroll Date" onfocus="(this.type='date')" value="">
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="nextPayDate" name="nextPayDate" placeholder="Next Payroll Date" onfocus="(this.type='date')" value="">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-application" id="secondPayDate" name="secondPayDate" placeholder="Second Payroll Date" onfocus="(this.type='date')" value="">
+                                    </div>
+                                </div>
+
+                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group stateDiv">
+                                        <select class="form-control form-application selectBox" name="paymentBeforeAfterHolidayWeekend" id="paymentBeforeAfterHolidayWeekend">
+                                            <option value>Pay on holidays and weekends</option>
+                                            <option value="B">Before</option>
+                                            <option value="M">After</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                -->
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="facheckbox" style="z-index: 0; text-align: left; font-size: 15px;">
+                                        <input type="checkbox" name="creditpullconfirm" id="creditpullconfirm" tabindex="13" required/>
+                                        <label for="creditpullconfirm" id="tcpacreditpull"></label>
+                                        <span>I consent to the </span>
+                                        <span href="javascript:void(0)" class="spanLink" onclick="opentcpa();"><strong>SMS Policy,</strong></span>
+                                        <span href="javascript:void(0)" class="spanLink" style="color: #63944C;" onclick="opencredit();"><strong>Credit Pull Consent</strong></span>
+                                        <span>and,</span>
+                                        <span href="javascript:void(0)" class="spanLink" style="color: #63944C;" onclick="openesign();"><strong>E-Signature</strong></span>
+                                        <span>agreements</span>
+                                        <div>
+                                            <label id="creditpullconfirm-error" class="error" for="creditpullconfirm"></label>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div>
+                                        <div class="server-error error" style="display: {{ 'block' if applicationerror and not applicationerror == ''  else 'none' }};" >{{ applicationerror }}</div>
+                                        <button class="btn-application" type="submit" style="margin-top: 12px; margin-bottom: 18px;" tabindex="14">Next</button>
+                                    </div>
+                                </div>
+                            <input type="hidden" id="consent" name="consent" value="true">
+                            <input type="hidden" id="requestId" name="requestId" value="">
+                            <input type="hidden" id="loginId" name="loginId" value="">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- tcpadocument Modal -->
+<div id="tcpadocument" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-tcpa user-modal-header" style="background-color:#63944C;">
+                <h4 class="modal-title" id="storyinfopopupheader"></h4>
+                <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+            </div>
+            <div class="modal-body bgColorWhite">
+                {% if smsPath %}
+                    {% include smsPath %}
+                {% endif %}
+            </div>
+            <div class="text-center">
+                <button type="button" data-dismiss="modal" class="btn-application">Continue</button>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+<!-- creditpulldocument Modal -->
+<div id="creditpulldocument" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-tcpa user-modal-header" style="background-color:#63944C;">
+                <h4 class="modal-title" "color:#FFFF;"></h4>
+                <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+            </div>
+            <div class="modal-body bgColorWhite">
+                {% if creditAuthPath %}
+                    {% include creditAuthPath %}
+                {% endif %}
+            </div>
+            <div class="text-center">
+                <button type="button" data-dismiss="modal" class="btn-application">Continue</button>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+<!-- esigndocument Modal -->
+<div id="esigndocument" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-tcpa user-modal-header" style="background-color:#63944C;">
+                <h4 class="modal-title" "color:#FFFF;"></h4>
+                <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+            </div>
+            <div class="modal-body bgColorWhite">
+                {% if esignPath %}
+                    {% include esignPath %}
+                {% endif %}
+            </div>
+            <div class="text-center">
+                <button type="button" data-dismiss="modal" class="btn-application">Continue</button>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+<!-- 30 day denial rule -->
+<div id="thirtyDayDenialRule" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content user-modal-content">
+            <div class="modal-header bg-tcpa user-modal-header" style="background-color:#63944C;">
+                <a type="button" class="close" href="/">&times;</a>
+            </div>
+            <br /> <br />
+            <div class="alert alert-danger text-center">
+                {{ reapplyerror }}
+            </div>
+            <br />
+            <div class="text-center">
+                <button type="button" onclick="window.location.href='/'" class="btn-application">Exit</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+<!-- Existing User -->
+<div id="existingUser" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content user-modal-content">
+            <div class="modal-header user-modal-header">
+                <a type="button" class="close" onclick="logoutRedirectSignin();">&times;</a>
+            </div>
+            <br /> <br />
+            <div class="alert alert-danger text-center">
+                {{ dupusererror }}
+            </div>
+            <br />
+            <div class="text-center">
+                <button type="button" onclick="logoutRedirectSignin();" class="btn-application">Sign In</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+<style>
+   .pac-container{
+    margin-top: -80px;
+  }
+
+  @media(max-width: 500px) {
+      .pac-container{
+        margin-top: -300px;
+    }
+  }
+</style>
+
+<script type="text/javascript">
+    window.addEventListener('message', function(e) {
+        if (e.data.step == "REDIRECT") {
+            console.log(e.data)
+            $("#requestId").val(e.data.requestId);
+            $("#loginId").val(e.data.loginId);
+            $("#formsubmit-btn").prop("disabled", false)
+        }
+    });
+    var autocomplete;
+    function initAutocomplete () {
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('streetsearch'),
+            {
+                componentRestrictions: { country: ['US']},
+                fields: ['address_components', 'place_id', 'geometry', 'name'],
+                types: ['address']
+            }
+        );
+        autocomplete.addListener('place_changed', onPlaceChanged);
+    }
+
+    $('.noEnterSubmit').keypress(function(e){
+        if ( e.which == 13 ) e.preventDefault();
+    });
+
+    function validateAddress () {
+        if (!document.getElementById('street').value) {
+            document.getElementById('streetsearch').value = '';
+            return false;
+        }
+        if (!document.getElementById('state').value) {
+            document.getElementById('streetsearch').value = '';
+            return false;
+        }
+    }
+
+    function onPlaceChanged () {
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            document.getElementById('street').value = '';
+            document.getElementById('city').value = '';
+            document.getElementById('state').value = '';
+            document.getElementById('zip').value = '';
+            document.getElementById('streetsearch').placeholder = 'Street Address';
+        } else {
+            var zip, city, state, address;
+            address = '';
+            place.address_components.forEach(component => {
+                if (component.types[0] === 'street_number') {
+                    address += component.long_name + ' ';
+                } else if (component.types[0] === 'route') {
+                    address += component.long_name;
+                } else if (component.types[0] === 'locality') {
+                    city = component.long_name;
+                    document.getElementById('city').value = city;
+                } else if (component.types[0] === 'administrative_area_level_1') {
+                    state = component.short_name;
+                    document.getElementById('state').value = state;
+                } else if (component.types[0] === 'postal_code') {
+                    zip = component.long_name;
+                    document.getElementById('zip').value = zip;
+                }
+            });
+            document.getElementById('street').value = address;
+            document.getElementById('street').innerHTML = place.name;
+        }
+    }
+
+    var ssn_value;
+    var $ssn;
+    var $ssnVal;
+    document.addEventListener( "DOMContentLoaded", function() {
+        if( $( "#reapplyerror" ).val() != "" ) {
+            console.log( "input error", $( "#reapplyerror" ).val() );
+            $('#thirtyDayDenialRule').modal( {backdrop: 'static', keyboard: false} );
+        }
+        if( $( "#dupusererror" ).val() != "" ) {
+            window.location.href = '/alreadyExists';
+        }
+
+
+
+		$.validator.addMethod("candidateIsEighteen", function(value, element) {
+			var birthday = moment( value + "-" + $("#birthmonth").val() + "-" + $("#birthday").val(), "YYYY-MM-DD" );
+			var age = moment().diff( birthday, "years" );
+			if( age < 18 ) {
+				return false;
+			}
+			return true;
+		});
+
+        $.validator.addMethod("incomeAmountValid", function(value, element) {
+            if (!value) { return false; }
+            var amount = value.replace(/[^0-9.]/g,'');
+            if (amount < 1 || amount > 10000) {
+                return false;
+            }
+            return true;
+        });
+        $.validator.addMethod("incomeAmountValid2Digits", function(value, element) {
+            if (!value) { return false; }
+            if (value !== value.replace(/^(?!([\$0-9]+(\.[0-9]{1,2})?$)).*$/g, '')) {
+                return false;
+            }
+            return true;
+        });
+		$.validator.addMethod("housingExpenseValid", function(value, element) {
+			if (!value) { return false; }
+			var amount = value.replace(/^[^0-9.]/g,'');
+			if (amount > 7999.99) {
+				return false;
+			}
+			return true;
+		});$.validator.addMethod("housingExpenseValid2Digits", function(value, element) {
+			if (!value) { return false; }
+			if (value !== value.replace(/^(?!([\$0-9]+(\.[0-9]{1,2})?$)).*$/g, '')) {
+				return false;
+			}
+			return true;
+		});
+
+        var validator = $("#userinfoform").validate( {
+            rules: {
+                "street": { required: true },
+                "city": { required: true },
+                "state": { required: true },
+                "zip": { required: true, minlength: 5, maxlength: 5, digits: true },
+                "ssn": { required: true, minlength: 11, maxlength: 11 },
+				"birthmonth": { required: true, digits: true },
+				"birthday": { required: true, digits: true },
+                "housingExpense": { required: true, housingExpenseValid: true, housingExpenseValid2Digits: true },
+                "residenceType": { required: true },
+                "incomeamount": { required: true, incomeAmountValid: true, incomeAmountValid2Digits: true }
+                /* "creditpullconfirm": { required: true } */
+            },
+            messages: {
+                "street": { required: "Street address is required." },
+                "city": { required: "City is required." },
+                "state": { required: "State is required." },
+                "zip": { required: "Zip code is required.", minlength: "Invalid zip code.", maxlength: "Invalid zip code." },
+                "ssn": { required: "Social security number is required.", minlength: "Invalid social security number.", maxlength: "Invalid social security number." },
+				"birthmonth": { required: "Birth month is required." },
+				"birthday": { required: "Birth day is required." },
+				"birthyear": { required: "Birth year is required.", haveFullBirthday: "A full birthday is required.", candidateIsEighteen: "You must be 18 years of age to apply." },
+                "housingExpense": { required: "Housing expense is required.", housingExpenseValid: "Must be less than $7,999.99", housingExpenseValid2Digits: "Should contain only 2 digits. For example: $333.33" },
+                "residenceType": { required: "Type of residence is required." },
+                "incomeamount": { required: "Monthly gross income is required.", incomeAmountValid: "Must be greater than $1 and less than $10,000", incomeAmountValid2Digits: "Should contain only 2 digits. For example: $333.33" }
+                /* "creditpullconfirm": { required:  "You must consent to the agreements." } */
+            },
+            errorPlacement: function( err, el ) {
+                var errId = err.attr( "id" );
+                var errEl = $( "#" + errId );
+                if( errEl.length === 1 ) {
+                    errEl.html( err.html() );
+                } else {
+                    err.appendTo( el.parent() );
+                }
+            },
+            unhighlight: function( el ) {
+                var $el = $( "#" + $(el).attr( "id" ) + "-error" );
+                if( $el.length === 1 ) {
+                    $el.html( "" );
+                }
+            },
+			submitHandler: ( form ) => {
+/*
+				( $( "#tcpacreditpull:checkbox:checked" ).length > 0 ) ? console.log("tcp checked"): console.log("tcp not checked");
+				( $( "#creditpullconfirm:checkbox:checked" ).length > 0 ) ? console.log("pull checked"): console.log("pull not checked");
+*/
+				/* prevent the form and checkbox from being changed by the user after the submit button has been clicked and before the screen is replaced */
+                $("#loaderIdCreateTracking").show();
+                var birthmonth = $("#birthmonth").val();
+                var birthday = $("#birthday").val();
+                var birthyear = $("#birthyear").val();
+
+                /* if ((!birthday) || (!birthmonth) || (!birthyear)) {
+                    $("#birthyear-error").val("A full birthday is required!!!");
+                } else {
+                    $("#birthyear-error").hide()
+                    form.submit();
+                } */
+
+                var dob = moment(`${birthyear}-${birthmonth}-${birthday}`, "YYYY-MM-DD" );
+                var age = moment().diff(dob, 'years');
+                if( age < 18 ) {
+                    $("#loaderIdCreateTracking").hide();
+                    $('#under18Message').show();
+                    window.scroll(0,0);
+                    console.log('not 18...', dob);
+                    return;
+                } else {
+                    console.log('above 18...');
+                    $("#birthyear").hide()
+                    form.submit();
+                }
+            }
+        } );
+
+        $( "#incomeamount" ).on( "change blur keyup keypress", function( e ) {
+            var $el = $( "#incomeamount" );
+            var val = $el.val().replace( /[^0-9.]/g, "" ) || "";
+            console.log( "incomeamount:", $el.val(), val, $el.val().replace( /[^0-9.]/g, "" )  );
+            if( val != "" ){
+                $el.val( "$" + val.toLocaleString( "en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 } ) );
+            }
+        } );
+
+        $( "#housingExpense" ).on( "change blur keyup keypress", function( e ) {
+            var $el = $( "#housingExpense" );
+            var val = $el.val().replace( /[^0-9.]/g, "" ) || "";
+            console.log( "housingExpense:", $el.val(), val, $el.val().replace( /[^0-9.]/g, "" ) );
+            if( val != "" ){
+                $el.val( "$" + val.toLocaleString( "en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 } ) );
+            }
+        } );
+
+        $ssn = $( "#social" );
+        $ssn.isMasked = true;
+        $ssnVal = $( "#ssn-val" );
+        ssnMask.init();
+
+		function updateDaySelect( dayInt, monthdays ) {
+			var html = [];
+			if( !dayInt || ( dayInt > monthdays ) ) {
+				html.push( "<option value='' selected disabled hidden>Day</option>" );
+			}
+			for( var idx = 1; idx <= monthdays; idx++ ) {
+				let value;
+				if( idx < 10 ) {
+					value = "0" + idx;
+				} else {
+					value = "" + idx;
+				}
+				if( dayInt && dayInt == idx ) {
+					html.push("<option value='", value, "' selected>", idx, "</option>" );
+				} else {
+					html.push("<option value='", value, "'>", idx, "</option>" );
+				}
+			}
+			$("#birthday").html( html.join( "" ) );
+
+		}
+
+		$("#birthmonth").change( ( monthidx ) => {
+			var day = $("#birthday").val();
+			var dayInt;
+			if( day ) {
+				dayInt = parseInt( day );
+			}
+			var year = $("#birthyear").val();
+			var monthdays;
+			if( year ) {
+				monthdays = moment( year + "-" + $("#birthmonth").val() , "YYYY-MM" ).daysInMonth();
+			} else {
+				monthdays = moment( "1992" + "-" + $("#birthmonth").val(), "YYYY-MM" ).daysInMonth();
+			}
+			updateDaySelect( dayInt, monthdays );
+		});
+
+		$("#birthyear").change( ( monthidx ) => {
+			var month = $("#birthmonth").val();
+			if( !month ) {
+				return;
+			}
+
+			var day = $("#birthday").val();
+			var dayInt;
+			if( day ) {
+				dayInt = parseInt( day );
+			}
+
+			var year = $("#birthyear").val();
+			const monthdays = moment( year + "-" + month, "YYYY-MM" ).daysInMonth();
+			updateDaySelect( dayInt, monthdays )
+		});
+    } );
+
+    function maskSSN( el ) {
+        $( el ).toggleClass( "fa-eye fa-eye-slash" );
+        $ssn.isMasked = ! $ssn.isMasked;
+        $ssn.val( ssnMask.transformDisplay( $ssnVal.val() ) );
+    }
+
+    var ssnMask = {
+        init: function () {
+            this.bind();
+        },
+        bind: function () {
+            $ssn.on( "keyup paste drop", this.syncInput );
+        },
+        transformDisplay: function (val) {
+            // Strip all non numbers
+            var displayVal = val.replace(/[^0-9|\\*]/g, '');
+            displayVal = displayVal.substr(0, 9);
+            // Inject dashes
+            if (displayVal.length >= 4) {
+                displayVal = displayVal.slice(0, 3) + '-' + displayVal.slice(3);
+            }
+            if (displayVal.length >= 7) {
+                displayVal = displayVal.slice(0, 6) + '-' + displayVal.slice(6);
+            }
+            // Replace all numbers with astericks
+            if( $ssn.isMasked ) {
+                displayVal = displayVal.replace(/[0-9]/g, '*');
+            }
+            return displayVal;
+        },
+        transformValue: function( val ) {
+            if (typeof ssn_value !== 'string') {
+                ssn_value = "";
+            }
+            if( ! val ) {
+                ssn_value = "";
+                return;
+            }
+            var cleanVal = val.replace(/[^0-9|\\*]/g, '');
+            cleanVal = cleanVal.substr(0, 9);
+            for (i = 0, l = cleanVal.length; i < l; i++) {
+                if (/[0-9]/g.exec(cleanVal[i])) {
+                    if( ssn_value.length === 0 || ssn_value.length === i){
+                        ssn_value += cleanVal[i];
+                    }else {
+                        ssn_value = ssn_value.substr(0,i) + cleanVal.charAt(i) + ssn_value.substr(i+1)
+                    }
+                 }
+            }
+            ssn_value = ssn_value.substr(0, cleanVal.length);
+        },
+        syncInput: function(e) {
+                var $input = $(this);
+                var val = $(this).val();
+                var displayVal = ssnMask.transformDisplay(val);
+                ssnMask.transformValue(val);
+                this.setSelectionRange(val.length, val.length);
+                $input.val(displayVal);
+                $ssnVal.val(ssn_value);
+        }
+    };
+
+    function logoutRedirectSignin() {
+        $.ajax( { url: "/userlogout" } ).done( function() { window.location.href = "/login"; } );
+    }
+    function opentcpa(){
+        $('#tcpadocument').modal('show');
+    }
+    function openflinks(){
+        $('#flinksmodal').modal('show');
+    }
+    function closeflinks(){
+        $('#flinksmodal').modal('hide');
+    }
+    function opencredit(){
+        $('#creditpulldocument').modal('show');
+    }
+    function openesign(){
+        $('#esigndocument').modal('show');
+    }
+</script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAV3IVUmaWViC4PAF5GdppPp1NaghrYvjg&libraries=places&callback=initAutocomplete">
+</script>
+</div>
+{% endblock %}

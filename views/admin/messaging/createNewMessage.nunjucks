@@ -1,0 +1,165 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        Create Messaging
+        <small>preview of Messaging</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Create Messaging</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Messaging Form</h3>
+		   <span class="pull-right" id="fluidform" style="display:none;"> <button type="button" class="btn btn-primary" onclick="showform('fluidform');"><i class="fa fa-envelope" aria-hidden="true"></i> Send message to Target Fast Cash</button> &nbsp;&nbsp; <a href="/admin/messaging"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a></span>
+           <span class="pull-right" id="individualform" style="display:block;"> <button type="button" class="btn btn-primary" onclick="showform('individual');"><i class="fa fa-envelope" aria-hidden="true"></i> Send message to individual</button> &nbsp;&nbsp; <a href="/admin/messaging"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a></span>
+        </div>
+        <div class="box-body">
+		
+		
+		  <div id="fluidformdiv" style="display:block;">
+			<form role="form" method="POST" enctype="multipart/form-data" action="/admin/sendMessage">
+			 <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+				<table class="table table-bordered">
+				  <tbody>
+				  <tr>
+						<th width="20%"> Subject </th>
+						<td><div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="subject" name="subject" required></div></td>
+				  </tr>
+				  <tr>
+						<th>Message</th>
+						<td>
+						  <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><textarea class="form-control" id="message" name="message" rows="5" required></textarea></div>
+						</td>
+				  </tr>
+				   <tr>
+						<th>Category</th>
+						<td>
+						 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"> <select class="form-control"  id="category" name="category" onchange="selectreferral(this.value);"  >
+						    <option value="inbox">Inbox</option>	
+							<option value="newsriver">News River</option>	
+							<option value="referral">Referral</option>						  
+						  </select></div>
+						</td>
+				  </tr>
+				   <!-- <tr id="universityoption">
+						<th widh="50%">University</th>
+						<td style="position:relative;">
+						<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"> <input type="hidden" class="form-control"  id="universityid" name="universityid" >
+						 <input type="text" class="form-control typeahead tt-query" id="university" name="university"  autocomplete="off" onkeyup="searchuniversity(this.value);">
+						 <div class="tt-menu" style="position: absolute; top: 59%; left: 1%; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-countries"></div></div>
+						</div>
+						</td>
+				  </tr> -->
+				  <tr id="referralpartner">
+						<th widh="50%">Partner</th>
+						<td style="position:relative;">
+							 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+								<input type="hidden" class="form-control" id="selpartnername" name="selpartnername">
+								 <select class="form-control"  id="partner" name="partner" onchange="showpartner(this.value);">
+									<option value=""> --- Select --- </option>
+									{% for partnerdata in  partnerlistdata %}
+										<option value="{{ partnerdata.id }}"> {{ partnerdata.partnername }} </option>
+									{% endfor %} 
+								</select>
+						</div>
+							
+						</td>
+				  </tr>
+				  <tr id="referralproduct">
+						<th widh="50%">Product</th>
+						<td style="position:relative;">
+							<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+							   <select class="form-control"  id="product" name="product">
+									<option value=""> --- Select --- </option>
+								</select>
+							</div>
+						</td>
+				  </tr>
+				  
+				  <tr>
+						<td colspan="2" align="center">
+						  <button type="submit" class="btn btn-primary" >Send</button>
+						</td>  
+			      </tr>
+				</tbody>
+			</table>
+			</form>
+		</div>
+		 <div id="individualdiv" style="display:none;">
+		    
+			<form role="form" method="POST" enctype="multipart/form-data" action="/admin/sendMessage">
+			 <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+			 <input class="" type="hidden" id="process" name="process" value="individual">
+			 <input type="hidden" class="form-control"  id="individualid" name="individualid" >
+				<table class="table table-bordered">
+				  <tbody>
+				   <tr id="nameoption">
+						<th widh="50%">Name</th>
+						<td style="position:relative;">
+						<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"> 
+						 <input type="text" class="form-control typeahead tt-query" id="username" name="username"  autocomplete="off" onkeyup="searchindividual(this.value);">
+						 <div class="tt-menu tt-menu1" style="position: absolute; top: 59%; left: 1%; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-countries"></div></div>
+						</div>
+						</td>
+				  </tr>
+				  <tr id="emailphoneoption">
+						<th widh="50%">Email or Phone</th>
+						<td style="position:relative;">
+						<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"> 
+						 <!-- <input type="hidden" class="form-control"  id="emailphoneid" name="emailphoneid" > -->
+						 <input type="text" class="form-control typeahead tt-query" id="useremailphone" name="useremailphone"  autocomplete="off" onkeyup="searchemailphone(this.value);">
+						 <div class="tt-menu tt-menu2" style="position: absolute; top: 59%; left: 1%; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-countries"></div></div>
+						</div>
+						</td>
+				  </tr>
+				  <tr>
+						<th width="20%"> Subject </th>
+						<td><div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="subject" name="subject" required></div></td>
+				  </tr>
+				  <tr>
+						<th>Message</th>
+						<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><textarea class="form-control" id="message" name="message" rows="5" required></textarea> <input type="hidden" class="form-control"  id="category" name="category" value="inbox" ></div></td>
+				  </tr>
+		          <tr>
+						<td colspan="2" align="center"><button type="submit" class="btn btn-primary" >Send</button></td>  
+			      </tr>
+				</tbody>
+			  </table>
+			</form>
+		 
+		 
+		 </div>
+		
+			
+			
+			
+        </div>
+      </div>
+    </section>
+	<script>
+	  function showform(formname){
+	  
+	    
+	    if(formname=='individual'){
+		   document.getElementById('individualform').style.display='none';
+		   document.getElementById('fluidform').style.display='block';
+		   document.getElementById('individualdiv').style.display='block';
+		   document.getElementById('fluidformdiv').style.display='none';
+		}else{
+		   document.getElementById('individualform').style.display='block';
+		   document.getElementById('fluidform').style.display='none';
+		   document.getElementById('individualdiv').style.display='none';
+		   document.getElementById('fluidformdiv').style.display='block';
+		}
+	  
+	  }
+	  
+	  
+	 
+	
+	</script>
+{% endblock %}

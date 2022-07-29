@@ -1,0 +1,24 @@
+
+<style>
+    .back-sign-pad{
+        border:1px solid;
+        border-radius: 7px;
+        min-height: 60px;
+        background-color: #FFF;
+    }
+</style>
+<center>
+    <div id="signature-pad" class="signature-pad" style="width:925; height:180;">
+        <div id="nosignError" style="display:none; color: red;"><strong> Please sign signature pad. </strong></div>
+        <div class="signature-pad--body">
+            <canvas width="925" height="115" style="width:925px; height:115px;" class="back-sign-pad"></canvas><br>
+        </div>
+        <br>
+        <div class="signature-pad--actions">
+            <button type="button" class="btn btn-info" data-action="" id="clearSignature">Clear</button>&nbsp;
+            <button type="button" class="btn btn-info" data-action="save-png" id="acceptSignature">Accept</button>
+            <input type="hidden" name="checkCanvasEmpty" id="checkCanvasEmpty" class="form-control input-normal" value="{{ signatureExistArbitration }}">
+            <input type="hidden" name="hiddensignatureid" id="hiddensignatureid" class="form-control input-normal" value="{{ signatureIdArbitration }}">
+        </div>
+    </div>
+</center>

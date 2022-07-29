@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <head>
+    <style>
+      body {
+        background-color: white;
+        font-family:"Neo Sans fonts", Verdana, sans-serif;
+      }
+
+      h1 {
+        color: black;
+      }
+
+      p {
+          color: black;
+      }
+    </style>
+    <style>
+table,th,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+</style>
+  </head>
+  <h1> TRUTH IN LENDING DISCLOSURE STATEMENT </h1>
+  <p1>Lender
+  </p1>
+  <br>
+  <p1>
+     Kuber Financial LLC
+   </p1>
+   <br>
+   <p1>
+     278 N Buckskin Way
+   </p1>
+   <br>
+   <p1>
+     Orange, CA 92869
+  </p1>
+  <br>
+  <p1>
+    Borrower
+  </p1>
+  <br>
+  <p1>
+    Name: {{object.name}}
+  </p1>
+  <br>
+  <p1>
+    Address:{{object.address}}
+  </p1>
+  <br>
+  <table style="width:100%">
+  <tr>
+  <th> <bold> ANNUAL PERCENTAGE RATE </bold></th>
+  <th> <bold> FINANCE CHARGE </bold></th>
+  <th> <bold> AMOUNT FINANCED</bold></th>
+  <th> <bold> TOTAL OF PAYMENTS</bold></th>
+  </tr>
+  <tr>
+  <td> The cost of your credit as a yearly rate</td>
+  <td> The dollar amount the credit will cost you</td>
+  <td> The amount of credit provided to you or on your behalf</td>
+  <td>The amount you will have paid when you have made all scheduled payments</td>
+  </tr>
+  <tr>
+  <td> {{object.annualPercentageRate}}%</td>
+  <td> ${{object.amountProcessed}}</td>
+  <td> ${{object.amount}}</td>
+  <td> ${{object.amount}}</td>
+  </tr>
+</table>
+  <p1> Your payment schedule will be as follows: </p1>
+  <br>
+  <table>
+  <tr>
+  <th> <bold> Number of payments </bold> </th>
+  <th><bold> Amount   </bold></th>
+  <th> <bold>  When payments are due </bold></th>
+ </tr>
+ <tr>
+  <td><p1>1</p1>  </td>
+  <td>${{object.EmiAmount}}  </td>
+  <td> First payment is due on {{object.firstEmiDate}}, and each subsequent payment is due monthly thereafter on the same day of each month</td>
+</tr>
+<tr>
+  <td> <p1>2</p1></td>
+  <td>  ${{object.EmiAmount}}  </td>
+  <td>Second  payment is due on {{object.secondEmiDate}}</td>
+</tr>
+<tr>
+  <td><p1> 3</p1></td>
+  <td>  ${{object.EmiAmount}}  </td>
+  <td>Last payment is due on {{object.maturityDate}}</td>
+</tr>
+</table>
+  <p1> Late charges:If your payment arrives after your 15days grace period,you will be charged a late fee of $0.This fee is charged only once per late payment.</p1>
+  <br>
+  <p1>Prepayment policy:If you pay off your financing early, you will not be charged a penalty. In the event of a full prepayment, you may be entitled to a refund of part of the finance charge.</p1>
+<br>
+<p1><bold>See your Financing Agreement for any additional information about nonpayment, default, or other matters related to your financing.<bold></p1>
+  <br>
+  <p1>(e) means estimate
+Total Amount Requested:${{object.amount}}
+Origination Fees: $0</p1>
+<br>
+<p1> Total Amount Received:${{object.amount}}</p1>
+<br>
+<p>Unsuccessful payment fee.When a payment fails and is rejected by your bank, you will be charged an Unsuccessful Payment Fee of $15 to cover the cost Kuber Financial LLC incurs on the transaction.
+Each attempt to collect a monthly payment is considered a separate transaction, so an Unsuccessful Payment Fee will be assessed for each failed attempt.</p>
+<br>
+<p1> Check Processing Fee.If you elect to make payments by check, there will be a $7 processing fee by payment.</p1>
+<br>
+<p1><bold>You are not required to complete this agreement merely because you have received these disclosures or signed a borrower agreement.</bold></p1>
+<br>
+<p1><bold> Date Provided :{{object.date}}</bold></p1>
+
+{% if not object.name %}
+
+{% else %}
+E SignedBy Person:{{object.name}}
+{% endif %}
+<br>
+<p1>
+  Ip:{{ip}}
+</p1>
+<br>
+<p1>
+  Date:{{object.date}}
+</p1>
+<br>
+</p1>
+</body>
+
+</html>

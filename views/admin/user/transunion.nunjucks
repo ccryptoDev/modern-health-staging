@@ -1,0 +1,28 @@
+<style type="text/css">
+  .clrRed{color:red !important;}
+  .pl0{padding-left:0 !important;}
+  .pr0{padding-right:0 !important;}
+  .pt40{padding-top:40px !important;}
+  .pt27{padding-top:27px !important;}
+  .width120{width:120px !important;}
+  .width50{width:50px !important;margin:5px !important;}
+  .width80{width:80px !important; margin:5px !important;}
+  .width70{width:70px !important;}
+  .padleft{ padding-left:0 !important;}
+  #transunionmessage{
+    padding-top: 30px;
+  }
+</style>
+<div class="box-body">
+	<div class="col-md-12">
+		<!-- Transunion details form div starts here -->
+		<div class="col-md-12"  id="showaddtransunionform" style="display:none;">      
+			{% include "admin/user/transunionadd.nunjucks"%}
+		</div>
+		<!-- Transunion details starts here -->
+		<div id="transunionDetails" style="display:block; padding-top:30px;">
+			<h3>Credit Report</h3>
+			{% include "admin/user/transunioninfo.nunjucks"%}
+		</div>
+	</div>
+</div>

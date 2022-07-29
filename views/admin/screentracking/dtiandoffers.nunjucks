@@ -1,0 +1,92 @@
+<div class="box-body">
+  <h3>DTI and Offers</h3>
+  <div class="col-md-10 col-md-offset-1" aligne="center">
+	<div class="bankDetails selectaccountinfo">
+		<div class="table-reponsive">
+		
+		    {% if dtiandoffers.code ==200 %}
+			  <table class="table table-bordered">
+                  <tbody>
+				    <tr>
+                      <th>Monthly Income Input</th>
+                      <td>
+                        ${{dtiandoffers.monthincome}} 
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Current Total Balance</th>
+                      <td>
+                        ${{dtiandoffers.alltotalbalance}} 
+                      </td>
+                    </tr>
+					{% if dtiandoffers.productname=='State License' %}
+					 <tr>
+                      <th>B/R/F Balance</th>
+                      <td>
+                        ${{dtiandoffers.BRFbalance}} 
+                      </td>
+                    </tr>
+					<tr>
+                      <th>Selected Debt to be paid </th>
+                      <td>
+                        ${{dtiandoffers.NonBRFbalance}} 
+                      </td>
+                    </tr>
+					{% endif %}
+					<tr>
+                      <th>Pre Total Monthly Payment</th>
+                      <td>
+                       ${{dtiandoffers.pretotalmonthlyamount}}
+                      </td>
+                    </tr>
+					{% if dtiandoffers.productname=='State License' %}
+					<tr>
+                      <th>No-Debt Monthly Payment</th>
+                      <td>
+                       ${{dtiandoffers.nondebitmonthlyamount}}
+                      </td>
+                    </tr>
+					{% endif %}
+					<tr>
+                      <th>Post Total Monthly Payment</th>
+                      <td>
+                        ${{dtiandoffers.posttotal}} 
+                      </td>
+                    </tr>
+					<tr>
+                      <th>Payment Diff</th>
+                      <td>
+                        ${{dtiandoffers.PaymentDiff}} 
+                      </td>
+                    </tr>
+					
+					<tr>
+                      <th>PreDTL</th>
+                      <td>
+                       {{dtiandoffers.preDTI}}%
+                      </td>
+                    </tr>
+					<tr>
+                      <th>PostDTI</th>
+                      <td>
+                        {{dtiandoffers.PostDTI}}%
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+				
+			
+				
+			 {% else %}
+			
+			
+			
+				 <div class="alert alert-danger alert-important">
+					 No Offer selected for this financing
+				 </div>
+			{% endif %}	
+				
+		</div>
+	</div>
+ </div>
+</div> 	

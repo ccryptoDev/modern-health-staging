@@ -1,0 +1,288 @@
+@charset "UTF-8";
+
+@media only screen and (max-width:767px){
+	.logoMiddle img{width:150px;}
+}
+
+
+@media only screen and (max-width:3200px){
+	/* .logoMiddle{margin:450px 0 0;} */
+	/*.applicationPage .logoMiddle{margin-top:100px;}*/
+	.hintmessage{right:-300px;}
+	.pfi-model{width:70%}
+}
+@media only screen and (max-width:3000px){
+	/* .logoMiddle{margin:350px 0 0;} */
+	/*.applicationPage .logoMiddle{margin-top:100px;}*/
+	.hintmessage{right:-300px;}
+	.pfi-model{width:70%}
+}
+@media only screen and (max-width:2700px){
+	/* .logoMiddle{margin:130px 0 0;} */
+	/*.applicationPage .logoMiddle{margin-top:100px;}*/
+	.hintmessage{right:-300px;}
+	.pfi-model{width:70%}
+}
+@media only screen and (max-width:2180px){
+	/* .logoMiddle{margin:200px 0 0;} */
+	/*.applicationPage .logoMiddle{margin-top:100px;}*/
+	.hintmessage{right:-300px;}
+	.pfi-model{width:70%}
+}
+@media only screen and (max-width:1920px){
+	/* .logoMiddle{margin:150px 0 0;} */
+	/*.applicationPage .logoMiddle{margin-top:100px;}*/
+	.hintmessage{right:-300px;}
+	.pfi-model{width:70%}
+}
+@media only screen and (max-width:1680px){
+	/* .logoMiddle{margin:80px 0 0;} */
+	/* .personlInfoBC .logoMiddle{margin:5px 0 0;} */
+	/*.applicationPage .logoMiddle{margin-top:40px;}*/
+	/*.hintmessage{right:-360px;}*/
+	.hintmessage{right:-240px;}
+}
+@media only screen and (max-width:1440px){
+	/* .logoMiddle{margin:30px 0 0;} */
+	/*.applicationPage .logoMiddle{margin-top:0px;}*/
+	.bodyContent{background-position:0 -105px;}
+	.personlInfoBC{background-position:0 -65px;}
+}
+@media only screen and (max-width:1366px){
+	/*.logoMiddle{margin:55px 0 0;}*/
+	.heading h1{margin:30px 0 0;}
+	/* .whitebox{margin:30px auto 20px;padding:20px;} */
+	/* .whitebox img{margin-bottom:15px;} */
+	/*.infoForm{width:80%;}*/
+}
+@media only screen and (max-width:1280px){
+
+	/* .whitebox{margin-top:30px;} */
+	.personlInfoBC{background-position:0 0px;}
+}
+@media only screen and (max-width : 1200px) {
+	.bodyContent {background-position: 0 -60px;}
+	.personlInfoBC{background-position:0 20px;}
+	.NewBodyBg{height:150px;display:block;}
+}
+@media only screen and (max-width:1080px){
+	/* .heading h1{font-size:30px;} */
+	.bodyContent{background-position:0 -50px;}
+	.personlInfoBC{background-position:0 60px;}
+	.btnMain .borderBtn {margin-bottom:10px;}
+
+
+}
+@media only screen and (max-width:1024px){
+	.bodyContent{background-position:0 -10px;}
+	.personlInfoBC{background-position:0 60px;}
+	.middleBox{width:340px;}
+	.leftBox, .rightBox{width:280px;}
+}
+@media only screen and (max-width : 992px) {
+
+}
+@media only screen and (max-width : 991px) {
+
+}
+@media only screen and (max-width : 980px) {
+
+}
+@media only screen and (max-width : 960px) {
+
+}
+@media only screen and (max-width : 950px) {
+	/* .logoMiddle img{width:150px;} */
+	.heading h1{margin-top:20px; font-size:20px;}
+	.subTitle h1{font-size:24px;}
+	.pfi-model{width:95%}
+}
+@media only screen and (max-width : 900px) {
+
+.bodyContent{background-position:0 -38px;}
+.personlInfoBC{background-position:0 90px;}
+.NewBodyBg{height:200px;}
+.appNewBC{background-position:0 0px;}
+
+.leftBox, .rightBox{display:block;margin:30px 15px;}
+.threeBox{flex-wrap:wrap-reverse;-ms-flex-wrap:wrap-reverse;}
+.middleBox{-ms-flex-order: 1;order: 1;}
+
+.steps_Tabs li{}
+.steps_Tabs li span {}
+.infoForm{ width: 90%; }
+
+
+}
+
+@media only screen and (max-width : 823px) {
+	.bodyContent{background-position:0 -30px;}
+	.personlInfoBC{background-position:0 90px;}
+	.NewBodyBg{height:200px;}
+	.bankListBox{text-align:center;}
+	.bankListBox div.darkGrayBox{float:left;width:31%;}
+	.bankListBox div.darkGrayBox:nth-of-type(4) {margin-right:10px;}
+	.personalInfoInner{padding:0;}
+}
+@media only screen and (max-width:812px){
+
+}
+@media only screen and (max-width:800px){
+	.bodyContent{background-position:0 -10px;}
+	.personlInfoBC{background-position:0 140px;}
+	.NewBodyBg{height:220px;}
+
+	.steps_Tabs li{}
+	.steps_Tabs li span {}
+}
+@media only screen and (max-width:773px){
+	.steps_Tabs li{width:95px;}
+	.appNewBC{background-position:0 30px;}
+}
+@media only screen and (max-width:768px){
+
+}
+@media only screen and (max-width : 767px) {
+	.top-nav{text-align:center;}
+	.locationNameView{text-align:center;padding-top:10px;}
+	.locationNameView a{display:inline-block;}
+	.NewBodyBg{height:250px;}
+
+	.steps_Tabs li{width:90px;}
+	.steps_Tabs li span.line{width:56px;}
+	.steps_Tabs li span.text{display:none;}
+	.steps_Tabs li span.mobileTxt{display:block;}
+
+	.hintmessage{right: auto;}
+}
+@media only screen and (max-width:736px){
+
+
+}
+@media only screen and (max-width:731px){
+
+}
+@media only screen and (max-width:667px){
+
+	.bodyContent{background-position:0 30px;}
+	.bodyBg{height:100px;display:block;}
+	.NewBodyBg{height:150px;}
+	.personlInfoBC{background-position:0 140px;}
+	.personlInfoMobBg{height:250px;}
+	.appNewBC{background-position:0 80px;}
+	.steps_Tabs li {width: 85px;}
+	.steps_Tabs li span.line{width:55px;}
+	.pfi-model h3 { padding: 10px 0 0; margin-top: 8%;font-size: 18px;}
+	.pfi-model .close {  margin: -5% 2%;}
+}
+@media only screen and (max-width:640px){
+	.leftBox, .rightBox{width:340px;height:282px;}
+	.steps_Tabs li {width: 75px;}
+	.steps_Tabs li span.line{width:48px;}
+
+}
+@media only screen and (max-width:600px){
+	.bodyContent{background-position:0 60px;}
+	.bodyBg{height:120px;}
+	.NewBodyBg{height:180px;}
+	.personlInfoBC{background-position:0 180px;}
+	.personlInfoMobBg{height:300px;}
+	.bankListBox div.darkGrayBox{float:left;width:45%;}
+
+}
+@media only screen and (max-width:568px){
+
+	.bodyContent{background-position:0 60px;}
+	.bodyBg{height:150px;}
+	.NewBodyBg{height:190px;}
+	.personlInfoBC{background-position:0 200px;}
+	.personlInfoMobBg{height:300px;}
+	.appNewBC{background-position:0 100px;}
+	.steps_Tabs li {width: 65px;}
+	.steps_Tabs li span.line{width:40px;}
+	.pfi-model .close {  margin: -4.5% 2%;}
+}
+@media only screen and (max-width:540px){
+	#header .container-fluid{padding:0 15px;}
+	.footerBottom .container{padding:0 15px;}
+	.top-nav{text-align:center;padding:20px 0;}
+
+
+	.subTitle h1 span{display:inherit;}
+	.footerMenu li:first-child{display:block;}
+	.footerMenu li:nth-child(2):before{content:'';}
+
+	.personlInfoBC{background-position:0 230px;}
+	.personlInfoMobBg{height:350px;}
+	.appNewBC{background-position:0 150px;}
+}
+@media only screen and (max-width:480px){
+
+	.bodyContent{background-position:0 80px;}
+	.bodyBg{height:170px;}
+	.NewBodyBg{height:200px;}
+	.personlInfoBC{background-position:0 250px;}
+	.personlInfoMobBg{height:380px;}
+	.appNewBC{background-position:0 150px;}
+	.steps_Tabs li {width: 55px;}
+	.steps_Tabs li span.line{width:35px;}
+	.commonimg img {display: inline-block; margin-bottom: 20px; width: 230px !important;}
+
+}
+@media only screen and (max-width:435px){
+	.bodyContent{background-position:0 140px;}
+	.bodyBg{height:230px;}
+	.NewBodyBg{height:280px;}
+	.personlInfoBC{background-position:0 290px;}
+	.personlInfoMobBg{height:420px;}
+	.appNewBC{background-position:0 180px;}
+	.steps_Tabs li {width: 45px;}
+	.steps_Tabs li span.line{width:30px;left:72%}
+
+}
+@media only screen and (max-width:414px){
+	.infoForm { width: 98%; }
+	.personalInfoInner h1{font-size:20px;margin:20px 0;line-height:25px;}
+}
+@media only screen and (max-width:411px){
+	/* .whitebox{width:300px;padding:10px 15px;} */
+	/* .top-nav .btn{margin:0 5px 5px 0;} */
+	.threeBox{margin-top:20px;}
+	.btnMain .btn{margin:0 20px 15px;}
+	.infoForm { width: 98%; }
+}
+@media only screen and (max-width:384px){
+	/* .footerMenu li{margin:5px 25px;} */
+	/* .footerMenu li:nth-child(4):before{content:'';} */
+	/* .footerMenu li + li:before{left:-30px;} */
+	.steps_Tabs li {width: 45px;}
+	.steps_Tabs li span.line{width:20px;left:80%}
+	.appNewBC{background-position:0 220px;}
+	.pfi-model .close {  margin: -3% 2%;}
+}
+@media only screen and (max-width:375px){
+	#estimatePayment .btnMain .borderBtn { min-width: 200px;}
+}
+@media only screen and (max-width:360px){
+	.steps_Tabs li {width: 40px;}
+	.steps_Tabs li span.line{width:20px;left:80%}
+}
+
+@media only screen and (max-width:320px){
+	#chatsupportdiv button {min-width: 165px;}
+	/* #searchListing{padding: 20px 3px 10px;} */
+	.practicename{font-size: 14px;}
+	.practicelocation{font-size: 14px;}
+	.bodyContent{background-position:0 200px;}
+	.bodyBg{height:300px;}
+	.appNewBC{background-position:0 150px;}
+	/* .whitebox{width:95%;padding:10px 15px;} */
+	/* .footerMenu li{display:block;margin:10px 0;} */
+	/* .footerMenu li + li:before{content:'';} */
+	/* .footerMenu li a img{width:80px;} */
+	/* .top-nav{padding:10px 0;} */
+	.locationNameView{padding-top:10px;}
+	.steps_Tabs li {width: 32px;}
+	.steps_Tabs li span.line{width:10px;left:90%}
+	#consentError, #checkError {font-size: 12.5px}
+}

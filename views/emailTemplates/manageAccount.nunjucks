@@ -1,0 +1,23 @@
+{% block content %}
+<div class="manage">
+	<h2 class="manageAccountTitle">Manage Your Account: </h2>
+	<p>You will soon receive a <strong>Welcome Letter</strong> from our <strong>Customer Service department</strong> with the following instructions of how to contact us & enroll for account access online:</p>
+	<p>Call Us - You may connect to a Customer Service representative at <a href="tel:888-585-8319">(888) 585-8319</a> Monday-Friday 8am-9pm & Saturday 7am-12pm (Central)</p>
+	<p>Log In Online - <a href="http://www.modernhealthfinance.com/register/">Register Now</a>  for your new personal online account, using just your Social Security Number: <a href="http://www.modernhealthfinance.com/register/">http://www.modernhealthfinance.com/register/</a></p>
+	</div>
+	<hr>
+	<h3 class="manageAccountTitle">Please Note:</h3>
+	<ul class="dashed">
+	<li>Payments Made by ACH or Debit will read <strong>"VERVENT INC payix.net"</strong> or <strong>“Private Payment Services”</strong> or <strong>“PrivatePmtSvcing”</strong> depending on your bank.</li>
+	<li>We do not send statements via regular mail. You will receive email and text reminders and receipts. You can track your payment history in your <a href="http://www.modernhealthfinance.com/register/">online account.</a></li>
+	<li>Please check in your “Spam” folder for emails from our Customer Service team at <a href="mailto:modernhealthfinance@acct-admin.com">modernhealthfinance@acct-admin.com</a> or <a href="mailto:portal1@FA-servicing.com">portal1@FA-servicing.com</a> if you think you are not receiving your email statements in your inbox.</li>
+	<li>Promotional Financing Option: You will be billed for monthly payments beginning one month after your date of purchase.  Your billing will include interest the rate stated in your contract from the date of the purchase contract.   However, if your purchase contract is paid in full within the 180 day promotional period, then all the interest you have paid will be rebated to you. The Minimum Monthly  Payment  may  or  may  not  pay  off  the  promotional  purchase  before  the  end  of  the promotional period.  Interest will be credited to your account if you meet the following conditions:
+	<ol class="inner-alpha">
+		<li class="parens"> Make all minimum monthly payments on time.</li>
+		<li class="parens"> Do not incur a late fee or NSF fee.</li>
+		<li class="parens"> Notify us via telephone at <a href="tel:619-403-9753">(619) 403-9753</a> or via email.</li>
+	</ol>
+	<li>Please note that we will apply any additional payments made by you to the principal balance owing on your loan, unless you provide written instructions to us at the time the additional payment is made to apply the additional payment in another manner.</li>
+	</ul>
+	</div>
+{% endblock %}

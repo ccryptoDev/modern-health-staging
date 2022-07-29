@@ -1,0 +1,610 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      View Default User
+      <small>preview of Default User</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/defaultUsers"><i class="fa fa fa-building"></i>Default User</a></li>
+      <li class="active">View Default User</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">View Default User</h3>
+		<span class="pull-right"><a href="/admin/defaultUsers"><button type="button" class="btn btn-primary">Back</button></a></span>
+      </div>
+      <div class="box-body">
+	   {% if (chargeerror)  %}
+         <div class="alert alert-danger">
+          {{chargeerror}}
+        </div>
+        <br>
+       {% endif %}
+	   {% if (chargesuccess)  %}
+         <div class="alert alert-success">
+          {{chargesuccess}}
+        </div>
+        <br>
+       {% endif %}
+	   
+	   {% if (repullpayerrorval)  %}
+           <div class="alert alert-danger">
+            {{repullpayerrorval}}
+          </div>
+          <br>
+       {% endif %}
+       {% if (repullpaysuccessval)  %}
+           <div class="alert alert-success">
+            {{repullpaysuccessval}}
+          </div>
+          <br>
+       {% endif %}
+
+       {% if (defaultschudleerrormsg)  %}
+           <div class="alert alert-danger">
+            {{defaultschudleerrormsg}}
+          </div>
+          <br>
+       {% endif %}
+       {% if (defaultschudlesucessmsg)  %}
+           <div class="alert alert-success">
+            {{defaultschudlesucessmsg}}
+          </div>
+          <br>
+       {% endif %}
+
+       {% if (defaultmakepaymenterrormsg)  %}
+           <div class="alert alert-danger">
+            {{defaultmakepaymenterrormsg}}
+          </div>
+          <br>
+       {% endif %}
+       {% if (defaultmakepaymentsuccessmsg)  %}
+           <div class="alert alert-success">
+            {{defaultmakepaymentsuccessmsg}}
+          </div>
+          <br>
+       {% endif %}
+	   
+	   
+	   
+	  <div id="tabs">
+          <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+		  <input class="" type="hidden" id="userbankaccountID" name="userbankaccountID" value="{{ userbankaccountID }}">
+          <input class="" type="hidden" id="accountID" name="accountID" value="{{ paymentmanagementdata.account }}">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#userinfo">User Information</a></li>
+			<li><a data-toggle="tab" href="#userbankinfo" >Bank Accounts</a></li>
+            <li><a data-toggle="tab" href="#payscheduleinfo">Payment Schedule Information</a></li>
+          </ul>
+	      <div class="tab-content">
+	  
+	        <div id="userinfo" class="tab-pane fade in active">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>User Information</h3>
+                <div id="responsemessage"></div>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                      <tbody>
+                      <tr>
+                        <th>Name</th>
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                        <td>
+                         &nbsp;
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <th>Email Address</th>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.isValidEmail %}
+                              <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i>  Valid Email</p>
+                            {% else %}
+                              <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i> Invalid Email</p>
+                            {% endif%}
+                            
+                            {% if user.isEmailVerified %}
+                              <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i>  Email verified</p>
+                            {% else %}
+                              <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i> Email unverified</p>
+                            {% endif%}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Phone Number</th>
+                        <td>{{ user.phoneNumber }}</td>
+                        <td>
+                            {% if user.isPhoneVerified %}
+                              <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i>  Phone verified</p>
+                            {% else %}
+                              <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i> Phone unverified</p>
+                            {% endif%}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Date of Birth</th>
+                        <td>{{ user.dateofBirth }}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+					  
+                      <tr>
+                        <th>Address</th>
+                        <td>{{ user.addresses }} <br/> 
+                            {% if user.street %}
+                            {{ user.street }} <br/>
+                            {% endif%}
+                            {{ user.city }} <br/>
+                            {{ user.zipCode }} <br/>
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>State</th>
+                        <td>{% if user.state %}
+						{{ user.state}}  
+						{% else %}
+                          --
+                          {% endif %}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+					  
+					  <tr>
+                        <th>Registered Date</th>
+                        <td>{{ user.createdAt }}                       
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+					  
+					  <tr>
+                        <th>Financing Reference Number</th>
+                        <td>
+                            {% if paymentmanagementdata.loanReference %}
+                             {{ paymentmanagementdata.loanReference }} 
+                            {% else %}
+                             --
+                            {% endif %}                            
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+					  
+					  
+					   <tr>
+                        <th>Financing Status</th>
+                        <td>
+                            {% if paymentmanagementdata.achstatus==1 %}
+                              
+                              {% if paymentmanagementdata.transferstatus==2 %}
+                                <i class='fa fa-circle text-success' aria-hidden='true' ></i> Funded
+                              {% else %}
+                                <i class='fa fa-circle text-success' aria-hidden='true' ></i> Approved (processing)
+                              {% endif %} 
+                            {% elseif paymentmanagementdata.achstatus==2 %} 
+                              <i class='fa fa-circle text-danger' aria-hidden='true' ></i> Denied
+                            {% else %}
+                             <i class='fa fa-circle text-warning' aria-hidden='true' ></i> Pending
+                            {% endif %} 
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      
+
+                      </tbody>
+                  </table>
+                 
+                </div>
+               </div>
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>Viking Reject Information</h3>
+                <div id="responsemessage"></div>
+                <div class="table-responsive">
+                   <table class="table table-bordered">
+				   		<tr>
+							<td>Unique Id</td>
+							<td>A/c No</td>
+							<td>Schedule Date</td>
+							<td>Amount</td>
+							<td>Lender Type</td>
+							<td>Reject Code</td>
+							<td>Reason</td>
+						</tr>
+						{% if(vikingData.length > 0) %}
+							{% for item in vikingData %}
+							<tr>
+							  <td>{{ item.uniqueID }}</td>
+							  <td> xxxxxx{{item.consumersBankAccount.slice(6)}}</td>
+							  <td>{{ momentDate(item.scheduleDate).format('ddd, MMM Do YYYY')}}</td>
+							  <td>${{ item.amount }}</td>
+							  <td>{{ item.lenderType }}</td>
+							  <td>{{ item.rejectCode }}</td>
+							  <td>{{ vikingConfig.rejectReason[item.rejectCode] }}</td>
+							</tr>
+						   {% endfor %}
+					   {% else %}
+					   		<tr>
+								<td colspan="7" align="center">No Data Found</td>
+							</tr>
+					   {% endif %}
+					   
+				   </table>
+                 
+                </div>
+               </div> 
+            </div>
+			
+			
+			
+			 <div id="userbankinfo" class="tab-pane fade">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>User Plaid Information </h3>
+
+                <div class="panel-group">
+                  <div class="panel panel-default panel-faq">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                       User Plaid Information
+                      </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                            <th>Name</th>
+                            <td>{{ plaidDetails[0].names }}</td>
+                            </tr>
+                            <tr>
+                            <th>Email</th>
+                            <td>{{ plaidDetails[0].emails[0].data }}</td>
+                            </tr>
+                            <tr>
+                            <th>Phone</th>
+                            <td>
+                            {% if plaidDetails[0].phoneNumbers[0].data %}
+                             {{ plaidDetails[0].phoneNumbers[0].type }}: {{ plaidDetails[0].phoneNumbers[0].data }}
+                            {% endif %}  
+                            {% if plaidDetails[0].phoneNumbers[1].data %}
+                             <br>{{ plaidDetails[0].phoneNumbers[1].type }}: {{ plaidDetails[0].phoneNumbers[1].data }}
+                            {% endif %}  
+                            </td>
+                            </tr>
+                            <tr>
+                            <th>Address</th>
+                            <td>{{ plaidDetails[0].addresses[0].data.street }},<br>{{ plaidDetails[0].addresses[0].data.city }},<br>{{ plaidDetails[0].addresses[0].data.state }}, {{ plaidDetails[0].addresses[0].data.zip }}</td>
+                            </tr>                  
+                            </table>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="repulldivinfo">
+                       {% include "admin/userbank/repullplaidinfo_old.nunjucks"%}
+                    </div>
+
+                    <h3>
+                       User Linked Bank Information 
+                       <span class="pull-right"> <button type="button" class="btn btn-primary" id="repullplaid" data-toggle="modal" data-target="#repullplaidModal" data-backdrop="static" data-keyboard="false">Repull</button> &nbsp;&nbsp;&nbsp;</span>
+                    </h3>
+                    <br/>
+
+                    {% include "admin/userbank/accounts_old.nunjucks"%}
+
+                  </div>   
+                <br/>
+              </div>
+
+	       
+			
+			
+			
+			
+			<div id="payscheduleinfo" class="tab-pane fade">
+              
+
+              <h3>Payment Information</h3>
+              <br/>
+
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th>Payoff Amount</th>
+                      <td>
+                        {{paymentmanagementdata.payOffAmount}} USD
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Financing Status</th>
+                      <td>
+                      {{paymentmanagementdata.status}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Maturity Date</th>
+                      <td>
+                        {{moment(paymentmanagementdata.maturityDate).format('ddd, MMM Do YYYY')}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Next Payment Schedule Date</th>
+                      <td>
+                        {{moment(paymentmanagementdata.nextPaymentSchedule).format('ddd, MMM Do YYYY')}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div> 
+
+              <h3>Payment Schedule Information
+			   {% if paymentmanagementdata.achstatus==1 %}
+                   <button type="button" class="btn btn-primary pull-right" style="" onclick="addmanualschedule('open');">Make Payment</button> 
+                {% endif %}
+			  
+			  </h3>
+              <br/>
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Transaction ID</th>
+                        <th>Amount (USD)</th> 
+                        <th>Schedule Date</th>                       
+                        <th>Status</th>
+						<th>Charge off</th>
+						<th>Repull payment</th>
+                      </tr>
+                    </thead> 
+                    <tbody>
+                      {% set p = 0 %}
+                      {% for paymentSchedule in  paymentmanagementdata.paymentSchedule %} 
+                        <tr>
+                          <td>{{ p+1 }}</td>
+                          <td>{{ paymentSchedule.transaction }}</td>                        
+                          <td>{{ paymentSchedule.amount }}</td>
+                          <td>{{ moment(paymentSchedule.date).format('ddd, MMM Do YYYY') }}</td>
+                          <td>{{ paymentSchedule.status }}</td>
+						  <td>
+                              {% if paymentSchedule.chargeoffres == 'Yes' and paymentSchedule.chargeoff != '1' %}
+                                {% if req.user.rolename =='Underwriter' or req.user.rolename =='Admin' %}
+                                   <a href="javascript:void(0);"><button class="btn btn-primary" onclick="return chargeoffamount('{{paymentmanagementdata.id}}','{{p}}')" >Charge off</button></a>
+                                {% else %}
+                                  No privilege to charge off
+                                {% endif %}
+                              {% else %}
+                                --
+                              {% endif %}
+                          </td>
+						  <td>
+                              {% if paymentSchedule.chargeoffres == 'Yes' and paymentSchedule.chargeoff != '1' %}
+                                {% if req.user.rolename =='Underwriter' or req.user.rolename =='Admin' %}
+                                <a href="javascript:void(0);"><button class="btn btn-primary" onclick="return repullpaymentamount('{{paymentmanagementdata.id}}','{{p}}','{{paymentSchedule.uniqueScheduleId}}')" >Repull Payment</button></a>
+                                {% else %}
+                                  No privilege to repull payment
+                                {% endif %}
+                              {% else %}
+                                --
+                              {% endif %}
+                          </td>
+                        </tr>  
+					  {% set p = p+1 %}
+                      {% endfor %}  
+                    </tbody>  
+                  </table>
+                </div>
+
+              <h3>Manual Payment Transaction Information</h3>
+              <br/>
+              {% if paymentmanagementdata.manualPayment.length>0 %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th style="width: 10px">#</th>                          
+                            <th>Transaction Message</th>
+                            <th> Date</th>                       
+                          </tr>
+                        </thead> 
+                        <tbody>
+                        {% set m = 0 %}
+                        {% for manualPayment in  paymentmanagementdata.manualPayment %} 
+                           {% set m = m+1 %}
+                          <tr>
+                            <td>{{ m }}</td>
+                            <td>{{ manualPayment.message }}</td>                        
+                            <td>{{ manualPayment.date }}</td>
+                        </tr>
+                        {% endfor %} 
+                        </tbody>  
+                      </table>
+                    </div> 
+              {% else %}
+                  <p>No manual transaction from app</p>
+              {% endif %}
+
+              <h3>Payment Transaction Log Information</h3>
+              <br/>
+              {% if paymentmanagementdata.logs.length>0 %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>                          
+                          <th>Transaction Message</th>
+                          <th>Date</th>                       
+                        </tr>
+                      </thead> 
+                      <tbody>
+                        {% set lg = 0 %}
+                        {% for logsdata in  paymentmanagementdata.logs %} 
+                           {% set lg = lg+1 %}
+                          <tr>
+                            <td>{{ lg }}</td>
+                            <td>{{ logsdata.message }}</td>                        
+                            <td>{{ logsdata.date }}</td>
+                        </tr>
+                        {% endfor %} 
+                       </tbody>  
+                     </table>
+                  </div>  
+              {% else %}
+                  <p>No automatic transaction from system</p>
+              {% endif %}
+
+            </div>
+	        </div>
+	      </div>  
+	  
+	  
+	
+      </div>
+    </div>
+   
+    
+      <!-- chargeoff Modal -->
+      <div id="chargeoffModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Charge off Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure want to charge off scheduled amount for this financing?</strong></p>
+            </div>
+            <div class="modal-footer bg-info">
+               <input type="hidden" name="paymentid" id="paymentid" value=""/>
+               <input type="hidden" name="pid" id="pid" value=""/>
+
+              <button type="button" data-dismiss="modal" class="btn btn-primary" id="chargeoffconfirm">Confirm</button>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    <div id="ManualScheduleModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header bg-primary">
+			<button type="button" class="close" onclick="addmanualschedule('close');">&times;</button>
+			<h4 class="modal-title">Make Payment</h4>
+		  </div>
+		  <form role="form" method="POST" name="makepayment" id="makepayment" enctype="multipart/form-data" action="/admin/makepayment">
+		    <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+			<input class="" type="hidden" id="paymentType" name="paymentType" value="Viking">
+			<input class="" type="hidden" id="pageform" name="pageform" value="Defaultuser">
+			 <input class="" type="hidden" id="makeredirectpath" name="makeredirectpath" value="viewDefaultUser">
+			<div class="modal-body bgColorWhite">
+			  <table class="table table-bordered">
+				<tbody>
+				 <tr>
+					<th width="30%"> Payment Option </th>
+					<td>
+						 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+						   <input name="paymentOption" type="radio" id="inlineRadio1"  autocomplete="off"  value="fullpayment"  checked="checked" onclick="changepaymentoption()">
+						   <label for="inlineRadio1" style="font-weight:normal;"> Full Payment </label><br>
+						   (${{makePaymentForStory.makePaymentObject.fullPayoffAmount}})
+						 </div>
+						  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<input name="paymentOption" type="radio" id="inlineRadio2" autocomplete="off"  value="useramount"  onclick="changepaymentoption()">
+							<label for="inlineRadio2"  style="font-weight:normal;"> Partial payment </label>
+						 </div>
+					</td>
+				 </tr>
+				 <tr id="fullpaymentrow">
+					<th width="30%"> Amount </th>
+					<td>
+					 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+					    Principal
+					    <input class="form-control date-range-filter" id="fullmakeamount" value="{{makePaymentForStory.makePaymentObject.fullprincipalamount}}" placeholder="" name="fullmakeamount" type="text" readonly>
+					  </div>
+					  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					    Interest
+					    <input class="form-control date-range-filter" id="fullintrestamount" value="{{makePaymentForStory.makePaymentObject.finalinterestAmount}}" placeholder="" name="fullintrestamount" type="text" required > 
+						<input class="form-control date-range-filter" id="hiddenintrestamount" value="{{makePaymentForStory.makePaymentObject.finalinterestAmount}}" placeholder="" name="hiddenintrestamount" type="hidden" > 
+						<div id="Interesterromessage" class="error" style="display:none;">Please enter interest </div>
+					  </div>
+					</td>
+				  </tr>
+				  <tr style="display:none;" id="paymentrow">
+					<th width="30%"> Amount </th>
+					<td>
+					   <input class="form-control date-range-filter" id="makeamount"  name="makeamount" type="text" required> 
+					   <div id="amounterromessage" class="error" style="display:none;">Please enter amount </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th>Comment</th>
+					<td><textarea class="form-control" id="reasoncommentMake" name="reasoncomment" required></textarea>
+					  <div id="commenterromessage" class="error" style="display:none;">Please enter Comment </div>
+					  </td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+			<div class="modal-footer bg-info">
+			 {% if(makePaymentForStory.makePaymentObject.fullprincipalamount > 0) %}
+			   <button type="button" class="btn btn-primary" onclick="makefullpayment();">Confirm</button>
+			 {% endif %} 
+			  <button type="button" class="btn btn-primary" onclick="addmanualschedule('close');">Cancel</button>
+			</div>
+		  </form>
+		</div>
+	  </div>
+	</div>
+	
+	
+	 <!-- Repullpayment Modal -->
+      <div id="repullpaymentModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Repull Payment Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure want to repull schedule payment amount for this financing?</strong></p>
+            </div>
+            <div class="modal-footer bg-info">
+               <input type="hidden" name="paymentId" id="paymentId" value=""/>
+               <input type="hidden" name="scheduleId" id="scheduleId" value=""/>
+			   <input type="hidden" name="uniqueScheduleId" id="uniqueScheduleId" value=""/>
+
+              <button type="button" data-dismiss="modal" class="btn btn-primary" id="repullpaymentconfirm">Confirm</button>
+              <span id="repullpayment_loading" style="display:none;margin-left:5px;"><img src="/images/img/ajaxloadersmall.gif"></span>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+  </section>
+  <script>
+  
+  function addmanualschedule(modalstatus){
+
+  if(modalstatus=='open'){
+   $('#ManualScheduleModal').modal('show');
+  }else{
+   $('#ManualScheduleModal').modal('hide');
+  } 
+  
+  
+}
+  </script>
+{% endblock %}

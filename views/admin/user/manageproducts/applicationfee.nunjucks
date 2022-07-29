@@ -1,0 +1,190 @@
+<div id="applicationfee" class="tab-pane fade">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					
+					<section class="content" style="margin-top:25px;">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+									<h3 class="box-title">Create/Update Application Fee</h3>
+									</div>
+									<form class="form-horizontal" id="appFeeId" method="POST" action="">
+										<div class="box-body">
+											<div class="form-group">
+												<div class="succ-notification-applicationfee" style="text-align:center;color:green;font-size:20px;"></div>
+											</div>
+											<div class="form-group">
+												<div class="fail-notification-applicationfee" style="text-align:center;color:red;font-size:20px;"></div>
+											</div>
+											<div class="form-group">
+												<label for="" class="col-sm-2 control-label">Minimum Creditscore</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="minimumcreditscore-app" name="minimumcreditscore" placeholder="Input minimum creditscore">
+													<span class="minscoreapplicationfee-error" style="display:none;color:red;">This field is required.</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="" class="col-sm-2 control-label">Maximum Creditscore</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="maximumcreditscore-app" name="maximumcreditscore" placeholder="Input maximum creditscore">
+													<span class="maxscoreapplicationfee-error" style="display:none;color:red;">This field is required.</span>
+												</div>
+											</div>
+											{% if( producttype == 'loanproductsettings') %}
+											<div class="form-group">
+											
+												<label for="" class="col-sm-2 control-label">Application Fee</label>
+											</div>
+											{% for loanproductsettings in loanproductsettings %}
+											<div class="form-group">
+												<label for="applicationfee_[{{loanproductsettings.month}}]" class="col-sm-2 control-label">{{loanproductsettings.month}}</label>
+												<div class="col-sm-8">
+                                            <input class="form-control applicationfee_common_fields" id="applicationfee_{{loanproductsettings.month}}" name="applicationfee_{{loanproductsettings.month}}" placeholder="Input Application Fee">												
+											 <span class="applicationfee_common_fields_error" style="display:none;color:red;">This field is required.</span>
+											</div>
+											</div>
+											{% endfor %}
+										{% endif %}
+										
+										{% if( producttype == 'loanproductincome') %}
+											<div class="form-group">
+												<label for="" class="col-sm-2 control-label">Application Fee Income Range</label>
+											</div>
+											{% for loanproductincome in loanproductincome %}
+											<div class="form-group">
+												<label for="applicationfee_{{loanproductincome.minimumincome}}" class="col-sm-2 control-label">${{loanproductincome.minimumincome}} - ${{loanproductincome.maximumincome}}</label>
+												<div class="col-sm-8">
+													<div style="float: left;">
+														<input class="form-control applicationfee_common_fields" id="applicationfee_amount_{{loanproductincome.minimumincome}}" name="applicationfee_amount_{{loanproductincome.minimumincome}}" style="width: 300px; padding: 5px;" placeholder="Amount">
+														  <span class="applicationfee_common_fields_error" style="display:none;color:red;">This field is required.</span>
+													</div>
+													<div>
+														<input class="form-control applicationfee_fixed_common_fields" id="applicationfee_fixedamount_{{loanproductincome.minimumincome}}" name="applicationfee_fixedamount_{{loanproductincome.minimumincome}}" style="width: 300px; padding: 5px; float:right" placeholder="Fixed Amount">
+												         <span class="applicationfee_common_fields_error" style="display:none;color:red;float:left;margin-left:50px;">This field is required.</span>
+													</div>		
+												</div>
+											</div>
+											{% endfor %}
+										{% endif %}
+										
+										</div>
+											<input type="hidden" name="application_fee_product_id" id="application_fee_product_id" value="{{ productid }}"/>
+											<input type="hidden" name="application_fee_id" id="application_fee_id" value=""/>
+											<input type="hidden" name="loan_application_fee_action" id="loan_application_fee_action" value="create"/>
+											<input type="hidden" name="applicationfee_product_type" id="applicationfee_product_type" value="{{producttype}}"/>
+											<div class="box-footer">
+											<button type="button" id="createupdateapplicationfee" class="btn btn-info" style="margin-left:17%">Submit</button>
+											<button type="button" id="clearapplicationfee" class="btn btn-info" style="margin-left:1%">Clear</button>
+											</div>
+									</form>
+								</div>
+							</div>
+						</section>
+						
+						{% if( producttype == 'loanproductsettings') %}
+						<section class="content">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+										<h3 class="box-title">Application Fee Lists Based On Monthly</h3>
+									</div>
+									<div class="inner-cont-table-applicationfee"> 
+										<table class="table table-bordered" style="margin-top: 25px;margin-bottom: 25px;">
+											<thead>
+												  <tr>
+													<th rowspan="2" scope="rowgroup" class="attributes"> # </th>
+													<th rowspan="2" scope="rowgroup" class="attributes"> Product Name </th>
+													<th rowspan="2" scope="rowgroup" class="attributes"> Minimum Maximum Creditscore </th>
+													<th colspan="5" scope="colgroup"> Application Fee </th>
+													<th rowspan="2" scope="rowgroup" style="border:1px solid #F4F4F4"> Action </th>
+												  </tr>
+												  <tr>
+														<th scope="col">12</th>
+														<th scope="col">24</th>
+														<th scope="col">36</th>
+														<th scope="col">48</th>
+														<th scope="col">60</th>
+												  </tr>
+											</thead>
+											<tbody>
+										{% for applicationfee in applicationfee %}
+												<tr>
+													<td>{{loop.index}}</td>
+													<td>{{productname}}</td>
+													<td>{{applicationfee.mincreditscore}} - {{applicationfee.maxcreditscore}}</td>
+													
+													<td>{{ applicationfee.applicationfee[12] }}%</td>
+															<td>{{ applicationfee.applicationfee[24] }}%</td>
+															<td>{{ applicationfee.applicationfee[36] }}%</td>
+															<td>{{ applicationfee.applicationfee[48] }}%</td>
+															<td>{{ applicationfee.applicationfee[60] }}%</td>
+														<td><a href="javascript:void(0)" value="{{ applicationfee.id }}" product_type="{{producttype}}" class="applicationfee-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+												</tr>
+											{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</section>
+						{% endif %}
+						
+						{% if( producttype == 'loanproductincome') %}
+						<section class="content">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+										<h3 class="box-title">Application Fee Lists Based On Income</h3>
+									</div>
+									<div class="inner-cont-table-applicationfee"> 
+										<table class="table table-bordered" style="margin-top: 25px;margin-bottom: 25px;">
+											<thead>
+												  <tr>
+													<th rowspan="3" scope="rowgroup" class="attributes"> # </th>
+													<th rowspan="3" scope="rowgroup" class="attributes"> Product Name </th>
+													<th rowspan="3" scope="rowgroup" class="attributes"> Minimum - Maximum Creditscore </th>
+													<th colspan="10" scope="colgroup"> Application Fee Income </th>
+													<th rowspan="3" scope="rowgroup" style="border:1px solid #F4F4F4"> Action </th>
+												  </tr>
+												  <tr>
+														<th scope="col" colspan="2" >25-34</th>
+														<th scope="col" colspan="2" >35-44</th>
+														<th scope="col" colspan="2" >45-54</th>
+														<th scope="col" colspan="2" >55-64</th>
+														<th scope="col" colspan="2" >65+</th>
+												  </tr>
+												  <tr>
+												  		<th scope="col"> Amount </th>
+														<th scope="col"> Fixed Amount  </th>
+														<th scope="col"> Amount </th>
+														<th scope="col"> Fixed Amount  </th>
+														<th scope="col"> Amount </th>
+														<th scope="col"> Fixed Amount  </th>
+														<th scope="col"> Amount </th>
+														<th scope="col"> Fixed Amount </th>
+														<th scope="col"> Amount </th>
+														<th scope="col"> Fixed Amount </th>
+												  </tr>
+											</thead>
+											<tbody>
+											{% for applicationfee in applicationfee %}
+												<tr>
+													<td>{{loop.index}}</td>
+													<td>{{productname}}</td>
+													<td>{{applicationfee.mincreditscore}} - {{applicationfee.maxcreditscore}}</td>
+													{% for applicationfeeincome in applicationfee.applicationfee %}
+															<td>{{applicationfeeincome.amount}}%</td>
+															<td>{{applicationfeeincome.fixedamount}}%</td>
+														{% endfor %}
+														<td><a href="javascript:void(0)" value="{{ applicationfee.id }}" product_type="{{producttype}}" class="applicationfee-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+												</tr>
+											{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</section>
+						{% endif %}
+					
+	</div>
+</div>

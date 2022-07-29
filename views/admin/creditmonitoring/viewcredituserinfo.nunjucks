@@ -1,0 +1,190 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      View Credit Monitoring User
+      <small>preview of Credit Monitoring User</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/creditmonitoringusers"><i class="fa fa fa-building"></i>Manage Credit Monitoring Users</a></li>
+      <li class="active">View Credit Monitoring User</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">View Credit Monitoring User</h3>
+		<span class="pull-right"><a href="/admin/creditmonitoringusers"><button type="button" class="btn btn-primary">Back</button></a></span>
+      </div>
+      <div class="box-body">
+
+         <div id="tabs">
+          
+            <ul class="nav nav-tabs">
+	            <li class="active"><a data-toggle="tab" href="#credituserinfo">Creidt User Information</a></li>
+	            <li><a data-toggle="tab" href="#credithistory">Credit History</a></li>
+				<li><a data-toggle="tab" href="#creditpaymenthistory">Credit Payment History</a></li>
+            </ul>
+
+			<div class="tab-content">
+
+			    <div id="credituserinfo" class="tab-pane fade in active">
+	                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	                	<br/>
+	                 	<h3>Credit User Information</h3> 
+	                 	<br/>    
+						<div class="table-responsive">
+							<table class="table table-bordered">
+							    <tbody>
+								  <tr>
+									<th>Full Name</th>
+									<td>{{ credituserdata.user.name }}</td>
+								  </tr>
+								  <tr>
+									<th>First Name</th>
+									<td>{{ credituserdata.first_name }}</td>
+								  </tr>
+								  <tr>
+									<th>Last Name</th>
+									<td>{{ credituserdata.last_name }}</td>
+								  </tr>
+								  <tr>
+									<th>Email Address</th>
+									<td>{{ credituserdata.credit_email }}</td>
+								  </tr>					 
+								  <tr>
+									<th>Phone Number</th>
+									<td>{{ credituserdata.user.phoneNumber }}</td>
+								  </tr>	
+								  <tr>
+									<th>Date of Birth</th>
+									<td>{{ credituserdata.user.dateOfBirth }}</td>
+								  </tr>
+								  <tr>
+									<th>Address</th>
+									<td>{{ credituserdata.street_name }} ,<br/>
+										{{ credituserdata.addr_city }} ,<br/>
+										{{ credituserdata.addr_zipcode }}
+									</td>
+								  </tr>
+								  <tr>
+									<th>State</th>
+									<td>{{ state.name }}, {{ credituserdata.addr_state }}</td>
+								  </tr>
+								  <tr>
+									<th>Validity Date</th>
+									<td>{{ credituserdata.validityDate }}</td>
+								  </tr>
+								   <tr>
+									<th>Subscribe Status</th>
+									<td>
+									
+									 {% if credituserdata.active ==1 %}
+									 	Subscribed
+									 {% else %}
+										Unsubscribed
+									 {% endif %}
+								    </td>
+								  </tr>
+								  <tr>
+									<th>Registered Date</th>
+									<td>{{ credituserdata.createdAt }}</td>
+								  </tr>
+								  <tr>
+									<th>Last Update Date</th>
+									<td>{{ credituserdata.updatedAt }}</td>
+								  </tr>
+							    </tbody>
+							</table>
+						</div>	
+					</div>	 
+				</div>
+
+				<div id="credithistory" class="tab-pane fade">
+				   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				   	 <br/>
+	                 <h3>Credit History Information</h3>
+	                 <br/>	
+
+	                  <table class="table table-striped table-bordered  dataTable" id="credithistory_table">
+			            <thead>
+			            <tr>
+			              <th style="width: 10px">#</th>
+						  <th>Reference ID</th>
+			              <th>Amount (USD)</th>
+			              <th>Payment Type</th>	
+			              <!-- <th>Payment Status</th> -->			             
+			              <th>Current Validity</th>
+			              <th>Payment Validity</th>
+			              <th>Created Date</th>			              
+			            </tr>
+			            </thead>
+			            <tbody>
+			           	  {% for historydata in credituserhistorydata %}
+								<tr>
+								  <td>{{loop.index}}</td>
+								  <td>{{historydata.referenceID}}</td>
+								  <td>{{historydata.paymentamount}}</td>
+								  <td>{{historydata.paymenttype}}</td>
+								  <!-- <td>{{historydata.paymentstatus}}</td> -->
+								  <td>{{historydata.currentvalidity}}</td>
+								  <td>{{historydata.paymentvalidity}}</td>
+								  <td>{{historydata.createdAt}}</td>
+								</tr>
+						  {% endfor %} 
+			            </tbody>
+			          </table>                 
+				    </div>
+				</div> 
+
+				<div id="creditpaymenthistory" class="tab-pane fade">
+				   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				   	 <br/>
+	                 <h3>Credit Payment History Information</h3>
+	                 <br/>
+	                 <table class="table table-striped table-bordered  dataTable" id="creditpaymenthistory_table">
+			            <thead>
+			            <tr>
+			             <tr>
+			              <th style="width: 10px">#</th>
+						  <th>Reference ID</th>
+			              <th>Amount (USD)</th>
+			              <th>Transaction ID</th>	
+			              <th>Transaction Type</th>
+			              <th>Payment Status</th>
+			              <th>Created Date</th>			              
+			            </tr>
+			            </tr>
+			            </thead>
+			            <tbody>
+			           		{% for paymenthistorydata in credituserdata.userpayments %}
+								<tr>
+								  <td>{{loop.index}}</td>
+								  <td>{{paymenthistorydata.referenceID}}</td>
+								  <td>{{paymenthistorydata.amount}}</td>
+								  <td>{{paymenthistorydata.transactionId}}</td>
+								  <td>{{paymenthistorydata.transactionType}}</td>
+								  <td>
+								  	{% if paymenthistorydata.status==2 %}
+                                       Settled
+                                    {% elseif paymenthistorydata.status==3 %}
+                                       Failed
+                                    {% else %}
+                                       Pending
+                                    {% endif %} 
+								  </td>
+								  <td>{{paymenthistorydata.date}}</td>
+								</tr>
+						  {% endfor %} 
+			            </tbody>
+			          </table>	                 
+				    </div>
+				</div> 
+
+			</div>		   
+      </div>
+   
+    </div>
+  </section>
+{% endblock %}

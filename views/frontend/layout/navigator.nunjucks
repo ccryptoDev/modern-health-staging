@@ -1,0 +1,111 @@
+<!-- Navigator section -->
+<div class="list-of-tabs">
+	<ul>
+		<li 
+			{% if navtab > 1 %}
+ 				class="completed"
+ 			{% elseif navtab == 1 %}
+ 				class="selected"
+			{% else %}
+ 				class=""
+			{% endif %}
+		>
+			<span></span>
+			<a href="javascript:void(0);" class="TapMenuDesktop">Start</a>
+			<a href="javascript:void(0);" class="TapMenuMobile" alt="Start" title="Start">ST</a>
+			<i class="line"></i>
+	 	</li>
+
+	 	<li 
+			{% if navtab > 2 %}
+ 				class="completed"
+ 			{% elseif navtab == 2 %}
+ 				class="selected"
+			{% else %}
+ 				class=""
+			{% endif %}
+		>
+			<span></span>
+			<a href="javascript:void(0);" class="TapMenuDesktop">Personal</a>
+			<a href="javascript:void(0);" class="TapMenuMobile" alt="Personal" title="Personal">PL</a>
+			<i class="line"></i>
+	 	</li>
+
+	 	<li 
+			{% if navtab > 3 %}
+ 				class="completed"
+ 			{% elseif navtab == 3 %}
+ 				class="selected"
+			{% else %}
+ 				class=""
+			{% endif %}
+		>
+			<span></span>
+			<a href="javascript:void(0);" class="TapMenuDesktop">Financial</a>
+			<a href="javascript:void(0);" class="TapMenuMobile" alt="Financial" title="Financial">FA</a>
+			<i class="line"></i>
+	 	</li>
+
+		<li 
+			{% if navtab > 4 %}
+ 				class="completed"
+ 			{% elseif navtab == 4 %}
+ 				class="selected"
+			{% else %}
+ 				class=""
+			{% endif %}
+		>
+			<span></span>
+			<a href="javascript:void(0);" class="TapMenuDesktop">Selection</a>
+			<a href="javascript:void(0);" class="TapMenuMobile" alt="Selection" title="Selection">SEL</a>
+			<i class="line"></i>
+		</li>
+
+		<li 
+			{% if navtab > 5 %}
+ 				class="completed"
+ 			{% elseif navtab == 5 %}
+ 				class="selected"
+			{% else %}
+ 				class=""
+			{% endif %}
+		>
+			<span></span>
+			<a href="javascript:void(0);" class="TapMenuDesktop">Review</a>
+			<a href="javascript:void(0);" class="TapMenuMobile" alt="Review" title="Review">REV</a>
+			<i class="line"></i>
+		</li>
+
+		<li 
+			{% if navtab > 6 %}
+ 				class="completed"
+ 			{% elseif navtab == 6 %}
+ 				class="selected"
+			{% else %}
+ 				class=""
+			{% endif %}
+		>
+			<span></span>
+			<a href="javascript:void(0);" class="TapMenuDesktop">Confirmation</a>
+			<a href="javascript:void(0);" class="TapMenuMobile" alt="Confirmation" title="Confirmation">CNF</a>
+			<i class="line"></i>
+		</li>
+
+		<li 
+			{% if navtab > 7 %}
+ 				class="completed"
+ 			{% elseif navtab == 7 %}
+ 				class="selected"
+			{% else %}
+ 				class=""
+			{% endif %}
+		>
+			<span></span>
+			<a href="javascript:void(0);" class="TapMenuDesktop">Finish</a>
+			<a href="javascript:void(0);" class="TapMenuMobile" alt="Finish" title="Finish">FIN</a>	
+		</li>
+	</ul>	
+</div>
+
+
+<!-- End of Navigator section -->

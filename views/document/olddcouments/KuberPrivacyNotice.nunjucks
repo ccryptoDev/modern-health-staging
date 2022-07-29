@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <head>
+    <style>
+      body {
+        background-color: white;
+          font-family:"Neo Sans fonts", Verdana, sans-serif ;
+      }
+
+      h1 {
+        color: black;
+      }
+
+      p {
+       color: black;
+      }
+    </style>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <h1> Private Notice </h1>
+  <table style="width:100%">
+    <tr>
+      <th>Facts</th>
+      <th>WHAT DOES Kuber Financial DO WITH YOUR PERSONAL INFORMATION?</th>
+    </tr>
+    <tr>
+      <td> Why?</td>
+      <td>Financial companies choose how they share your personal information. Federal law gives consumers the right to limit some but not all sharing. Federal law also requires us to tell you how we collect, share, and protect your personal information.
+        Please read this notice carefully to understand what we do.
+      </td>
+    </tr>
+    <tr>
+      <td>What?</td>
+      <td>The types of personal information we may collect and share depend on the product or service you have with us. This information can include:
+        <ul>
+          <li style="font-weight: bold;">Social Security number and income</li>
+          <li style="font-weight: bold;">Account balances and transaction history</li>
+          <li style="font-weight: bold;">Employment information and credit scores</li>
+        </ul>
+        <br>
+        <br> When you are no longer our customer, we continue to share your information as described in this notice.
+      </td>
+    </tr>
+    <tr>
+      <td>How?</td>
+      <td>
+        All financial companies need to share customers’ personal information to run their everyday business. In the section below, we list the reasons financial companies can share their customers’ personal information; the reasons Kuber Financial chooses to
+        share; and whether you can limit this sharing.</td>
+    </tr>
+  </table>
+  <br>
+  <table>
+    <tr>
+      <th>
+        Reasons we can share your personal information
+      </th>
+      <th>
+        Does Kuber Financial share?
+      </th>
+      <th>
+        Can you limit this sharing?
+      </th>
+    </tr>
+    <tr>
+      <td>
+        For our everyday business purposes – such as to process your transactions, maintain your account(s), respond to court orders and legal investigations, or report to credit bureaus
+      </td>
+      <td>
+        Yes
+      </td>
+      <td>
+        No
+      </td>
+    </tr>
+    <tr>
+      <td>
+        For our marketing purposes - to offer our products and services to you
+      </td>
+      <td>
+        Yes
+      </td>
+      <td>
+        No
+      </td>
+    </tr>
+    <tr>
+      <td>
+        For joint marketing with other financial companies
+      </td>
+      <td>
+        Yes
+      </td>
+      <td>
+        No
+      </td>
+    </tr>
+    <tr>
+      <td>
+        For our affiliates' everyday business purposes -information about your creditworthiness
+      </td>
+      <td>
+        Yes
+      </td>
+      <td>
+        Yes
+      </td>
+    </tr>
+    <tr>
+      <td>
+        For our affiliates to market to you
+      </td>
+      <td>
+        Yes
+      </td>
+      <td>
+        Yes
+      </td>
+    </tr>
+    <tr>
+      <td>
+        For non-affiliates to market to you
+      </td>
+      <td>
+        Yes
+      </td>
+      <td>
+        Yes
+      </td>
+    </tr>
+  </table>
+  <br>
+  <table>
+    <tr>
+      <th>
+        To limit our sharing
+      </th>
+      <th>
+        <p1>
+          Visit us online: <a href="http://www.fluidfi.com/">www.fluidfi.com</a>
+        </p1>
+        <br>
+        <p1>
+          Please note:
+        </p1>
+        <br>
+        If you are a new customer, we can begin sharing your information 30 days from the date we sent this notice. When you are no longer our customer, we continue to share your information as described in this notice. However, you can contact us
+        at any time to limit our sharing.
+      </th>
+    </tr>
+    <tr>
+      <td>
+        Questions
+      </td>
+      <td>
+        Go to <a href="http://www.fluidfi.com/">www.fluidfi.com</a>
+      </td>
+    </tr>
+</body>
+
+</html>

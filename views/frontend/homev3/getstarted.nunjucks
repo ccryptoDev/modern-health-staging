@@ -1,0 +1,64 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="getstarted">
+
+	<div class="container-fluid">
+	   		<div class="heading">
+				<div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+				<h1 class="title">Health Financing Made Easy</h1>
+			</div>
+			<div class="row nomargin getstarted">
+				<div class="threeBox">
+					<div class="box leftBox">
+						<div class="v-center">
+							<div class="h-center">
+							<img src="/images/imgv3/more-information-icon.png" class="img-responsive" />
+							<h4>I need more information.</h4>
+							<a href="{{sails.config.getBaseUrl}}" target="_blank"><button class="btn btn-default">Learn More</button></a>
+							</div>
+						</div>
+					</div>
+					<div class="box middleBox">
+						<div class="v-center">
+							<div class="h-center">
+							<img src="/images/imgv3/get-started-page-icon.png" class="img-responsive" />
+							<h4>I'm ready!</h4>
+							<a href="/signupstart"><button class="btn btn-default">Get Started</button></a>
+							<p style="color:#5A7DA1;letter-spacing:inherit;">Viewing offers won't hurt your credit score.</p>
+							</div>
+						</div>
+					</div>
+					<div class="box rightBox">
+						<div class="v-center">
+							<div class="h-center">
+							<img src="/images/imgv3/payment-calculator-icon.png" class="img-responsive" />
+							<h4>I know my credit score. <span>Estimate my monthly payment.</span></h4>
+							<a href="/paymentcalculator"><button class="btn btn-default" style="width:auto;">Payment Calculator</button></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="subTitle">
+				<h1>See Your Offers! <span><i class="greenBorder">No Risk</i> To Apply, <i class="blueBorder">No Impact</i> To Your Credit Score.</span></h1>
+			</div>
+			<div class="footerBottom">
+				<div class="container">
+				<p class="col-lg-10 col-lg-offset-1"></p>
+				<div class="clearfix"></div>
+				</div>
+			</div>
+			<!-- <div class="footerBottom">
+				<div class="container">
+				<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-2">
+				<div class="row">
+					<p class="col-xs-3 col-sm-3 col-md-2 col-lg-1 plaidImg"><img src="/images/imgv3/plaid-img.png" class="img-responsive" /></p>
+					<p class="col-xs-9 col-sm-9 col-md-9 col-lg-9">Plaid is a trusted financial service that enables application developers that you specify to connect to your bank account. Plaid makes sure that your connection is always private and secure. </p>
+				</div>
+				</div>
+				<div class="clearfix"></div>
+				</div>
+			</div> -->
+	   </div>
+</div>
+{% endblock %}

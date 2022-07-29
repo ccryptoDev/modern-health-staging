@@ -1,0 +1,144 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Target Fast Cash </title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/styles/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+
+  <!-- CSS -->
+	<link rel="stylesheet" href="/styles/tfc-css/fonts/gotham/stylesheet.css">
+  <link rel="stylesheet" href="/styles/css/Customerservice/style.css">
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <script src="/js/js/customerservicesignaturepad.js"></script>
+  <script src="/js/js/validate.js"></script>
+</head>
+<body style="font-family:'Gotham';">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="#">Target Fast Cash</a>
+			</div>
+		</div>
+	</nav>
+	<div class="content-section">
+		<div class="container">
+			<div class="row">
+				<div class="">
+				 <form name="csmyofferform" id="csmyofferform" method="post" action="/savecsloanoffer">
+					<input type="hidden" name="totalcost" id="totalcost" value="{{fullData.financedAmount}}">
+					<input type="hidden" name="userid" id="userid" value="{{fullData.userid}}">
+					<input type="hidden" name="productid" id="productid" value="{{fullData.productid}}">
+					<input type="hidden" name="fullOffer" id="fullOffer" value="{{fullDataString}}" >
+					<div class="table-reponsive ">
+						<table class="table table-bordered" >
+							<thead>
+								<tr class="headerbg">
+									<th scope="rowgroup" class="attributes" style="border-right:2px solid white;">Items</th>
+
+									<th> Values</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="headerbg">
+								<td>Monthly Income </td>
+								<td class="changeNumberFormatComma">${{fullData.incomeamount}}</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>State</td>
+								<td>{{fullData.state}}</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>Payment Freq (BiWeekly)</td>
+								<td>{{fullData.paymentFeq}}</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>Term or  # of Payment Cycles </td>
+								<td>{{fullData.loanTerm}}</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>Rate Per Cycle </td>
+								<td>{{fullData.interestRate}}</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>APR% </td>
+								<td>{{fullData.APR}}%</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>Financing Amount  </td>
+								<td class="changeNumberFormatComma">${{fullData.financedAmount}}</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>Financing Payment Per Cycle </td>
+								<td class="changeNumberFormatComma">${{fullData.loanPaymentCycle}} </td>
+								</tr>
+
+								<!--<tr class="headerbg">
+								<td scope="">Monthly Payment </td>
+								<td class="changeNumberFormatComma">${{fullData.monthlyPayment}}</td>
+								</tr>-->
+
+								<tr class="headerbg">
+								<td>pre Total Monthly Payment </td>
+								<td class="changeNumberFormatComma">${{fullData.perTotMonthlyPayment}} </td>
+								</tr>
+
+								<tr class="headerbg">
+								<td>Post Total Monthly Payment </td>
+								<td class="changeNumberFormatComma">${{fullData.postTotMonthlyPayment}} </td>
+								</tr>
+
+								<!--<tr class="headerbg">
+								<td><b>preDTI</b> </td>
+								<td>{{fullData.preDTI}}%</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td><b>PostDTI </b> </td>
+								<td>{{fullData.postDTI}}%</td>
+								</tr>
+
+								<tr class="headerbg">
+								<td><b>PostDTI T Threshold </b> </td>
+								<td>{{fullData.postDTIThreshold}}%</td>
+								</tr>-->
+								<!--<tr class="headerbg">
+								<td><b>Financing Status </b> </td>
+								<td><b>{{fullData.loanstatus}}</b></td>
+								</tr>-->
+								</tbody>
+						</table>
+					<div>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary" name="submitform" style="float: right;">Next</button>
+		</form>
+		</div>
+	</div>
+	<!-- <button class="btn btn-default greenBtn pull-right" type="button" onclick="saveoffer();">Next</button> -->
+
+	<!-- <button type="submit" class="btn btn-primary" name="submitform" onclick="saveoffer('submit')" style="float: right;">Next</button> -->
+
+
+</body>
+</html>

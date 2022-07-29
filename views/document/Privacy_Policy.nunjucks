@@ -1,0 +1,185 @@
+<style type="text/css">
+	.table {
+	    border-collapse: collapse;
+	    border-spacing: 0;
+	}
+	.table-bordered > thead > tr > th, .table-bordered > tbody > tr > td {
+		border:1px solid #dddddd;
+		padding: 8px;
+    	line-height: 1.42857143;
+	}
+	.policy-txt1 ul, li {list-style: outside none disc;}
+	.modal-body ul {
+		margin-left: 5% !important;
+	}
+</style>
+<div class="table-responsive">
+  <table class="table table-bordered">
+<thead>
+<tr>
+	<th class="policy-bg1"><h1>FACTS </h1></th>
+	<th class="policy-with2">
+		<strong>WHAT DO {{LenderLongName}} (“{{LenderShortName}}”) AND {{ PracticeName }} (“HEALTH CARE PROVIDER”) DO WITH YOUR PERSONAL INFORMATION?</strong>
+	</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td class="policy-bg2">Why? </td>
+	<td class="policy-txt1">
+		Financial companies choose how they share your personal information.  Federal law gives consumers the right to limit some but not all sharing.  Federal law also requires us to tell you how we collect, share, and protect your personal information.  Please read this notice carefully to understand what we do.
+	</td>
+</tr>
+
+<tr>
+	<td class="policy-bg2">What? </td>
+	<td class="policy-txt1">
+		The types of personal information we collect and share depend on the product or service you have with us. This information can include:
+		<ul>
+			<li>Social Security number and income</li>
+			<li>Credit history and employment information</li>
+			<li>Transaction history and payment history</li>
+		</ul>
+		When you are no longer our customer, we continue to share your information as described in this notice.
+	</td>
+</tr>
+
+<tr>
+	<td class="policy-bg2">How? </td>
+	<td class="policy-txt1">
+		All financial companies need to share customers’ personal information to run their everyday business.  In the section below, we list the reasons financial companies can share their customers’ personal information; the reasons {{LenderShortName}} and Health Care Provider choose to share; and whether you can limit this sharing.
+	</td>
+</tr>
+</table>
+
+<table class="table table-bordered">
+<tr>
+	<td class="policy-bg2">Reasons we can share your personal information</td>
+	<td class="policy-bg2">Do {{LenderShortName}} and Health Care Provider share?</td>
+	<td class="policy-bg2">Can you limit this sharing?</td>
+</tr>
+<tr>
+	<td class="policy-txt1">
+	<strong>For our everyday business purposes –</strong>
+	<p>such as to process your transactions, maintain your account(s), respond to court orders and legal investigations, or report to credit bureaus</p>
+	</td>
+	<td class="policy-txt1">Yes</td>
+	<td class="policy-txt1">No</td>
+</tr>
+<tr>
+	<td class="policy-txt1">
+	<strong>For our marketing purposes –</strong>
+	<p>to offer our products and services to you</p>
+	</td>
+	<td class="policy-txt1">Yes</td>
+	<td class="policy-txt1">No</td>
+</tr>
+<tr>
+	<td class="policy-txt1"><strong>For joint marketing with other financial companies</strong></td>
+	<td class="policy-txt1">No</td>
+	<td class="policy-txt1">We don't share</td>
+</tr>
+<tr>
+	<td class="policy-txt1">
+		<strong>For our affiliates’ everyday business purposes – </strong>
+		<p>information about your transactions and experiences</p>
+	</td>
+	<td class="policy-txt1">No</td>
+	<td class="policy-txt1">We don't share</td>
+</tr>
+<tr>
+	<td class="policy-txt1">
+		<strong>For our affiliates’ everyday business purposes – </strong>
+		<p>information about your credit worthiness</p>
+	</td>
+	<td class="policy-txt1">No</td>
+	<td class="policy-txt1">We don't share</td>
+</tr>
+<tr>
+	<td class="policy-txt1">
+		<strong>For nonaffiliates to market to you</strong>
+	</td>
+	<td class="policy-txt1">No</td>
+	<td class="policy-txt1">We don't share</td>
+</tr>
+</table>
+
+<table class="table table-bordered">
+<tr>
+	<td class="policy-bg2">Questions?</td>
+	<td>Call toll-free {{LenderPhone}} or go to <a href="">{{LenderWebAddress}}</a></td>
+</tr>
+<tr>
+	<td colspan="2" class="policy-bg2">Who we are</td>
+</tr>
+<tr>
+	<td colspan="2">{{LenderLongName}} (“{{LenderShortName}}” and {{ PracticeName }}  (“Health Care Provider”)</td>
+</tr>
+</table>
+
+<table class="table table-bordered">
+<tr> <td colspan="2" class="policy-bg2">What we do </td></tr>
+<tr>
+	<td><h5>How do {{LenderShortName}} and Health Care Provider protect my personal information?</h5></td>
+	<td class="policy-txt1">
+		<p>To protect your personal information from unauthorized access and use, we use security measures that comply with federal law.  These measures include computer safeguards and secured files and buildings.</p>
+	</td>
+</tr>
+<tr>
+	<td><h5>How do {{LenderShortName}} and Health Care Provider collect my personal information?</h5></td>
+	<td class="policy-txt1">
+		We collect your personal information, for example, when you
+		<ul>
+			<li>apply for financing or give us your income information</li>
+			<li>provide employment information or provide account information</li>
+			<li>give us your contact information </li>
+		</ul>
+		We also collect your personal information from others, such as credit bureaus or other companies.
+	</td>
+</tr>
+<tr>
+	<td><h5>Why can’t I limit all sharing?</h5></td>
+	<td class="policy-txt1">
+		Federal law gives you the right to limit only
+		<ul>
+			<li>sharing for affiliates’ everyday business purposes – information about your creditworthiness</li>
+			<li>affiliates from using your information to market to you</li>
+			<li>sharing for nonaffiliates to market to you </li>
+		</ul>
+		State laws and individual companies may give you additional rights to limit sharing.
+	</td>
+</tr>
+</table>
+
+<table class="table table-bordered">
+<tr> <td colspan="2" class="policy-bg2">Definitions </td></tr>
+<tr>
+	<td><h5>Affiliates</h5></td>
+	<td class="policy-txt1">
+		Companies related by common ownership or control. They can be financial and nonfinancial companies.
+		<ul>
+			<li>{{LenderShortName}} and Health Care Provider do not share with their affiliates.</li>
+		</ul>
+	</td>
+</tr>
+<tr>
+	<td><h5>Nonaffiliates</h5></td>
+	<td class="policy-txt1">
+		Companies not related by common ownership or control.  They can be financial and nonfinancial companies.
+		<ul>
+			<li>{{LenderShortName}} and Health Care Provider do not share with nonaffiliates so they can market to you.</li>
+		</ul>
+		We also collect your personal information from others, such as credit bureaus or other companies.
+	</td>
+</tr>
+<tr>
+	<td><h5>Joint Marketing</h5></td>
+	<td class="policy-txt1">
+		A formal agreement between nonaffiliated financial companies that together market financial products or services to you.
+		<ul>
+			<li>{{LenderShortName}} and Health Care Provider do not jointly market.</li>
+		</ul>
+	</td>
+</tr>
+</table>
+</div>

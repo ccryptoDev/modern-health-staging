@@ -1,0 +1,55 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<script src="/js/js/signaturepad.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+<div id="userinformation" class="has-practice-name-header-shown">
+<div class="container">
+	<div class="inner-content">
+		<div class="heading">
+	        <div class="logoMiddle">
+	        	{% if practice.practiceLogo %}
+								<img src="images/logos/{{ practice.practiceLogo }}" class="img-reponsive" />
+						{% else %}
+								<img src="images/imgv3/logo.png" class="img-reponsive" />
+						{% endif %}
+	        </div>
+	    </div>
+		<div class="row">
+    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 personalInfoInner">
+    			<div class="whitebox infoForm" style="border:2px solid #F1B649; margin-bottom: 10px;">
+					<div class="v-center">
+						<div class="h-center">
+							This contract is NOT in effect until any services are rendered. Shall no services be confirmed as rendered to the consumer, the signed contract remains null and void.
+						</div>
+					</div>
+				</div>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 personalInfoInner">
+    			<div class="whitebox infoForm">
+					<div class="v-center">
+						<div class="h-center">
+							<div class="promissory">
+								<br/>
+								<div>
+									{% if promNotePath %}
+									{% include promNotePath %}
+									{% else %}
+										The contract document could not be retrieved at this time.
+									{% endif %}
+								</div>
+							</div>
+							{% if manualModalPath %}}
+							{% include manualModalPath %}
+							{% endif %}
+						</div>
+					</div>
+				</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+</div>
+{% endblock %}

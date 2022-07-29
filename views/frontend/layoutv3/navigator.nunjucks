@@ -1,0 +1,80 @@
+<!-- Navigator section -->
+<div class="steps_Tabs">
+	<ul class="">
+		<li {% if navtab == 1 %} class="select active" {% else %} class="select"  {% endif %}>
+ 			<i {% if navtab > 1 %} class="fa fa-check" {% else %} class=""  {% endif %}></i>
+			<span class="text">Start</span>
+			<span class="mobileTxt">1</span>
+			<span class="line"></span>
+		</li>
+		<li {% if navtab == 2 %} class="select active" {% else %} class="select"  {% endif %}>
+			{% if navtab == 2 %}
+				<a data-toggle="modal" class="MainNavText clicktosavetooltip" id="MainNavHelp" onclick="showclicktosaveform('{{urlpath}}');">
+	       			<span class="tooltiptext tooltip-top">
+						<img src="/images/imgv3/save-icon.png" /> click to save
+					</span>
+					<span class="tooltiptext tooltip-top" id="mobilesaveicon" onclick="showclicktosaveform('{{urlpath}}');">
+						<img src="/images/imgv3/save-icon.png" />
+					</span>
+	   			</a>
+	   		{% endif %}
+    		<!-- {% if navtab == 2 %}
+				{% if  req.session.applicationuserId and req.session.applicationuserId !='' and req.session.applicationuserId != null  and  ( urlpath=='userinformationfull' or urlpath=='userinformationfulldata' )   %}
+					<a  href="javascript:void(0);">
+		       			<span class="tooltiptext tooltip-top">
+							<img src="/images/imgv3/save-icon.png" /> click to save
+						</span>
+		   			</a>
+		   		{% else %}
+		   			<a data-toggle="modal" class="MainNavText clicktosavetooltip" id="MainNavHelp" onclick="showclicktosaveform('{{urlpath}}');">
+		       			<span class="tooltiptext tooltip-top">
+							<img src="/images/imgv3/save-icon.png" /> click to save
+						</span>
+		   			</a>
+		   		{% endif %}
+   			{% endif %} -->
+
+
+			<i {% if navtab > 2 %} class="fa fa-check" {% else %} class=""  {% endif %}></i>
+			<span class="text">Personal</span>
+			<span class="mobileTxt">2</span>
+			<span class="line"></span>
+		</li>
+		<li {% if navtab == 3 %} class="select active" {% else %} class="select"  {% endif %}>
+			<i {% if navtab > 3 %} class="fa fa-check" {% else %} class=""  {% endif %}></i>
+			<span class="text">Financial</span>
+			<span class="mobileTxt">3</span>
+			<span class="line"></span>
+		</li>
+		<li {% if navtab == 4 %} class="select active" {% else %} class="select"  {% endif %}>
+			<i {% if navtab > 4 %} class="fa fa-check" {% else %} class=""  {% endif %}></i>
+			<span class="text">Offers</span>
+			<span class="mobileTxt">4</span>
+			<span class="line"></span>
+		</li>
+		<li {% if navtab == 5 %} class="select active" {% else %} class="select"  {% endif %}>
+			<i {% if navtab > 5 %} class="fa fa-check" {% else %} class=""  {% endif %}></i>
+			<span class="text">Review</span>
+			<span class="mobileTxt">5</span>
+			<span class="line"></span>
+		</li>
+		<li {% if navtab == 6 %} class="select active" {% else %} class="select"  {% endif %}>
+			<i {% if navtab > 6 %} class="fa fa-check" {% else %} class=""  {% endif %}></i>
+			<span class="text">Contract</span>
+			<span class="mobileTxt">6</span>
+			<span class="line"></span>
+		</li>
+		<li {% if navtab == 7 %} class="select active" {% else %} class="select"  {% endif %}>
+			<i {% if navtab > 7 %} class="fa fa-check" {% else %} class=""  {% endif %}></i>
+			<span class="text">Finish</span>
+			<span class="mobileTxt">&#x2713;</span>
+		</li>
+	</ul>
+</div>
+<div id="alertclick2save" class="alert alert-success alert-dismissible" style="display:none;margin-top:20px;">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Success!</strong> You will receive an email with instructions to login to your account.
+</div>
+<input type="hidden" id="optedclicktosave" value="{{req.session.clicktosave}}">
+
+<!-- End of Navigator section -->

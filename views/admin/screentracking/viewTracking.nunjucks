@@ -1,0 +1,1030 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <style>
+    .badge-success {
+      background-color: green;
+    }
+
+    .badge-danger {
+      background-color: red;
+    }
+  </style>
+  <section class="content-header">
+    <!-- spinner start -->
+    <div class="row" id="loaderid" style="display:none;">
+      <div class="" align="center" style="text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,0.7);">
+        <!-- pre id="plaidresponse"><img src="/images/img/ajaxloader.gif"></pre -->
+        <div style="height:100%;width:100%;background:url('/images/img/ajaxloader.gif') no-repeat center;margin-top:-233px;"></div>
+      </div>
+    </div>
+    <!-- spinner end -->
+    <h1>View Incomplete Application</h1>
+    <ol class="breadcrumb">
+      <li>
+        <a href="/admin/dashboard">
+          <i class="fa fa-dashboard"></i>Dashboard</a>
+      </li>
+      <li>
+        <a href="/admin/incompleteApplication">
+          <i class="fa fa fa-building"></i>Incomplete Application</a>
+      </li>
+      <li class="active">View Incomplete</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">{{ practicedata.PracticeName }}</h3>
+        <span class="pull-right">
+          <a href={{backviewType}}>
+            <button type="button" class="btn btn-primary">Back</button>
+          </a>
+        </span>
+      </div>
+
+      <div class="box-body">
+        <div id="alerts-box"></div>
+        {% if (successval) %}
+          <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{successval}}
+          </div>
+          <br>
+        {% endif %}
+        {% if (errorval) %}
+          <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{errorval}}
+          </div>
+          <br>
+        {% endif %}
+        {% if (successmsg) %}
+          <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{successmsg}}
+          </div>
+          <br>
+        {% endif %}
+        <div id="tabs">
+          <input type="hidden" id="paymentID" name="paymentID" value="{{ paymentManagementId }}">
+          <input type="hidden" id="incompleteScreenId" name="incompleteScreenId" value="{{ screentracking.id }}">
+
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" href="#userinfo">User Information</a>
+            </li>
+
+            {% if req.user.rolename != 'PracticeStaff' %}
+              <li>
+                <a data-toggle="tab" href="#transunioninfo">Trans Union Information</a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#userbankinfo" id="userbankinfotab">Bank Accounts</a>
+              </li>
+            {% endif %}
+
+            <li>
+              <a data-toggle="tab" href="#employmentinfo" id="employmentinfotab">Employment</a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#uploaddocuments" id="uploaddoctab">Document Center</a>
+            </li>
+            <!--<li><a data-toggle="tab" href="#consolidationinfo">Consolidation Info</a></li>-->
+            <li>
+              <a data-toggle="tab" href="#DTIoffer" id="DTIoffertab">Counter Offer</a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#incompletecommentsection" >Comments</a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#loagactivitysection" >Log</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div id="userinfo" class="tab-pane fade in active">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>User Information
+                <!-- <a href="/admin/resendplaidlink/{{ screentracking.id }}"><button type="button" class="btn btn-primary pull-right" onclick="this.disabled = true;this.value='Processing...';this.form.submit();">Resend Plaid Link</button></a> --></h3>
+
+                {% if req.session.rolename == 'Underwriter' or req.session.rolename == 'Admin' or req.user.rolename == 'PracticeAdmin' or req.user.rolename == 'PracticeStaff' %}
+                  {% if incompleteDatediff > 45 and screentracking.moveToIncomplete != 1 %}
+                    <!-- <div style="position: absolute; right: 100px;  top: 10px;">
+                  <button type="button" class="btn btn-primary" id="movetoincomplete" onclick="moveToIncompleteApplication();">Move to open</button>
+                  </div> -->
+                  {% endif %}
+                {% endif %}
+
+                {% if req.session.rolename == 'Underwriter' or req.session.rolename == 'Admin' or req.user.rolename == 'PracticeAdmin' or req.user.rolename == 'PracticeStaff' %}
+                  {% if screentracking.moveToArchive == 1 %}
+                    <div style="position: absolute; left: 450px;  top: 10px;">
+                      <button type="button" class="btn btn-primary" id="unarchive"  onclick="$('#movetoUnarchiveModal').modal('show');">Unarchive</button>
+                    </div>
+                  {% else %}
+                    <div style="position: absolute; left: 450px;  top: 10px;">
+                      <button type="button" class="btn btn-primary" id="sendContinueAppEmail"  onclick="window.location.href='/admin/sendContinueAppEmail/{{screentracking.user.id}}/{{screentracking.id}}';">Send Continue App Email</button>
+                      <button type="button" class="btn btn-primary" id="archive"  onclick="$('#movetoarchiveModal').modal('show');">Archive</button>
+                    </div>
+                  {% endif %}
+                  {% if screentracking.user.password == null and screentracking.user.salt == null %}
+                    <div style="position: absolute; left: 450px;  top: 10px;">
+                      <button type="button" class="btn btn-primary" id="continue-app"  onclick="$('#continueApplicationModal').modal('show');">Continue Application</button>
+                    </div>
+                  {% endif %}
+                {% endif %}
+
+                {% if req.session.rolename == 'Underwriter' or req.session.rolename == 'Admin' or req.user.rolename == 'PracticeAdmin' or req.user.rolename == 'PracticeStaff' %}
+                  {% if screentracking.incompleteverified == 0 %}
+                    <!-- <div style="position: absolute; left: 450px;  top: 10px;">
+                  <button type="button" class="btn btn-primary" id="moveToComplete" onclick="markAsComplete();">Mark as complete</button>
+                  </div> -->
+
+                  {% endif %}
+                {% endif %}
+
+                {% if req.session.rolename == 'Underwriter' or req.session.rolename == 'Admin' or req.user.rolename == 'PracticeAdmin' or req.user.rolename == 'PracticeStaff' or req.user.rolename == 'PracticeDoctor' %}
+                  {% if paymentmanagementdata%}
+
+                    <div style="position: absolute; right: 0;  top: 10px;">
+                      <button type="button" class="btn btn-primary" id="linkstaff"  onclick="doctorsList();">Link staff /
+                          doctor</button>&nbsp;&nbsp;
+                        </div>
+                  {% endif %}
+
+                {% endif %}
+                <br/>
+                <div id="responsemessage"></div>
+
+                <div class="table-responsive">
+                  <form role="form" method="POST" enctype="multipart/form-data" action="">
+
+                    <table class="table table-bordered">
+                      <tbody>
+
+                        <tr>
+                          <th width="20%">Application Reference</th>
+                          <td>
+                            <a href="/admin/viewIncomplete/{{screentracking.id}}">{{ screentracking.applicationReference }}
+                            </a>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <th width="20%">User Reference</th>
+                          <td>
+                            <a href="/admin/viewUserDetails/{{screentracking.user.id}}">{{ screentracking.user.userReference }}
+                            </a>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <th width="20%">Name</th>
+                          <td>{{ screentracking.user.firstname }}
+                            {{ screentracking.user.lastname }}</td>
+                        </tr>
+                        <tr>
+                          <th>Email Address</th>
+                          <td>{{ screentracking.user.email }}</td>
+                        </tr>
+                        <tr>
+                          <th>Phone Number</th>
+                          <td>{{ screentracking.user.phoneNumber }}</td>
+                        </tr>
+                        <tr>
+                          <th>Date of Birth</th>
+                          <td>{{ screentracking.user.dateofBirth }}</td>
+                        </tr>
+                        <tr>
+                          <th>Address</th>
+                          <td>{{ screentracking.user.addresses }}
+                            <br/>
+                            {% if screentracking.user.street %}
+                              {{ screentracking.user.street }}
+                              <br/>
+                              {% endif%}
+                              {{ screentracking.user.city }}
+                              <br/>
+                              {{ screentracking.user.state }}, {{ screentracking.user.zipCode }}
+                              <br/>
+                            </td>
+                            <!-- <td>&nbsp;</td> -->
+                          </tr>
+                          <tr>
+                            <th>LastScreen Name</th>
+                            <td>{{ screentracking.lastScreenName }}</td>
+                          </tr>
+                          <tr>
+                            <th>Created Date</th>
+                            <td>{{ screentracking.createdAt }}</td>
+                          </tr>
+                          <tr>
+                            <th>LastScreen Details</th>
+                            {% if req.user.rolename != 'PracticeStaff' %}
+                              <td>
+                                <pre id="json" style="background:#FFF; border:none;">{{ screenData }}</pre>
+                              </td>
+                            {% else %}
+                              <td>{{ screentracking.lastScreenName }}</td>
+                            {% endif %}
+                          </tr>
+                          {% if screentracking.loanstatus %}
+                            <tr>
+                              <th>Income Status</th>
+                              <td>
+                                <pre id="json1" style="background:#FFF; border:none;">{{ screentracking.loanstatus }}</pre>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <th>Income Description</th>
+                              <td>
+                                <pre id="json2" style="background:#FFF; border:none;">{{ screentracking.loandescription }}</pre>
+                              </td>
+                            </tr>
+                          {% endif %}
+                          <tr>
+                            <th>Annual Income </th>
+                            <td>{{ screentracking.incomeamount*12 }}</td>
+                          </tr>
+                          <tr>
+                            <th>Monthly Income </th>
+                            <td>{{ screentracking.incomeamount }}</td>
+                          </tr>
+                          <tr>
+                            <th>Anticipated Financed Amount</th>
+                            <td>{{ screentracking.requestedLoanAmount }}</td>
+                          </tr>
+                          <tr>
+                            <th>PreDTI Debt</th>
+                            <td>{{ screentracking.preDTIMonthlyAmount }}</td>
+                          </tr>
+                          <tr>
+                            <th>PreDTI Debt(%)</th>
+                            <td>{{ screentracking.preDTIPercentValue }}</td>
+                          </tr>
+                          <tr>
+                            <th>Payroll Detected Income </th>
+                            <td>{{ payroll_detected }}</td>
+                          </tr>
+                          <tr>
+                            <th>Housing Expense </th>
+                            <td>{{ screentracking.housingExpense }}</td>
+                            <td>&nbsp;</td>
+                          </tr>
+
+                          <tr>
+                            <th>Counter offered </th>
+                            <td>{{ counterOfferincomplete }}</td>
+                          </tr>
+
+                          <tr>
+                            <th>Income Type</th>
+                            {% if screentracking.incometype == "Manually" %}
+                              <td>Entered Manually</td>
+                            {% elseif screentracking.incometype == "Automatically" %}
+                              <td>Detected from Payroll</td>
+                            {% else %}
+                              <td>Modified by admin</td>
+                            {% endif %}
+                          </tr>
+                          {% set deniedlength = screentracking.rulesDetails.approvedrulemsg.length %}
+                          <tr>
+                            <th>Underwriting Rules{% if screentracking.rulesDetails.approvedrulemsg %}
+                                <p style="font-weight: 300">(Version: {% if req.session.rolename == 'Admin' %}{{ practicedata.PracticeName }}
+                                  {% endif %}{{ screentracking.rulesDetails.version }})</p>
+                              {% endif %}
+                            </th>
+                            <td>
+                              {% for approvemsg in screentracking.rulesDetails.approvedrulemsg %}
+                                <p>
+                                  {{ approvemsg }}
+                                  {% if ruleDataHasLength %}
+                                    {% if getRuleEntry(loop.index0) %}
+                                &nbsp;<span class="badge badge-success">Passed</span>
+                                    {% else %}
+                                &nbsp;<span class="badge badge-danger">Failed</span>
+                                    {% endif %}
+                                  {% endif %}
+                                </p>
+                              {% endfor %}
+                            </td>
+                          </tr>
+                          <tr>
+                            {% if screentracking.rulesDetails.ruledatacount %}
+                              <tr>
+                                <th>User Rule Values</th>
+                                <td>
+                                  {% for ruledatacount in screentracking.rulesDetails.ruledatacount %}
+                                    <p>{{ ruledatacount }}
+                                    </p>
+                                  {% endfor %}
+                                </td>
+                                <td>&nbsp;</td>
+                              </tr>
+                            {% endif %}
+                            {% if btrHasLength %}
+                              <tr>
+                                <th>Bank Transaction Rules</th>
+                                <td>
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr1']
+                                    .passed %}
+                                    <p>BTR1: Average income in 6 months < 2000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr1'].value }}</p>
+                                  {% else %}
+                                    <p>BTR1: Average income in 6 months < 2000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr1'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr2']
+                                    .passed %}
+                                    <p>BTR2: NSF transactions in a month > 0 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr2'].value }}</p>
+                                  {% else %}
+                                    <p>BTR2: NSF transactions in a month > 0 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr2'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr3']
+                                    .passed %}
+                                    <p>BTR3: NSF transactions in 3 months > 2 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr3'].value }}</p>
+                                  {% else %}
+                                    <p>BTR3: NSF transactions in 3 months > 2 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr3'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr4']
+                                    .passed %}
+                                    <p>BTR4: Average balance in 6 months < $400 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr4'].value }}</p>
+                                  {% else %}
+                                    <p>BTR4: Average balance in 6 months < $400 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr4'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr5']
+                                    .passed %}
+                                    <p>BTR5: Current balance < $200 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr5'].value }}</p>
+                                  {% else %}
+                                    <p>BTR5: Current balance < $200 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr5'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr6']
+                                    .passed %}
+                                    <p>BTR6: Balance from all depository bank accounts < $50 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr6'].value }}</p>
+                                  {% else %}
+                                    <p>BTR6: Balance from all depository bank accounts < $50 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr6'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr7']
+                                    .passed %}
+                                    <p>BTR7: Average balance from depository accounts in 3 months < $200 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr7'].value }}</p>
+                                  {% else %}
+                                    <p>BTR7: Average balance from depository accounts in 3 months < $200 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr7'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr8']
+                                    .passed %}
+                                    <p>BTR8: Total income in 6 months < 1000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr8'].value }}</p>
+                                  {% else %}
+                                    <p>BTR8: Total income in 6 months < 1000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr8'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr9']
+                                    .passed %}
+                                    <p>BTR9: Days since oldest transaction < 180 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr9'].value }}</p>
+                                  {% else %}
+                                    <p>BTR9: Days since oldest transaction < 180 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr9'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr10']
+                                    .passed %}
+                                    <p>BTR10: Average most recent available balance < -$1000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr10'].value }}</p>
+                                  {% else %}
+                                    <p>BTR10: Average most recent available balance < -$1000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr10'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr11']
+                                    .passed %}
+                                    <p>BTR11: Ratio of time in days from primary checking account having no activity > 10% then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr11'].value }}</p>
+                                  {% else %}
+                                    <p>BTR11: Ratio of time in days from primary checking account having no activity > 10% then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr11'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr12']
+                                    .passed %}
+                                    <p>BTR12: Total spending related transactions in the past 30 days < $500 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr12'].value }}</p>
+                                  {% else %}
+                                    <p>BTR12: Total spending related transactions in the past 30 days < $500 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr12'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr13']
+                                    .passed %}
+                                    <p>BTR13: Total payment related transaction in past 3 months < than $50 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr13'].value }}</p>
+                                  {% else %}
+                                    <p>BTR13: Total payment related transaction in past 3 months < than $50 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr13'].value }}</p>
+                                  {% endif %}
+
+                                  {% if screentracking
+                                    .rulesDetails
+                                    .banktransactionrules['btr14']
+                                    .passed %}
+                                    <p>BTR14: Total ATM fee related transactions in the past 3 months > than $1000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr14'].value }}</p>
+                                  {% else %}
+                                    <p>BTR14: Total ATM fee related transactions in the past 3 months > than $1000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ screentracking.rulesDetails.banktransactionrules['btr14'].value }}</p>
+                                  {% endif %}
+                                </td>
+                                <td>&nbsp;</td>
+                              </tr>
+                            {% endif %}
+
+                            <th>Application Created By</th>
+                            <td>{{ screentracking.user.underwriter }}
+                            </td>
+                            <!-- <td>&nbsp;</td> -->
+                          </tr>
+                          <!-- <tr>
+                      <th>Documents Uploaded By</th>
+                      <td>--</td>
+                      <td>&nbsp;</td>
+                      </tr> -->
+                          {% if screentracking.rulesDetails.loanstatus == 'Denied' %}
+                            {% set deniedlength = screentracking.rulesDetails.declinedrulemsg.length %}
+                            <tr>
+                              <th>Denied Details</th>
+                              <td>
+                                {% for deniedmsg in screentracking.rulesDetails.declinedrulemsg %}
+                                  <p>{{ deniedmsg }}
+                                  </p>
+                                {% endfor %}
+                              </td>
+                            </tr>
+                          {% endif %}
+                        </tbody>
+                      </table>
+                      <div class="text-center" id="underwritersection">
+
+                        <button type="button" class="btn btn-primary" id="incompleteDenyloan" data-toggle="modal" data-target="#incompleteDenyModal">Deny</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div id="incompletecommentsection" class="tab-pane fade">
+                <h3>Comments Section</h3>
+                <form role="form" method="POST" enctype="multipart/form-data" action="" id="screentrackcomments">
+                  <input class="" type="hidden" id="screentrackingID" name="screentrackingID" value="{{ screentracking.id }}">
+                  <input class="" type="hidden" id="userId" name="userId" value="{{ screentracking.user.id }}">
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <th> Subject </th>
+                        <td><input type="text" class="form-control"  id="subject" name="subject" style="width:50%;" required="required"></td>
+                      </tr>
+                      <tr>
+                        <th>Comments</th>
+                        <td>
+                          <textarea class="form-control" id="comments" name="comments" required="required"></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" align="center">
+                          <!-- <button type="button" class="btn btn-primary" onclick="addincompleteachcommnet();">Submit</button> -->
+                          <button type="submit" id="commentIncomplete" class="btn btn-primary">Submit</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+                <!-- Comments starts here -->
+                <div class="tab-content faq-subcat-content">
+                  <h3>Comments Details</h3>
+                  <br/>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">Comments Details</div>
+                    <div class="panel-body">
+                      <div class="container-fluid ">
+                        <table class="table table-striped table-bordered dataTable" id="screencomments_table">
+                          <thead>
+                            <tr>
+                              <th style="width: 10px">#</th>
+                              <th>Subject</th>
+                              <th>Comments</th>
+                              <th>Created By</th>
+                              <th>Created Date</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Comments ends here -->
+              </div>
+              <div id="transunioninfo" class="tab-pane fade">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  {% include "admin/user/transunion.nunjucks"%}
+                </div>
+              </div>
+            </div>
+
+            <!-- Counter Offer Tab Start -->
+            <div id="DTIoffer" class="tab-pane fade">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {# % include "admin/screentracking/dtiandoffersnew.nunjucks" % #}
+                {% include "admin/screentracking/changeLoanAmount.nunjucks" %}
+                {# {% include "admin/screentracking/changeLoanAmount.nunjucks" %} #}
+
+              </div>
+            </div>
+            <!-- Counter Offer Tab End -->
+
+            <!-- Log Tab Start -->
+            <div id="loagactivitysection" class="tab-pane fade">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>Log Activity Details</h3>
+                <br/>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Log Activity Details</div>
+                  <div class="panel-body">
+
+                    <div class="container-fluid ">
+                      <table class="table table-striped table-bordered dataTable" id="achlogactivity_table">
+                        <thead>
+                          <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Log Reference</th>
+                            <th>Module Name</th>
+                            <th>Message</th>
+                            <th>Created Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          {% set lg = 0 %}
+                          {% for logdata in logDetails %}
+                            {% set lg = lg + 1 %}
+                            <tr>
+                              <td>{{ lg }}</td>
+                              <td>{{ logdata.logreference }}</td>
+                              <td>{{ logdata.modulename }}</td>
+                              <td>{{ logdata.logmessage }}</td>
+                              <td data-sort='MMDDYYYY'>{{ logdata.createdAt }}</td>
+                            </tr>
+                          {% endfor %}
+                          {% for communicationLogData in communicationDetails %}
+                            {% set lg = lg + 1 %}
+                            <tr>
+                              <td>{{ lg }}</td>
+                              <td>--</td>
+                              <td>{{ communicationLogData.subject }}</td>
+                              <td>{{ communicationLogData.logdata }}</td>
+                              <td>{{ communicationLogData.createdAt }}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Log Tab End -->
+
+          <div id="employmentinfo" class="tab-pane fade">
+            {% include "admin/screentracking/employmentTab.nunjucks" %}
+          </div>
+
+            {% if req.user.rolename != 'PracticeStaff' %}
+              <div id="userbankinfo" class="tab-pane fade">
+                {% include "admin/userbank/accounts.nunjucks" %}
+              </div>
+            {% endif %}
+            <!--upload documents start here-->
+            <div id="uploaddocuments" class="tab-pane fade">
+
+              <h3>Uploaded Documents</h3>
+
+              <form role="form" method="post" enctype="multipart/form-data" action="/admin/uploadDocumentProof" id="desc">
+
+                <input type="hidden" id="paymentID" name="paymentID" value="{{ paymentManagementId }}">
+
+                <input type="hidden" id="categoryId" name="category" value="incompleteusers">
+
+                <input type="hidden" id="screenId" name="screenId" value="{{ screentracking.id }}">
+
+                <input class="" type="hidden" id="userId" name="userId" value="{{ screentracking.user.id }}">
+
+                <table class="table table-bordered">
+                  <tbody>
+                    <div id="docuCheck" style="display:none;">
+                      <p>Please select</p>
+                    </div>
+                    <tr>
+                      <th> Document Type </th>
+                      <td>
+                        <select name="docutype" id="docutype" required="">
+                          <option value="" >Select Document Type</option>
+                          <option value="{{ documenttype.documenttype1 }}" >{{ documenttype.documenttype1 }}</option>
+                          <option value="{{ documenttype.documenttype2 }}" >{{ documenttype.documenttype2 }}</option>
+                          <option value="{{ documenttype.documenttype3 }}" >{{ documenttype.documenttype3 }}</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <div class="existsdoc">You have already uploaded selected doucment type!!!</div>
+
+                    <tr id="docuNameCheck" style="display:none;">
+                      <th> Document Name </th>
+                      <td><input type="text" class="form-control" id="documentname" name="documentname" style="width:50%;" ></td>
+                    </tr>
+                    <tr>
+                      <th>Document</th>
+                      <td>
+                        <input  type="file"  id="proofdocument" name="proofdocument" required>
+
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="2" align="center">
+                        <button type="submit"  class="btn btn-primary" id="updocs" value="Validate" onclick="Validate();">Submit</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+
+              <div class="container-fluid ">
+
+                {% if achdocumentDetails.length > 0 %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Document Type</th>
+                          <th>Document </th>
+                          <th>Underwriter </th>
+                          <th>Created Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% set lg = 0 %}
+                        {% for logsdata in achdocumentDetails %}
+                          {% set lg = lg + 1 %}
+                          <tr>
+                            <td>{{ lg }}</td>
+                            <td>{{ logsdata.docname }}</td>
+                            <td>
+                              <a href="{{ logsdata.proofdocument.standardResolution }}" target="_blank">View Document</a>
+                            </td>
+                            {% if logsdata.underwriter != ''%}
+                              <td>{{ logsdata.underwriter }}</td>
+                            {% else %}
+                              <td>user</td>
+                            {% endif %}
+                            <td>{{ logsdata.createdAt }}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                {% else %}
+                  <p>No document added from system</p>
+                {% endif %}
+
+              </div>
+            </div>
+            <!--upload documents ends here-->
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="doctorListModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+      <form role="form" id="linkdoctorstaffform" method="POST" enctype="multipart/form-data" action="/admin/linkdoctorstaff">
+        <input class="" type="hidden" id="linkpaymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+        <!-- Modal content-->
+        <div class="modal-content" style="float: left;width: 100%;">
+          <div class="modal-header bg-primary">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Link Staff/Doctor</h4>
+          </div>
+          <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+            <div class="col-lg-6 text-center">
+              <label>Practice Staff</label><br><br>
+
+              {% if practiceAllResults.length > 0 %}
+                <select name="practicestaff" id="practicestaff" multiple>
+                  {% for practice in practiceAllResults %}
+                    <option value="{{practice.id}}" {% if practice.staffexist==1 %}selected{% endif %}>{{practice.fullname}}</option>
+                  {% endfor %}
+                </select>
+                {% else%}
+                <p>No practice staffs are found.
+              {% endif %}
+              </div>
+              <div class="col-lg-6 text-center">
+                <label>Practice Doctor</label><br><br>
+                {% if practiceDocResults.length > 0 %}
+                  <select name="practicedoctor" id="practicedoctor" multiple>
+                    {% for practicDoc in practiceDocResults %}
+                      <option value="{{practicDoc.id}}" {% if practicDoc.doctorexist==1 %}selected{% endif %}>{{practicDoc.fullname}}</option>
+                    {% endfor %}
+                  </select>
+                  {% else%}
+                  <p>No practice doctors are found.
+              {% endif %}
+                </div>
+              </div>
+              <div class="text-center" id="responseMsg"></div>
+              <div id="doctorsList">
+                {% include "admin/pendingach/doctorsStafflist.nunjucks" %}
+              </div>
+              <div class="modal-footer bg-info" style="float: left;width: 100%;">
+                {% if practiceAllResults.length > 0 or practiceDocResults.length > 0 %}
+                  <input type="submit"  class="btn btn-primary" value="Submit"  id="linkdoctorstaffbtn">
+                {% endif %}
+                <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- moveToArchive Modal -->
+      <div id="movetoarchiveModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+              </button>
+              <h4 class="modal-title">Archive Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p>
+                <strong>Are you sure you want to archive the application?</strong>
+              </p>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="movetoarchive();">Confirm</button>
+              <span id="repull_loading" style="display:none;margin-left:5px;"><img src="/images/img/loading.gif"></span>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- moveToUnArchive Modal -->
+      <div id="movetoUnarchiveModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+              </button>
+              <h4 class="modal-title">Unarchive Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p>
+                <strong>Are you sure you want to unarchive the application?</strong>
+              </p>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="movetoUnarchive();">Confirm</button>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deny Modal -->
+      <div id="incompleteDenyModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Deny Confirmation</h4>
+            </div>
+            <form role="form" method="POST" enctype="multipart/form-data" action="">
+              <div class="modal-body bgColorWhite">
+                <p>
+                  <strong>Are you sure want to deny this financing?</strong>
+                </p>
+
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th width="30%"> Eligible to reapply </th>
+
+                      <td>
+                        <div class="checkbox checkbox-primary checkbox-inline">
+                          <input type="radio" id="inlineRadio1"  autocomplete="off" name="incompleteEligiblereapply" value="1"  >
+                          <label for="inlineRadio1" > Yes </label>
+                        </div>
+                        <div class="checkbox checkbox-primary checkbox-inline">
+                          <input type="radio" id="inlineRadio2" autocomplete="off" name="incompleteEligiblereapply"  value="0" checked="checked" >
+                          <label for="inlineRadio2" > No </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Decline</th>
+                      <td>
+                        <select class="form-control" id="incompleteDecline" name="incompleteDecline" required>
+                          <!-- <option disabled>Credit decline email:</option>
+    									<option value='Suspected Fraud'>1.Suspected Fraud</option>
+    									<option value='Insufficient Income - 30 minus days to decline'>2.Insufficient Income - 30 minus days to decline</option>
+    									<option value='Insufficient credit history - 30 minus days to decline'>3.Insufficient credit history - 30 minus days to decline</option>
+    									<option value='High DTI - 30 minus days to decline'>4.High DTI - 30 minus days to decline</option>
+									  <option value='Insufficient amount balance'>5.Insufficient amount balance</option> -->
+                          <option value='Canceled - No longer interested'>Canceled - No longer interested</option>
+                          <!-- <option disabled>&nbsp;</option>
+    									<option disabled>Identity decline:</option>
+    									<option value='Duplicate application'>1.Duplicate application</option>
+    									<option value='Unable to verify ID'>2.Unable to verify ID</option> -->
+                        </select>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th>Decline Reason</th>
+                      <td>
+                        <textarea class="form-control" id="incompleteDeclinereason" name="incompleteDeclinereason" required>Canceled - No longer interested</textarea>
+                        <strong>
+                          <span id="incompleteDeclineerromessage" class="error"></span></strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="modal-footer bg-info">
+                <button type="button" class="btn btn-primary" id="incompleteconfirm" onclick="incompleteDenyconfirm();">Confirm</button>
+                <span id="confirm_loading" style="display:none;margin-left:5px;"><img src="/images/img/loading.gif"></span>
+                <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- continue imported application Modal -->
+      <div id="continueApplicationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form id="continue-app-form" name="continue-app-form">
+              <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">
+                  <i class="fa fa-times-circle" aria-hidden="true"></i>
+                </button>
+                <h4 class="modal-title">Continue Application</h4>
+              </div>
+              <div class="modal-body bgColorWhite">
+                <p>This will send an email with a link to confirm their account, set their password, and continue their application.</p>
+              </div>
+              <div class="modal-footer bg-info">
+                <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="continue-app-confirm" onclick="continueApplication();">Continue</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {% include "admin/userbank/modals.nunjucks" %}
+    </section>
+
+    <script>
+      $(function () {
+        $("#continue-app-form").on("submit", function (event) {
+          event.preventDefault();
+        });
+      });
+
+      function continueApplication() {
+        ajaxPost("/admin/application/continue/{{ screentracking.user.id }}").then(function (response) {
+          $("#alerts-box").html('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Success!</strong> Email has been sent.</div>');
+        });
+      }
+
+      /*$(document).ready(function() {
+  $("#docutype").change(function() {
+	//var end = this.value;
+	if (docutype.value == "Others") {
+		$("#docuNameCheck").show();
+	}else{
+		$("#docuNameCheck").hide();
+	}
+	});
+	});
+*/
+
+      function Validate() {
+        var docutype = document.getElementById("docutype");
+        if (docutype.value == "Others") {
+          $("#documentname").show();
+
+          if (document.getElementById("documentname").value == "") {
+            $('#documentname').addClass('error');
+            $("#updocs").attr("disabled", false);
+            return false;
+          } else {
+
+            if (document.getElementById("proofdocument").value == "") {
+              $('#documentname').removeClass('error');
+              $("#updocs").attr("disabled", false);
+            } else {
+              $('#desc').submit();
+              $('#documentname').removeClass('error');
+              $("#updocs").attr("disabled", true);
+            }
+          }
+        } else {
+
+          if (document.getElementById("proofdocument").value == "") {
+            $("#updocs").attr("disabled", false);
+          } else {
+            $('#desc').submit();
+            $("#docuNameCheck").hide();
+            $("#updocs").attr("disabled", true);
+          }
+        }
+      }
+    </script>
+
+    {% if (banksuccessmsg or bankerror) %}
+      <script>
+        setTimeout(function () {
+          $('#userbankinfotab').click();
+        }, 1000);
+      </script>
+    {% endif %}
+    {% if (uploaddocmsg) %}
+      <script>
+        setTimeout(function () {
+          $('#uploaddoctab').click();
+        }, 1000);
+      </script>
+    {% endif %}
+    {% if (changeincomemsg) %}
+      <script>
+        setTimeout(function () {
+          $('#DTIoffertab').click();
+        }, 1000);
+      </script>
+    {% endif %}
+
+    <style>
+      .error {
+        border-color: red;
+      }
+      .success {
+        color: #3c763d;
+        font-size: 14px;
+      }
+      .existsdoc {
+        display: none;
+        text-align: center;
+        color: red;
+      }
+      .checkbox input[type="radio"] {
+        opacity: 1!important;
+      }
+
+      #sendContinueAppEmail {
+        margin-right: 10px;
+      }
+    </style>
+
+  {% endblock %}

@@ -1,0 +1,57 @@
+<html>
+
+<body>
+
+  <head>
+    <style>
+      body {
+        background-color: white;
+        font-family:"Neo Sans fonts", Verdana, sans-serif ;
+      }
+
+      h1 {
+        color: black;
+      }
+
+      p {
+         color: black;
+      }
+    </style>
+  </head>
+  <h1 style="margin:0px;"> Credit Authorization </h1>
+    <p>You acknowledge that by clicking <a href="javascript:void(0);" data-dismiss="modal" class="colorchange">&quot;Continue&quot;</a> and continuing with the application process, you understand and agree
+	that you are authorizing {{LmsShortName}} to obtain consumer reports and related information
+	about you from one or more consumer reporting agencies, such as TransUnion, Experian, and Equifax.</p>
+	
+	<p>You acknowledge that by clicking <a href="javascript:void(0);" data-dismiss="modal" class="colorchange">&quot;Continue&quot;</a> there will be no impact to your credit score. You further acknowledge
+	that upon accepting a financing offer and electronically signing our Financing Agreement (by clicking <a href="javascript:void(0);" data-dismiss="modal" class="colorchange">"Accept"</a>) we will report a
+	hard inquiry to one or more consumer reporting agencies, such as Transunion, Experian, or Equifax. The reporting of
+	this inquiry may impact your credit score.</p>
+	
+	<p>You also authorize us to verify information in your application, and you agree that we may contact third parties to
+	verify any such information.</p>
+	
+	<p>We may use your consumer reports to authenticate your identity, and to make credit decisions. You authorize us to
+	obtain consumer reports each time you apply for a financing and during the processing or closing of a financing to you. You
+	further authorize us and any successor servicers of your financing to obtain consumer reports at various times during the
+	term of your financing in connection with the servicing, monitoring, collection or enforcement of the financing.</p>
+
+
+
+ {% if agreementObject.barrowername %}
+<p1> Borrower Name: {{agreementObject.barrowername}}</p1>
+<br>
+{% endif %}
+  <p1>
+    Ip:{{ip}}
+  </p1>
+
+  <br>
+  <p1>
+    Date:{{agreementObject.date}}
+  </p1>
+  <br>
+  </p1>
+</body>
+
+</html>

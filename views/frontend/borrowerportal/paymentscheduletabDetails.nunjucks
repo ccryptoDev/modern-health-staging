@@ -1,0 +1,169 @@
+<h3>Financing Information</h3>
+
+{% include "frontend/borrowerportal/loandetail.nunjucks" %}
+
+{% if(paymentmanagementdata) %}
+
+    {% if(paymentmanagementdata.achstatus != 2) %}
+  	   <p>Full pay off amount if paid less than six month:
+  	 	    <strong>
+  	 		{% if paymentmanagementdata.achstatus==1 %}
+
+  	 			{% if paymentmanagementdata.status =='PAID OFF' %}
+  	 				$0.00
+  	 			{% elseif paymentmanagementdata.status =='CLOSED' %}
+  	 				$0.00
+			  	{% else %}
+
+			  		{% if paymentmanagementdata.transferstatus==2 %}
+
+				  	 	 {% if makePaymentForStory.makePaymentObject %}
+				  	 		$ {{makePaymentForStory.makePaymentObject.fullPayoffAmount}}
+				  		 {% else %}
+				  		 --
+				  		 {% endif %}
+
+				  	 {% else %}
+				  	 	--
+				  	 {% endif %}
+
+			  	{% endif %}
+
+		  	{% elseif paymentmanagementdata.achstatus==4 %}
+		  		--
+		  	{% else %}
+		  		--
+		  	{% endif %}
+  	 	   </strong>
+  	    </p>
+    {% endif%}
+{% endif%}
+
+
+
+<h3>Payment Schedule Information</h3>
+{% if(paymentmanagementdata.achstatus != 2) %}
+	{% if(paymentmanagementdata) %}
+	    <div class="table-responsive">
+		    <table class="table table-bordered">
+			    <thead>
+					<tr>
+					  <th style="width: 10px">Schedule No.</th>
+					  <th>Amount (USD)</th>
+					  <th>Schedule Date</th>
+					  <th>Status</th>
+					</tr>
+			    </thead>
+		        <tbody>
+
+				  {% set p = 0 %}
+				  {% for paymentSchedule in  paymentmanagementdata.paymentSchedule %}
+				  {% set p = p+1 %}
+				  <tr>
+					<td>{{ p }}</td>
+					<td>{{ paymentSchedule.amount }}</td>
+					<td>{{ paymentSchedule.date}}</td>
+					<td>{% if paymentSchedule.status == 'CLOSED' %} Revoked {% else %} {{ paymentSchedule.status }} {% endif %}  </td>
+				  </tr>
+				  {% endfor %}
+				  </tbody>
+			</table>
+		</div>
+
+
+		<h3>Manual Payment Transaction Information</h3>
+		<br/>
+		{% if paymentmanagementdata.manualPayment.length>0 %}
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead>
+					  <tr>
+						<th style="width: 10px">#</th>
+						<th>Transaction Message</th>
+						<th>Transaction Amount</th>
+						<th> Date</th>
+					  </tr>
+					</thead>
+					<tbody>
+					{% set m = 0 %}
+					{% for manualPayment in  paymentmanagementdata.manualPayment %}
+					   {% set m = m+1 %}
+					  <tr>
+						<td>{{ m }}</td>
+						<td>{{ manualPayment.message }}</td>
+						<td>{{ manualPayment.amount }}</td>
+						<td>{{ manualPayment.date }}</td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		  {% else %}
+			  <p>No manual transaction from system</p>
+		  {% endif %}
+
+		  <h3>Financing Repayment Transaction Information</h3>
+
+		  {% if paymentmanagementdata.usertransactions %}
+			{% if paymentmanagementdata.usertransactions.length > 0 %}
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
+						  <tr>
+							<th style="width: 10px">#</th>
+							<th>Financing ID</th>
+							<th>Transaction Amount</th>
+							<th>Transaction ID</th>
+							<th>Transaction Type</th>
+							<th>Failure Reason</th>
+							<th>Transaction Status</th>
+							<th>Date</th>
+						  </tr>
+						</thead>
+						<tbody>
+							{% set um = 0 %}
+							{% for usertransactions in  paymentmanagementdata.usertransactions %}
+						    {% set um = um+1 %}
+							<tr>
+								<td>{{ um }}</td>
+								<td>{{ usertransactions.loanID }}</td>
+								<td>{{ usertransactions.amount }}</td>
+								<td>{{ usertransactions.transactionId }}</td>
+								<td>{{ usertransactions.transactionType }}</td>
+								<td>
+									{% if usertransactions.failurereason %}
+										{{ usertransactions.failurereason }}<br>
+										{{vikingConfig.rejectReason[usertransactions.failurereason]}}
+									{% else %}
+										--
+									{% endif %}
+								</td>
+								<td>
+									{% if usertransactions.status==2 %}
+									   Settled
+									{% elseif usertransactions.status==3 %}
+									   Failed
+									{% else %}
+									   Pending
+									{% endif %}
+								</td>
+								<td> {% set transdate = usertransactions.date %}  {{ moment( transdate ).format('YYYY-MM-DD')}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			  {% else %}
+				<p>No financing repayment transaction from system</p>
+			  {% endif %}
+		  {% else %}
+			  <p>No financing repayment transaction from system</p>
+		  {% endif %}
+		{% else %}
+		  <div class="alert alert-danger"> Your application has been incomplete. </div>
+		{% endif %}
+{% else %}
+	<tr>
+		<td colspan="8" align="center" ><p>No Payment Schedule due to Denied Application</p></td>
+	</tr>
+{% endif %}

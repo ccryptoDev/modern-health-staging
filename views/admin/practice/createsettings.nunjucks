@@ -1,0 +1,690 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+	<section class="content-header">
+		<h1>Create New Practice Rules</h1>
+		<ol class="breadcrumb">
+			<li>
+				<a href="/admin/dashboard">
+					<i class="fa fa-dashboard"></i>Dashboard</a>
+			</li>
+			<li>
+				<a href="/admin/managepractice">
+					<i class="fa fa fa-building"></i>Practice List</a>
+			</li>
+			<li class="active">Add Practice</li>
+		</ol>
+	</section>
+	<section class="content">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">Settings Form</h3>
+				<span class="pull-right">
+					<a href="/admin/practicesettings">
+						<button type="button" class="btn btn-primary">Back</button>
+					</a>
+				</span>
+			</div>
+			<div class="box-body">
+				{% if (error) %}
+					<div class="alert alert-danger">
+						{{error}}
+					</div>
+					<br>
+				{% endif %}
+				<div id="practicemsg"></div>
+				<form id="addSetting" role="form" method="POST" name="addSetting" action="/admin/addnewsetting">
+					<input type="hidden" name="siteUrl" id="siteUrl" value="{{ siteUrl }}">
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th colspan="2">
+									<h3>Settings Information</h3>
+								</th>
+							</tr>
+							<tr>
+								<th>Settings Name</th>
+								<td><input type="text" class="form-control" id="name" name="name" value="{{req.form.name}}" style="width:50%;" required autocomplete="off"></td>
+							</tr>
+							<tr>
+							<th>Is Default</th>
+								{% if defaultExists %}
+									<td><input type="checkbox" id="isDefaultCheckbox" name="isDefaultCheckbox" disabled>&nbsp;&nbsp;<span style="color: gray;">default settings already exists</span></td>
+								{% else %}
+									<td><input type="checkbox" id="isDefaultCheckbox" name="isDefaultCheckbox"></td>
+								{% endif %}
+								<input type="hidden" id="isDefault" name="isDefault" value="false" />
+							</tr>
+							<tr>
+							<th>Deny specific tiers</th>
+								<td><input type="checkbox" id="denyTiersCheckbox" name="denyTiersCheckbox"></td>
+								<input type="hidden" id="denyTiers" name="denyTiers" value="false" />
+							</tr>
+
+							<tr style="display: none;" id="denyTiersSection">
+							<th></th>
+								<td>
+									<div style="display: flex;">
+										<div style="margin-right:10px">
+											A
+											<input type="checkbox" id="denyATier" name="denyATier">
+										</div>
+										<div style="margin-right:10px">
+											B
+											<input type="checkbox" id="denyBTier" name="denyBTier">
+										</div>
+										<div style="margin-right:10px">
+											C
+											<input type="checkbox" id="denyCTier" name="denyCTier">
+										</div>
+										<div style="margin-right:10px">
+											D
+											<input type="checkbox" id="denyDTier" name="denyDTier">
+										</div>
+										<div style="margin-right:10px">
+											E
+											<input type="checkbox" id="denyETier" name="denyETier">
+										</div>
+										<div style="margin-right:10px">
+											F
+											<input type="checkbox" id="denyFTier" name="denyFTier">
+										</div>
+										<div style="margin-right:10px">
+											G
+											<input type="checkbox" id="denyGTier" name="denyGTier">
+										</div>
+									</div>
+								</td>
+							</tr>
+
+							<th>Enable transunion</th>
+								<td><input type="checkbox" id="enableTransunionCheckbox" name="enableTransunionCheckbox"></td>
+								<input type="hidden" id="enableTransunion" name="enableTransunion" value="false" />
+							</tr>
+							<th>Enable Plaid</th>
+								<td><input type="checkbox" id="enablePlaidCheckbox" name="enablePlaidCheckbox"></td>
+								<input type="hidden" id="enablePlaid" name="enablePlaid" value="false" />
+							</tr>
+							<tr></tr>
+						</tbody>
+					</table>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<br>
+								<div class="panel-group">
+									<div class="panel panel-primary">
+										<div class="panel-heading">Practice Credit Tiers</div>
+										<div class="panel-body">
+											<table class="table table-bordered">
+												<tbody>
+													<tr>
+														<th>Tier</th>
+														<th>Credit Score Range</th>
+														<th>Minimum Down Payment</th>
+														<th>Max Loan Amount</th>
+														<th>Funding Rate</th>
+														<th>Interest Rate (10 months)</th>
+														<th>Sales price</th>
+														<th>O1 Term</th>
+														<th>O1 Int. Rate</th>
+														<th>O2 Term</th>
+														<th>O2 Int. Rate</th>
+														<th>O3 Term</th>
+														<th>O3 Int. Rate</th>
+														<th>O4 Term</th>
+														<th>O4 Int. Rate</th>
+													</tr>
+													<tr>
+														<th>Tier A</th>
+														<td>680 - 850
+														</td>
+														<td>1100
+														</td>
+														<td>{{loanCreditTiers[0].maxLoanAmount}}
+														</td>
+														<td>85
+														</td>
+														<td>{{loanCreditTiers[0].interestRate10 or 16.9}}%</td>
+														<td>$6000</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+													</tr>
+													<tr>
+														<th>Tier B</th>
+														<td>640 - 679
+														</td>
+														<td>1100
+														</td>
+														<td>{{loanCreditTiers[1].maxLoanAmount}}
+														</td>
+														<td>80
+														</td>
+														<td>{{loanCreditTiers[1].interestRate10 or 17.9 }}%</td>
+														<td>$6000</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+													</tr>
+													<tr>
+														<th>Tier C</th>
+														<td>600 - 639
+														</td>
+														<td>1100
+														</td>
+														<td>{{loanCreditTiers[2].maxLoanAmount}}
+														</td>
+														<td>70
+														</td>
+														<td>{{loanCreditTiers[2].interestRate10 or 18.9}}%</td>
+														<td>$6000</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+													</tr>
+													<tr>
+														<th>Tier D</th>
+														<td>570 - 599
+														</td>
+														<td>1100
+														</td>
+														<td>{{loanCreditTiers[3].maxLoanAmount}}
+														</td>
+														<td>50
+														</td>
+														<td>{{loanCreditTiers[3].interestRate10 or 19.9}}%</td>
+														<td>$6000</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+													</tr>
+
+													<tr>
+														<th>Tier E</th>
+														<td>540 - 569
+														</td>
+														<td>1500
+														</td>
+														<td>{{loanCreditTiers[4].maxLoanAmount}}
+														</td>
+														<td>40
+														</td>
+														<td>{{loanCreditTiers[4].interestRate10 or 20.9}}%</td>
+														<td>$6000</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+													</tr>
+													<tr>
+														<th>Tier F</th>
+														<td>520 - 539
+														</td>
+														<td>2500
+														</td>
+														<td>{{loanCreditTiers[5].maxLoanAmount}}
+														</td>
+														<td>25
+														</td>
+														<td>{{loanCreditTiers[5].interestRate10 or 21.9}}%</td>
+														<td>$6000</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+													</tr>
+													<tr>
+														<th>Tier G</th>
+														<td>1 - 519
+														</td>
+														<td>2800
+														</td>
+														<td>{{loanCreditTiers[6].maxLoanAmount}}
+														</td>
+														<td>20
+														</td>
+														<td>{{loanCreditTiers[6].interestRate10 or 22.9}}%</td>
+														<td>$6000</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+														<td>--</td>
+													</tr>
+												</tbody>
+											</table>
+											<button type="button" class="btn btn-primary" disabled onclick="openeditmodal();">Edit Finance Amount, Down Payment, Loan Amount, or Max Loan Amount</button>
+											<button type="button" class="btn btn-primary" disabled onclick="openeditrangemodal();">Edit Credit Score Range</button>
+											<span style="color:#757575; margin-left: 20px;">Settings must be created before editing rules and tiers</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<br>
+						<div class="panel-group">
+							<div class="panel panel-primary">
+								<div class="panel-heading">Product Rules</div>
+								<div class="panel-body">
+									<table class="table table-bordered">
+										<tbody>
+											<tr>
+												<th>Rule Description</th>
+												<th>Declined If</th>
+												<th>Active</th>
+											</tr>
+											{% for rule in rules %}
+												<tr>
+												<td><a style="cursor: pointer;">{{ rule.ruleid }}:&nbsp;{{ rule.description }}</a></td>
+												<td>{{ rule.declinedmessage }}</td>
+												<td>{{ rule.disabled }}</td>
+												</tr>
+											{% endfor %}
+											<tr>
+												<td>
+													<a style="cursor: pointer;" onclick="return openrulemodal({{ loop.index - 1 }});"></a>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<button type="button" class="btn btn-primary" disabled onclick="openrulemodal();">Add rule</button>
+													<span style="color:#757575; margin-left: 20px;">Settings must be created before editing rules and tiers</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<br>
+						<div class="panel-group">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Bank Transaction Rules</div>
+							<div class="panel-body">
+							<table class="table table-bordered">
+								<tbody>
+								<tr>
+									<th>Rule Description</th>
+									<th>Declined If</th>
+									<th>Active</th>
+								</tr>
+								{% for btrule in btrs.rules %}
+									<tr>
+									<td><a style="cursor: pointer;" >{{ btrule.code}}: {{ btrule.text }}</a></td>
+									<td>{{ btrule.declinedif }}</td>
+									<td>{{ btrule.disabled }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+							<!--
+							<button type="button" class="btn btn-primary" onclick="openbtrmodal();">Add new bank transaction rule</button>
+							-->
+							</div>
+						</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary" style="margin-left: 15px;" id="addnewpractice" name="submit1" id="submit1">Save settings</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<div id="editModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+	<form role="form" name="editCreditTiersForm" id="editCreditTiersForm" method="POST" enctype="multipart/form-data" action="/admin/editCreditTier" onsubmit="return validateForm();">
+		<input class="" type="hidden" id="practiceID" name="practiceID" value="{{ loanCreditTiers[0].practicemanagement }}"></input>
+		<!-- Modal content-->
+		<div class="modal-content" style="float: left;width: 100%;">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Credit Tiers</h4>
+			</div>
+			<div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+				<div class="form-group" id="notrange">
+					<div style="display: flex;">
+
+						<div style="margin-right: 60px;">
+							<label for="creditTier">Choose Tier to Edit</label><br>
+							<select id="creditTier" name="creditTier" onchange="changeFieldBasedOnInput(this)">
+								<option value="A">Tier A</option>
+								<option value="B">Tier B</option>
+								<option value="C">Tier C</option>
+								<option value="D">Tier D</option>
+								<option value="E">Tier E</option>
+								<option value="F">Tier F</option>
+								<option value="G">Tier G</option>
+							</select><br>
+						</div>
+
+						<div>
+							<label for="term">Choose Term to Edit</label><br>
+							<select id="term" name="term">
+								<option value="10">10 months</option>
+								<option value="15">15 months</option>
+								<option value="18">18 months</option>
+								<option value="24">24 months</option>
+							</select><br>
+						</div>
+					</div>
+					<div style="display: flex;">
+						<div style="margin-right: 17px;">
+							<label for="financedAmount">Financed Amount</label><br>
+							<input type="text" id="financedAmount" name="financedAmount" value="{{loanCreditTiers[0].financedAmount}}"><br>
+						</div>
+
+						<div>
+							<label for="interestRate">Interest Rate (%)</label><br>
+							<input type="text" id="interestRate" name="interestRate" value="{{loanCreditTiers[0].interestRate10}}"><br>
+						</div>
+					</div>
+					<label for="downPayment">Down Payment</label><br>
+					<input type="text" id="downPayment" name="downPayment" value="{{loanCreditTiers[0].downPayment}}"><br>
+
+					<label for="maxLoanAmount">Max Loan Amount</label><br>
+					<input type="text" id="maxLoanAmount" name="maxLoanAmount" value="{{loanCreditTiers[0].maxLoanAmount}}"><br>
+
+					<label for="loanAmount">Loan Amount</label><br>
+					<input type="text" id="loanAmount" name="loanAmount" value="{{loanCreditTiers[0].loanAmount}}"><br>
+
+					<label for="fundingRate">Funding Rate</label><br>
+					<input type="text" id="fundingRate" name="fundingRate" value="{{loanCreditTiers[0].fundingRate}}"><br>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer bg-info" style="float: left;width: 100%;">
+			<input type="submit"  class="btn btn-primary" value="Submit"  id="editCreditTierBtn" onclick="closeeditmodal();" >
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	</form>
+</div>
+</div>
+
+<div id="addRuleModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+		<form role="form" name="addRuleForm" id="addRuleForm" method="POST" enctype="multipart/form-data" action="/admin/addRule" onsubmit="return validateRuleForm();">
+			<input class="" type="hidden" id="practiceID" name="practiceID" value="{{ practiceData.id }}"></input>
+			<!-- Modal content-->
+			<div class="modal-content" style="float: left;width: 100%;">
+				<div class="modal-header bg-primary">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add Rule</h4>
+				</div>
+				<div class="modal-body bgColorWhite" style="float:left; width:100%;">
+					<div class="form-group">
+						<label>Choose Rule </label><br>
+						<select id="ruleSelector" name="ruleSelector" onchange="return updateRuleForm(this.value - 1, true)">
+							{% for rule in rules %}
+								<option value="{{ loop.index }}">{{ rule.ruleid}}:&nbsp;{{ rule.description }}</option>
+							{% endfor %}
+						</select><br>
+						<label for="ruleCondition">Declined If</label><br>
+						<select id="ruleCondition" name="ruleCondition">
+							<option value="gt">Greater Than</option>
+							<option value="gte">Greater Than, Equal To</option>
+							<option value="lt">Less Than</option>
+							<option value="lte">Less Than, Equal To</option>
+						</select>
+						<input type="text" id="ruleValue" name="ruleValue" value=""><br>
+						<input class="" type="hidden" id="ruleNumber" name="ruleNumber">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer bg-info" style="float: left;width: 100%;">
+				<input type="submit"  class="btn btn-primary" value="Submit" onclick="closeAddRuletModal();" >
+				<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="editRangeModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+	<form role="form" name="editCreditScoreRange" id="editCreditScoreRange" method="POST" enctype="multipart/form-data" action="/admin/editCreditRange" onsubmit="return validateRangeForm();">
+		<input class="" type="hidden" id="practiceID" name="practiceID" value="{{ practiceID }}"></input>
+		<!-- Modal content-->
+		<div class="modal-content" style="float: left;width: 100%;">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Credit Tiers</h4>
+			</div>
+			<div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+				<div class="form-group" id="range">
+					<label>Edit credit score. Make sure no overlaps occur. </label><br>
+					<label>Tier A</label><br>
+					<input type="text" id="minA" name="minA" value="{{loanCreditTiers[0].minCreditScore}}"> - <input type="text" id="maxA" name="maxA" value="{{loanCreditTiers[0].maxCreditScore}}"><br>
+					<label>Tier B</label><br>
+					<input type="text" id="minB" name="minB" value="{{loanCreditTiers[1].minCreditScore}}"> - <input type="text" id="maxB" name="maxB" value="{{loanCreditTiers[1].maxCreditScore}}"><br>
+					<label>Tier C</label><br>
+					<input type="text" id="minC" name="minC" value="{{loanCreditTiers[2].minCreditScore}}"> - <input type="text" id="maxC" name="maxC" value="{{loanCreditTiers[2].maxCreditScore}}"><br>
+					<label>Tier D</label><br>
+					<input type="text" id="minD" name="minD" value="{{loanCreditTiers[3].minCreditScore}}"> - <input type="text" id="maxD" name="maxD" value="{{loanCreditTiers[3].maxCreditScore}}"><br>
+					<label>Tier E</label><br>
+					<input type="text" id="minE" name="minE" value="{{loanCreditTiers[4].minCreditScore}}"> - <input type="text" id="maxE" name="maxE" value="{{loanCreditTiers[4].maxCreditScore}}"><br>
+					<label>Tier F</label><br>
+					<input type="text" id="minF" name="minF" value="{{loanCreditTiers[5].minCreditScore}}"> - <input type="text" id="maxF" name="maxF" value="{{loanCreditTiers[5].maxCreditScore}}"><br>
+					<label>Tier G</label><br>
+					<input type="text" id="minG" name="minG" value="{{loanCreditTiers[6].minCreditScore}}"> - <input type="text" id="maxG" name="maxG" value="{{loanCreditTiers[6].maxCreditScore}}"><br>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer bg-info" style="float: left;width: 100%;">
+			<input type="submit"  class="btn btn-primary" value="Submit"  id="editCreditTierBtn" onclick="closeeditrangemodal();" >
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	</form>
+</div>
+</div>
+
+<div id="addBtrModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <form role="form" name="addBtrForm" id="addBtrForm" method="POST" enctype="multipart/form-data" action="/admin/addBtr" onsubmit="return validateBtrForm();">
+      <input class="" type="hidden" id="practiceID" name="practiceID" value="{{ practiceData.id }}"></input>
+      <!-- Modal content-->
+      <div class="modal-content" style="float: left;width: 100%;">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Bank Transaction Rule</h4>
+        </div>
+        <div class="modal-body bgColorWhite" style="float:left; width:100%;">
+          <div class="form-group">
+            <label>Choose Bank Transaction Rule </label><br>
+            <select id="btrSelector" name="btrSelector" onchange="return updateBTRForm(this.value - 1, true)">
+              {% for btrule in btrs.rules %}
+                <option value="{{ loop.index }}">{{ btrule.text }}</option>
+              {% endfor %}
+            </select><br>
+            <label for="btrCondition">Declined If</label><br>
+            <select id="btrCondition" name="btrCondition">
+              <option value="gt">Greater Than</option>
+              <option value="gte">Greater Than, Equal To</option>
+              <option value="lt">Less Than</option>
+              <option value="lte">Less Than, Equal To</option>
+            </select>
+            <input type="text" id="btrValue" name="btrValue" value=""><br>
+            <label for="btrDisabled">Disabled</label><br>
+            <select id="btrDisabled" name="btrDisabled">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select><br>
+            <input class="" type="hidden" id="ruleNumber" name="ruleNumber">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-info" style="float: left;width: 100%;">
+        <input type="submit"  class="btn btn-primary" value="Submit" onclick="closeAddProductModal();" >
+        <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+	$("#denyTiersCheckbox").click(() => {
+		if (document.getElementById("denyTiersCheckbox").checked) {
+			$("#denyTiersSection").css('display', '');
+			$("#denyTiers").val("true");
+		} else {
+			$("#denyTiersSection").css('display', 'none');
+			$("#denyTiers").val("false");
+		}
+	});
+
+	$("#enableTransunionCheckbox").click(() => {
+		if (document.getElementById("enableTransunionCheckbox").checked) {
+			$("#enableTransunion").val("true");
+		} else {
+			$("#enableTransunion").val("false");
+		}
+	});
+
+	$("#isDefaultCheckbox").click(() => {
+		if (document.getElementById("isDefaultCheckbox").checked) {
+			$("#isDefault").val("true");
+		} else {
+			$("#isDefault").val("false");
+		}
+	});
+
+	function openrulemodal(rule = null) {
+		document
+			.forms["addRuleForm"]
+			.reset();
+		// updateBTRForm(rule);
+		$('#addRuleModal').modal('show');
+	}
+
+	function openeditmodal() {
+		$('#editModal').modal('show');
+		document
+			.forms["editCreditTiersForm"]
+			.reset();
+	}
+
+	function openeditrangemodal() {
+		$('#editRangeModal').modal('show');
+		document
+			.forms["editCreditScoreRange"]
+			.reset();
+	}
+
+	function updateBTRForm ( rule = null, isSelector = false ) {
+    if (rule == 0) {
+      $('#btrValue').val("{{ btrs[0].value }}");
+      $('#btrCondition').val("{{ btrs[0].condition }}");
+      $('#btrDisabled').val("{{ btrs[0].disabled }}");
+    }
+    if (rule == 1) {
+      $('#btrValue').val("{{ btrs[1].value }}");
+      $('#btrCondition').val("{{ btrs[1].condition }}");
+      $('#btrDisabled').val("{{ btrs[1].disabled }}");
+    }
+    if (rule == 2) {
+      $('#btrValue').val("{{ btrs[2].value }}");
+      $('#btrCondition').val("{{ btrs[2].condition }}");
+      $('#btrDisabled').val("{{ btrs[2].disabled }}");
+    }
+    if (rule == 3) {
+      $('#btrValue').val("{{ btrs[3].value }}");
+      $('#btrCondition').val("{{ btrs[3].condition }}");
+      $('#btrDisabled').val("{{ btrs[3].disabled }}");
+    }
+    if (rule == 4) {
+      $('#btrValue').val("{{ btrs[4].value }}");
+      $('#btrCondition').val("{{ btrs[4].condition }}");
+      $('#btrDisabled').val("{{ btrs[4].disabled }}");
+    }
+    if (rule == 5) {
+      $('#btrValue').val("{{ btrs[5].value }}");
+      $('#btrCondition').val("{{ btrs[5].condition }}");
+      $('#btrDisabled').val("{{ btrs[5].disabled }}");
+    }
+    if (rule == 6) {
+      $('#btrValue').val("{{ btrs[6].value }}");
+      $('#btrCondition').val("{{ btrs[6].condition }}");
+      $('#btrDisabled').val("{{ btrs[6].disabled }}");
+    }
+    if (rule == 7) {
+      $('#btrValue').val("{{ btrs[7].value }}");
+      $('#btrCondition').val("{{ btrs[7].condition }}");
+      $('#btrDisabled').val("{{ btrs[7].disabled }}");
+    }
+    if (rule == 8) {
+      $('#btrValue').val("{{ btrs[8].value }}");
+      $('#btrCondition').val("{{ btrs[8].condition }}");
+      $('#btrDisabled').val("{{ btrs[8].disabled }}");
+    }
+    if (rule == 9) {
+      $('#btrValue').val("{{ btrs[9].value }}");
+      $('#btrCondition').val("{{ btrs[9].condition }}");
+      $('#btrDisabled').val("{{ btrs[9].disabled }}");
+    }
+    if (rule == 10) {
+      $('#btrValue').val("{{ btrs[10].value }}");
+      $('#btrCondition').val("{{ btrs[10].condition }}");
+      $('#btrDisabled').val("{{ btrs[10].disabled }}");
+    }
+    if (rule == 11) {
+      $('#btrValue').val("{{ btrs[11].value }}");
+      $('#btrCondition').val("{{ btrs[11].condition }}");
+      $('#btrDisabled').val("{{ btrs[11].disabled }}");
+    }
+    if (rule == 12) {
+      $('#btrValue').val("{{ btrs[12].value }}");
+      $('#btrCondition').val("{{ btrs[12].condition }}");
+      $('#btrDisabled').val("{{ btrs[12].disabled }}");
+    }
+    if (rule == 13) {
+      $('#btrValue').val("{{ btrs[13].value }}");
+      $('#btrCondition').val("{{ btrs[13].condition }}");
+      $('#btrDisabled').val("{{ btrs[13].disabled }}");
+    }
+
+    if (!isSelector) {
+      $('#btrSelector').val(rule + 1);
+    }
+  }
+
+  function openbtrmodal( rule = null ) {
+    document.forms["addBtrForm"].reset();
+    updateBTRForm(rule);
+    $('#addBtrModal').modal('show');
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,222 @@
+	<style>
+		.major-title {
+			color: black !important;
+			font-size: 20px !important;
+		}
+
+		.header-bar {
+			color: black !important;
+			background-color: lightgray !important;
+		}
+
+		.linked-title {
+			border: 2px solid #129B03 !important;
+			background-color: #C1D1C0 !important;
+		}
+
+		.linked-main-title {
+			border-bottom: 2px solid #129B03 !important;
+			background-color: #C1D1C0 !important;
+		}
+
+		.institution {
+			padding: 15px;
+			background-color: #edf0f5;
+		}
+
+		.action-element {
+			color: #3c8dbc;
+		}
+	</style>
+
+	{% if accountDetail.length > 0 %}
+	<div>
+		&nbsp;
+		<div class="pull-right" style="margin: 10px;">
+			<button type="button" class="btn btn-primary" id="sendaddbankinvitation" data-toggle="modal" data-target="#sendaddbankinvitationModal">Send Bank Login</button> &nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" class="btn btn-primary" onclick="enableManualBankModal();">Add Bank Manually</button> &nbsp;&nbsp;&nbsp;&nbsp;
+		</div>
+	</div>
+	{% endif %}
+
+	{% set accountDetailLength = accountDetail | length %}
+
+	{% if accountDetailLength>0 %}
+
+	{% set bankIdx = 0 %}
+	{% for accountdata in accountDetail %}
+
+	<div style="margin-top: 30px;">
+		<div class="tab-pane active in fade" id="faq-bank-{{bankIdx}}">
+			<div class="panel-group" id="accordion-bank-{{bankIdx}}">
+				<div class="panel panel-default panel-faq institution-panel{% if accountdata.linkedAccount %} linked-title{% endif %}">
+					<div class="panel-heading header-bar institution-bar{% if accountdata.linkedAccount %} linked-main-title{% endif %}">
+						<a class="collapse-trigger" data-toggle="collapse" data-parent="#accordion-bank-{{bankIdx}}" href="#institution{{bankIdx}}">
+							<h4 class="panel-title major-title">
+								{% if accountdata.userfilloutmanually==1 %}Manual{% else %}Plaid{% endif %} - {{ accountdata.institutionName }}
+								<span class="pull-right action-element"><i class="glyphicon {% if accountdata.linkedAccount %}glyphicon-minus{% else %}glyphicon-plus{% endif %}"></i></span>
+							</h4>
+						</a>
+					</div>
+
+					<div id="institution{{bankIdx}}" class="panel-collapse collapse institution{% if accountdata.linkedAccount %} in{% endif %}">
+						<br/>
+						<div class="panel-group">
+							<div class="panel panel-default panel-faq">
+								<div class="panel-heading header-bar">
+									<h4 class="panel-title">
+										User Information
+									</h4>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" style="margin-bottom: 0px;">
+											<tbody>
+												<tr>
+													<th>Name</th>
+													<td>{% if(accountdata.plaidDetails.names) %}{{ accountdata.plaidDetails.names }}{% else %}--{% endif %} </td>
+												</tr>
+												<tr>
+													<th>Email</th>
+													<td>{% if(accountdata.plaidDetails.emails[0].data) %}{{ accountdata.plaidDetails.emails[0].data }}{% else %}--{% endif %} </td>
+												</tr>
+												<tr>
+													<th>Phone</th>
+													<td>
+													{% if accountdata.plaidDetails.phoneNumbers[0].data %}
+													{{ accountdata.plaidDetails.phoneNumbers[0].type }}: {{ accountdata.plaidDetails.phoneNumbers[0].data }}
+													{% endif %}
+													{% if accountdata.plaidDetails.phoneNumbers[1].data %}
+													<br>{{ accountdata.plaidDetails.phoneNumbers[1].type }}: {{ accountdata.plaidDetails.phoneNumbers[1].data }}
+													{% endif %}
+													</td>
+												</tr>
+												<tr>
+													<th>Address</th>
+													<td>
+													{% if(accountdata.plaidDetails.addresses[0].data) %}
+														{% if(accountdata.plaidDetails.addresses[0].data.street) %}{{ accountdata.plaidDetails.addresses[0].data.street }},{% else %}--{% endif %}&nbsp;
+														{% if(accountdata.plaidDetails.addresses[0].data.city) %}{{ accountdata.plaidDetails.addresses[0].data.city }},{% else %}--{% endif %}&nbsp;
+														{% if(accountdata.plaidDetails.addresses[0].data.state) %}{{ accountdata.plaidDetails.addresses[0].data.state }},{% else %}--{% endif %}&nbsp;
+														{% if(accountdata.plaidDetails.addresses[0].data.zip) %}{{ accountdata.plaidDetails.addresses[0].data.zip }}{% else %}--{% endif %}
+													{% endif %}
+													{% if(accountdata.plaidDetails.addresses.data) %}
+														{% if(accountdata.plaidDetails.addresses.data.street) %}{{ accountdata.plaidDetails.addresses.data.street }},{% else %}--{% endif %}&nbsp;
+														{% if(accountdata.plaidDetails.addresses.data.city) %}{{ accountdata.plaidDetails.addresses.data.city }},{% else %}--{% endif %}&nbsp;
+														{% if(accountdata.plaidDetails.addresses.data.state) %}{{ accountdata.plaidDetails.addresses.data.state }},{% else %}--{% endif %}&nbsp;
+														{% if(accountdata.plaidDetails.addresses.data.zip) %}{{ accountdata.plaidDetails.addresses.data.zip }}{% else %}--{% endif %}
+													{% endif %}
+
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<h3 style="margin-bottom: 15px;">Current Account Information
+						{% if accountdata.userfilloutmanually == 1 %}
+						{% else %}
+						<span class="pull-right">
+							<button type="button" class="btn btn-primary" id="repullplaid" onclick="requestRepullPlaidAccount( '{{ accountdata.id }}' );">Update Bank Data</button> &nbsp;&nbsp;&nbsp;
+						</span>
+						{% endif %}
+						</h3>
+						<div class="panel-group" id="accordion-snaps-{{bankIdx}}">
+							<div class="panel panel-default panel-faq" style="border: none;">
+							{% set snapcount = 0 %}
+							{% set current = true %}
+								{% for snapshot in accountdata.currentSnapshot %}
+								{% set snapcount = snapcount + 1 %}
+								{% include "admin/userbank/accountDetails.nunjucks" %}
+								{% endfor %}
+							</div>
+						</div>
+
+						{% if accountdata.historicalSnapshots.length > 0 %}
+						{% if accountdata.userfilloutmanually == 1 %}
+						{% else %}
+						<h3 style="margin-bottom: 15px;">Historical Account Information</h3>
+						<div class="panel-group" id="accordion-snaps-{{bankIdx}}">
+							<div class="panel panel-default panel-faq" style="border: none;">
+							{% set snapcount = 1 %}
+							{% set current = false %}
+								{% for snapshot in accountdata.historicalSnapshots %}
+								{% set snapcount = snapcount + 1 %}
+								{% include "admin/userbank/accountDetails.nunjucks" %}
+								{% endfor %}
+							</div>
+						</div>
+						{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% set bankIdx = bankIdx + 1 %}
+	{% endfor %}
+
+
+
+	{% else %}
+	<br>
+	<div class="alert alert-important alert-warning col-lg-10 col-lg-offset-1">
+		<strong>Info!</strong> No Bank account linked
+	</div>
+	{% endif %}
+
+	<script>
+	$(document).ready(function() {
+		$(".collapse-trigger").click( ( e )=> {
+			$( e.currentTarget ).find( "i" ).toggleClass("glyphicon-plus glyphicon-minus");
+		} );
+
+		$("input[name='linked']").change( ( e )=> {
+			console.log( $( e.currentTarget ).val() );
+			aIDs = $( e.currentTarget ).val().split( '-' );
+			var payid = "{{ paymentmanagementdata.id }}";
+			var screenid = "{{ screentracking.id }}";
+			var id;
+			if( payid ) {
+				id = payid;
+			} else {
+				id = "init";
+			}
+			$.ajax( {
+				url: "/admin/changebank/" + id,
+				data: {
+					userbankaccountID: aIDs[ 0 ],
+					subaccountID: aIDs[ 1 ],
+					screenid: screenid
+				},
+				dataType: "json",
+				type: "POST",
+				success: function( res ) {
+					if( res.status == 200 ) {
+						$(".institution-panel").removeClass("linked-title");
+						$( e.currentTarget ).closest( ".institution-panel" ).addClass( "linked-title" );
+						$(".institution-bar").removeClass("linked-main-title");
+						$( e.currentTarget ).closest(".institution-panel").find( ".institution-bar" ).first().addClass( "linked-main-title" );
+						$(".account-bar").removeClass("linked-title");
+						$( e.currentTarget ).closest( ".account-bar" ).addClass( "linked-title" );
+						$( "#bankchangedModal" ).modal( "show" );
+					} else {
+						$( "#bankchangefailedModal" ).modal( "show" );
+					}
+					return true;
+				},
+				error: function( err ) {
+					alert("Error encountered");
+					return false;
+				}
+			} );
+		} );
+	});
+
+
+</script>

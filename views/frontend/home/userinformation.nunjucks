@@ -1,0 +1,304 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<div class="container">
+	<div class="inner-content">
+		<div class="heading">
+	        <div class="logoMiddle">
+	        	<img src="images/imgv3/logo.png" class="img-reponsive" />
+	        </div>
+	    </div>
+    	<div class="row">
+    		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-10 col-lg-offset-1 personalInfoInner">
+    			{% include "frontend/layoutv3/navigator.nunjucks" %}
+    			<h1>Tell us more about yourself.</h1>
+    			<div class="whitebox userinformation infoForm">
+					<div class="v-center">
+						<div class="h-center">
+							<form class="formclass" id="userinfofrom" action="/createuser" method="POST" data-validation="btnDisable" name="userinfo">
+								<input type="hidden" id="practicemanagement" name="practicemanagement" value="{{ practice.id }}" />
+    				<div class="row">
+    					<h4>Personal information</h4>
+									<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+										<div class="form-group">
+											<label>First Name</label>
+											<input type="text" class="form-control form-rounded input-color" id="first_name" name="first_name" placeholder="Enter First Name"  value="{{req.session.first_name}}" required>
+							<i class="tick-focus-img"></i>
+							<span id="firstnameError" class="error">Please enter firstname</span>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+										<div class="form-group ">
+											<label>last name</label>
+											<input type="text" class="form-control form-rounded input-color" id="last_name" name="last_name" placeholder="Enter Last Name" value="{{req.session.last_name}}" required>
+							<i class="tick-focus-img"></i>
+							<span id="lastnameError" class="error">Please enter lastname</span>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+										<div class="form-group">
+											<label>Social security number</label>
+											<input type="text" class="form-control form-rounded input-color" id="security_number" name="security_number" placeholder="Enter Social Security Number" required data-mask="000-00-0000" value={{req.session.security_number}}>
+										</div>
+									</div>
+								</div>
+								<div class="row"><hr></div>
+								<h4>banking information</h4>
+								<div class="bankListBox">
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/chase-logo.png" class="img-responsive" /></a></div>
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/bank-of-america.png" class="img-responsive" /></a></div>
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/Wells-Fargo-hero.png" class="img-responsive" /></a></div>
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/citi-bank-logo.png" class="img-responsive" /></a></div>
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/pnc-bank-logo.png" class="img-responsive" /></a></div>
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/usaa-bank.png" class="img-responsive" /></a></div>
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/navy-federal-credit-union-bank.png" class="img-responsive" /></a></div>
+									<div class="darkGrayBox"><a href=""><img src="images/imgv3/id-bank-icon.png" class="img-responsive" /></a></div>
+									<div class="loginBtn">
+										<div class="v-center">
+											<div class="h-center"><button class="btn btn-default"><span></span>Login to Bank</button></div>
+										</div>
+									</div>
+								</div>
+								<div class="bankinfo">
+									<h3>Why do we need your banking information?</h3>
+									<div class="row">
+									<ul class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+									<li>To confirm primary bank account in good standing.</li>
+									<li>To help facilitate the completion of the application process.</li>
+									<li>To screen for fraud and confirm identity.</li>
+									<li>To authorize the use of automatic monthly payments.</li>
+									</ul>
+									</div>
+									<div class="btnMain">
+ 										<button type="button" name="nextPageBtn" class="btn btn-default borderBtn" id="fillout">I don't know my banking login</button>
+									</div>
+								</div>
+    						</form>
+						</div>
+					</div>
+				</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+
+
+<div id="clicktosave" class="modal clicktosavemodal" role="dialog">
+        <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+
+         <div class="modal-body whitetext">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!--You can apply minimum loan amount of ${{minloanamount}} and maximum loan amount of ${{maxloanamount}} in {{LenderShortName}}.-->
+             <form class="formclass" id="clicktosaveform" method="post" data-validation="btnDisable">
+                <input type="hidden" name="pagename" value="userinformation" id="pagename">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="last_name">EMAIL ADDRESS</label>
+                            <input type="text" class="form-control" placeholder="Enter Email Address" name="cemailAddress" id="cemailAddress" required />
+                            <i class="tick-focus-img"></i>
+                        </div>
+                    </div>
+                     <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="col-xs-12">PASSWORD</label>
+                            <input type="password" class="form-control" placeholder="Enter Password" name="cpassword" id="cpassword" required />
+                         </div>
+                    </div>
+                     <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="col-xs-12">CONFIRM PASSWORD</label>
+                           <input type="password" class="form-control" placeholder="Enter Confirm Password" name="conpassword" id="conpassword" required />
+                         </div>
+                    </div>
+                    <div class="btnMain text-center">
+                        <button type="submit" name="formsubmit" class="btn btn-default fillBtn ActivefillBtn" id="clicktosaveBtn">Save</button>
+                    </div>
+                    <div class="error text-center" id="errormsg"></div>
+                    <div class="text-center" id="successmsg" style="color: #63944C;     font-weight: bold;"></div>
+                </div>
+            </form>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+<div id="ajaxLoaderPlaid" class="ajaxloadermodal modal fade" data-backdrop="static">
+	<div id="ajaxLoader"></div>
+	<!-- <div><img src="/images/imgv3/img/logo.png" class="img-responsive img-full"></div> -->
+</div>
+
+
+	<div class="modal fade" id="apierror" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+			<div class="modal-body">
+				<label class="error">We are sorry that we weren't able to link your account. Please click on login to bank and try again.</label>
+			</div>
+			<button type="button" id="closebutton" class="btn btn-default blueBtn" data-dismiss="modal" style="font-size:16px; padding:6px 10px;" onclick="closeapierror();">OK</button>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="clicktosavesuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" >
+        <div class="modal-content" style="">
+            <div class="modal-body text-center">
+                <h3 class="greentext">Success</h3>
+                <p class="mt1">Your details are saved successfully.</p>
+            </div>
+            <div class="btnMain text-center">
+                <button type="button" data-dismiss="modal" class="btn btn-default fillBtn ActivefillBtn">Close</button>
+            </div>
+         </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+
+
+<script type="text/javascript">
+$("#fillout").click(() =>  {
+	$( "#myoffers-modal" ).modal({ show: true, backdrop: false });
+});
+function callPlaidApi()
+{
+	var appScheme = 'linkApp';
+	var linkHandler = Plaid.create({
+
+		env: "{{ sails.config.plaid.envType }}",
+		apiVersion: 'v2',
+		clientName: "{{ sails.config.plaid.clientName }}",
+		key: "{{ sails.config.plaid.publicKey }}",
+		product: ["auth","transactions"],
+		webhook: "{{sails.config.getBaseUrl}}/api/v1/getPlaidTransactions",
+		onLoad: function () {
+
+			//alert('2342342423');
+		},
+		onSuccess: function (public_token, metadata) {
+		    anim = lottie.loadAnimation(params);
+			var action = 'handlePublicToken';
+
+			var	firstName	=	$("#first_name").val();
+			var	lastName	=	$("#last_name").val();
+			var	ssn			=	$("#security_number").val();
+
+			//$('#ajaxLoaderPlaid').modal({backdrop: 'static', keyboard: false});
+			$('#ajaxLoaderPlaid').modal('show');
+ 			$('#changebankbtn').hide();
+			$.ajax({
+				url     : '/saveplaiddetails',
+				method  : 'post',
+				data    : {
+					public_token:	public_token,
+					account_id	:	metadata,
+					firstName	:  	firstName,
+					lastName	:  	lastName,
+					ssn			:  	ssn
+				},
+				headers:
+				{
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success : function(response){
+
+				   //alert(response);
+
+				   $('#ajaxLoaderPlaid').modal('hide');
+
+
+				   if(response.status==200){
+					  $('#apierror').modal('hide');
+
+					  var ssnNumber = $("#security_number").val();
+
+					  $.ajax({
+						url: '/updateUserdataPlaid',
+						data: {
+							'ssnNumber': ssnNumber
+						},
+						dataType: 'json',
+						type: 'POST',
+
+                        success: function(res) {
+
+							if(response.status==200){
+								window.location.href='/userinformationfull';
+							} else {
+								window.location.href='/userinformationfull';
+							}
+						}
+						});
+
+				   }
+				   else if(response.status==400){
+					 $("#apierror .modal-body .error").html(response.message);
+					 $('#apierror').modal('show');
+				   }
+				   else{
+					   $('#apierror').modal('show');
+				   }
+ 				}
+ 			});
+
+		},
+		onExit: function (err, metadata) {
+
+			$('#plaidloader').html('');
+			var action = 'handleOnExit';
+			if (err != null) {
+				// The user encountered a Plaid API error prior to exiting.
+			}
+
+			$.ajax({
+				url     : '/saveplaidresponseerror',
+				method  : 'post',
+				data    : {
+					errorres  : err,
+					metares   : metadata,
+				},
+				headers:
+				{
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success : function(response){
+
+					if(response.error_code=='INVALID_CREDENTIALS')
+					{
+					   $('#servererrorid').html('The provided credentials were not correct. Please click on "Retry" button below.');
+					   $('#servererror').modal('show');
+					}
+					else if(response.error_code=='INTERNAL_SERVER_ERROR')
+					{
+					   $('#servererrorid').html('Unable to connect your bank. Please click on "Retry" button below.');
+					   $('#servererror').modal('show');
+					}
+					else
+					{
+					 // $('#servererrorid').html(response.error_code+'<br>'+response.error_message);
+					  $('#servererrorid').html(response.error_message+' Please click on "Retry" button below.');
+					  $('#servererror').modal('show');
+					}
+
+				}
+			});
+
+		}
+
+	});
+
+	setTimeout(function(){linkHandler.open();},1000);
+}
+
+function closeapierror(){
+	$('#apierror').modal('hide');
+}
+
+</script>
+{% endblock %}

@@ -1,0 +1,31 @@
+ <table class="table table-striped table-bordered  dataTable" id="practicepayment_table">
+            <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+         
+          <th>Payment ID</th>
+          <th>Amount(USD)</th>
+          <th>Payment status</th>
+          <th>Next paymentdate</th>
+          <th>Failure reason</th>
+           <th>TransactionType</th>
+          <th>Created date</th>
+        </tr>
+            </thead>
+            <tbody>
+              
+                {% for pay in  payments %}
+                <tr>
+                  <td>{{pay.loopid}}</td>
+                  <td>{{pay.chargeId}}</td>
+                  <td>{{pay.amount}}</td>
+                  <td>{{pay.paymentstatus}}</td>
+                  <td>{{pay.newvalidityDate}}</td>
+                  <td>{{pay.failuremsg}}</td>
+                  <td>{{pay.transactionType}}</td>
+                  <td>{{pay.date}}</td>
+                   </tr>
+                {% endfor %}
+             
+             </tbody>
+          </table>

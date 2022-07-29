@@ -1,0 +1,10 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="emailverifylanding">
+    <br /><br />
+    <div class="text-center">
+        <h2 style="color:#606060; font-weight:400;">Thank you, your email has been verified.</h2>
+    </div>
+    <br /><br />
+</div>
+{% endblock %}

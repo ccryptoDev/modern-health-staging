@@ -1,0 +1,83 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="loanofferdetails">
+<div class="container">
+   <div class="inner-content">
+      <div class="heading">
+            <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-10 col-lg-offset-1 personalInfoInner">
+               {% include "frontend/layoutv3/navigator.nunjucks" %}
+               <h1 class="title secureoffer">Secure your offer - <span>No Obligation!</span></h1>
+               <div class="text-center" id="noobligation">No obligation. Your financing offer is only binding AFTER you have completed the procedure with your healthcare provider.</div>
+               <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 personalInfoInner">
+                  <form name="myofferform" method="post" action="/saveapplicationoffer">
+                     <input type="hidden" name="screenid" id="screenid" value="{{screenid}}">
+                     <input type="hidden" name="offerid" id="offerid" value="{{offerid}}">
+                     <div class="row">
+
+                     </div>
+                     <div class="whitebox selectedoffer infoForm">
+
+                        <div class="v-center">
+                           <div class="h-center">
+                              <div class="selectedofferinner">
+                                 <div class="row">
+                                 <div class="col-xs-6 col-md-6 col-sm-6 firstcol">
+                                    <label>AMOUNT FINANCED<span class="greentext">*</span></label>
+                                    <div>${{loanDetails.financedAmount}}</div>
+                                 </div>
+                                 <div class="col-xs-6 col-md-6 col-sm-6 secondcol">
+                                    <label>APR</label>
+                                    <div>{{loanDetails.apr}}%</div>
+                                 </div>
+                              </div>
+                              <div class="row centerrow">
+                                 <div class="col-xs-6 col-md-6 col-sm-6 firstcol">
+                                    <label class="centerlabel">PAYMENT ESTIMATE<span>**</span></label>
+                                    <div class="centervalue">${{loanDetails.monthpayment}}</div>
+                                 </div>
+                                 <div class="col-xs-6 col-md-6 col-sm-6 secondcol">
+                                    <label class="centerlabel">TERM LENGTH</label>
+                                    <div class="centervalue">{{loanDetails.loanTerm}} months</div>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-xs-6 col-md-6 col-sm-6 firstcol">
+                                    <label>TOTAL OF PAYMENTS</label>
+                                    <div>${{loanDetails.totalloanamount}}</div>
+                                 </div>
+                                 <div class="col-xs-6 col-md-6 col-sm-6 secondcol">
+                                    <label>FINANCE CHARGE</label>
+                                    <div>${{loanDetails.interestfeeamount}}</div>
+                                 </div>
+                              </div>
+                              <!-- <div class="row">
+                                  <div class="btnMain text-center emailprintoption">
+                                     <a href="" class="btn btn-default borderBtn"><img src="images/imgv3/send-icon.png" class="img-reponsive">Email me this offer</a>
+                                     <a href="" class="btn btn-default borderBtn"><img src="images/imgv3/print-icon.png" class="img-reponsive">Print this offer</a>
+                                  </div>
+                              </div> -->
+                              </div>
+                           </div>
+                     </div>
+                  </div>
+
+                  <div class="row text-center offerbottom">
+                     <div class="btnMain">
+                         <a href="/applicationoffer" class="btn btn-default borderBtn">View other offers</a>
+                         <button type="submit" name="formsubmit" class="btn btn-default fillBtn ActivefillBtn">Continue</button>
+                     </div>
+                     <div class="secondinfo mt1">{{LenderShortName}} performs soft credit checks. Finishing the application <span style="border-bottom:1px solid #63944C;">will not</span> hurt your credit score.</div>
+                     <div class="mt1"><span class="greentext">*</span>Anticipated Financed Amount will be based on the total cost LESS any fees due prior to treatment. Please contact the healthcare provider and confirm how much is due prior to treatment and how much is eligible for financing.</div>
+					 <div class="mt1"><span class="greentext">**</span>The first payment is due 30 days after the date of your procedure.</div>
+                  </div>
+               </form>
+            </div>
+         </div>
+   </div>
+</div>
+</div>
+</div>
+{% endblock %}

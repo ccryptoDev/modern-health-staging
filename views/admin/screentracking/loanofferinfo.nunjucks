@@ -1,0 +1,124 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+<style>
+.table{
+width: 80% !important;
+margin: 25px auto !important;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{
+border: 1px solid #ddd;
+}
+.table th,td{
+text-align:center;
+}
+</style>
+<section class="content-header">
+  <h1> Financing Offer Information <small>preview of Incomplete Application</small> </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+    <li><a href="/admin/incompleteApplication"><i class="fa fa fa-building"></i>Incomplete Application</a></li>
+    <li class="active">Financing Offer Information</li>
+  </ol>
+</section>
+<section class="content">
+
+  <div class="box">
+     <div class="box-header with-border">
+      <h3 class="box-title">Financing Offer Information</h3>
+      <span class="pull-right"><a href="/admin/incompleteApplication"> <button type="button" class="btn btn-primary">Back</button> </a></span>
+	 </div>
+     <div class="box-body">
+
+	  {% if errorcode==201  %}
+		 <div class="alert alert-danger">
+		  {{errormsg}}
+		 </div>
+
+	  {% elseif errorcode == '401' %}
+	  	 <div class="alert alert-danger alert-important">
+		   Account not linked for this customer
+		 </div>
+	  {% elseif loanstatus == 'Declined' %}
+		 <div class="alert alert-danger alert-important">
+			Unable to approve the financing, Because your income is low. Try again! <br> Income Amount - ${{incomeamount}}
+		 </div>
+	  {% else %}
+         <form name="myofferform" method="post" action="/admin/saveserviceloanoffer">
+			    <input type="hidden" name="totalcost" id="totalcost" value="{{financedAmount}}">
+				<input type="hidden" name="userid" id="userid" value="{{userid}}">
+				<table class="table">
+				  <tr>
+				  	<th rowspan="2" scope="rowgroup" class="attributes"> Attribute  </th>
+					<th {% if(outputarray[0].month.length == 1) %}{% else %}colspan="6"{% endif %}scope="colgroup"> Term (Months)</th>
+				  </tr>
+
+				  {% for reslist in  outputarray %}
+						  <tr>
+							 {% for reslistdata in  reslist.month %}
+								<th scope="col">{{reslistdata}}</th>
+							 {% endfor %}
+						  </tr>
+
+						  <tr>
+							 {% for interestrate in  reslist.interestrate %}
+								<td scope="">{{interestrate}}</td>
+							 {% endfor %}
+						  </tr>
+
+						  <tr>
+							 {% for loandata in  reslist.financedAmount %}
+								<td scope="">{{loandata}}</td>
+							 {% endfor %}
+						  </tr>
+						   <tr>
+							 {% for monthpay in  reslist.monthpayment %}
+								<td scope="">{{monthpay}}</td>
+							 {% endfor %}
+						  </tr>
+
+						  <tr>
+							 {% for appfeerate in  reslist.appfeerate %}
+								<td scope="">{{appfeerate}}</td>
+							 {% endfor %}
+						  </tr>
+
+						   <tr>
+							 {% for appfeefixedrate in  reslist.appfeefixedrate %}
+								<td scope=""> ${{appfeefixedrate}}</td>
+							 {% endfor %}
+						  </tr>
+
+						  <tr>
+							 {% for aprrate in  reslist.apr %}
+								<td scope="">{{aprrate}}</td>
+							 {% endfor %}
+						  </tr>
+
+				  {% endfor %}
+				  <tr class="noBorder">
+					  {% if(outputarray.length > 0) %}
+							<td> </td>
+							{% for reslist in  outputarray %}
+								 {% set k = 1 %}
+								 {% for loansetid in  reslist.loansetid %}
+									<td>
+										<label class="checkboxlabel">
+										  <input type="radio" name="offerarray" {% if(k==1) %}checked="checked"{% endif %} value="{{loansetid}}" >
+										  <span class="checkmark  tbox1"></span>
+										</label>
+									</td>
+									{% set k = k+1 %}
+								 {% endfor %}
+							{% endfor %}
+					  {% else %}
+					  {% endif %}
+				  </tr>
+				</table>
+				<div class="pull-right"> <button type="submit" class="btn btn-primary">Submit</button></div>
+			</form>
+		 {% endif %}
+
+     </div>
+  </div>
+</section>
+{% endblock %}

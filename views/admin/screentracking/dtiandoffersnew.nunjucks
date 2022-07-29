@@ -1,0 +1,512 @@
+<div class="box-body">
+  <h3>DTI and Offers
+  {% if paymentmanagementdata.achstatus!=1 %}
+  {% if paymentmanagementdata.achstatus!=2 %}
+  {% if incomeEntered==1 %}
+  <button type="button" class="btn btn-primary pull-right" style="margin:20px;" onclick="changeIncomeFromIncomplete();">Change Income</button>
+  {% endif %}
+  {% if incomeEntered==2 %}
+  <button type="button" class="btn btn-primary pull-right" style="margin:20px;" onclick="changeincomeMsg();">Change Income</button>
+  {% endif %}
+  {% if changeincomestatus!='incomplete' %}
+  			<button type="button" class="btn btn-primary pull-right" style="margin:20px;" onclick="changeincome();">Change Income</button>
+  {% endif %}
+  {% endif %}
+  {% endif %}
+
+  {% if (lastlevel==3) and (deniedfromapp==1) %}
+  			<button type="button" class="btn btn-primary pull-right" style="margin:20px;" onclick="changeincomeDenied();">Change Income </button>
+  {% endif %}
+<!--  <button type="button" class="btn btn-primary pull-right" style="margin:20px;" onclick="changeincome();">Change Income</button> -->
+
+<!--<button type="button" class="btn btn-primary pull-right" style="margin:20px; margin-right: 0px;" onclick="changeloanamount();">Financing Modification</button>-->
+
+  <!-- <button type="button" class="btn btn-primary pull-right" style="margin:20px;margin-right: 0px;" onclick="changeloanrate();">Change Rate</button> <button type="button" class="btn btn-primary pull-right" style="margin:20px;margin-right: 0px;" onclick="changeloanterm();">Change Term</button> --></h3>
+
+  <div class="col-md-10 col-md-offset-1" aligne="center">
+	<div class="bankDetails selectaccountinfo">
+		<div class="table-reponsive">
+
+		    {% if dtiandoffers.code ==200 %}
+			  <table class="table table-bordered">
+                  <tbody>
+							<tr class="headerbg">
+							<td>Monthly Income Input</td>
+							<td class="changeNumberFormatComma">{{dtiandoffers.incomeamount}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>State</td>
+							<td>{{dtiandoffers.state}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Payment Freq (BiWeekly)</td>
+							<td>{{dtiandoffers.paymentFeq}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Term or  # of Payment Cycles </td>
+							<td>{{dtiandoffers.loanTerm}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Rate Per Cycle </td>
+							<td>{{dtiandoffers.interestRate}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>APR% </td>
+							<td>{{dtiandoffers.APR}}%</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Financing Amount  </td>
+							<td class="changeNumberFormatComma">{{dtiandoffers.financedAmount}}</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Financing Payment Per Cycle </td>
+							<td class="changeNumberFormatComma">{{dtiandoffers.loanPaymentCycle}} </td>
+							</tr>
+
+						<!--	<tr class="headerbg">
+							<td scope="">Monthly Payment </td>
+							<td class="changeNumberFormatComma">{{dtiandoffers.monthlyPayment}}</td>
+							</tr>-->
+
+							<tr class="headerbg">
+							<td>pre Total Monthly Payment </td>
+							<td class="changeNumberFormatComma">{{dtiandoffers.perTotMonthlyPayment}} </td>
+							</tr>
+
+							<tr class="headerbg">
+							<td>Post Total Monthly Payment </td>
+							<td class="changeNumberFormatComma">{{dtiandoffers.postTotMonthlyPayment}} </td>
+							</tr>
+
+							<tr class="headerbg">
+							<td><b>preDTI</b> </td>
+							<td>{{dtiandoffers.preDTI}}%</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td><b>PostDTI </b> </td>
+							<td>{{dtiandoffers.postDTI}}%</td>
+							</tr>
+
+							<tr class="headerbg">
+							<td><b>PostDTI T Threshold </b> </td>
+							<td>{{dtiandoffers.postDTIThreshold}}%</td>
+							</tr>
+
+							{% if obj.creditcost %}
+								<tr class="headerbg">
+								<td><b>Principal rate </b> </td>
+								<td>${{obj.creditcost}}</td>
+								</tr>
+							{% endif %}
+
+							{% if obj.creditcost %}
+								<tr class="headerbg">
+								<td><b>Interest rate </b> </td>
+								<td>${{obj.amount}}</td>
+								</tr>
+							{% endif %}
+
+							<!--<tr class="headerbg">
+							<td><b>Financing Status </b> </td>
+							<td><b>{{dtiandoffers.loanstatus}}</b></td>
+							</tr>-->
+							</tbody>
+                </table>
+
+			{% elseif loanofferdata.code==200 and screentracking.incomeamount > 0  %}
+
+				 <table class="table table-bordered">
+						<tbody>
+							<tr >
+								<th>Monthly Income Input</th>
+								<td class="changeNumberFormatComma">{{loanofferdata.offerresponse.fullData.incomeamount}}</td>
+							</tr>
+							<tr>
+								<th>State</th>
+								<td>{{loanofferdata.offerresponse.fullData.state}}</td>
+							</tr>
+							<tr>
+								<th>Payment Freq (BiWeekly)</th>
+								<td>{{loanofferdata.offerresponse.fullData.paymentFeq}}</td>
+							</tr>
+							<tr>
+								<th>Term or  # of Payment Cycles </th>
+								<td>{{loanofferdata.offerresponse.fullData.loanTerm}}</td>
+							</tr>
+							<tr>
+								<th>Rate Per Cycle </th>
+								<td>{{loanofferdata.offerresponse.fullData.interestRate}}</td>
+							</tr>
+							<tr>
+								<th>APR% </th>
+								<td>{{loanofferdata.offerresponse.fullData.APR}}%</td>
+							</tr>
+							<tr>
+								<th>Financing Amount  </th>
+								<td class="changeNumberFormatComma">{{Financingofferdata.offerresponse.fullData.financedAmount}}</td>
+							</tr>
+							<tr>
+								<th>Financing Payment Per Cycle </th>
+								<td class="changeNumberFormatComma">{{loanofferdata.offerresponse.fullData.loanPaymentCycle}} </td>
+							</tr>
+							<tr>
+								<th>pre Total Monthly Payment </th>
+								<td class="changeNumberFormatComma">{{loanofferdata.offerresponse.fullData.perTotMonthlyPayment}} </td>
+							</tr>
+							<tr>
+								<th>Post Total Monthly Payment </th>
+								<td class="changeNumberFormatComma">{{loanofferdata.offerresponse.fullData.postTotMonthlyPayment}} </td>
+							</tr>
+						</tbody>
+					</table>
+
+
+			{% else %}
+			 <div class="table-responsive">
+			  <table class="table table-bordered">
+				<tbody>
+				  <tr>
+					<th>Annual Income</th>
+					<td> {{income_amt}} </td>
+				  </tr>
+				  </tbody>
+				  </table>
+				  </div>
+				<!-- <div class="alert alert-danger alert-important">
+
+					 No Offer selected for this Financing
+				 </div>-->
+			{% endif %}
+
+			{% if paymentmanagementdata.achstatus!=1 %}
+  			{% if paymentmanagementdata.achstatus!=2 %}
+ 			{% if incomeEntered==1 %}
+			<div class="pull-right">
+					<a href="/admin/saveServiceLoanOfferFromDTI/{{screenId}}" class="btn btn-primary">Submit</a>
+			</div>
+			{% endif %}
+			{% endif %}
+			{% endif %}
+
+		</div>
+
+
+	</div>
+ </div>
+</div>
+
+{% if paymentmanagementdata.achstatus != 2 %}
+
+	 <table class="table table-bordered">
+		<h3>Payment Schedule Information</h3>
+			<br/>
+			<div class="table-responsive">
+
+			{% if paymentmanagementdata.paymentSchedule %}
+				  <table class="table table-bordered">
+					<thead>
+					  <tr>
+						<th style="width: 10px">#</th>
+						<th>Transaction ID</th>
+						<th>Amount (USD)</th>
+						<th>Schedule Date</th>
+						<th>Status</th>
+					  </tr>
+					</thead>
+					<tbody>
+					{% set p = 0 %}
+					{% for paymentSchedule in  paymentmanagementdata.paymentSchedule %}
+					{% set p = p+1 %}
+					<tr>
+					  <td>{{ p }}</td>
+					  <td>{{ paymentSchedule.transaction }}</td>
+					  <td>{{ paymentSchedule.amount }}</td>
+					  <td>{{ momentDate(paymentSchedule.date).format('ddd, MMM Do YYYY')}}</td>
+					  <td>{{ paymentSchedule.status }}</td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				  </table>
+			  {% else %}
+					<p align="center">No payment schedules found!</p>
+			  {% endif %}
+			</div>
+	  </table>
+
+
+	  <h3> Financing Repayments Information by Month</h3>
+	  <br/>
+		<div class="table-responsive">
+		{% if paymentmanagementdata.interestapplied > 0 %}
+		<table class="table table-bordered pendingSchedule">
+			<thead>
+			  <tr>
+				<th style="width: 10px">SNO</th>
+				<th>Unpaid Principal Balance (USD)</th>
+				<th>Principal (USD)</th>
+				<th>Interest (USD)</th>
+				<th>Paid Principal (USD)</th>
+				<th>Paid Interest (USD)</th>
+				<th>Schedule Amount (USD)</th>
+				<th>Schedule Date</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  {% set lp = 0 %}
+			  {% for paymentScheduledata in  pendingSchedule %}
+				{% set lp = lp+1 %}
+				<tr>
+				  <td>{{ lp }}</td>
+				  <td>{{ paymentScheduledata.startBalanceAmount }}</td>
+				  <td>{{ paymentScheduledata.principalAmount }}</td>
+				  <td>{{ paymentScheduledata.interestAmount }}</td>
+				  <td>{{ paymentScheduledata.paidprincipalAmount }}</td>
+				  <td>{{ paymentScheduledata.paidinterestAmount }}</td>
+				  <td>{{ paymentScheduledata.amount }}</td>
+				  <td>{{ momentDate(paymentScheduledata.date).format('ddd, MMM Do YYYY') }}</td>
+				</tr>
+			  {% endfor %}
+			</tbody>
+		  </table>
+		  {% else %}
+				<p align="center">No payment schedules found!</p>
+		  {% endif %}
+		</div>
+
+
+{% endif %}
+<div id="changeincome" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	  <form name="chnageincome" id="chnageincome" method="post" action="/admin/changeincome/{{paymentmanagementdata.id}}">
+		<div class="modal-header bg-primary">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Change Income</h4>
+		</div>
+		<div class="modal-body bgColorWhite">
+		 <input class="" type="hidden" id="apptype" name="apptype" value="pending">
+		  <table class="table table-bordered">
+				  <tbody>
+				  <tr>
+						<th width="30%"> Annual income </th>
+						<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="incomeamount" name="incomeamount" required></div></td>
+				  </tr>
+				  <!--<tr>
+						<th>B/R/F Balance </th>
+						<td>
+						  <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="balanceamount" name="balanceamount" required></div>
+						</td>
+				  </tr>-->
+		  </table>
+
+		</div>
+		<div class="modal-footer bg-info">
+		  <button type="submit"  class="btn btn-primary" id="changeincome" onclick="this.disabled = true;this.value='Processing...';this.form.submit();">Confirm</button>
+		  <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	  </div>
+      </form>
+	</div>
+  </div>
+
+<!-- Change Financing Amount -->
+
+<div id="changeloan" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+  <form name="changeloan" id="changeloan" method="post" action="/admin/changeloanamount/{{paymentmanagementdata.id}}">
+	<div class="modal-header bg-primary">
+	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	  <h4 class="modal-title">Change Financing Modification</h4>
+	</div>
+	<div class="modal-body bgColorWhite">
+
+	  <table class="table table-bordered">
+			  <tbody>
+			  <tr>
+					<th width="30%"> Financing amount </th>
+					<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control loanmoney"  id="financedAmount" name="financedAmount" value="{{paymentmanagementdata.payOffAmount}}" required></div></td><br/>
+			  </tr>
+			  <tr>
+			  	<th width="30%"> Enter Term </th>
+					<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="changeterm" name="changeterm" value="{{paymentmanagementdata.loantermcount}}" required></div></td><br/>
+			  </tr>
+			  <tr>
+			  	<th width="30%"> Enter Rate </th>
+					<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="changerate" name="changerate" value="{{paymentmanagementdata.interestapplied}}" required></div></td>
+			  </tr>
+	  </table>
+
+	</div>
+	<div class="modal-footer bg-info">
+	  <button type="submit"  class="btn btn-primary" id="changeloan">Confirm</button>
+	  <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+	</div>
+	</form>
+  </div>
+</div>
+</div>
+
+<!-- Change Term -->
+<div id="changeterm" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+  <form name="changeterm" id="changeterm" method="post" action="/admin/changeterm/{{paymentmanagementdata.id}}">
+	<div class="modal-header bg-primary">
+	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	  <h4 class="modal-title">Change Term</h4>
+	</div>
+	<div class="modal-body bgColorWhite">
+
+	  <table class="table table-bordered">
+			  <tbody>
+			  <tr>
+					<th width="30%"> Enter Term </th>
+					<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="changeterm" name="changeterm" required></div></td>
+			  </tr>
+	  </table>
+
+	</div>
+	<div class="modal-footer bg-info">
+	  <button type="submit"  class="btn btn-primary" id="changeterm">Confirm</button>
+	  <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+	</div>
+	</form>
+  </div>
+</div>
+</div>
+
+<!-- Change Rate -->
+
+<div id="changerate" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+  <form name="changerate" id="changerate" method="post" action="/admin/changerate/{{paymentmanagementdata.id}}">
+	<div class="modal-header bg-primary">
+	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	  <h4 class="modal-title">Change Rate</h4>
+	</div>
+	<div class="modal-body bgColorWhite">
+
+	  <table class="table table-bordered">
+			  <tbody>
+			  <tr>
+					<th width="30%"> Enter Rate </th>
+					<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="changerate" name="changerate" required></div></td>
+			  </tr>
+	  </table>
+
+	</div>
+	<div class="modal-footer bg-info">
+	  <button type="submit"  class="btn btn-primary" id="changerate">Confirm</button>
+	  <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+	</div>
+	</form>
+  </div>
+</div>
+</div>
+
+<!--Change income from incomplete Financings-->
+<div id="changeIncomeFromIncomplete" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	  <form name="chnageincome" id="chnageincome" method="post" action="/admin/changeincomefromincomplete/{{screenId}}">
+		<div class="modal-header bg-primary">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Change Income</h4>
+		</div>
+		<div class="modal-body bgColorWhite">
+
+		 <input class="" type="hidden" id="apptype" name="apptype" value="incomplete">
+		  <table class="table table-bordered">
+				  <tbody>
+				  <tr>
+						<th width="30%"> Annual income </th>
+						<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="incomeamount" name="incomeamount" required></div></td>
+				  </tr>
+		  </table>
+
+		</div>
+		<div class="modal-footer bg-info">
+		  <button type="submit"  class="btn btn-primary" id="changeIncomeFromIncomplete" onclick="this.disabled = true;this.value='Processing...';this.form.submit();">Confirm</button>
+		  <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	  </div>
+      </form>
+	</div>
+  </div>
+<!--Change income from incomplete Financings-->
+
+<!--Change income from incomplete Financings-->
+<div id="changeincomeMsg" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	  <form name="chnageincome" id="chnageincome" method="post" action="/admin/changeincomefromincomplete/{{screenId}}">
+		<div class="modal-header bg-primary">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Change Income</h4>
+		</div>
+		<div class="modal-body bgColorWhite">
+
+		 <p><center>Promissory document has been accepted already!</center></p>
+
+		</div>
+		<div class="modal-footer bg-info">
+
+		</div>
+	  </div>
+      </form>
+	</div>
+  </div>
+<!--Change income from incomplete Financings-->
+
+<!--Change income from denied Financings-->
+<div id="changeincomeDenied" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	  <form name="chnageincome" id="chnageincome" method="post" action="/admin/changeincomeDenied/{{paymentmanagementdata.id}}">
+		<div class="modal-header bg-primary">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Change Income</h4>
+		</div>
+		<div class="modal-body bgColorWhite">
+		 <input class="" type="hidden" id="apptype" name="apptype" value="pending">
+		  <table class="table table-bordered">
+				  <tbody>
+				  <tr>
+						<th width="30%"> Annual income </th>
+						<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="incomeamount" name="incomeamount" required></div></td>
+				  </tr>
+				  <!--<tr>
+						<th>B/R/F Balance </th>
+						<td>
+						  <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="balanceamount" name="balanceamount" required></div>
+						</td>
+				  </tr>-->
+		  </table>
+
+		</div>
+		<div class="modal-footer bg-info">
+		  <button type="submit"  class="btn btn-primary" id="changeincomeDenied" onclick="this.disabled = true;this.value='Processing...';this.form.submit();">Confirm</button>
+		  <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	  </div>
+      </form>
+	</div>
+  </div>
+<!--Change income from denied Financings-->
+<style>
+.pendingSchedule > tbody > tr > td, .pendingSchedule > tbody > tr > th {padding:7px !important;}
+</style>

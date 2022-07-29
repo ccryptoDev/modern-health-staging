@@ -1,0 +1,218 @@
+{% extends "frontend/layout/layout.nunjucks" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="inner-content">
+
+		<div class="row">
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+				{% include "frontend/layout/navigator.nunjucks" %}
+				<form class="formclass" id="userinfofrom" action="/couserinformationfull" method="post" data-validation="btnDisable" name="co_userinfo">
+				<div class="content-tabs">
+					<h1>Enter your Information below.</h1>
+					<div class="block-content-box">
+						<h4>PERSONAL INFORMATION </h4>
+						<div class="row">
+						<form>
+						<div class="col-xs-12 col-md-6 form-group">
+							<label class="col-xs-12" for="first_name">FIRST NAME</label>
+							<input type="text" class="form-control form-rounded input-color" id="first_name" name="first_name" placeholder="Enter First Name"  value="{{req.session.first_name}}" required>
+							<i class="tick-focus-img"></i>
+							<span id="firstnameError" class="error">Please enter firstname</span>
+						</div>
+						<div class="col-xs-12 col-md-6 form-group">
+							<label class="col-xs-12" for="last_name">LAST NAME</label>
+							<input type="text" class="form-control form-rounded input-color" id="last_name" name="last_name" placeholder="Enter Last Name" value="{{req.session.last_name}}" required>
+							<i class="tick-focus-img"></i>
+							<span id="lastnameError" class="error">Please enter lastname</span>
+						</div>
+						<div class="nopaddingLR2">
+							<h5 class="question">Why do we need your social security number?</h5>
+							<p>Being the savage's bowsman, that is, the person who pulled the bow-oar in his boat (the second one from forward), it was my cheerful duty to attend upon him while taking that hard-scrabble scramble upon the dead whale's back. </p>
+						</div>
+						<div class="form-group  securty col-xs-12 col-md-offset-3 col-md-6">
+							<label class="col-xs-12 text-left" for="last_name">SOCIAL SECURITY NUMBER</label>
+							<input type="text" class="form-control form-rounded input-color" id="security_number" name="security_number" placeholder="Enter Social Security Number" required data-mask="000-00-0000" value={{req.session.security_number}}>
+							<i class="arrow-focus-img"></i>
+							<span id="socialError" class="error">Please enter your social security number.</span>
+						</div>
+						</form>
+						</div>
+						<div class="">
+							<h5 class="question">Why do we need your banking information?</h5>
+							<p>Keytar McSweeney's Williamsburg, readymade leggings tryehard 90's street art letterpress hoodie occupy Wes Anderson Banksyv Asymmetrical Viral letterpress, McSweeney's seitan 3 wolf moon drinking Vinegar sartorial pour-over messenger bag photo booth urnarni next level craft beer. Tote bag 8-bit flannel dreamcatcher photo booth. Tofu photo booth American Apparel, cliche. </p>
+						</div>
+						<div class="secoundform">
+							<div class="">
+							<button class="btn blueBtn2">Help</button>
+							</div>
+
+
+							<div class="emptyAccountDiv">
+								<div class="img-Div" style="padding: 0px 0px 10px"><img src="/images/img/add-bank-screens.png" class="img-responsive plaid-img img-full" /></div>
+								<button type="button" class="addCircleBtn" onClick="openlinkaccount();">
+
+									<span>Login <br>to<br> Bank</span>
+								</button>
+							</div>
+
+							<!--<form action="" class="userloginform" id="userloginform">
+								<div class="form-group">
+									<input type="text" class="form-control" id="user_name" name="user_name" placeholder="User name">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" id="password" name="password" placeholder="Password">
+								</div>
+								<div class="user-token">
+									<input type="checkbox" id="checkbox1" >
+									<label for="checkbox1"><span>Use token</span></label>
+								</div>
+								<div class="">
+									<button type="button" class="btn btn-sm btn-block blueBtn3">Sign in </button>
+								</div>
+								<a href=""> Forget username/password? ></a>
+							</form>-->
+
+
+						</div>
+						<div class="btn-Main">
+						<button type="submit" class="btn blueBtn4" id="fillout">Fill out manually</button>
+						</div>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+
+
+<script>
+
+	var appScheme = 'linkApp';
+	var linkHandler = Plaid.create({
+
+		env: "{{ sails.config.plaid.envType }}",
+		apiVersion: 'v2',
+		clientName: "{{ sails.config.plaid.clientName }}",
+		key: "{{ sails.config.plaid.publicKey }}",
+		product: ["auth","transactions"],
+		webhook: "{{sails.config.getBaseUrl}}/api/v1/getPlaidTransactions",
+		onLoad: function () {
+
+			//alert('2342342423');
+		},
+		onSuccess: function (public_token, metadata) {
+
+			var action = 'handlePublicToken';
+			$('#loaderid').show();
+			$('#changebankbtn').hide();
+			$.ajax({
+				url     : '/saveplaiddetails',
+				method  : 'post',
+				data    : {
+					public_token  : public_token,
+					account_id    : metadata,
+				},
+				headers:
+				{
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success : function(response){
+
+				   //alert(response);
+
+				   $('#loaderid').hide();
+
+				   if(response.status==200){
+					  $('#apierror').modal('hide');
+					  window.location.href='/userinformationfull';
+				   }
+				   else if(response.status==400){
+					 alert(response.message);
+				   }
+				   else{
+					   $('#apierror').modal('show');
+				   }
+
+				}
+
+
+			});
+
+		},
+		onExit: function (err, metadata) {
+
+			$('#plaidloader').html('');
+			var action = 'handleOnExit';
+			if (err != null) {
+				// The user encountered a Plaid API error prior to exiting.
+			}
+
+			$.ajax({
+				url     : '/saveplaidresponseerror',
+				method  : 'post',
+				data    : {
+					errorres  : err,
+					metares   : metadata,
+				},
+				headers:
+				{
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success : function(response){
+
+					if(response.error_code=='INVALID_CREDENTIALS')
+					{
+					   $('#servererrorid').html('The provided credentials were not correct. Please click on "Retry" button below.');
+					   $('#servererror').modal('show');
+					}
+					else if(response.error_code=='INTERNAL_SERVER_ERROR')
+					{
+					   $('#servererrorid').html('Unable to connect your bank. Please click on "Retry" button below.');
+					   $('#servererror').modal('show');
+					}
+					else
+					{
+					 // $('#servererrorid').html(response.error_code+'<br>'+response.error_message);
+					  $('#servererrorid').html(response.error_message+' Please click on "Retry" button below.');
+					  $('#servererror').modal('show');
+					}
+
+				}
+			});
+
+		}
+
+	});
+
+function openlinkaccount(){
+
+	var firstName = $("#first_name").val();
+	var laseName = $("#last_name").val();
+	var ssnNumber = $("#security_number").val();
+
+	if(firstName.trim() == "") {
+		$("#firstnameError").css("display","block");
+		return false;
+	 } else if (laseName.trim() == "") {
+		$("#lastnameError").css("display","block");
+		return false;
+	 } else if (ssnNumber.trim() == "") {
+		$("#socialError").css("display","block");
+		return false;
+	 } else {
+
+   		setTimeout(function(){linkHandler.open();},1000);
+	}
+}
+
+
+</script>
+
+{% endblock %}

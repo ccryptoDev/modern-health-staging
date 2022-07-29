@@ -1,0 +1,153 @@
+{% extends "practice/layout/layout.nunjucks" %}
+
+{% block body %}
+
+<script>
+
+
+
+</script>
+
+<div class="container">
+	<div class="inner-content">
+		
+		<div class="row">
+			<!-- <div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2"> -->
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+
+				{% include "practice/layout/navigator.nunjucks" %}
+			</div>
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+				<div class="content-tabs">
+					<h1>Add Procedures</h1>
+					<p class="stlbluetxt mb-5">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap. Hashtag typewriter banh mi, squid keffiyeh High Life Brooklyn twee craft beer tousled chillwave. PBR&B selfies chillwave, bespoke tote bag blog post-ironic. Single-origin coffee put a bird on it craft beer YOLO, Portland hella deep v Schlitz. Tumblr Bushwick post-ironic Thundercats. Vinyl 90's keytar, literally cardigan Williamsburg YOLO squid pickled Etsy salvia lo-fi locavore. Meh leggings retro narwhal Neutra.</p>
+
+					<form action="/practice/createprocedure" method="post" name="ProceduresFrom" id="ProceduresForm">
+						 <div class="block-content-box">
+                           
+                           <div id="procedurelistempty" class="text-center" style="display:none">
+                           	<p><label class="error">Atleast one procedure is compulsory</label></p>
+                           </div>
+
+                           <input type="hidden" id="procedureCount" name="procedureCount" value="1">
+						   <input type="hidden" id="availprocedureCount" name="availprocedureCount" value="1">
+
+						   <div>	
+								<div class="row">
+									<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec">
+										<div class="form-group">
+										<label>PROCEDURE NAME</label>											
+										</div>
+									</div>
+								
+									<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec">
+											<div class="form-group">
+											 <label>TOTAL PRICE</label>											
+											</div>
+										</div>
+									
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec">
+											<div class="form-group">
+											<label>DEPOSIT</label>										
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec">
+											&nbsp;
+										</div>	
+									</div>	
+								</div>
+							</div>
+                           <!-- Procedure row starts here -->
+						 	<div id="procedureinfo_1">	
+								<div class="row">
+									<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec">
+										<div class="form-group">
+										<!-- <label>PROCEDURE NAME</label> -->
+											<input type="text" class="form-control" placeholder="Enter Procedure Name" name="procedurename[]" id="procedurename_1" />
+											<i class="arrow-focus-img"></i>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec">
+											<div class="form-group">
+												<!-- <label>TOTAL PRICE</label> -->
+												<input type="text" class="form-control" placeholder="Enter Amount" name="procedureprice[]" id="procedureprice_1" />
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec">
+											<div class="form-group">
+											<!-- <label>DEPOSIT</label> -->
+												<input type="text" class="form-control" placeholder="Enter Amount" name="proceduredeposit[]" id="proceduredeposit_1" />
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec proceduredetail">
+											<div class="checkbox float-left">
+											<input  value="1" name="procedurecheckbox[]" id="procedurecheckbox_1" class="procedurescheckbox " type="checkbox" 
+											onclick="openDetailPriceDiv(this.value)">
+											<label for="procedurecheckbox_1"><span><h5 class="stlbluetxt">Add Detailed Price</h5></span></label>
+											</div>
+											<span class="delete"  onclick="removeProcdeurelist(1)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+										</div>
+										</div>
+								    </div>
+
+									<div class="page-header2" id="proceduredetailprice_1" style="display: none;">
+										<div class="col-xs-12 col-sm-4 col-md-offset-4 col-md-5 col-lg-offset-4 col-lg-5 txtBoxSec">
+											<div class="form-group">
+											<label>PRACTICE FEE</label>
+											<input type="text" class="form-control" placeholder="Enter Practice Fee" name="practicefee[]" id="practicefee_1" />
+											<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-offset-4 col-md-5 col-lg-offset-4 col-lg-5 txtBoxSec">
+											<div class="form-group">
+											<label>FACILITY FEE</label>	
+											<input type="text" class="form-control" placeholder="Enter Fee" name="facilityfee[]" id="facilityfee_1" />
+											<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-offset-4 col-md-5 col-lg-offset-4 col-lg-5 txtBoxSec">
+											<div class="form-group">
+											<label>ANESTHESIA FEE</label>	
+											<input type="text" class="form-control" placeholder="Enter Fee" name="anesthesiafee[]" id="anesthesiafee_1" />
+											<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-offset-4 col-md-5 col-lg-offset-4 col-lg-5 txtBoxSec">
+											<div class="form-group">
+											<label>OTHERS FEE</label>	
+											<input type="text" class="form-control" placeholder="Enter Fee" name="otherfee[]" id="otherfee_1" />
+											<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+									</div>
+						 	</div>
+							<!-- Procedure row ends here -->
+
+
+								<div class="clearfix"></div>
+								<!-- Append Procedure details -->
+								<div id="addedprocedure"></div>
+
+								<div class="btn-Main">
+									<div class="text-center"><button type="button" name="addprocedure" class="btn btn-default lightBlueBtn bgtransparent nopaddingTB" onclick="addMoreRows(this.form);">+ Add Procedure</button></div>
+								</div>
+								<div class="btn-Main ">
+									<button type="button" name="back" class="btn btn-default lightBlueBtn bgtransparent">Back</button>
+									<button type="submit" name="next" class="btn btn-default lightBlueBtn">Next</button>
+								</div>
+
+							</div>
+					    </form>
+					</div>
+		        </div>				
+			</div>
+		</div>
+	</div>
+</div>	
+  
+{% endblock %}

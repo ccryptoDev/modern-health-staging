@@ -1,0 +1,117 @@
+<!doctype html>
+  <html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- Favicon -->
+	<!-- <link href="images/favicon.ico" rel="shortcut icon"> -->
+    <!-- meta View port tag -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+    <!-- Title -->
+	<title>{{LenderShortName}}</title>
+	<link href="/images/img/favicon.ico" rel="shortcut icon">
+	<!-- css animations -->
+	<link href="/styles/css/frontend/v3/animate.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome css -->
+	<link href="/styles/css/frontend/v3/font-awesome.css" rel="stylesheet" type="text/css" />
+	<link href="/styles/css/font-awesome-all.min.css" rel="stylesheet" type="text/css" />
+    <!-- General Font CSS -->
+    <link href="/styles/css/frontend/v3/fonts.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap CSS -->
+    <link href="/styles/css/frontend/v3/bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- Common & Responsive CSS -->
+    <link href="/styles/css/frontend/v3/newcommon.css?ver=4" rel="stylesheet" type="text/css" />
+    <link href="/styles/css/frontend/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="/styles/css/frontend/v3/custom.css?ver=4" rel="stylesheet" type="text/css" />
+    <link href="/styles/css/frontend/v3/custom1.css?ver=4" rel="stylesheet" type="text/css" />
+	<link href="/styles/css/frontend/v3/newresponsive.css?ver=4" rel="stylesheet" type="text/css" />
+	<link href="/js/js/spin/spin.css" rel="stylesheet" type="text/css" />
+	<style>
+
+	</style>
+
+	<script type="text/javascript" src="/js/dependencies/sails.io.js"></script>
+	<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script src="/js/js/underscore-min.js"></script>
+	<script src="/js/js/ajax-service.js"></script>
+	<script src="/js/js/spin/spin.js"></script>
+	<script src="/js/frontend/moment.js"></script>
+	<script src="/js/frontend/combodate.js"></script>
+	<script>
+		moment().format();
+	</script>
+</head>
+<body>
+	<div class="spinner-container"  style="display:none;">
+		<div class="loading-spinner"></div>
+	</div>
+	{% set name = req.path.split('/') %}
+	{% set urlpath = name[1] %}
+	{% if  req.path != '/home' and req.path != '/signin' and urlpath != 'applicationmanagementlogin' %}
+	{% include "frontend/layoutv3/header.nunjucks" %}
+	{% endif %}
+
+	<!-- Body Section -->
+	<main id="bodyContent" class="bodyContent{% if req.options.customerWorkflowStep and req.options.customerWorkflowStep > 0 %} has-customer-workflow-banner{% endif %}{% if  req.session.appPracticeName and req.session.appPracticeName !='' and req.session.appPracticeName != null %} personlInfoBC appNewBC{% endif %}">
+		{% if req.options.addbankWorkflowStep  %}
+			{% include "frontend/application/addbankWorkFlowBreadCrumb.nunjucks" %}
+		{% elif req.options.customerWorkflowStep and req.options.customerWorkflowStep > 0 %}
+			{% include "frontend/application/workFlowBreadCrumb.nunjucks" %}
+		{% else %}
+		{% endif %}
+	{% block body %}
+	{% endblock %}
+	</main>
+
+	{% include "frontend/layoutv3/footer.nunjucks" %}
+
+
+	<div id="alertmsg" class="modal fade" role="dialog" >
+	<div class="modal-dialog modal-md">
+	<!-- Modal content-->
+	<div class="modal-content" style="background-color: #243748">
+		<div class="modal-header bg-tcpa" style="border:0">
+		<button type="button" class="close" data-dismiss="modal" style="color: #FFF; opacity: 1;">&times;</button>
+		<h4 class="modal-title" style="color: #FFF;">Message</h4>
+		</div>
+		<div class="modal-body bgColorWhite" id="alertmsgbody" style="color:#FFF; border:0" >
+		</div>
+	</div>
+	</div>
+	</div>
+	<script type="text/javascript">
+		//Need to keep track of multiple spinners being opened at the same time
+		var spinnerIndex = 0;
+		$(document).ready(function() {
+			var opts = {
+				lines: 8, // The number of lines to draw
+				length: 25, // The length of each line
+				width: 25, // The line thickness
+				radius: 40, // The radius of the inner circle
+				scale: 0.6, // Scales overall size of the spinner
+				corners: 0.7, // Corner roundness (0..1)
+				color: '#fbb421', // CSS color or array of colors
+				fadeColor: 'transparent', // CSS color or array of colors
+				speed: 1.25, // Rounds per second
+				rotate: 0, // The rotation offset
+				animation: 'spinner-line-fade-more', // The CSS animation name for the lines
+				direction: 1, // 1: clockwise, -1: counterclockwise
+				zIndex: 2e9, // The z-index (defaults to 2000000000)
+				className: 'spinner', // The CSS class to assign to the spinner
+				top: '45%', // Top position relative to parent
+				left: '50%', // Left position relative to parent
+				shadow: '0 0 5px #a56733', // Box-shadow for the lines
+				position: 'absolute' // Element positioning
+			};
+			var target = $(".loading-spinner")[ 0 ];
+			var spinner = new Spinner(opts).spin(target);
+			target.appendChild(spinner.el);
+		});
+	</script>
+</body>
+</html>
+
+<script>
+$(document).ready(function() {
+	$("html, body").animate({ scrollTop: 0 }, "fast");
+})
+</script>

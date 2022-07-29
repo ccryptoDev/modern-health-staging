@@ -1,0 +1,25 @@
+
+<style>
+    .back-sign-pad{
+        border:1px solid;
+        border-radius: 7px;
+        min-height: 60px;
+        background-color: #FFF;
+    }
+</style>
+<center>
+    <div id="signature-pad-EFT" class="signature-pad-EFT" style="width:875; height:115;">
+        <div id="nosignErrorEFT" style="display:none; color: red;"><strong><span id="nosignErrorEFTText">Please sign the signature pad.</span></strong></div>
+        <div class="signature-pad--body">
+            <canvas height="115" style="width: 100%; height:115px;" class="back-sign-pad"></canvas><br>
+        </div>
+        <br>
+        <div class="signature-pad--actions">
+            <button type="button" class="btn btn-application" data-action="" id="clearSignatureEFT">Clear</button>&nbsp;
+            <button type="button" class="btn btn-application" data-action="save-png" id="acceptSignatureEFT">Accept</button>
+            <input type="hidden" name="checkCanvasEmptyEFT" id="checkCanvasEmptyEFT" class="form-control input-normal" value="{{ signatureExistEFT }}">
+            <input type="hidden" name="hiddensignatureidEFT" id="hiddensignatureidEFT" class="form-control input-normal" value="{{ signatureIdEFT }}">
+        </div>
+    </div>
+</center>
+

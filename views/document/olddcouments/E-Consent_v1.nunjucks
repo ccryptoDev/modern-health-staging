@@ -1,0 +1,123 @@
+
+    <style>
+      body {
+        background-color: white;
+        font-family:'Roboto', sans-serif;
+      }
+
+      h1 {
+        color: black;
+      }
+
+      p {
+          color: black;
+      }
+    </style>
+  </head>
+
+
+
+  <h1 style="margin-top:0px;"> Electronic Funds Transfer Authorization </h1>
+
+  <p1>Financing Number: {{screenDetails.applicationReference}}</p1>
+  <p>Borrower Name: {{username}}</p>
+  
+  <p>In this Electronic Funds Transfer Authorization ("Authorization"), "I," "me," "my," "we" and "our" refers to the Borrower
+and under the Installment Promissory Note and Disclosure Statement ("Financing Agreement") signed the same date I
+sign this Authorization. I may choose the convenience of having my monthly financing payments under the Agreement
+made automatically from my Bank Account at my Financial Institution. I understand that this is not a condition of
+your making the Agreement with me. This Authorization allows preauthorized Electronic Funds Transfer Payments
+from my Bank Account designated below ("Account") to {{LmsShortName}} ("You," "Lender"). By
+signing the Authorization, I agree to the following terms:</p>
+  
+  <p style="margin-left:20px;">1. Authorization: "Electronic Funds Transfer Authorization" means I authorize Lender to automatically
+withdraw funds from my Account ("Electronic Funds Transfer Payment") through an automated clearing
+house transfer (electronic debiting of my Account) or by bank draft (remotely created check or "RCC") in
+order to make my payments to Lender as required by the Agreement. If the due date falls on a Saturday or
+Sunday, my payment will be deducted on the following Monday. If the due date falls on a holiday, my
+payment will be deducted on the business day following the holiday. I agree to keep sufficient funds in the
+Account on the due date so that the payment can be made in the required amount. If there are insufficient
+funds in my Account, Lender may continue to debit my Account until sufficient funds are available.</p>
+  
+<p style="margin-left:20px;">2. Cancellation by Borrower: I can cancel this Authorization by giving you or my Financial Institution notice of
+the revocation three business days before the date an Electronic Funds Transfer Payment is scheduled to
+occur. Should I desire to cancel my automatic payment withdrawal I must contact {{LmsWebAddress}}  at
+least three business days before my next scheduled payment. {{LmsShortName}}  can be contacted via
+mail at {{LmsWebAddress}} {{LMSMailingAddress}}, or by telephone at {{LMSPhone}} Monday -Friday 8:00am - 5:00pm PST.</p>
+
+<p style="margin-left:20px;">3. Payment by Check - If I elect to make payments by check, I must send the check either by regular mail or
+by overnight mail or UPS delivery to {{LmsWebAddress}} {{LMSMailingAddress}}. 
+The check must be received by 5:00 P.M., Pacific Standard Time, on the due date.</p>
+
+<p style="margin-left:20px;">4. Checking Account: I will keep sufficient available funds in my Account to cover all payments to you under
+the Agreement.</p>
+
+<p style="margin-left:20px;">5. Rights Regarding Varying Amounts: I have the right to receive notice of all Electronic Funds Transfer
+Payments that vary from a preauthorized amount, or from the previous Electronic Funds Transfer Payment
+amount. The preauthorized Electronic Funds Transfer Payment is the amount of my monthly payment under
+the Agreement.</p>
+<p style="margin-left:40px;">.If this box is checked, I elect to receive such notice only when a withdrawal exceeds the monthly
+payment amount as shown on my most recent Federal Disclosure Statement given in connection with
+the Agreement by more than $ 45.00. You may withdraw up to this amount in the event I miss a
+payment. Such withdrawal may also include additional interest.</p>
+
+<p style="margin-left:20px;">6. Rejecting Electronic Funds Transfers Payments: My failure to keep sufficient funds in the Account will be
+an event of default under this Authorization and Lender will have the right to terminate this Authorization. I
+will be responsible for any Electronic Funds Transfer Payments that do not clear as well as any dishonored
+check fees, including those that may be discovered after the Agreement is apparently paid off such as by
+refinancing or otherwise.</p>
+
+<p style="margin-left:20px;">7. Prepayment: If I make a full monthly payment two business days before the scheduled transfer date, there
+will be no Electronic Funds Transfer Payment for that month.</p>
+
+<p style="margin-left:20px;">8. Procedures Upon Payment in Full: I understand that when my Agreement is paid off and you send notice
+to my Bank to cease Electronic Funds Transfer Payments, occasionally a bank fails to stop Electronic Funds
+Transfer Payments in a timely manner. If this occurs, or if an overpayment is otherwise made, you will
+refund to me the amount exceeding any amount due as soon as reasonably possible upon discovery of the overpayment, and I agree that this is a reasonable procedure. If there is a balance remaining after the
+scheduled final due date of the Agreement, I authorize Lender to continue to debit my Account in the amount
+of the Electronic Funds Transfer Payment at regular intervals until the unpaid balance is paid. Although
+Lender is authorized to continue these Electronic Funds Transfer Payments, Lender is under no obligation to
+do so.</p>  
+  
+  <p>
+      <p style="text-align:center;"><b>Bank Account Information:</b> Lender may withdraw funds from the following Account:</p>
+	  <p id="linkedaccountid">
+	    <table width="70%" border="1" cellspacing="0" cellpadding="0" align="center">
+		  <tr>
+			<td align="center"><b>Account Number</b></td>
+			<td align="center"><b>Name of Financial Institution</b></td>
+		  </tr>
+         {% if accountToCreateres %}
+		  <tr>
+			<td align="center">{{accountToCreateres.numbers.account}}</td>
+			<td align="center">{{institutionName}}</td>
+		  </tr>
+		  {% else %} 
+			<tr><td colspan="2">No Account Found</td></tr>
+		  {% endif %}
+	   </table>
+     </p>
+  
+  </p>
+  
+  <p>BY SIGNING THIS DOCUMENT, I ACKNOWLEDGE THAT I HAVE READ THE
+TERMS AND CONDITIONS OF THIS AUTHORIZATION ABOVE AND AGREE TO
+BE BOUND BY ITS TERMS. I ACKNOWLEDGE THAT I HAVE RECEIVED A COPY
+
+OF THIS AUTHORIZATION.</p>
+  <p>I hereby authorize {{LmsShortName}}  to initiate Automated Clearing House (ACH) debits to the bank/credit union account that was provided in my financing application. This authority remains in full force and effect until {{LmsShortName}}  has received written notification of its termination. I agree to notify {{LmsShortName}}  of any changes in my account information or termination of this authorization at least 3 business days prior to the next payment date. If a payment dates fall on a weekend or holiday, I understand that the payment may be executed on the next business day. I acknowledge that the origination of ACH transactions to my account must comply with the provisions of U.S. law. I certify that I am an authorized user of this bank/credit union account and I agree not to dispute this recurring billing with my bank/credit union so long as the transactions correspond to the terms indicated in this authorization.</p>
+
+  <p>BY CLICKING CONTINUE I ACKNOWLEDGE THAT I HAVE READ THE TERMS AND CONDITIONS OF THE ELECTRONIC FUNDS TRANSFER AUTHORIZATION ABOVE AND AGREE TO BE BOUND BY ITS TERMS.  I ACKNOWLEDGE THAT I HAVE RECEIVED A COPY OF THIS AUTHORIZATION.</p>
+<BR>
+<!--{% if username %}
+<p1> Borrower Name: {{username}}</p1><br>
+{% endif %}-->
+<p1>
+Ip:{{ip}}
+</p1><br>
+<p1>
+Date:{{agreementObject.date}}
+</p1>
+
+
+

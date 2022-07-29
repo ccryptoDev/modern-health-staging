@@ -1,0 +1,37 @@
+
+<div id="lenderinfo_{{rowCount}}">	
+	<div class="row">
+		<div class="lenderwidth">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec nopaddingLR2">
+				<div class="form-group selectBox">
+					<select class="form-control" name="vendorname[]" id="vendorname_{{rowCount}}" required  onchange="getVendorInterestRate({{rowCount}}, this.value)">
+						<option value="">Select Lending Vendor Name</option>
+						{% for vendorinfo  in vendorData %}
+							<option value="{{ vendorinfo.id }}">{{ vendorinfo.vendorName }}</option>
+						{% endfor %}  
+					</select>
+				</div>										
+			</div>
+
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec nopaddingLR2">
+				<div class="form-group selectBox">
+				<select class="form-control" name="interestrate[]" id="interestrate_{{rowCount}}"  required>
+						<option value="">Select Finance Product</option>						
+					</select>									
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec nopaddingLR2">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Enter Merchant Processing Fee" name="processingfee[]" id="processingfee_{{rowCount}}" required autocomplete="off" />
+					<i class="arrow-focus-img"></i>
+				</div>
+			</div>
+		</div>
+
+		<div class="lenderdelete">
+			<span class="delete" onclick="removeLenderMerchant({{rowCount}})"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+		</div>
+
+	</div>
+</div>	

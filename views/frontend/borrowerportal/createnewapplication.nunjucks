@@ -1,0 +1,209 @@
+{% extends "frontend/layout/portallayout.nunjucks" %}
+
+{% block body %}
+<style type="text/css">
+	.checkbox {margin: 0;position: relative;}
+	.checkbox input[type="checkbox"] {visibility: hidden;}
+	.checkbox label::before { border: 1px solid #283943;  content: ""; display: inline-block; height: 20px;left: 0;position: absolute;top: 0; width: 20px;}
+	.checkbox label { display: block; position: relative; vertical-align: middle;}
+	.checkbox label span { color: #0cd4b7; display: inline-block; font-size: 13px; padding-left: 10px;}
+	.checkbox label span a {font-weight: bold; color: #0cd4b7;text-decoration: blink;}
+</style>
+<div class="container">
+	<div class="tab_container appplicationId">
+		<div class="box nopaddingLR2 boxmargin">
+			<form class="formclass" id="createApplicateValidate" action="/createnewapplication" method="post" data-validation="btnDisable" name="userinfofullData">
+				<div class="content-tabs">
+					<h3 class="text-center">Create Application</h3>
+					<div class="error text-center">{{errorMsg}}</div>
+					<div class="block-content-box nopaddingTB2">
+
+						<div class="error text-center">{{errormsg}}</div>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label class="col-xs-12" for="first_name">FIRST NAME</label>
+									<input type="text" class="form-control form-rounded input-color" id="first_name" name="firstname" placeholder="Enter First Name" value="{{userData.firstname}}" required  {% if responeData.clicktoSave == 0 %} readonly="true" {% endif %} >
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group"> 
+									<label class="col-xs-12" for="last_name">LAST NAME</label>
+									<input type="text" class="form-control form-rounded input-color" id="last_name" name="lastname" placeholder="Enter Last Name" value="{{userData.lastname}}" required {% if responeData.clicktoSave == 0 %} readonly="true" {% endif %} >
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+						</div>	
+
+						<div class="row">	
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label class="col-xs-12" for="first_name">SOCIAL SECURITY NUMBER</label>
+									<input type="text" class="form-control form-rounded input-color" id="ssnNumber" name="ssnNumber" placeholder="Enter Social Security Number" value="{{userData.ssn_number}}" required data-mask="000-00-0000" {% if responeData.clicktoSave == 0 %} readonly="true" {% endif %}  >
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label class="col-xs-12" for="last_name">DATE OF BIRTH</label>
+									<input type="text" class="form-control form-rounded input-color" readonly="true " id="vendorDateofBirth" name="vendorDateofBirth"  value="{{userData.dateofBirth}}" placeholder="mm/dd/yyyy" data-mask="00/00/0000" readonly="true" required >
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+					    </div>
+
+						<div class="row">	    
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label class="col-xs-12" for="first_name">EMAIL ADDRESS</label>
+									<input type="text" class="form-control form-rounded input-color" id="email" name="email" placeholder="Enter Email Address" value="{{userData.email}}" required readonly="true">
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label class="col-xs-12" for="last_name">PRIMARY ADDRESS</label>
+									<input type="text" class="form-control form-rounded input-color" id="street" name="street" placeholder="Enter Primary Address" value="{{userData.street}}" required>
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+						</div>
+						<div class="row">	 	
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label class="col-xs-12" for="last_name">CITY</label>
+									<input type="text" class="form-control form-rounded input-color" id="city" name="city" placeholder="Enter City" value="{{userData.city}}" required>
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6 selectBox dropDown">
+							<div class="form-group">
+								<label class="col-xs-12 text-left" for="last_name">STATE</label>
+								<select class="form-control form-rounded" id="state" name="state" placeholder="state" required >
+								<option selected="true" disabled="disabled">Select state</option>    
+	 							{% for state in states %}
+									<option value="{{state.stateCode}}" {% if userData.state==state.stateCode %} selected {% endif %}>{{state.stateName}}</option>
+								{% endfor %}
+								</select>
+	 						</div>
+							</div>
+						</div>
+						<div class="row">	 	
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label class="col-xs-12" for="first_name">ZIPCODE</label>
+									<input type="text" class="form-control form-rounded input-color" id="zipCode" name="zipCode" placeholder="Enter Zip Code" value="{{userData.zipCode}}" required>
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+
+						{% if clicktoSave == 1 %}
+							 <div class="col-xs-12 col-md-6">
+	                            <div class="form-group">
+	                                <label class="col-xs-12" for="first_name">PHONE NUMBER</label>
+	                                <input type="text" class="form-control form-rounded input-color" id="phoneNumber" name="phoneNumber" placeholder="Enter Phone Number" value="{{userData.phoneNumber}}" data-mask="(000) 000-0000" required>
+	                                <i class="tick-focus-img"></i>
+	                            </div>
+	                        </div>
+                        {% endif %}
+
+							<div class="col-xs-12 col-md-6 col-md-offset-3">
+								<div class="form-group">
+								<input type="hidden" class="form-control form-rounded input-color" id="practicemanagement" name="practicemanagement" value="{{hospRes.id}}" >
+								</div>
+							</div>
+
+						</div>
+
+						<div class="block-content-box">
+					<p>Before we continue, please review these documents and confirm that you agree to their terms.</p>
+					<ul class="list-of-goroups">
+						<li>
+							<div class="checkbox">
+								{% if clicktoSave == 1 and checkbox1==1  %}
+								<input type="checkbox" id="checkbox1" class="doublecheck" checked name="TermsConditions[]" value="120" onchange="removeConsentErrorMsg(this);">
+								{% else %}
+								<input type="checkbox" id="checkbox1" class="doublecheck" name="TermsConditions[]" value="120" onchange="removeConsentErrorMsg(this);">
+								{% endif %}
+
+								<label for="checkbox1">
+									<span>Yes, by selecting this box, I agree that I reviewed this <a href="javascript:void(0)" onclick="openelectronic();">Consent for Use of Electronic Records and Signatures,</a> confirmed that I can print or save electronic Records, and consent to use of electronic Records and signatures as described in this document.</span> <!--<i class="fa fa-caret-right"></i>-->
+								</label>
+								<span id="consentError" class="error">You must select this option.</span>
+							</div>
+						</li>
+						<div class="consent-ul"></div>
+					</ul>
+					
+					<div class="block-content-consent">
+						<p>Next, please review the following documents and confirm that you understand and agree to their terms.</p>
+						<ul class="list-of-goroups list-consent">
+							<li>
+								<div class="checkbox">
+									{% if clicktoSave == 1 and checkbox3 == 1 and checkbox4 == 1 and checkbox5 == 1 %}
+										<input type="checkbox" id="checkbox2" checked class="selectall" onchange="selectAll('selectall','singlecheck')" >
+									{% else %}
+										<input type="checkbox" id="checkbox2" class="selectall" onchange="selectAll('selectall','singlecheck')" >
+									{% endif %}
+										<!-- <input type="checkbox" id="checkbox2" checked class="selectall" onchange="selectAll('selectall','singlecheck')" > -->
+										<label for="checkbox2"><p>Select all</p></label>
+								</div>
+							</li>
+							
+							<ul class="list-of-goroups ">
+								<li>
+									<div class="checkbox sublist-check">
+										{% if clicktoSave == 1 and checkbox3 == 1 %}
+											<input type="checkbox" id="checkbox3" name="TermsConditions[]" class="singlecheck" checked value="121" value="Consent and Authorization" onchange="removeSelectallErrorMsg();">
+										{% else %}
+											<input type="checkbox" id="checkbox3" name="TermsConditions[]" class="singlecheck" value="121" value="Consent and Authorization" onchange="removeSelectallErrorMsg();">
+										{% endif %}
+										<label for="checkbox3"><span>By selecting this box, I agree that I reviewed this <a href="javascript:void(0)" onclick="opencreditreport();">Consent and Authorization to Obtain and Use Consumer Reports and Related Information,</a> and agree to its terms;</span></label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox sublist-check">
+										{% if clicktoSave == 1 and checkbox4 == 1 %}
+											<input type="checkbox" id="checkbox4" name="TermsConditions[]" class="singlecheck" checked value="122" value="Prior Express Consent" onchange="removeSelectallErrorMsg();">
+										{% else %}
+                                         	<input type="checkbox" id="checkbox4" name="TermsConditions[]" class="singlecheck" value="122" value="Prior Express Consent" onchange="removeSelectallErrorMsg();">
+                                        {% endif %}
+											<label for="checkbox4"><span>By selecting this box, I agree that I reviewed this <a href="javascript:void(0)" onclick="opentelemarketing();">Prior Express Consent for Non-Telemarketing Calls and Texts,</a> and agree to its terms;</span></label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox sublist-check">
+										{% if clicktoSave == 1 and checkbox5 == 1 %}
+										<input type="checkbox" id="checkbox5" name="TermsConditions[]"  checked value="123" value="Privacy Policy" class="singlecheck" onchange="removeSelectallErrorMsg();" >
+										{% else %}
+										<input type="checkbox" id="checkbox5" name="TermsConditions[]" value="123" value="Privacy Policy" class="singlecheck" onchange="removeSelectallErrorMsg();" >
+										{% endif %}
+										<label for="checkbox5"><span>By selecting this box, I agree that I received this <a href="javascript:void(0)" onclick="openpolicy();">Financial Privacy Policy</a> and understand its terms.</span></label>
+									</div>
+								</li>
+							</ul>
+						</ul>
+						<span id="checkError" class="error">You must select all options.</span>
+					</div>
+				</div>	
+
+ 						<div class="row">	
+
+	 						<div class="btn-Main text-center col-lg-12">
+							<!--<a href="/userinformation"><button type="button" class="btn blueBtn4">Back</button></a>--> 
+							<!-- <button type="submit" name="formsubmit" class="btn btn-default createapplication" style="padding: 0.5% 5%;" id="regSubmit">Next</button> -->
+
+							<button type="submit" name="formsubmit" class="btn btn-default createapplication" style="padding: 0.5% 5%; min-width: 140px;">Next</button>
+							</div>
+						</div>
+					
+					</div>
+				</div>	
+			</form>
+		</div>
+	</div>
+		{% include "frontend/home/signupstartconsent.nunjucks" %}
+</div>
+{% endblock %}

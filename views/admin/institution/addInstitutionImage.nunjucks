@@ -1,0 +1,41 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+<script src="/js/js/jscolor.min.js"></script>
+  <section class="content-header">
+    <h1>
+      Categories
+      <small>preview of categories</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="/admin/getAllInstitution"><i class="fa fa fa-building"></i>Institution</a></li>
+      <li class="active">Add Institution Image</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box-wrapper">
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Add Institution Image</h3>
+        </div>
+        <form role="form" method="POST" enctype="multipart/form-data" action="/admin/uploadInstitutionImage?id={{ institution.id }}">
+          <div class="box-body">
+            <div class="form-group">
+              <label>Select color</label>
+              <input class="jscolor" id="institutionColor" name="institutionColor">
+              <p class="help-block">Select the bank color</p>
+            </div>
+            <div class="form-group">
+              <label>Image input</label>
+              <input type="file" id="institutionImage" name="institutionImage" required>
+              <p class="help-block">Select the image to upload.</p>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}

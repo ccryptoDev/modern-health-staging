@@ -1,0 +1,65 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="maintenance">
+<style>
+.maintenance_p{font-size:20px; color: #000;}
+p{line-height: 20px;padding-bottom: 10px;}
+</style>
+
+<div class="container-fluid">
+   <div class="heading">
+      <div class="logoMiddle"><img src="/images/imgv3/logo.png" class="img-reponsive" /></div>
+      </div>
+   <div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+      <div class="whitebox box-login-lg">
+         <div class="row">
+            <h1><center>{{LenderShortName}} Maintenance</center></h1>
+            <hr>
+            <br>
+            <img src="/images/img/icon-maintenance.png" class="img-responsive center-block" />
+            <br/>
+            <p><b><center class="maintenance_p">{{LenderShortName}} is currently undergoing scheduled maintenace.</center></b></p>
+            <p><b><center class="maintenance_p">Please try back later.</center></b></p>
+            <p><b><center class="maintenance_p">Sorry for the inconvenience.</center></b></p>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- <style>
+.maintenance_p{font-size:20px; color: #FFF;}
+p{line-height: 20px;padding-bottom: 10px;}
+</style>
+
+ <div class="container">
+   <div class="inner-content">
+
+      <div class="row">
+         <div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+         <br/> <br/>
+         <div >
+            <div class="content-tabs ">
+               <div class="smallblock-content-box" >
+                  <div class="row nomargin">
+
+                      <h1><center>{{LenderShortName}} Maintenance</center></h1>
+                      <hr>
+                      <br>
+
+                      <img src="/images/img/icon-maintenance.png" class="img-responsive center-block" />
+                      <br/>
+
+                      <p><b><center class="maintenance_p">{{LenderShortName}} is currently undergoing scheduled maintenace.</center></b></p>
+                      <p><b><center class="maintenance_p">Please try back later.</center></b></p>
+                      <p><b><center class="maintenance_p">Sorry for the incovenience.</center></b></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+      </div>
+   </div>
+</div> -->
+</div>
+{% endblock %}

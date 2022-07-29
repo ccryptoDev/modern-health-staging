@@ -1,0 +1,385 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+<section class="content-header">
+<h1>Create Application</h1>
+<ol class="breadcrumb">
+	<li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+	<li><a href="/admin/adminuserlist"><i class="fa fa fa-building"></i>Admin User List</a></li>
+	<li class="active">Add User</li>
+</ol>
+</section>
+
+<section class="content">
+	<div class="row" id="loaderIdCreateAppCustomerService" style="display:none;">
+		<div class="" align="center" style="text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,0.7);">
+			<div style="height:100%;width:100%;background:url('/images/img/ajaxloader.gif') no-repeat center;margin-top:-233px;"></div>
+		</div>
+	</div>
+	<div class="box">
+		<div class="box-header with-border">
+			{% if (error)  %}
+				<div class="alert alert-danger">
+					{{error}}
+				</div>
+			{% endif %}
+			{% if (error1)  %}
+				<div class="alert alert-danger">
+					{{error1}}
+				</div>
+			{% endif %}
+			{% if (errorval1)  %}
+			<div class="alert alert-danger">
+				{{errorval1}}
+			</div>
+			{% endif %}
+			{% if (errorval)  %}
+			<div class="alert alert-danger">
+				{{errorval}}
+			</div>
+			{% endif %}
+			<h3 class="box-title">User Information Form </h3>
+		</div>
+		<div class="box-body">
+			<form name="addNewUserByCustomerServiceForm" id="addNewUserByCustomerService" role="form" method="POST" enctype="multipart/form-data" action="/admin/addNewUserByCustomerService">
+				<input type="hidden" id="sid" name="sid"  />
+				<input type="hidden" id="isTwilioEnabled" name="isTwilioEnabled" value="{{ isTwilioEnabled }}"/>
+				<input type="hidden" id="isPhoneVerified" name="isPhoneVerified"/>
+				<div class="row">
+					<div class="col-md-6  col-sm-12 col-lg-6" >
+						<div class="formdiv" >
+							<div class="form-group">
+								<label for="inputFirstName">First Name: *</label>
+								<input type="text" class="form-control form-rounded" id="inputFirstName" placeholder="" value="" name="firstname" required>
+							</div>
+							<div class="form-group">
+								<label for="inputMiddleName">Middle Name:</label>
+								<input type="text" class="form-control form-rounded" id="inputMiddleName" placeholder="" name="middlename">
+							</div>
+							<div class="form-group">
+								<label for="inputLastName">Last Name: *</label>
+								<input type="text" class="form-control form-rounded" id="inputLastName" placeholder="" name="lastname" value="" required>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail">Email: *</label>
+								<input type="email" class="form-control form-rounded" id="inputEmail" placeholder="" name="email" value="" required>
+								<span class="error" aria-live="polite" id="emailError" hidden="true">This user already exists.</span>
+							</div>
+							<div class="form-group">
+								<label for="inputSocial">Social security number: </label>
+								<input type="text" class="form-control form-rounded" id="inputSocial" placeholder="" name="ssn_number" >
+							</div>
+							<div class="form-group">
+								<label for="datepicker">Date Of Birth: *</label>
+								<input type="text" class="form-control form-rounded date-range-filter" id="datepicker" data-date-format="mm/dd/yyyy" placeholder="" name="dob" autocomplete="off">
+							</div>
+
+							<div class="form-group">
+								<label for="last_name">Practice name: *</label>
+								<select class="form-control form-rounded" id="practicemanagement" name="practicemanagement" required >
+									<option selected="true" disabled="disabled">Select practice</option>
+									{% for hosp in hospRes %}
+										{% if req.session.adminpracticeID %}
+											{% if hosp.id == req.session.adminpracticeID %}
+												<option value="{{hosp.id}}" {% if practiceid==hosp.id %} selected {% endif %}>{{ hosp.PracticeName }}</option>
+											{% endif %}
+										{% else %}
+											<option value="{{hosp.id}}" {% if practiceid == hosp.id %} selected {% endif %}>{{ hosp.PracticeName }}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="inputIncomeamount">Monthly Income: *</label>
+								<input type="text" class="form-control form-rounded" id="inputIncomeamount" name="incomeamount" autocomplete="off" onkeyup="this.value=this.value.replace(/[^\d]/,'')" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-12 col-lg-6">
+						<div class="form-group">
+							<label for="inputStreet">Street: *</label>
+							<input type="text" class="form-control form-rounded" id="inputStreet" placeholder="" name="street_name" required>
+						</div>
+						<div class="form-group" >
+							<div class="form-group">
+								<label for="inputUnit">Unit/Apartment: </label>
+								<input type="text" class="form-control form-rounded" id="inputUnit" placeholder="" name="unitApp">
+							</div>
+							<div class="form-group">
+								<label for="inputCity">City: *</label>
+								<input type="text" class="form-control form-rounded" id="inputCity" placeholder="" name="city" required>
+							</div>
+							<div class="form-group">
+								<label for="inputState">State: *</label><br>
+								<select name="state" id="inputState" placeholder="" required=""  class="form-control form-rounded" style="width:100%;padding:5px;">
+									{% for stateDetails in stateData %}
+										<option value="{{stateDetails.stateCode}}">{{stateDetails.stateName}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="inputZip">Zip: *</label>
+								<input type="text" class="form-control form-rounded" id="inputZip" placeholder="" name="zip_code" required>
+							</div>
+							<div class="form-group">
+								<label for="phone">Telephone: *</label>
+								<input type="text" class="form-control form-rounded" id="phone" placeholder="" name="phone" maxlength="12" required>
+							</div>
+							<div class="form-group">
+								<label for="inputResidenceType">Type of Residence: *</label><br>
+								<select class="form-control form-rounded" name="residenceType" id="inputResidenceType" required>
+									<option value="" selected disabled hidden></option>
+									<option value="own">Own</option>
+									<option value="rent">Rent</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="inputHousingExpense">Housing Expense: *</label>
+								<input type="text" class="form-control form-rounded" id="inputHousingExpense" name="housingExpense"  value="" autocomplete="off" onkeyup="this.value=this.value.replace(/[^\d]/,'')" required/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Consents -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div id="ConsentErrorres" class="error"></div>
+						<div class="facheckbox" style="z-index: 0; text-align: left; font-size: 18px;">
+							<input type="checkbox" name="creditpullconfirm" id="creditpullconfirm" tabindex="11" required/>
+							<label for="creditpullconfirm" id="tcpacreditpull"></label>
+							<span>I consent to the </span>
+							<a href="javascript:void(0)" style="color: #63944C;" onclick="opentcpa();"><strong>SMS Policy,</strong></a>
+							<a href="javascript:void(0)" style="color: #63944C;" onclick="opencredit();"><strong>Credit Pull Consent</strong></a>
+							<span>and,</span>
+							<a href="javascript:void(0)" style="color: #63944C;" onclick="openesign();"><strong>E-Signature</strong></a>
+							<span>agreements</span>
+							<div>
+								<label id="creditpullconfirm-error" class="error" for="creditpullconfirm"></label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12  col-sm-12 col-lg-12 text-center" >
+					<div class="error-message error" style="display: none;"></div>
+					<div class="form-group">
+						<button type="button" id="submitButton" class="btn btn-primary" onclick="checkIfVerificationNeeded(null, true)" disabled="disabled">Submit</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</section>
+
+<!-- tcpadocument Modal -->
+<div id="tcpadocument" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-tcpa user-modal-header" style="background-color:#63944C;">
+                <h4 class="modal-title" id="storyinfopopupheader"></h4>
+                <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1; font-size: 21px;">&times;</button>
+            </div>
+            <div class="modal-body bgColorWhite">
+                {% include "document/tcpa_v1.nunjucks" %}
+            </div>
+            <div class="text-center">
+                <button type="button" data-dismiss="modal" class="btn-application">Continue</button>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+<!-- creditpulldocument Modal -->
+<div id="creditpulldocument" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-tcpa user-modal-header" style="background-color:#63944C;">
+                <h4 class="modal-title" "color:#FFFF;"></h4>
+                <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+            </div>
+            <div class="modal-body bgColorWhite">
+                {% include "document/CreditAuthorization_v1.nunjucks" %}
+            </div>
+            <div class="text-center">
+                <button type="button" data-dismiss="modal" class="btn-application">Continue</button>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+<!-- esigndocument Modal -->
+<div id="esigndocument" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-tcpa user-modal-header" style="background-color:#63944C;">
+                <h4 class="modal-title" "color:#FFFF;"></h4>
+                <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+            </div>
+            <div class="modal-body bgColorWhite">
+                {% include "document/Electronic_Records_and_Signatures.nunjucks" %}
+            </div>
+            <div class="text-center">
+                <button type="button" data-dismiss="modal" class="btn-application">Continue</button>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+</div>
+
+{% include "twilio/twilioVerificationTemplate.nunjucks" %}
+<style type="text/css">
+	.modal-content {
+		border-radius: 5px;
+	}
+	.user-modal-header {
+		height: 74px;
+		background-color: #63944C;
+		border-radius: 5px 5px 0 0;
+		border-bottom: 5px solid #F1B649;
+	}
+	.btn-application {
+		background-color: #63944C;
+		width: 160px;
+		height: 45px;
+		line-height: 23px;
+		border-radius: 8px;
+		border: none;
+		padding: 12px 30px 15px 30px;
+		color: #FFF;
+		font-size: 15px;
+		font-weight: 500;
+	}
+	.mh-modal .btn-application {
+		background-color: #3c8dbc;
+		border-color: #367fa9;
+		color: #fff;
+		border-radius: 3px;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		/*border: 1px solid transparent;*/
+		display: inline-block;
+		padding: 6px 12px;
+		margin-bottom: 0;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		-ms-touch-action: manipulation;
+		touch-action: manipulation;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+	}
+</style>
+<script>
+	$(document).ready(function() {
+		/* $("input.Consent").on("change", function() {
+			//$("#ConsentErrorres").css('display', "none");
+			checkIfConsentIsChecked();
+		}) */
+		$( "#practicemanagement" ).on( "change", function() {
+			$( "#ConsentErrorres" ).hide();
+		})
+	});
+	function opentcpa() {
+	if( $( "#practicemanagement" ).val() != null ) {
+        	$('#tcpadocument').modal('show');
+		} else {
+			$( "#ConsentErrorres" ).show();
+			$( "#ConsentErrorres" ).text( "Please select a practice before reading consents." );
+		}
+    }
+    function opencredit() {
+		if( $( "#practicemanagement" ).val() != null ) {
+			var hospRes = {{ hospRes | stringify if( hospRes ) else( [] | stringify) }};
+			var i;
+			for( i = 0; i < hospRes.length; i++ ) {
+				if( hospRes[i].id == $( "#practicemanagement" ).val()) {
+					$( ".practiceName" ).text( hospRes[i].PracticeName );
+					$( ".practiceAddress" ).text( hospRes[i].StreetAddress );
+					$( ".practiceCityLine" ).text( hospRes[i].City + ", " + hospRes[i].StateCode + " " + hospRes[i].ZipCode );
+					$( ".practicePhoneEmail" ).text( hospRes[i].PhoneNo.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3") + " - " + hospRes[i].PracticeEmail );
+				}
+			}
+        	$('#creditpulldocument').modal('show');
+		} else {
+			$( "#ConsentErrorres" ).show();
+			$( "#ConsentErrorres" ).text( "Please select a practice before reading consents." );
+		}
+    }
+    function openesign() {
+		if( $( "#practicemanagement" ).val() != null ) {
+			var hospRes = {{ hospRes | stringify if( hospRes ) else( [] | stringify ) }};
+			var i;
+			for( i = 0; i < hospRes.length; i++ ) {
+				if( hospRes[i].id == $( "#practicemanagement" ).val()) {
+					$( ".practiceName" ).text( hospRes[i].PracticeName );
+					$( ".practiceAddressCity" ).text( hospRes[i].StreetAddress + ", " + hospRes[i].City + ", " + hospRes[i].StateCode + " " + hospRes[i].ZipCode );
+					$( ".practicePhoneEmail" ).text( hospRes[i].PhoneNo.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3") + " - " + hospRes[i].PracticeEmail );
+					$( ".practicePhone" ).text( hospRes[i].PhoneNo.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3") );
+				}
+			}
+        	$('#esigndocument').modal('show');
+		} else {
+			$( "#ConsentErrorres" ).show();
+			$( "#ConsentErrorres" ).text( "Please select a practice before reading consents." );
+		}
+    }
+	
+	/* checkIfConsentIsChecked();
+	function checkIfConsentIsChecked() {
+		if($("input.Consent:checked").length === $("input.Consent").length){
+			$("#acceptConsentHidden").val("1");
+			$("#ConsentErrorres").css('display', "none");
+		}else {
+			$("#acceptConsentHidden").val("");
+			$("#ConsentErrorres").css('display', "block");
+		}
+	} */
+
+	// Email validation
+	//var typingTimer;
+	// 5 Seconds after last input
+	//var doneTypingInterval = 5000;
+
+	// On keyup, start the countdown
+	$("#inputEmail").on('blur', function() {
+		$("#emailError").hide();
+		// If the input field is valid, not empty, start timer
+		if ($("#inputEmail")[0].checkValidity()) {
+			if ($("#inputEmail").val()) {
+				// Resets the timer
+				//clearTimeout(typingTimer);
+				//typingTimer = setTimeout(doneTyping, doneTypingInterval);
+				doneTyping();
+			}
+		}
+	});
+
+	// User is finished typing, check for email duplicate
+	function doneTyping() {
+		var emailDup = {};
+		ajaxGet("/checkemail", $("#inputEmail"), emailDup)
+		.then(function(emailDup) {
+			
+		}, function(error) {
+			if (error.status == 200) {
+				$("#submitButton").prop("disabled", false);
+				$("#emailError").hide();
+			}else {
+				$("#submitButton").prop("disabled", true);
+				$("#emailError").show();
+			}
+		
+		});
+	}
+</script>
+{% endblock %}

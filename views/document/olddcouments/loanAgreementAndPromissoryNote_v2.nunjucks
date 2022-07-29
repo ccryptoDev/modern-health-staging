@@ -1,0 +1,851 @@
+<style>
+      body {
+        background-color: white;
+        font-family:'Roboto', sans-serif;
+      }
+      h1 {
+        color: black;
+      }
+      p{
+         color: black;
+      }
+      .textstyle{
+        font-family:'Roboto', sans-serif;
+        font-size: 8px;
+      }
+	  table,th,td {
+		border: 1px solid black;
+		border-collapse: collapse;
+	  }
+	  th, td {
+		padding: 15px;
+	  }
+</style>
+
+
+ <!--<h3> PROMISSORY NOTE ADDENDUM</h3>-->
+  
+  
+  <P STYLE="margin-bottom: 0.11in"><B>Borrower Information</B></P>
+	<div style="margin-left: 0.25in; margin-bottom: 0.11in">
+	  <div style="display:inline-block;">First Name:</div>
+	  <div style="display:inline-block;border-bottom:1px solid #000000;width:200px;" id="borrowername">{{fname}}</div>
+	</div>
+	<div style="margin-left: 0.25in; margin-bottom: 0.11in">
+	  <div style="display:inline-block;">Last Name:</div>
+	  <div style="display:inline-block;border-bottom:1px solid #000000;width:200px;" id="borrowername1">{{lname}}</div>
+	</div>
+	<div style="margin-left: 0.25in; margin-bottom: 0.11in">
+	  <div style="display:inline-block;">Social Security Number:</div>
+	  <div style="display:inline-block;">{{socialnumber}}</div>
+	</div><br><br>
+	          
+
+					<P STYLE="margin-bottom: 0.11in"><B>Financing You Request to Consolidate </B> </P>
+					
+					<div class="offer-loan-doc table-responsive">
+						<table class="offer-loan-doc table-responsive" width="95%" border="0" cellspacing="0" cellpadding="0">	
+						  <COL WIDTH=57>
+						  <COL WIDTH=352>
+						  <COL WIDTH=118>
+						  <COL WIDTH=87>
+						  <TR VALIGN=TOP>
+							<TD BGCOLOR="#9CC5FF" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Financing Type</B></FONT></P></TD>
+							<TD BGCOLOR="#9CC5FF" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Financing Holder/Servicer Name,
+								Address, and Area Code/ Telephone Number</B></FONT></P></TD>
+							<TD BGCOLOR="#9CC5FF" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Financing Account Number</B></FONT></P></TD>
+							<TD BGCOLOR="#9CC5FF" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Pay Off Amount</B></FONT></P></TD>
+						  </TR>
+						  
+						 <TR VALIGN=TOP>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>{{addressobj.accountName}} </P></TD>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>{% if addressobj.unitapp %}{{addressobj.unitapp}}, {% endif%} {{addressobj.loanholderstreetname}} <br>{{addressobj.loanholdercity}},{{obj.stateCode}},{{addressobj.loanholderzipcode}} <br>
+								Phone: {{addressobj.phonenumber}} </P></TD>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>(last 4) - {{addressobj.accountNumberLastFour}}</P></TD>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>${{obj.amount}}</P></TD>
+						  </TR>
+						  
+						  
+						  
+						  
+						  </table>
+					  </div>
+					  
+    <!-- <P STYLE="margin-bottom: 0.11in"><BR></P>
+						<P STYLE="margin-bottom: 0.11in">Promissory Note Addendum</P>
+						<UL>
+							<LI><P STYLE="margin-bottom: 0.11in">I request {{LmsShortName}}
+							to pay in full the credit accounts identified above in the Financing You
+							Request to Consolidate section.</P>
+							<LI><P STYLE="margin-bottom: 0.11in">My signature below certifies
+							that I have read, understand, and agree to the terms and conditions
+							of this financing, including all terms and conditions specified on the
+							Financing Agreement and Promissory Note (Note) that I previously
+							submitted.</P>
+						</UL>-->
+						<P STYLE="margin-bottom: 0.11in"><BR>
+						</P>
+						<P ALIGN=CENTER STYLE="margin-left: 0.5in; margin-bottom:25px;"><B>I
+						UNDERSTAND THIS IS A FINANCING THAT I MUST REPAY</B></P><br>
+						<P STYLE="margin-bottom: 0.11in">
+
+
+  <h3> FINANCING AGREEMENT  </h3>
+ 
+  <h1> FINANCING AGREEMENT, DISCLOSURES AND CONSENTS </h1>
+  
+<p1> <strong>CONSENT TO TRANSACTION BUSINESS AND COMMUNICATE ELECTRONICALLY</strong> - You must consent to transact business with {{LmsShortName}} through electronic communications in order for us to process your financing request. The following terms and conditions govern electronic communications in connection with your financing request, Financing Agreement (if approved) and any communications regarding your account with us (the "Consent").</p1>
+<br>
+<p1>By electronically signing this Consent, you are confirming that you have agreed to the terms and conditions of the Consent and that you have downloaded or printed a copy of this Consent for your records.</p1>
+<br>
+<p1>You agree that:</p1>
+<br>
+<ul>
+  <li>Any disclosure, notice, record or other type of information that is provided to you in connection with your transaction
+    with us, including but not limited to, the Financing Agreement, this Consent, the Truth in Lending disclosures set forth in
+    the Financing Agreement, Privacy Policy, fee and transaction information, statements, notices of adverse action, and
+    transaction information (collectively, "Communications"), may be sent to you electronically by posting the information
+    at our website, <strong>http://targetfastcash.com/</strong>, or by sending it to you by email from us or any vendor/servicer contracted through us
+    at any time.</li>
+  <li>We will not be obligated to provide any Communication to you in paper form unless you specifically request us to do so.</li>
+  <li>You may obtain a copy of any Communication by contacting us at {{LmsMailingAddress}} or by calling us at {{LmsPhone}}. You can withdraw your consent to ongoing electronic
+    communications in the same manner, and ask that Communications be sent to you in paper or non-electronic form.
+    We will provide you with paper copies at no charge.</li>
+  <li>You agree to provide us with your current email address for notices, which unless notified otherwise we assume is
+    the email address indicated above. If your email address, telephone number(s), or residence address changes, you
+    must send us a notice of the new address/telephone number(s) by sending us an email, using secure messaging, at
+    least five (5) days before the change.</li>
+  <li>In order to receive electronic communications in connection with this transaction, you will need a working
+    connection to the Internet. Your browser must support the Secure Sockets Layer (SSL) protocol. SSL provides a
+    secure channel to send and receive data over the Internet through HS encryption capabilities. Netscape 4.7+ and
+    above and Microsoft Internet Explorer 5.01+ and above support this feature. You will also need a printer connected to
+    your computer to print disclosures/notices. We do not provide ISP services. You must have your own Internet Service
+    Provider.</li>
+  <li>We may amend (add to, delete or change) the terms of this Consent by providing you with advance notice.</li>
+  <li>You agree that you are able to view and/or electronically store the information presented at this website. You also
+    agree to print and retain a copy of this Consent for your records.</li>
+</ul>
+<br>
+<p1>You are free to withdraw your Consent at any time and at no charge. If at any time you wish to withdraw your
+  Consent, you can send us your written request by mail to {{LmsMailingAddress}} with the details of such request. If you decide to withdraw your Consent, the legal effectiveness, validity, and
+  enforceability of prior electronic Disclosures will not be affected.</p1>
+<br><br>
+<h3>Financing Number: {{obj.loannumber}}</h3>
+<h3>Borrower name: {{obj.fname}} {{obj.lname}}</h3>
+<h3>Borrower address: <br>
+            {% if obj.unitapp %}{{ obj.unitapp }}, {% endif%}
+            {% if obj.street %}
+             {{ obj.street }},<br>
+            {% endif%}
+            {{ obj.city }}, <br>
+            {{ obj.stateCode}} ,
+            {{ obj.zipCode }} 
+</h3>
+<h3>Company name: Target Fast Cash</h3>
+<h3>Company address: {{LmsMailingAddress}}</h3>
+<!--<h3>License Number: XXXXX-XXXXX </h3>-->
+<br>
+<h3>Financing Amount: ${{obj.amount}}</h3>
+<h3>Date: {{obj.date}}</h3>
+<br>
+<br>
+<br>
+<p1>Federal Truth-in- Lending Disclosures</p1>
+{% if(type == 'pdf') %} 
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="padding: 5px 5px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td BGCOLOR="#d9d9d9" valign="top" width="26%"><strong style="font-size:14px;">ANNUAL PERCENTAGE RATE</strong>
+            <P style="font-size:13px;"/>The cost of your credit as a yearly rate.</P>
+           {{obj.apr}}%
+          </td>
+		  
+          <td BGCOLOR="#d9d9d9" valign="top" width="20%"><strong style="font-size:14px;">FINANCE CHARGE</strong>
+            <P style="font-size:13px;"/>The dollar amount the credit will cost you.</P>
+            ${{obj.creditcost}}</td>
+			
+          <td valign="top" width="23%"/><strong style="font-size:14px;">Amount Financed</strong>
+            <P style="font-size:13px;">The amount of credit provided to you or on your behalf.</P>
+            ${{obj.amount}}
+          </td>
+		  
+          <td valign="top" width="37%"><strong style="font-size:14px;">Total of <br> Payments</strong>
+            <P style="font-size:13px;"/>The amount you will have paid when you have made all scheduled payments.</P>
+            ${{obj.checktotalLoanAmount}}
+          </td>
+        </tr>
+      </table>
+ {% else %}
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td BGCOLOR="#d9d9d9" valign="top" width="25%"><strong>ANNUAL PERCENTAGE RATE</strong>
+            <P><BR/></P>
+            <P>The cost of your credit as a yearly rate.</P>
+            <P><BR/></P>
+            <P ALIGN=CENTER >{{obj.apr}}%</P>
+          </td>
+          <td BGCOLOR="#d9d9d9" valign="top" width="25%"><strong>FINANCE CHARGE</strong>
+            <P><BR/><BR/></P>
+            <P>The dollar amount the credit will cost you.</P>
+            <P><BR/></P>
+            <P ALIGN=CENTER >${{obj.creditcost}}</P></td>
+          <td valign="top" width="25%"><strong>Amount Financed</strong>
+            <P><BR></P>
+            <P>The amount of credit provided to you or on your behalf.</P>
+            <P><BR/></P>
+            <P ALIGN=CENTER >${{obj.amount}}</P>
+          </td>
+          <td valign="top"><strong>Total of Payments</strong>
+            <P><BR/></P>
+            <P>The amount you will have paid when you have made all scheduled payments.</P>
+            <P><BR/></P>
+            <P ALIGN=CENTER >${{obj.checktotalLoanAmount}}</P>
+          </td>
+        </tr>
+      </table>
+{% endif %}
+
+      <P><BR></P>
+
+      <p>Your Payment Schedule will be: </p>
+      <P><BR></P>
+      <TABLE width="100%">
+        <TR VALIGN=TOP>
+          <TD width="20%"><P>Number of Payments</P></TD>
+          <TD width="20%"><P>Amount of Payments</P></TD>
+          <TD><P>When Payments are Due</P></TD>
+        </TR>
+		{% if obj.schedulecount > 0 %}
+		   {% set p = 0 %}
+			 {% for paymentdue in obj.paymentschedule %}
+			   {% set p = p+1 %}
+			   {% if(p==1) %}
+				<tr>
+				  <td><p1>{{p}}</p1>  </td>
+				  <td>
+					  {% if obj.paymentschedule.interestapplied > 0 %}
+					   ${{paymentdue.amount}} 
+					  {% else %} 
+					   ${{paymentdue.amount}} 
+					  {% endif %}
+				   </td>
+				   <td> Beginning {{paymentdue.formatedate}} and monthly thereafter.</td>
+				</tr>	   
+			   {% elseif(p==obj.schedulecount) %}	
+					<tr>
+					  <td><p1> {{p}}</p1></td>
+					  <td> 
+						  {% if obj.paymentschedule.interestapplied > 0 %}
+						   ${{paymentdue.amount}} 
+						  {% else %} 
+						   ${{paymentdue.amount}} 
+						  {% endif %}
+					  </td>
+					  <td>Final payment due on {{paymentdue.formatedate}}</td>
+					</tr>
+			   {% else %}
+				<tr>
+				  <td> <p1>{{p}}</p1></td>
+				  <td> 
+					  {% if obj.paymentschedule.interestapplied > 0 %}
+					   ${{paymentdue.amount}} 
+					  {% else %} 
+					   ${{paymentdue.amount}} 
+					  {% endif %}
+				  </td>
+				  <td>Payment due on {{paymentdue.formatedate}}</td>
+				</tr>
+			  {% endif %} 
+			{% endfor %}
+		 {% endif %}
+      </TABLE>
+      <P></P>
+      <p class="textstyle"> Security: This is an unsecured financing.</p>
+      <P></P>
+      <p  class="textstyle">Late Charges: If your payment is more than 15 days late, then you may be charged a late fee of $15.00</p>
+      <P></P>
+      <p  class="textstyle">Prepayment: A prepayment penalty will not be imposed for payment of all or part of the principal balance before the date on which the principal is due.</p>
+      <P  class="textstyle"></P>
+      <p  class="textstyle">See the terms of this Agreement for any additional information about nonpayment, default, any required repayment in full before the scheduled due date and prepayment refunds and penalties.</p>
+    </td>
+  </tr>
+</table>
+<P></P>
+<BR>
+<BR>
+<h3>FINANCING AGREEMENT, DISCLOSURES AND CONSENTS</h3>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><P>Itemization of Amount Financed: Amount given to you directly: ${{obj.amount}} </P>
+      <P>${{obj.amount}} Amount given directly to you</P>
+      <P>$0.00 Amount paid on your account</P></td>
+  </tr>
+</table>
+<P></P>
+<h3>FINANCING AGREEMENT</h3>
+<P></P>
+<p>Promise to Pay</B>. In accordance with this Financing Agreement (the &quot;Agreement&quot;), the undersigned ("you" or &quot;Borrower&quot;) promises to pay {{LmsShortName}} or any subsequent holder (&quot;us&quot; or &quot;Lender&quot;) of this Agreement the principal sum of ${{obj.amount}} plus any interest at the agreed rate on the outstanding balance and any other charges incurred as set forth herein.</p>
+<P></P>
+<p><strong>Interest. COMPLETING THE TRANSACTION.</strong> This offer of this Note expires if you do not sign and submit it by {{obj.date}}. If you submit this Note after such date or if inadvertent processing issues exist, then you acknowledge that this Note will not be binding.  In those scenarios, you acknowledge that we may, in our sole discretion, offer you the opportunity to sign a new note replacing this Note. The simple interest rate on this Note will be fixed at {{obj.annualPercentageRate}} per cycle, charged on the principal amount outstanding.&nbsp; Nothing contained herein shall be construed to require you to pay interest at a greater rate than the maximum allowed by law.&nbsp; This is a simple interest note. The Finance Charge is figured on a 360-day a year simple interest basis by applying the ratio of the Annual Percentage Rate over 360 multiplied by the outstanding principal balance and multiplied by the actual number of days the principal balance is outstanding. For the purpose or this calculation interest is calculated daily on the basis of a 360-day year with 12 months each of which is 30 (or 30/360) long, regardless if a month has more or less than 30 days. Your actual Finance Charge will depend on your payment patterns. The actual Finance Charge may be more than the Finance Charge disclosed on the front of this Note if you make your payments later than the scheduled dates or in less than the scheduled amount. Payments will be applied first to the earned Finance Charge, then to the unpaid Amount Financed, and then to any fees or charges. </p>
+<P></P>
+<P></P>
+<P>Payments</B>. Principal, Interest, and applicable fees are to be paid during and throughout the period of {{ obj.schedulecount}} months in the following manner:</P>
+<P></P>
+<P>Your payments directly to us will be applied first to unpaid interest, then to principal, then to other fees and charges. Payments on the dates set forth in the Payment Schedule above are to be made by the Borrower to the Lender. If the monthly anniversary is on the 29th, 30th, or 31st of the month, and the following month does not have a 29th, 30th, or 31st day, the monthly payment will be due on the last day of the month in which the payment was due. </P>
+<P></P>
+<P>Borrower's last payment might be a different amount than set forth in the Payment Schedule due to payment history and/or due to any penalty fees incurred. In such case, the amount of the last monthly payment will be adjusted by the amount necessary to repay the financing obligations in full.  If the final payment amount is higher than the regularly scheduled payment, then we will notify you at least 10 days prior to the due date.</P>
+<P></P>
+<P><B>Financing Proceeds. </B>Unless otherwise directed, the financing proceeds will be deposited into the Borrower's bank account. <FONT COLOR="#00000a">Borrower hereby voluntarily authorizes us, our successors or assigns, to initiate an automatic credit entry to the following bank account: <B>Bank routing and transit number</B>: {{ obj.accountDetail.routingNumber }} <B>and Account Number: </B>{{ obj.accountDetail.accountName }} {{ obj.accountDetail.accountNumberLastFour }} ("Bank Account"). <FONT COLOR="#00000a">Borrower agrees that we will initiate a credit entry to the Bank Account for an amount consistent with this Agreement and the Borrower's direction. Borrower is responsible for ensuring that all names, account, routing or other similar information provided by Borrower to Lender concerning the Bank Account is accurate and complete. Borrower acknowledges that Lender has no obligation to confirm or investigate the accuracy or completeness of the information Borrower has provided. If Lender is unable to deliver financing proceeds to the Bank Account or some other account designated by Borrower after 14 days from the initial delivery attempt, the financing will be canceled and neither party will have any further obligations under the Agreement.</P>
+<P></P>
+<P><B>Payment Method Options.</B> Borrower may make financing payments either by (1) check or (2) authorizing Lender to debit Borrower's Bank Account by ACH transfer for the amount of each amount owed on each due date. </P>
+<P><BR>
+</P>
+<OL>
+  <LI>
+    <P>Payment by Check - If Borrower elects to make payments by check, then  Borrower must send the check either by regular mail or by overnight mail or UPS delivery to {{LmsMailingAddress}}. The check must be received by 5:00 P.M., Eastern Time, on  the due date. </P>
+    <P> Check Processing Fee - If you elect to make payments by check, there will be a $7 processing fee by payment.</P>
+<br>
+</OL>
+<OL START=2>
+  <LI>
+    <P>Payment By ACH Debits - If Borrower elects to make payments by automatic withdrawal, then Borrower has the right to stop payment of these automatic withdrawals or revoke prior authorization for automatic withdrawals by notifying Lender of the exercise of its right to revoke authorization for automatic withdrawals no less than three (3) banking days before Borrower's next payment due date. See ACH  Authorization for additional information. </P>
+</OL>
+<P>Borrower may change the payment method by contacting customerservice@targetfastcash.com. Changes to or revocation of a payment method does not relieve Borrower of any obligation to pay amounts owed under this Agreement.</P>
+<P><BR>
+</P>
+<P><B>Electronic Check Re-presentment Policy.</B> In the event a check is returned unpaid for insufficient or uncollected funds, we may re-present the check electronically.  In the ordinary course of business, the check will not be provided to you with your bank statement, but a copy can be retrieved by contacting your financial institution.</P>
+
+<P><B>Check Conversion Notification</B>. If you provide a check as payment, you authorize us and our servicers or agents either to use information from your check to make a one-time electronic fund transfer from your account or to process the payment as a check transaction. When we use information from your check to make an electronic funds transfer, funds may be withdrawn from your account as soon as the same day we receive your payment, and you will not receive your check back from your financial institution. In the event a check is returned unpaid for insufficient or uncollected funds, we may re-present the check electronically. For questions, please contact us at {{LmsPhone}}.
+</P>
+<P></P>
+<P><B>Application of Payments.</B> All payments
+  are to be applied first to principal and then any penalty fees
+  incurred.</P>
+<P></P>
+<P><B>Returned Payment Fee</B>. If a payment is returned or fails due to insufficient funds in the  designated account, then Borrower will be charged the maximum fee allowed under applicable state law or $15, whichever is greater. The bank that holds Borrower's deposit account may assess its own fee in addition to the fee assessed under this Agreement. You authorize us and our agents to make a one-time withdrawal from your Bank Account to collect this returned payment fee.</P>
+<P></P>
+<P><B>Late Charge.</B> If
+  Borrower's payment is more than 15 days late, then you may be
+  charged a late fee of $15.00. Only one late fee may be charged on
+  each late payment. Any payment received after 5:00 P.M., Eastern
+  Time, on a banking day is deemed received on the next succeeding
+  banking day.  </P>
+<P> <B>Security.</B> This is an unsecured financing.</P>
+<P></P>
+<P><B>Prepayments and Partial Payments.</B> Borrower may make any payment early, in whole or in part, without
+  penalty at any time. Any partial prepayment is applied against the
+  accumulated interest first, then principal amount outstanding and does not postpone the due date of
+  any subsequent monthly payment, unless expressly agreed to in
+  writing. If Borrower prepays this Agreement in part, Borrower agrees
+  to continue to make regularly scheduled payments until all amounts
+  due under this Agreement are paid. Lender may accept late payments or
+  partial payments, even though marked &quot;paid in full&quot;,
+
+  without losing any rights under this Agreement. </P>
+<P></P>
+<P><B>Default.</B> Subject to applicable state law, Borrower will be deemed in default
+  (each, an &quot;Event of Default&quot;) of Borrower's obligations
+  under this Agreement if Borrower: (1) fails to pay timely any amount
+  due on the financing; (2) files or has instituted against it any
+  bankruptcy or insolvency proceedings; (3) commits fraud or makes any
+  material misrepresentation concerning this Agreement, or in any other
+  documents, applications or related materials delivered to Lender in
+  connection with its financing or (4) fails to abide by the terms of this
+  Agreement. Upon the occurrence of an Event of Default, Lender may,
+  subject to any applicable cure period, exercise all remedies
+  available under the law and this Agreement, including without
+  limitation and if allowed by applicable state law demand that
+  Borrower immediately pay all amounts owed on this Agreement. If you default, then you have a right to cure such default in
+  accordance with applicable law. Borrower agrees to pay all costs of collecting any delinquent payments, including
+  reasonable attorneys' fees, as permitted and only to the extent allowed by applicable law.</P>
+<P></P>
+<P><B>Credit Reporting.</B> Lender may
+  report information about Borrower's account to credit bureaus. Late
+  payments, missed payments, or other defaults on an account may be
+  reflected in Borrower's credit report. </P>
+<P></P>
+<P><B>Electronic Transactions.</B> THIS
+  AGREEMENT IS FULLY SUBJECT TO BORROWER'S CONSENT TO TRANSACTION
+  BUSINESS AND COMMUNICATE ELECTRONICALLY. BORROWER EXPRESSLY AGREES
+  THAT THE AGREEMENT IS A &quot;TRANSFERABLE RECORD&quot; FOR ALL
+  PURPOSES UNDER THE ELECTRONIC SIGNATURES IN GLOBAL AND NATIONAL
+  COMMERCE ACT AND THE UNIFORM ELECTRONIC TRANSACTIONS ACT.</P>
+<P></P>
+<h3 align="center">JURY TRIAL WAIVER AND ARBITRATION CLAUSE.</h3>
+<p align="center">Unless you are a "Covered Borrower," as that term is defined by 32 C.F.R. § 232.3(g) and under the Military Lending Act, then by signing this agreement, you agree to the Jury Trial Waiver and Arbitration Clause ("Clause"). </p>
+<P></P>
+<h3 align="center">Background and Scope. </h3>
+<TABLE align="center" width="100%">
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=4 BGCOLOR="#f3f3f3" > What is arbitration? </TD>
+      <TD WIDTH="15%"> An alternative to court. </TD>
+      <TD ><P>In arbitration, a third party ("Arbiter") resolves Disputes in a
+          hearing ("hearing"). You, related third parties, and we,
+          waive the right to go to court. Such "parties" waive jury
+          trials.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=3 BGCOLOR="#f3f3f3" > Is it different from court and jury trials? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><P>The hearing is private and less formal than court. Arbiters may limit
+          pre-hearing fact finding, called "discovery." The decision of
+          the Arbiter is final. Courts rarely overturn Arbiters'
+          decisions.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > Who does the Clause cover? </TD>
+      <TD WIDTH="15%"> You, Us, and Others. </TD>
+      <TD ><P>This Clause governs the parties, their heirs, successors, assigns, and
+          third parties related to any Dispute.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=11 BGCOLOR="#f3f3f3" > Which Disputes are covered? </TD>
+      <TD WIDTH="15%"> All Disputes. </TD>
+      <TD ><P>In this Clause, the word "Disputes" has the broadest possible
+          meaning. This Clause governs all "Disputes" involving the
+          parties to this Agreement and/or our servicers and agents,
+          including but not limited to consultants, banks, payment
+          processors, software providers, data providers and credit
+          bureaus. This includes all claims even indirectly related to your
+          application and agreements with us. This includes claims related
+          to information you previously gave us. It includes all past
+          agreements. It includes extensions, renewals, refinancing, or
+          payment plans. It includes claims related to collections,
+          privacy, and customer information.  It includes claims related to
+          setting aside this Clause. It includes claims about the Clause's
+          validity and scope. It includes claims about whether to
+          arbitrate.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=19 BGCOLOR="#f3f3f3" > Are you waiving rights? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><b>You waive your rights to:</b>
+        <OL>
+          <LI>Have juries resolve Disputes.</LI>
+          <LI>Have courts, other than small-claims courts, resolve Disputes.</LI>
+          <LI>Serve as a private attorney general or in a representative capacity.</LI>
+          <LI>Be in a class action.</LI>
+        </OL></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=1 BGCOLOR="#f3f3f3" > Are	you waiving class action rights? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><P><SPAN STYLE="text-transform: uppercase"><B>Courts
+          and Arbiters won't allow class actions. You waive your rights to participate in a class action
+          as a representative and a member. Only individual arbitration or
+          small-claims courts will resolve Disputes. You waive your right
+          to have representative claims. Unless reversed on appeal, if a
+          court invalidates this waiver, the Clause will be void.</B></SPAN> </TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=1 BGCOLOR="#f3f3f3" > Whatlaw applies? </TD>
+      <TD WIDTH="15%"> The	Federal Arbitration Act ("FAA"). </TD>
+      <TD ><P>This transaction involves interstate commerce, so the FAA governs. If
+          a court finds the FAA doesn't apply, and the finding can't be
+          appealed, then your state's law governs. The Arbiter must apply
+          substantive law consistent with the FAA. The Arbiter must follow
+          statutes of limitation and privilege claims.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=34 BGCOLOR="#f3f3f3" > Can the parties try to resolve Disputes first? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><P>We can try to resolve Disputes if you call us at {{LmsPhone}}.
+          If we are unable to resolve the Dispute by phone, mail us notice
+          within 30 days of the date you first brought the Dispute to our
+          attention.  In your notice, tell us the details and how you want
+          to resolve it. We will try to resolve the Dispute. If we make a
+          written offer ("Settlement Offer"), you can reject it and
+          arbitrate. If we don't resolve the Dispute, either party may
+          start arbitration. To start arbitration, contact an Arbiter or
+          arbitration group listed below. No party may disclose settlement
+          proposals to the Arbiter during arbitration.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > How	should you contact us? </TD>
+      <TD WIDTH="15%"> By mail. </TD>
+      <TD ><P>Send mail to: {{LmsWebAddress}}, {{LmsMailingAddress}}</P>
+        <P> You can call us or use certified mail to confirm receipt. </P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=13 BGCOLOR="#f3f3f3" ><B>Can	small-claims court resolve some</B><B></B><B>Disputes? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><P>Each	party has the right to arbitrate, or to go to small-claims court
+          if the small-claims court has the power to hear the Dispute. 
+          Arbitration will resolve all Disputes that the small-claims court
+          does not have the power to hear.  If there is an appeal from
+          small-claims court, or if a Dispute changes so that the
+          small-claims court loses the power to hear it, then the Dispute
+          will be heard only by an Arbiter. </P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=13 BGCOLOR="#f3f3f3" > Do other options exist? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><P>Both	parties may seek remedies which don't claim money damages. This
+          includes pre-judgment seizure, injunctions, or equitable relief.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%"  BGCOLOR="#f3f3f3" > Will this Clause continue to govern? </TD>
+      <TD WIDTH="15%"> Yes, unless otherwise agreed. </TD>
+      <TD ><P>The
+          Clause will remain effective unless the parties agree otherwise
+          in writing. The Clause governs if you rescind the transaction. It
+          governs if you default, renew, prepay, or pay. It governs if your
+          contract is discharged through bankruptcy. The Clause will remain
+          effective despite a transaction's termination, amendment,
+          expiration, or performance.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD COLSPAN=3 VALIGN=TOP ><P ALIGN=CENTER><B>Process.</B></P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=5 BGCOLOR="#f3f3f3" > How	does arbitration start? </TD>
+      <TD WIDTH="15%"> Mailing	a notice. </TD>
+      <TD ><P>Either
+          party may mail the other a request to arbitrate, even if a
+          lawsuit has been filed. The notice should describe the Dispute
+          and relief sought. The receiving party must mail a response
+          within 20 days. If you mail the demand, you may choose the
+          arbitration group. Or your demand may state that you want the
+          parties to choose a local Arbiter. If we or related third parties
+          mail the demand, you must respond within 20 days. Your response
+          must choose an arbitration group or propose a local Arbiter. If
+          it doesn't, we may choose the group.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=36 BGCOLOR="#f3f3f3" > Who	arbitrates? </TD>
+      <TD WIDTH="15%"> AAA, JAMS, or an agreed Arbiter. </TD>
+      <TD ><P>You
+          may select the American Arbitration Association ("AAA") (1-800-778-7879) <A HREF="http://www.adr.org"><FONT COLOR="#0000ff">http://www.adr.org</FONT></A> or JAMS (1-800-352-5267) <A HREF="http://www.jamsadr.com"><FONT COLOR="#0000ff">http://www.jamsadr.com</FONT></A>.
+          The parties to a Dispute may also agree in writing to a local attorney, retired judge, or Arbiter in good standing with an
+          arbitration group. The Arbiter must arbitrate under AAA or JAMS
+          consumer rules. You may get a copy of these rules from such group. Any rules that conflict with any of our agreements with
+          you don't apply. If these options aren't available and the
+          parties can't agree on another, a court may choose the Arbiter.
+          Such Arbiter must enforce your agreements with us as they are
+          written.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD BGCOLOR="#f3f3f3" > Will the hearing be held nearby? </TD>
+      <TD> Yes. </TD>
+      <TD><P>The Arbiter will order the hearing within 30 miles of your home or where the transaction occurred.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > What about appeals? </TD>
+      <TD WIDTH="15%"> Appeals are limited. </TD>
+      <TD ><P>The Arbiter's decision will be final. A party may file the
+          Arbiter's award with the proper court. Arbitration will resolve
+          appeals of a small-claims court judgment. A party may appeal
+          under the FAA. If the amount in controversy exceeds $5,000.00, a
+          party may appeal the Arbiter's finding. Such appeal will be to
+          a three-Arbiter panel from the same arbitration group. The appeal
+          will be de novo, and resolved by majority vote. The appealing party bears appeal costs, despite the outcome.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD COLSPAN=3 VALIGN=TOP ><P ALIGN=CENTER><B>Arbitration 	Fees and Awards.</B></P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > Will we advance Arbitration Fees? </TD>
+      <TD WIDTH="15%"> Yes, but you pay your costs. </TD>
+      <TD ><P>We will advance your arbitration fees if you ask us to in writing. 
+          This includes filing, administrative, hearing, and Arbiter's
+          fees. You are responsible for paying your attorney fees and other
+          expenses.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > Are damages and attorney fees possible? </TD>
+      <TD WIDTH="15%"> Yes, if allowed by law. </TD>
+      <TD ><P>The Arbiter may award the same damages as a court.  Arbiters may award reasonable attorney fees and expenses, if allowed by law.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > Will you pay Arbitration Fees if you win? </TD>
+      <TD WIDTH="15%"> No. </TD>
+      <TD ><P>If the Arbiter awards you funds you don't reimburse us the arbitration fees.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > Will you ever pay Arbitration Fees? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><P>If
+          the Arbiter doesn't award you funds, then you must repay the
+          arbitration fees. If you must pay arbitration fees, the amount
+          won't exceed state court costs.</P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=72 BGCOLOR="#f3f3f3" > What happens if you win? </TD>
+      <TD WIDTH="15%"> You	could receive an award from Arbiter. </TD>
+      <TD ><P>If you are successful in arbitration you may receive an Arbiter's
+          award. If so ordered by the Arbiter, we will pay your attorney
+          the attorney fees conferred, as well as reasonable expert witness
+          costs and other costs you incurred. </P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > Can an award be explained? </TD>
+      <TD WIDTH="15%"> Yes. </TD>
+      <TD ><P>A party may request details from the Arbiter within 14 days of the ruling.  Upon such request, the Arbiter will explain the ruling in writing. </P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD COLSPAN=3 ><P ALIGN=CENTER><B>Other Options.</B></P></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" HEIGHT=104 BGCOLOR="#f3f3f3" > If	you don't want to arbitrate, can you still contract for our	services? </TD>
+      <TD WIDTH="15%"> Yes. You can contract for our services and decide not to arbitrate. </TD>
+      <TD ><P>Consider these choices: </P>
+        <OL>
+          <LI><B>Informal Dispute Resolution. </B>Contact us and attempt to settle any Disputes.
+            </P>
+          <LI><B>Small-claims Court. </B>Seek to resolve Disputes in small-claims court, within state law limits.
+            </P>
+          <LI><B>Opt-Out of Arbitration. </B>Sign the Agreement and then timely opt-out of Arbitration.
+            </P>
+        </OL></TD>
+    </TR>
+  </TBODY>
+  <TBODY>
+    <TR>
+      <TD WIDTH="18%" BGCOLOR="#f3f3f3" > Can you opt-out of the Clause? </TD>
+      <TD WIDTH="15%"> Yes. Within 60 days. </TD>
+
+      <TD ><P>Send us written notice of your intent to opt-out of the Arbitration Clause of this Agreement within sixty (60) calendar days of
+          signing your Agreement. List your name, address, account number and date. List that you "opt out." If you opt out, it will only apply to this Agreement.</P></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><B>Miscellaneous.</B> Lender may, without notice to Borrower, assign all of its right,
+  title and interest in this Agreement to any other third-party.
+  Borrower further understands, acknowledges and agrees that any
+  assignee may sell, assign or transfer the Agreement and all
+  associated documents and information related to the Agreement without
+  Borrower's consent or delivery of notice. Borrower may not assign
+  this Agreement without the prior written consent of Lender. This
+  Agreement inures to the successors, permitted assigns, heirs and
+  representatives of Borrower and Lender.</P>
+<P></P>
+<P>Any changes to this Agreement must be in writing signed by Borrower and
+  Lender. Notices will be provided electronically to Borrower's
+  account, unless Borrower has opted out of electronic delivery and
+  then will be mailed to the addresses then on record.</P>
+<P></P>
+<!--<P><B>Controlling LAW.</B> The provisions of
+  this Agreement will be governed by federal laws and the laws of the
+  State of {{obj.stateName}} to the extent not preempted, without regard to any
+  principle of conflicts of law. The
+  Federal Arbitration Act, 9 U.S.C. Sections 1-16 ("FAA"), governs
+  the Jury Trial Waiver and Arbitration Clause.  The
+  unenforceability of any provision of this Agreement shall not affect
+  the enforceability or validity of any other provision of this
+  Agreement.</P>-->
+  <P><B>GOVERNING LAW.</B> This Agreement is governed by the laws of the Oglala Sioux Tribe (“Tribal Law”), a federally recognized Indian Tribe and the Indian Commerce Clause of the United States Constitution, and applicable federal law and the Arbitration Agreement below is additionally governed by the Federal Arbitration Act (“FAA”) and the decisions of the United States Supreme Court interpreting the FAA. We do not have a presence in South Dakota or any other State of the United States of America. Neither this Agreement nor the Lender is subject to the laws of any State of the United States. You agree to be bound by Tribal Law, and in the event of a bona fide dispute between you and us, Tribal Law shall exclusively apply to such dispute.</P>
+<P></P>
+<P><B>Privacy Notice.</B> By signing this
+  Agreement, you acknowledge and agree to our Privacy Notice as stated
+  on our website at the following link: <A HREF="http://targetfastcash.com/privacy-policy">{{LmsShortName}}
+  Privacy Notice</A> and further agree that you have reviewed and are
+  in possession of a copy of the Privacy Notice.</P>
+<P></P>
+<P><B>NOTICE TO ACTIVE DUTY SERVICEMEMBERS AND DEPENDENTS. </B> Federal law provides important protections to members of the Armed
+  Forces and their dependents relating to extensions of consumer
+  credit. In general, the cost of consumer credit to a member of the
+  Armed Forces and his or her dependent may not exceed an annual
+  percentage rate of 36 percent.  This rate must include, as applicable
+  to the credit transaction or account: The costs associated with
+  credit insurance premiums; fees for ancillary products sold in
+  connection with the credit transaction; any application fee charged
+  (other than certain application fees for specified credit
+  transactions or accounts); and any participation fee charged (other
+  than certain participation fees for a credit card account). </P>
+<P></P>
+<P>Borrower can call toll free at {{LmsPhone}} for a disclosure of (i) a
+  statement of the Military Annual Percentage Rate, and (ii) my payment
+  obligations (payment schedule) applicable to this extension of
+  credit.</P>
+<P>
+<P><B>COVERED BORROWER SAVINGS CLAUSE.</B> The provisions of this Paragraph apply only to a "Covered Borrower"
+  as that term is defined by 32 C.F.R. § 232.3(g).  If any contract
+  provision not identified herein is contrary to the rights and
+  protections afforded to Borrower by Federal law pursuant to 10 U.S.C.
+  § 987 and its implementing regulations, including, but not limited
+  to 32 C.F.R. § 232.8, then the conflicting provisions or proscribed
+  terms are inoperative, and shall have no force and effect.  However,
+  all remaining contract terms and provisions not proscribed or
+  prohibited shall remain in full force and effect.</P>
+<P></P>
+STATE LAW NOTICES.
+<P></P>
+<P>CALIFORNIA RESIDENTS ONLY.</P>
+<P></P>
+FOR INFORMATION CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT, STATE OF CALIFORNIA.</B> <B> </B>320 W. 4th Street, Suite 750, Los Angeles, CA 90013-1105, (213) 576-7500.
+</P>
+<P></P>
+<P>A married applicant may apply for a separate account. If Lender takes
+  any adverse action as defined by § 1785.3 of the California Civil
+  Code and the adverse action is based, in whole or in part, on any
+  information contained in a consumer credit report, Borrower has the
+  right to obtain within 60 days a free copy of Borrower's consumer
+  credit report from the consumer reporting agency who furnished the
+  consumer credit report and from any other consumer credit reporting
+  agency that complies and maintains files on consumers on a nationwide
+  basis.</P>
+<P></P>
+<P>As required by California, Borrower is hereby notified that a negative
+  credit report reflecting on Borrower's credit record may be
+  submitted to a credit reporting agency if Borrower fails to fulfill
+  the terms of Borrower's credit obligations.</P>
+<P></P>
+<P>You represent and warrant that no person has performed any act as a
+  broker in connection with the making of this financing.<BR>
+  <BR>
+</P>
+<P></P>
+<P>MISSOURI RESIDENTS ONLY. </P>
+<P></P>
+<P>ORAL FINANCING AGREEMENTS OR COMMITMENTS TO FINANCING MONEY, EXTEND CREDIT OR TO
+  FORBEAR FROM ENFORCING REPAYMENT OF SUCH DEBT, INCLUDING PROMISES TO
+  EXTEND OR RENEW SUCH DEBT, ARE NOT ENFORCEABLE. TO PROTECT
+  BORROWER(S) AND THE LENDER AND ANY HOLDER OF THIS AGREEMENT FROM
+  MISUNDERSTANDING OR DISAPPOINTMENT, ANY AGREEMENTS WE REACH COVERING
+  SUCH MATTERS ARE CONTAINED IN THIS WRITING, WHICH IS THE COMPLETE AND
+  EXCLUSIVE STATEMENT OF THE AGREEMENT BETWEEN US, EXCEPT AS WE MAY
+  LATER AGREE IN WRITING TO MODIFY IT.</P>
+<P></P>
+<P>This lender is regulated by: Missouri Division of Finance P O Box 716
+  Jefferson City, MO. 65102-0716 (573) 751-3463</P>
+<P><BR>
+</P>
+<P></P>
+<P>ILLINOIS
+  RESIDENTS ONLY. </P>
+<P></P>
+<P>Please be advised that matters involving improprieties in the making of the
+  financing or in financing collection practices may be referred to the Division
+  at the following address and telephone number: Illinois Department of
+  Financial &amp; Professional Regulation, Division of Financial
+  Institutions, Consumer Credit Section, 100 W. Randolph, Suite 9100,
+  Chicago, IL 60601; telephone number (888) 298-8089.</P>
+<P></P>
+<P>OHIO RESIDENTS ONLY.</P>
+<P></P>
+<P>The
+  Ohio laws against discrimination require that all creditors make
+  credit equally available to all credit-worthy customers, and that
+  credit reporting agencies maintain separate credit histories on each
+  individual upon request. The Ohio Civil Rights Commission administers
+  compliance with the law. Interest was calculated per Ohio Revised
+  Code 1321.57 sections (A), (B), (C), (D), (H), (J), (K), and (L).</P>
+<P></P>
+<P>UTAH RESIDENTS ONLY.</P>
+<P></P>
+<P>As required by Utah law, you are hereby notified that a negative credit
+  report reflecting on your credit record may be submitted to a credit
+  reporting agency if you fail to fulfill the terms of your credit
+  obligations.</P>
+<P></P>
+<P>YOU
+  AGREE AND ACKNOWLEDGE THAT PURSUANT TO UTAH CODE ANN. § 70C-3-104
+  YOU ARE WAIVING YOUR RIGHT TO INTIATE OR PARTICIPATE IN A CLASS
+  ACTION RELATED TO THIS FINANCING AGREEMENT.</P>
+<P></P>
+<P>FLORIDA
+  RESIDENTS ONLY.</P>
+<P><BR>
+</P>
+<P>The financing is made under the Florida Consumer Finance Act. The terms of the
+  financing provide for charges pursuant to the Florida Consumer Finance
+  Act.</P>
+<P></P>
+<P>Florida documentary stamp tax required by law in the amount of $____________has
+  been paid or will be paid directly to the Department of Revenue.
+  Certificate of Registration No. ________</P>
+<P></P>
+<P></P>
+<P>BY
+  ELECTRONICALLY SIGNING THIS AGREEMENT YOU AGREE THAT THIS ELECTRONIC
+  SIGNATURE HAS THE FULL FORCE AND EFFECT OF YOUR PHYSICAL SIGNATURE
+  AND THAT IT BINDS YOU TO THIS AGREEMENT IN THE SAME MANNER A PHYSICAL
+  SIGNATURE WOULD. YOU CERTIFY THAT THE INFORMATION GIVEN IN CONNECTION
+  WITH THIS AGREEMENT IS TRUE AND CORRECT. YOU AGREE THAT YOU HAVE THE FINANCIAL ABILITY TO REPAY IN ACCORDANCE WITH
+  THIS AGREEMENT.  YOU AUTHORIZE US TO OBTAIN INFORMATION ON YOU FROM
+  CONSUMER REPORTING AGENCIES OR OTHER SERVICES TO VERIFY THE
+  INFORMATION GIVEN IN CONNECTION WITH THIS CREDIT TRANSACTION. YOU
+  ACKNOWLEDGE THAT: (A) YOU HAVE READ, UNDERSTAND, AND AGREE TO ALL OF THE TERMS AND
+  CONDITIONS OF THIS AGREEMENT INCLUDING THE JURY TRIAL WAIVER AND ARBITRATION CLAUSE AS WELL AS THE PRIVACY NOTICE,
+  (B) THIS AGREEMENT WAS FILLED IN BEFORE YOU SIGNED IT, AND (C) THAT
+  YOU HAD AN OPPORTUNITY TO PRINT OR DOWNLOAD A COMPLETED COPY OF THIS
+  AGREEMENT FOR YOUR RECORDS. </P>
+
+{% if(type == 'pdf') %} 
+	 <p1> Borrower Name </p1>
+		<br>
+	 <p1> {{obj.fname}} {{obj.lname}} </p1>
+		<br>
+	 <!--<p1> (SIGNED ELECTRONICALLY) </p1>
+		<br>
+  <p><img style="width: 250px; height:100px" src="{{ agreementsignpath }}"></p>-->
+
+	 {% if not obj.user %}
+	
+	 {% else %}
+		E SignedBy Person:{{obj.user}}
+	 {% endif %}
+  <p1>
+    Ip:{{ip}}
+  </p1>
+  <br>
+  <p1>
+    Date: {{obj.date}}
+  </p1>
+  
+
+{% endif %}

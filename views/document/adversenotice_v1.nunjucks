@@ -1,0 +1,55 @@
+<p>NOTICE OF ACTION TAKEN AND STATEMENT OF REASONS</p>
+
+<pre>Date: {{agreementObject.date}} 
+
+Application Number:	
+Applicant Name: 	
+Applicant Address: 
+</pre>
+
+<p>Dear: {{agreementObject.firstname}} {{agreementObject.lastname}}</p> 			
+<p>
+Thank you for applying to us for an extension of credit.  We have received your application for credit submitted through [INSERT NAME AND ADDRESS OF MEDICAL PROVIDER].  After carefully reviewing your credit application, we are sorry to advise you that we cannot provide you an extension of credit at this time. If you would like a statement of specific reasons why your credit application was denied, please contact {{LenderLongName}} at the address or phone number shown below within 60 days of the date of this letter. We will provide you with the statement of reasons within 30 days after receiving your request.  </p>
+<pre>
+{{LenderLongName}}
+{{LenderMailingAddress}}
+{{LenderPhone}}
+</pre>
+<p>
+If we obtained information from a consumer reporting agency as part of our consideration of your credit application, its name, address and toll-free telephone number are shown below. The consumer reporting agency played no part in our decision and is unable to supply specific reasons why we have denied you credit. You have a right under the Fair Credit Reporting Act to know the information contained in your credit file at the consumer reporting agency. You have a right to a free copy of your report from the reporting agency, if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in the report you received is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency. You can find out about the information contained in your file (if one was used) by contacting the consumer reporting agency below:</p>
+
+<p>INSERT CREDIT REPORTING AGENCY NAME, ADDRESS, & NUMBER </p>
+
+
+<p>
+We also obtained your credit score from the consumer reporting agency and used it in making our decision. Your credit score is a number that reflects the information in your consumer report. Your credit score can change, depending on how the information in your consumer report changes.
+</p>
+<pre>
+Your credit score: {{screenDetails.creditscore}}
+Date: {{agreementObject.date}} 
+Scores range from a low of {{agreementObject.creditlowscore}} to a high of {{agreementObject.credithighscore}}
+
+
+Key factors that adversely affected your credit score: 
+_______ 
+_______ 
+_______ 
+_______ 
+</pre>
+<pre>
+[Number of recent inquiries on consumer report, if applicable]
+
+If you have any questions regarding your credit score, you should contact: 
+
+INSERT NAME, ADDRESS & NUMBER OF CREDIT REPORTING AGENCY
+
+
+
+
+Sincerely,
+{{LenderLongName}}
+</pre>
+
+<strong>
+Notice: The Federal Equal Credit Opportunity Act prohibits creditors from discriminating against credit applicants on the basis of race, color, religion, national origin, sex, marital status, age (provided the applicant has the capacity to enter into a binding contract); because all or part of the applicant's income derives from any public assistance program; or because the applicant has in good faith exercised any right under the Consumer Credit Protection Act. The Federal agency that administers compliance with this law concerning this creditor is: Federal Trade Commission Equal Credit Opportunity Washington, DC 20580.
+</strong>

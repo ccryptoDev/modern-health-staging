@@ -1,0 +1,13 @@
+{% if searchData | length >0 %}
+	{% for data in searchData %}
+		<div class="row">
+			<a class="arrowlink" href="/{{data.UrlSlug}}">
+			<div class="practicename col-lg-5 col-sm-5 col-md-5 col-xs-5 text-left">{{data.PracticeName}}</div>
+			<div class="practicelocation col-lg-5 col-sm-5 col-md-5 col-xs-5 text-left">{{data.City}}, {{data.StateCode}}</div>
+			<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2 text-center"><i class="fa fa-arrow-icon arrowicon">&#xf0a9;</i></div>
+			</a>
+		</div>
+	{% endfor %}
+{% else %}
+	<p>No results Found</p>
+{% endif %}

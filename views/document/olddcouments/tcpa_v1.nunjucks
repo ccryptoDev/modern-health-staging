@@ -1,0 +1,46 @@
+    <style>
+      body {
+        background-color: white;
+
+        /*font-style: italic;*/
+        font-family:'Roboto', sans-serif;
+      }
+
+      h1 {
+        color: black;
+
+      }
+
+      p {
+        color: black;
+      }
+
+    </style>
+  </head>
+  
+  <h2 style="margin-top:0px;"> <bold> TCPA </bold> </h2>
+  <p>By submitting this form, you consent to receiving calls and messages, including autodialed calls for marketing
+purposes, prerecorded message, artificial voice, and text messages (MMS and/or SMS) from {{LmsShortName}}
+  and its representatives or agents at any
+telephone number provided in connection with this application (including mobile telephone number), and
+acknowledge that no purchase of credit or services is contingent upon consent; and (ii) acknowledge that you
+have read the <a href="/rates" target="_blank" class="colorchange">Terms and Conditions</a> and <a href="/privacypolicy" target="_blank" class="colorchange">Privacy Policy</a> for <a href="http://targetfastcash.com/" target="_blank" class="colorchange">www.targetfastcash.com</a> and understand that you may
+opt out of receiving communications of your choice from {{LmsShortName}} as provided in the <a href="/privacypolicy" target="_blank" class="colorchange">Privacy Policy</a>.</p>
+<br>
+
+<br>
+{% if agreementObject.barrowername %}
+<p1> Borrower Name: {{agreementObject.barrowername}}</p1>
+<br>
+{% endif %}
+<p1>
+Ip:{{ip}}
+</p1>
+<br>
+
+<p1>
+Date:{{agreementObject.date}}
+</p1>
+<br>
+
+

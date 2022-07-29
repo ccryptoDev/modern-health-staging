@@ -1,0 +1,70 @@
+{% extends "emailTemplates/emaillayout.nunjucks" %}
+{% block body %}
+    <div class="emailBodyOuterDiv">
+        <h2 class="emailGreetings">Hi {{ name | capitalize }},</h2>
+
+        <div class="emailBodyMessage">
+            Congratulations! After revisiting our initial decision, you have a new offer.<br><br>
+            <table align="center" cellpadding="0" cellspacing="0" width="80%" >
+                <tr>
+                    <td align="center" valign="top">
+                        <table border="1" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
+                            <tbody>
+                                <tr>
+                                    <td align="center" valign="top">
+                                        Financing Amount
+                                    </td>
+                                    <td align="center" valign="top">
+                                        {{offerData.financedAmount | $format(true, 2)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="top">
+                                        Finance Charge
+                                    </td>
+                                    <td align="center" valign="top">
+                                        {{offerData.financeCharge | $format(true, 2)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="top">
+                                        APR
+                                    </td>
+                                    <td align="center" valign="top">
+                                            {{offerData.apr}}%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="top">
+                                        Total of Payments
+                                    </td>
+                                    <td align="center" valign="top">
+                                        {{(offerData.financeCharge + offerData.financedAmount)| $format(true, 2)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="top">
+                                        Monthly Payment
+                                    </td>
+                                    <td align="center" valign="top">
+                                        {{offerData.monthlyPayment | $format(true, 2)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="top">
+                                        Number of payments
+                                    </td>
+                                    <td align="center" valign="top">
+                                            {{offerData.term}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table><br><br>
+            Please click <a href="{{ Link }}">HERE</a> and log into your customer portal to sign the Retail Installment Sales Contract.<br><br>
+            <a href="{{ Link }}">Login</a>
+        </div>
+    </div>
+{% endblock %}

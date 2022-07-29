@@ -1,0 +1,70 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+
+
+{% if screentrackingdetails[0].iscompleted != 0 %}
+	<script>
+		history.pushState(null, null, location.href);
+		window.onpopstate = function( event ) {
+			history.go(1);
+		};
+	</script>
+{% endif %}
+
+<style>
+	.finishBtn {
+		background: #63944C;
+		height: 45px;
+		min-width: 100px;
+		line-height: 23px;
+		border-radius: 8px;
+		border: none;
+		color: #FFFFFF;
+		font-size: 15px;
+		font-weight: 500;
+	}
+
+	.phone {
+		color: #F1B649;
+		font-weight: 700;
+	}
+
+
+</style>
+	<div class="container has-practice-name-header-shown" id="finalize-page">
+		<div class="inner-content">
+			<div class="heading">
+				<div class="logoMiddle">
+					{% if practice.practiceLogo %}
+							<img src="images/logos/{{ practice.practiceLogo }}" class="img-reponsive" />
+					{% else %}
+							<img src="images/imgv3/logo.png" class="img-reponsive" />
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 personalInfoInner">
+				<div class="whitebox infoForm">
+					<div class="v-center">
+						<div class="h-center">
+							<h1 style="color: black;">Thank You!</h1>
+
+							<p>Your financing will take effect when the practice confirms the date of your service.</p>
+							<p> Contact your representative at {{PracticeName}} at <a href="tel:{{PhoneNo}}"><span class="phone">{{PhoneNo | phoneformat}}</span></a> now to set a date!</p>
+							<!-- Go To Dashboard Button -->
+							<div class="text-right" style="margin-top: 20px;">
+								<div style="text-align: center;">
+									<a href="/practicehome"><button class="nav-apply-btn finishBtn">Finish</button></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<link rel="stylesheet" href="/styles/css/frontend/dashboard.css?v=0.3">
+
+
+{% endblock %}
+

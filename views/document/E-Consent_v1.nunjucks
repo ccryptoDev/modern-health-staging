@@ -1,0 +1,147 @@
+<style>
+    body {
+        background-color: white;
+        font-family:"Neo Sans fonts", Verdana, sans-serif;
+    }
+    h1 {
+        color: black;
+        font-family:helvetica;
+    }
+    p {
+        color: black;
+        font-family:helvetica;
+    }
+    p1 {
+        font-family:helvetica;
+    }
+    h3 {
+        font-family:helvetica;
+    }
+    h2 {
+        font-family:helvetica;
+    }
+    li {
+        font-family:helvetica;
+    }
+    div {
+        font-family:helvetica;
+    }
+    td {
+        font-family:helvetica;
+    }
+    .bankdata {
+        float: right;
+        padding-right: 20px;
+    }
+    .bankdatarow {
+        border: 1px solid black;
+        text-align: left;
+    }
+    .bankdatatitle {
+        margin: 0px;
+        padding: 3px;
+    }
+    <div style=""><span style="">
+
+</style>
+
+    <br>
+    <br>
+	<div id="bankaccountid" style="display: none;">{{ accountID }}</div>
+    <p style="margin:0px; text-align: center; font-size: 160%;"> {{ providerName }} </p>
+    <p style="margin:0px; text-align: center; font-size: 130%;"> {{ providerAddress }} </p>
+    <p style="margin:0px; text-align: center; font-size: 130%;"> {{ providerCity }},&nbsp;{{ providerState }}&nbsp;{{ providerZip }} </p>
+    <p style="margin:0px; text-align: center; font-size: 130%;"> <span class="phoneMask">{{ providerPhone | phoneformat }}</span> - {{ providerEmail }} </p>
+
+    <br>
+
+    <h2  style="margin:0px; text-align: center;"> OPTIONAL VOLUNTARY ELECTRONIC PAYMENT AUTHORIZATION </h2>
+    <br>
+    <h3  style="margin:0px; text-align: left;"> NOTICE: THIS ELECTRONIC PAYMENT AUTHORIZATION IS OPTIONAL - I UNDERSTAND THAT I WILL STILL BE ABLE TO ENTER INTO MY Truth-In-Lending Disclosure and Note or  Retail Installment Agreement IF I DO NOT SIGN THIS AUTHORIZATION</h3>
+    <br>
+
+    <h3  style="margin:0px; text-align: justify;"> I hereby exercise my (our) option to make the payments agreed to in my Truth in Lending Disclosure and Note or Retail Installment Agreement {{ TO_BE_ASSIGNED}} by electronic payment and do voluntarily authorize Modern Asset Management, Inc. dba Modern Health Finance, as servicer for {{ providerName }}, Inc its successors or assigns ("Servicer") to do the following: </h3>
+
+    <br>
+
+    <ol>
+        <li style="margin:0px; text-align: justify;">Initiate automatic electronic payments from My Bank Account specified below and debit My Bank Account on the Payment Dates specified in my Agreement, or for any lesser amount I (we) owe.</li>
+        <li style="margin:0px; text-align: justify;">Re-initiate a payment debit up to two additional times for the same amount if the payment is not made for any reason.</li>
+        <li style="margin:0px; text-align: justify;">If necessary, to credit my account to correct erroneous debits.</li>
+        <li style="margin:0px; text-align: justify;">Initiate a separate electronic payment from My Bank Account below for any applicable late payment charge or returned check fee in the amounts set forth in my Agreement.</li>
+        <li style="margin:0px; text-align: justify;">I may make any payment at any time by check delivered by mail or courier service to 23030 Lake Forest Dr. Suite #202, Laguna Hills, CA 92653 , that such payment is to replace my next previously authorized Electronic Payment, I acknowledge that Servicer must receive it at least three (3) business days beore the previously authorized Electronic Payment is scheduled to be made and I will notify Servicer in writing, at 23030 Lake Forest Dr. Suite #202, Laguna Hills, CA 92653 , that such payment is to replace my next previously authorized Electronic Payment. If I want such payment to be a payment in addition to the scheduled Authorized Electronic Payment, I will notify Servicer accordingly. This Electronic Payment Authorization will remain in effect unless I explicitly notify Servicer that my Electronic Payment Authorization is withdrawn. </li>
+      </ol>
+
+    <br>
+
+    <h3  style="margin:0px; text-align: center;"> PURPOSE OF AUTHORIZATION </h3>
+
+    <p style="margin:0px; text-align: justify;"> I agree that the electronic payment authorized herein is voluntary and for my convenience. This Electronic Payment Authorization is a payment mechanism only and does not give Seller or Servicer any collection rights greater than those otherwise contained in my Agreement. This Authorization does not constitute and is not intended to constitute a security interest under state law. </p>
+
+    <h3  style="margin:0px; text-align: center;"> HOW TO WITHDRAW YOUR AUTHORIZATION </h3>
+
+    <p style="margin:0px; text-align: justify;"> I understand that this Electronic Payment Authorization is to remain in full force and effect until Servicer has received written notification from me that I wish to revoke this authorization. I understand that Servicer requires at least three (3) business days prior notice, at 23030 Lake Forest Dr. Suite #202, Laguna Hills, CA 92653 , in order to cancel this Authorization.</p>
+
+    <br>
+    <div style="page-break-before: always;"></div>
+    <h3  style="margin:0px; padding:3px; text-align: center; border:1px solid black;"> My Designated Bank Account </h3>
+    <div class="bankdatarow"><span class="bankdatatitle"> Name of bank:</span><span class="bankdata">{{bankName}}</span></div>
+    <div class="bankdatarow"><span class="bankdatatitle"> Account Type:</span><span class="bankdata">{{ bankAccountType }}</span></div>
+    <div class="bankdatarow"><span class="bankdatatitle"> Routing Number:</span><span class="bankdata">{{ bankRoutingNumber }}</span></div>
+    <div class="bankdatarow"><span class="bankdatatitle"> Account Number:</span><span class="bankdata">{{ bankAccountNumber }}</span></div>
+    <div class="bankdatarow"><span class="bankdatatitle"> Or Debit Card Number:</span></div>
+    <div  style="margin:0px; padding:3px; text-align: left; border:1px solid black;"> Expiration Date: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Zip Code: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Security Code:</div>  
+    <br>
+	{% if eftaSignatureRequired %}
+    <p class="roomy">
+        <strong>BY SIGNING BELOW, BORROWER AGREES TO THE TERMS AND CONDITIONS OF THIS ELECTRONIC FUNDS TRANSFER AGREEMENT</strong>
+    </p>
+    <div>
+		<a id="sigpad3" name="sigpad-3"></a>
+		<br>
+		<p>
+			<table class="table-responsive">
+				<tr>
+
+					<td width="40%" style="border-bottom:1px solid black;padding:0 18px;">
+						<span id="stamp-eft">
+							{% if signatureExistEFT == 1 %}
+								<img class="img-responsive" style="width: 100%" src="{{ agreementsignpathEFT }}" id="stampimg" align="middle">
+							{% endif %}
+						</span>
+					</td>
+					<td width="6%">&nbsp;</td>
+					<td id="stamp-eft-date" width="14%" style="border-bottom: 1px solid black; margin-left: 60px;">
+						{{ todaydate if( signatureExistEFT == 1 ) }}
+					</td>
+					<td id="40%"></td>
+				</tr>
+				<tr>
+					<td style="text-align: center; font-weight: bold;">Borrower's Signature</td>
+					<td style="padding-left: 20px; padding-right: 20px;">&nbsp;</td>
+					<td style="text-align: center; font-weight: bold;">Date</td>
+					<td></td>
+				</tr>
+			</table>
+		</p>
+		<br/>
+		<div id="signerrorEFT" style="display:none;">
+			<center><p style="color: red;"><strong>Please sign Electronic Funds Agreement.</strong></p></center>
+		</div>
+		{% if signatureExistEFT != 1 %}
+            <div iD="signInstructionsEFT">Please click and hold your mouse to sign your signature in the box below.</div>
+			{% include "frontend/home/eftsignaturepad.nunjucks" %}
+		{% endif %}
+		<br>
+	</div>
+	{% endif %}
+    <br>
+	<div style="text-align: left;">
+        <p1 style="margin:0px; text-align: left; font-size: 130%;">
+            Date:{{ todaydate }}
+        </p1>
+        <br><br>
+        <p1 style="margin:0px; text-align: left; font-size: 130%;">
+            Ip:{{ip}}
+        </p1>
+	</div>

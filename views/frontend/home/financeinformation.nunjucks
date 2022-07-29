@@ -1,0 +1,384 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %} {% block body %}
+<div id="financeinformation">
+<div class="container">
+    <div class="inner-content">
+    	<div class="heading">
+            <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-10 col-lg-offset-1 personalInfoInner">
+                {% include "frontend/layoutv3/navigator.nunjucks" %}
+                <h1 class="title">Enter your financial information.</h1>
+                <div class="whitebox infoForm financepage">
+                	<form class="formclass" id="financedata" action="/financeinformationdata" method="post" data-validation="btnDisable" name="financedata">
+                		<input type="hidden" id="minloanamount" value="{{minloanamount}}">
+						<input type="hidden" id="maxloanamount" value="{{maxloanamount}}">
+						<input type="hidden" class="form-control"  id="bankid" name="bankid" >
+						<input type="hidden" class="form-control"  id="banktype" name="banktype" >
+						<input type="hidden" name="userbankaccountid" value="{{userbankaccountid}}" id="userbankaccountid">
+						<input type="hidden" class="form-control" id="anticipatedAmnt" name="anticipatedAmnt">
+						<input type="hidden" class="form-control" id="minincomeamount" name="minincomeamount" value="{{minincomeamount}}">
+
+						<input type="hidden" value="0" id="popupsubmit">
+						<input type="hidden" value="0" id="temploanamount">
+                		<div class="error text-center">{{errormsg}}</div>
+                      	<div class="row">
+                      		<div class="col-xs-12 col-md-6">
+                  				<div class="form-group">
+									<label>ANNUAL INCOME</label>
+									<input type="text" class="form-control" placeholder="Enter Annual Income" name="annualincome" id="annualincome" value="{{annualincome}}" required autofocus />
+								</div>
+							</div>
+                      		{% if (bankinfo == 'yes') %}
+								<div class="col-xs-12 col-md-6">
+									<div class="form-group">
+										<label>BANK NAME</label>
+										<input type="text" name="bankname" id="bankname" class="form-control" value="{{bankname}}" placeholder="Enter Bank Name" readonly/>
+									</div>
+								</div>
+								<div class="text-left incomehint" style=""><span>*</span>Alimony, child support or separate maintenance income do not have to be included unless those income sources are to be considered for repaying the obligation.</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="form-group">
+										<label>ACCOUNT NUMBER</label>
+										<select name="bankaccno" class="form-control form-rounded" id="bankaccno" required onchange="setConfirmAccno(this.value)">
+											{% for accountno in bankaccno %}
+												<option value="{{accountno}}">{{accountno}}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="form-group">
+										<label>CONFIRM ACCOUNT NUMBER</label>
+										<select name="cbankaccno" class="form-control" id="cbankaccno" required>
+											{% for accountno in bankaccno %}
+												<option value="{{accountno}}">{{accountno}}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="form-group">
+										<label>ROUTING NUMBER</label>
+										<input type="text" name="routingno" id="routingno" class="form-control" value="{{routingno}}" placeholder="Enter Bank Routing Information" required readonly/>
+										<i class="arrow-focus-img"></i>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+ 									<div class="form-group">
+										<label>PRIMARY ACCOUNT HOLDER</label>
+										<input type="text" name="accountholder" id="accountholder" value="{{accountholder}}" class="form-control" placeholder="Enter Bank Account Holder" required readonly/>
+										<i class="arrow-focus-img"></i>
+									</div>
+								</div>
+                      		{% else %}
+          							<div class="col-xs-12 col-md-6">
+										<div class="form-group">
+											<label>BANK NAME</label>
+												<input type="text" name="bankname" id="bankname" class="form-control" placeholder="Enter Bank Name" autocomplete="off" />
+												<div id="bankresults"></div>
+											<i class="arrow-focus-img"></i>
+										</div>
+									</div>
+									<div class="text-left incomehint" style=""><span>*</span>Alimony, child support or separate maintenance income do not have to be included unless those income sources are to be considered for repaying the obligation.</div>
+									<div class="col-xs-12 col-md-6">
+	 									<div class="form-group">
+											<label>ACCOUNT NUMBER</label>
+											<input type="text" name="bankaccno" class="form-control" id="bankaccno" placeholder="Enter Bank Account Number" required>
+										</div>
+									</div>
+								 	<div class="col-xs-12 col-md-6">
+										<div class="form-group">
+											<label>CONFIRM ACCOUNT NUMBER</label>
+											<input type="text" name="cbankaccno" class="form-control" id="cbankaccno" placeholder="Enter Confirm Bank Account Number" required>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+	 									<div class="form-group">
+											<label>ROUTING NUMBER</label>
+											<input type="text" name="routingno" id="routingno" class="form-control" value="{{routingno}}" placeholder="Enter Bank Routing Information" required/>
+											<i class="arrow-focus-img"></i>
+	 									</div>
+ 									</div>
+ 									<div class="col-xs-12 col-md-6">
+	 									<div class="form-group">
+											<label>PRIMARY ACCOUNT HOLDER</label>
+											<input type="text" name="accountholder" id="accountholder" value="{{accountholder}}" class="form-control" placeholder="Enter Bank Account Holder" required/>
+											<i class="arrow-focus-img"></i>
+										</div>
+									</div>
+                       		{% endif %}
+                      		<div class="col-xs-12">
+                      			<hr>
+                      		</div>
+	                      	<div class="form-group col-xs-12 col-md-offset-3 col-md-6">
+								<label class="col-xs-12 text-left">ANTICIPATED FINANCED AMOUNT</label>
+								<input type="text" class="form-control form-rounded input-color" id="financedAmount" name="financedAmount" placeholder="Enter Anticipated Financing Amount" required value="{{financeAmount}}">
+								<i class="arrow-focus-img"></i>
+
+							</div>
+							<div class="col-xs-12">
+								<h5 style="color: #233749;font-weight: 600;">What is the "Anticipated Financed Amount"?</h5>
+								<span class="text-left incomehint" style="margin-top: 20px;">
+
+								Anticipated Financed Amount is an estimate of the treatment cost eligible for financing. For example, if a treatment costs $10,000 and your healthcare provider requires a payment of $2,000 prior to treatment, then your Anticipated Financed Amount would be $8,000. Please contact your provider to confirm how much is due prior to treatment and how much is eligible for financing
+
+								</span>
+							</div>
+
+
+                      	</div>
+                      	<div class="btnMain">
+                             <button type="submit" name="formsubmit" class="btn btn-default fillBtn ActivefillBtn">Next</button>
+                        </div>
+
+
+                	</form>
+                </div>
+                <div class="deposit_account_details text-center">
+                	<p class="mb-3">Your Direct Deposit Details &nbsp;<a id="showdeposit" onclick="showdeposit();">Show</a></p>
+                	<p class="mb-3">Your Account Details &nbsp;<a id="showaccount" onclick="showaccount();">Show</a></p>
+                </div>
+                <div class="whitebox infoForm" id="depositaccountcontainer" style="display: none;">
+                	<div class="panel-group text-left" id="depositaccordion" style="display: none;">
+								<div class="panel-heading" >
+									<h4 class="panel-title">
+										 Direct Deposit Details
+									</h4>
+								</div>
+
+								<div class="panel-collapse collapse in">
+									 <div class="panel-body table-responsive">
+
+								 		<table class="table">
+									 		<thead>
+		                                        <tr>
+		                                           <th>Date</th>
+		                                           <th>Account</th>
+		                                           <th>Description</th>
+		                                           <th>Amount</th>
+		                                        </tr>
+		                                    </thead>
+		                                    <tbody>
+										{% if payRollArray.length>0 %}
+
+		                                    {% for payRoll in  payRollArray %}
+		                                        <tr class="listtxt">
+		                                           <td>{{payRoll.date}}</td>
+		                                           <td>{{payRoll.category}}</td>
+		                                           <td>{{payRoll.name}}</td>
+		                                           <td>${{payRoll.amount}}</td>
+		                                        </tr>
+	                                        {% endfor %}
+
+										{% else %}
+										    <tr class="">
+												<td colspan="4">We could not find any direct deposit associated to this account.</td>
+											</tr>
+										{% endif %}
+											</tbody>
+										</table>
+
+								     </div>
+								</div>
+							</div>
+							<div class="bankDetails text-left" id="bankaccordion" style="display: none;">
+								<div class="table-reponsive">
+								 {% if filloutmanually==0 %}
+									{% if userBankAccount %}
+
+									{% set b = 1 %}
+									 <div class="panel-group" id="accordion">
+										{% for bankdetails in  userBankAccount %}
+											<!-- {% if(b==1) %}
+											  <input type="hidden" name="defaultbankid" id="defaultbankid" value="{{bankdetails.id}}">
+											  <input type="hidden" name="bankid" id="bankid" value="{{bankdetails.id}}">
+											{% endif %}	 -->
+
+
+											<div class="panel-heading">
+													<h4 class="panel-title">
+														{{bankdetails.institutionName}}
+													</h4>
+												</div>
+												<div id="collapse{{b}}" class="panel-collapse collapse {% if(linkbankid) %} {% if (linkbankid == bankdetails.id) %}in{% endif %} {% else %}{% if b==1 %}in {% else %}{% endif %}{% endif %}">
+													<div class="panel-body table-responsive">
+													 <table class="table">
+													  <thead>
+														<tr>
+														  <!-- <th>#</th> -->
+														  <th>Institution Name</th>
+														  <th>Account Name</th>
+														  <th>Account Type</th>
+														  <th>Account Subtype</th>
+														  <th>Account Number<br/> (Last 4 Digit)</th>
+														  <th>Balance<br/> Available</th>
+														  <th>Balance<br/> Current</th>
+														</tr>
+													  </thead>
+													   <tbody>
+															{% if bankdetails.accounts.length>0 %}
+
+																{% set k = 1 %}
+																{% set chk = 0 %}
+
+																{% for accountDetail in  bankdetails.accounts %}
+																	{% if accountDetail.subtype !== 'credit card' %}
+																	   {% if(k==1 and b==1) %}
+																		  <input type="hidden" name="selectitemid" id="selectitemid" value="{{accountDetail._id}}">
+																	   {% endif %}
+																	<tr {% if accountDetail.subtype != 'checking' %} style="opacity:0.4;" {% endif %}>
+																	  <!-- <td class="tname">
+																		  <div class="checkbox">
+
+																			<input type="radio" name="bankaccount" id="checkboxOne_{{b}}_{{k}}" value="{{accountDetail._id}}" onclick="checkaccount('{{k}}','{{b}}');"
+																			{% if linkbankid %}
+																				{% if linkaccountid == accountDetail._id%}checked {% endif %}
+																			{% elseif(bankdetails.repullstatus==1) %}
+
+																			{% else %}
+																				{% if(k==1 and b==1 and accountDetail.subtype == 'checking') %}
+																					{% set chk = 1 %}
+																					checked
+																				{% elseif(k>1 and chk==0 and accountDetail.subtype == 'checking') %}
+																					checked
+																				{% endif %}
+																				{% if accountDetail.subtype != 'checking' %}
+																					disabled
+																				{% endif %}
+																			{% endif %}
+
+																			/>
+																		  </div>
+																		  <input type="hidden" name="rowbankid_{{b}}_{{k}}" id="rowbankid_{{b}}_{{k}}" value="{{bankdetails.id}}">
+																		</td> -->
+																		<td>{{bankdetails.institutionName}}</td>
+																		<td>{{ accountDetail.meta.name }} {{ accountDetail.meta.id }} </td>
+																		<td>{{ accountDetail.type }}</td>
+																		<td>{{ accountDetail.subtype }}</td>
+																		<td>{{ accountDetail.meta.number }}</td>
+																	{% if(accountDetail.balance.available) %}
+																		<td>${{ accountDetail.balance.available }}</td>
+																	{% else %}
+																		<td>{{ accountDetail.balance.available }}</td>
+																	{% endif %}
+																	{% if(accountDetail.balance.current) %}
+																		<td>${{ accountDetail.balance.current }}</td>
+																	{% else %}
+																		<td>{{ accountDetail.balance.current }}</td>
+																	{% endif %}
+																	</tr>
+																	{% set k = k+1 %}
+																	{% endif %}
+																{% endfor %}
+															{% else %}
+															<tr>
+															  <td colspan="8"><p>No account found</p></td>
+															</tr>
+														  {% endif %}
+														  </tbody>
+
+														</table>
+														</div>
+											</div>
+
+
+										{% set b = b+1 %}
+										{% endfor %}
+										 </div>
+										{% else %}
+										 <div class="panel-group" id="accordion">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Bank Details</a>
+													</h4>
+												</div>
+												<div id="collapseOne" class="panel-collapse collapse in">
+													<div class="panel-body">
+													   No Bank found
+													</div>
+												 </div>
+											</div>
+										 </div>
+										{% endif %}
+									{% endif %}
+
+
+									 </div>
+									</div>
+                </div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="apllicationfinancingmodel" class="modal fade financepagemodal" role="dialog">
+	<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="text-center">
+ 		  <span class="stlbluetxt"><h3 class="modal-title mTB-1 error mt2" id="storyinfopopupheader">Warning!</h3></span>
+		</div>
+		<div class="modal-body whitetext">
+			 You can apply minimum loan amount of <span class="greentext">${{minloanamount}}</span> <!-- and maximum loan amount of ${{maxloanamount}} --> in {{LenderShortName}}.
+		</div>
+		<div class="btn-Main">
+		  <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<div id="denyreasonlowincomemodel" class="modal fade financepagemodal" role="dialog">
+		<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="text-center">
+ 		  <span class="stlbluetxt"><h3 class="modal-title mTB-1 error mt2" id="storyinfopopupheader">Warning!</h3></span>
+		</div>
+		<div class="modal-body whitetext">
+			<!--  You can apply minimum loan amount of ${{minloanamount}} and maximum loan amount of ${{maxloanamount}} in {{LenderShortName}}. -->
+			Sorry, that annual income does not meet the minimum income threshold.
+			</div>
+		<div class="btn-Main">
+		  <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+	</div>
+
+	<div id="denyreasonmodel" class="modal fade financepagemodal" role="dialog">
+		<div class="modal-dialog modal-md">
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="text-center">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <span class="stlbluetxt">
+		  	<h3 class="greentext">Confirmation</h3>
+		  </span>
+		</div>
+		<div class="modal-body whitetext">
+            <div>
+              	<span id="maxloantxt">Oops the Anticipated Financed Amount exceeds the maximum.</span>
+              	<span id="minloantxt" style="display: none;">Oops the Anticipated Financed Amount less than minimum amount.</span>
+              	<br>
+              	<br>
+                You have pre-qualified for a contract up to <span class="greentext">$ <span id="qualifiedAmount"></span></span>
+                <br>
+                <br>
+                Do you want to proceed with this contract using that amount?
+            </div>
+
+            </div>
+		<div class="btnMain text-center">
+         	<button type="button" data-dismiss="modal" onclick="proceessnextpage();" class="btn btn-default fillBtn ActivefillBtn">Yes</button>
+          	<button type="button" data-dismiss="modal" onclick="proceesloanfailure()" class="btn btn-default fillBtn ActivefillBtn">No</button>
+        </div>
+	  </div>
+	</div>
+	</div>
+</div>
+{% endblock %}

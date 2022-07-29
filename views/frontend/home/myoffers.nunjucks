@@ -1,0 +1,28 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<style>
+</style>
+<div class="container has-practice-name-header-shown">
+	<!-- offers loader -->
+	{% include "frontend/home/myoffersmodal.nunjucks" %}
+	<div class="heading">
+		<div class="logoMiddle">
+			<img src="images/imgv3/logo.png" class="img-reponsive" />
+		</div>
+	</div>
+	<div class="row" id="loaderidoffers" style="display:none;">
+		<div class="" align="center" style="text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,0.7);">
+			<div style="height:100%;width:100%;background:url('/images/img/ajaxloader.gif') no-repeat center;margin-top:-233px;"></div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+$(window).load(function() {
+    $( "#myoffers-modal" ).modal({ backdrop: "static", show: true });
+})
+</script>
+
+{% endblock %}

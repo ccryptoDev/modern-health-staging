@@ -1,0 +1,87 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Create Admin user
+      <small>preview of User</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/adminuserlist"><i class="fa fa fa-building"></i>Admin User List</a></li>
+      <li class="active">Create Admin User</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Admin User Form </h3>
+      </div>
+      <div class="box-body">
+	    {% if (error)  %}
+         <div class="alert alert-danger">
+          {{error}}
+        </div>
+        <br>
+      {% endif %}
+  	  <form role="form" method="POST"  enctype="multipart/form-data" id="adduser" name="adduser" action="/admin/addnewuser">
+
+          
+
+          <input type="hidden" class="form-control"  id="allowedPracticeRoles" name="allowedPracticeRoles" 
+          value="{{sails.config.allowedPracticeRoles }}" >
+
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <th>User Name</th>
+              <td><input type="text" class="form-control"  id="username" name="name" value="{{req.form.username}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td><input type="text" class="form-control" id="useremail" name="email" value="{{req.form.useremail}}" style="width:50%;" required autocomplete="off"></td>
+            </tr>
+            <tr>
+              <th>Phone Number</th>
+              <td><input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{req.form.userphone}}" style="width:50%;"  data-mask="(000) 000-0000" required  autocomplete="off" ></td>
+            </tr>
+  		      <tr>
+              <th>Role</th>
+              <td>
+        				<select id="userrole" name="role" style="width:50%;" required autocomplete="off" onchange="showPracticeOption();">
+                    <option value="">--Select One--</option>
+                    {% for roledata in roledetails %}
+                      <option value="{{roledata.id}}">{{roledata.rolename}}</option>
+                    {% endfor %} 
+        				</select>
+                <p id="error_role"></p>
+        			</td>
+            </tr>
+
+
+            <tr id="practiceoption">
+              <th widh="50%">Practice Name</th>
+              <td>
+                  <div> 
+                    <select id="practiceId" name="practiceId"  required autocomplete="off" style="width:50%;">
+                      <option value="">--Select One--</option>
+                      {% for practicedata in practiceDetails %}
+                        <option value="{{practicedata.id}}">{{practicedata.PracticeName}}</option>
+                      {% endfor %} 
+                    </select>
+                    <p id="error_practice"></p>
+                  </div>  
+              </td>
+            </tr>
+
+            <tr>
+              <th>&nbsp;</th>
+              <td>
+  			        <button type="submit" class="btn btn-primary">Submit</button>
+              </td>
+            </tr>
+            </tbody></table>
+  		   </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}

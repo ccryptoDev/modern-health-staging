@@ -1,0 +1,46 @@
+<div class="box-body">
+  <div class="col-md-10 col-md-offset-1" aligne="center">
+	<div class="bankDetails selectaccountinfo">
+	<div class="table-reponsive">
+		<table class="table table-bordered">
+			<thead>	
+				<tr>
+					<th>Account name </th>
+					<th>Balance </th>
+					<th>Consolidate </th>
+				</tr>
+			</thead>
+			<tbody>
+			{% if accountDetails.length > 0 %}
+			{% set k = 1 %}
+			{% for accountDetail in  accountDetails %}
+			{% set balance = accountDetail.currentBalance %}
+				<tr>
+					<td>{{accountDetail.subscriber.name.unparsed}} ({{accountDetail.subscriber.industryCode}})</td>
+					<td>${{balance}}</td>
+					<td>
+						<div class="checkbox">
+							<input name="selectrpf" id="checkboxOne_{{k}}" value="{{ accountDetail.accountNumber }}" type="checkbox" data-amount="{{balance}}" onclick="addamount('{{balance}}','{{accountDetail.accountNumber}}');" disabled="disabled" {{accountDetail.selectstatus}}>
+							<label class="check-box" for="checkboxOne_{{k}}"></label>
+						</div>
+					</td>
+				</tr>
+				{% set k = k+1 %}
+			{% endfor %}
+				<tr>
+				  <td align="right"><span style="font-size:25px; font-weight:normal;"><b>Total </b></span></td>
+				  <td>${{ totalbalance }}</td>
+				  <td><span id="totalamount">${{selecttotal}}</span></td>
+				</tr>  
+			{% else %}
+				<tr>
+					<td colspan="3">  <p>No account found</p> </td>
+				</tr>
+			{% endif %}			
+			</tbody>
+		</table>
+	</div>
+	</div>
+			
+ </div>
+</div> 	

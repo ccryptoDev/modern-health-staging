@@ -1,0 +1,279 @@
+<style>
+	.offers-modal {
+		padding: 20px;
+	}
+
+	.offers-button {
+		background: #63944C;
+		width: 160px;
+		height: 35px;
+		white-space: nowrap;
+		line-height: 13px;
+		border-radius: 8px;
+		border: none;
+		padding: 8px 12px;
+		color: #FFFFFF;
+		font-size: 15px;
+		font-weight: 500;
+		margin-left: 10px;
+	}
+
+	.offers-input {
+		width: 140px;
+		font-family: "Nunito Sans", Arial, Helvetica, sans-serif;
+		font-size: 20px;
+		line-height: 20px;
+		text-align: left;
+		font-weight: bold;
+		margin-top: 2px;
+		border: 1px solid #63944C;
+		border-radius: 8px;
+		padding: 5px;
+	}
+
+	.offers-amount-inputs {
+		display: flex;
+		align-items: center;
+	}
+
+	.payment-options-offer {
+		font-weight: bold;
+	}
+
+	.preapproval-ammount {
+		margin-left: 10px;
+	}
+
+	.offer-list {
+		padding: 0;
+		list-style-type: none;
+		display: block;
+		width: 100%;
+	}
+
+	.offer-item-content {
+		font-size: 16px;
+	}
+
+	.offer-amount {
+		font-size: 24px;
+	}
+
+	.offer-radio-label {
+		margin-right: 10px;
+	}
+
+	.fixed-rate-payments {
+		margin-top: 20px;
+	}
+
+	.offer-new {
+		padding: 8px 16px;
+		margin: 8px 0;
+		border-radius: 8px;
+		border: 2px solid lightgrey;
+		display: flex;
+		flex-direction: row;
+		align-content: center;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: nowrap;
+	}
+
+	.value-error {
+		color: #ff0000;
+	}
+</style>
+<div>
+	<div id="myoffers-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<!-- offers loader -->
+			<div class="modal-header"></div>
+			<div class="modal-content">
+				<div class="app-lite-pfi-step app-lite-pfi-step-tall offers-modal">
+					<h3 class="payment-options-offer">Dear {{ user.firstname }},</h3>
+					<br/>
+					<p>Congratulations, you have the following pre-qualification offers available from {{ practiceName }}!</p>
+					<br/>
+					<p>Don't worry, if you decide later you would like to change your selected offer at any time prior to booking services with {{ practiceName }}, it's easy. Simply contact {{ practiceName }} to request this change to your available offer selection (or if for example, you decide you would like to increase your down payment).</p>
+					<br/>
+					<p>Please select a financing option below to continue.</p>
+					<br>
+					<h2 class="payment-options-offer mb-2">You are pre-qualified for up to {{ loanAmount | $format }}</h2>
+					<p class="app-lite-pfi-step-content-normal mb-2">Please enter the amount you would like to finance below. Select a monthly payment option to continue!</p>
+					<form class="app-lite-pfi-financed-amount-form" id="offers-form">
+						<div class="app-lite-pfi-finance-input-wrapper">
+							<label class="app-lite-pfi-finance-input-label" htmlFor="financeForm">Finance</label>
+							<div id="finaceForm" class="offers-amount-inputs">
+								<input type="text" class="app-lite-pfi-finance-input offers-input noEnterSubmit" value="${{ loanAmount }}" id="payments-amount-input" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '')"/>
+								<button type="button" class="app-lite-pfi-finance-button offers-button" id="calculate-payments-btn">
+										Calculate Payments
+								</button>
+							</div>
+						</div>
+					</form>
+					<ul class="app-lite-pfi-offer-list"></ul>
+					<div id="error-container"></div>
+					<ul class="app-lite-pfi-offer-list offer-list">
+						<h3 class="fixed-rate-payments">Fixed Rate Payment Plans</h2>
+						{# 
+						{% for offer in screentracking.offers %}
+						{% if (offer.validOffer == false) %}
+						{% else %}
+						#}
+						<ul id="offer-list">
+							
+							{#
+							{% endif %}
+					{% else %}
+						<div>No offers available.</div>
+					{% endfor %}
+				#}
+						</ul>
+					<h4 style="margin: 10px;"><span style="color: #63944C;">0% APR</span> if financed amount is paid in full within 6 months.</h3>
+					<div style="width: 100%; text-align: right;">
+						<button type="button" class="btn-application-long" name="bank-submit" id="continueOfferBtn">Continue</button>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+
+		<script type="text/javascript">
+			// If we are in offers screen, just show the offers
+			/*
+			if ("{{ screenDetails.lastScreenName }}" == "Offers Details") {
+				$( "#myoffers-modal" ).modal({ backdrop: "static", show: true, backdrop: false });
+			} */
+
+			$('.noEnterSubmit').keypress(function(e){
+					if ( e.which == 13 ) e.preventDefault();
+			});
+
+			let selectedOfferIndex = "";
+			let currentMaximumValue = {{ loanAmount }};
+			let myoffers = [];
+			generateNewOffers();
+
+			$("#continueOfferBtn").click(() => {
+				if (selectedOfferIndex || selectedOfferIndex === 0) {
+					saveSelectedOffer();
+				}
+			});
+
+			var $el = $( "#payments-amount-input" );
+			var val = $el.val().replace( /[^0-9.]/g, "" ) || "";
+			console.log( "payment-amount:", $el.val(), val, $el.val().replace( /[^0-9.]/g, "" ) );
+			if( val != "" ){
+					$el.val( "$" + val.toLocaleString( "en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 } ) );
+			}
+
+			$("#calculate-payments-btn").click(() => {
+				generateNewOffers();
+			});
+
+			$( "#payments-amount-input" ).on( "change blur keyup keypress", function( e ) {
+					var $el = $( "#payments-amount-input" );
+					var val = $el.val().replace( /[^0-9.]/g, "" ) || "";
+					console.log( "payment-amount:", $el.val(), val, $el.val().replace( /[^0-9.]/g, "" ) );
+					if( val != "" ){
+							$el.val( "$" + val.toLocaleString( "en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 } ) );
+					}
+			} );
+
+			function change(idx) {
+				selectedOfferIndex = idx;
+			}
+
+			function generateNewOffers () {
+				var $el = $( "#payments-amount-input" );
+				var val = $el.val().replace( /[^0-9.]/g, "" ) || "";
+				const currentValue = parseInt(val);
+				if (!currentValue) return;
+				if (currentValue > {{ loanAmount }}) {
+					$("#offer-list").html("");
+					$("#error-container").html(`
+						<p class="value-error">You cannot exceed your pre-approved limit</p>
+					`);
+				} else if (currentValue < 500) {
+					$("#offer-list").html("");
+					$("#error-container").html(`
+						<p class="value-error">The minimum amount is $500</p>
+					`);
+				} else {
+					const applicationValues = {
+						term: 10,
+						tier: "{{ creditTier.creditTier }}",
+						interest_rate: {{ interestRate }},
+						interestRate10: "{{ creditTier.interestRate10 }}",
+						interestRate15: "{{ creditTier.interestRate15 }}",
+						interestRate18: "{{ creditTier.interestRate18 }}",
+						interestRate24: "{{ creditTier.interestRate24 }}",
+						requestedAmount: currentValue,
+						financedAmount: {{ loanAmount }},
+						downPayment: {{ creditTier.downPayment }},
+						fundingRate: {{ creditTier.fundingRate }},
+						screentrackingid: "{{ screenDetails.id }}"
+					};
+					$.ajax( {
+						cache: false,
+						type: "POST",
+						url: "/generateNewOffers",
+						dataType: "json",
+						contentType: 'application/json;charset=UTF-8',
+						data: JSON.stringify( applicationValues ),
+						success: function( response ) {
+							myoffers = response.offers;
+							$("#error-container").html("");
+							let html = "";
+							for( var i = 0; i < myoffers.length; i++ ) {
+								html += `
+								<li class="offer-new">
+									<div class="app-lite-pfi-offer-selection">
+										<label class="offer-radio-label">
+											<input type="radio" value="1" name="term" id="term" onclick="change(${i})"
+											class="app-lite-pfi-radio-button__input"/>
+											<span class="app-lite-pfi-radio-button__control"></span>
+										</label>
+										<label htmlFor="term">
+											<p class="offer-item-content">
+												<span class="offer-amount">$${myoffers[i].monthlyPayment}</span>
+												<span>/ mo &middot; </span>
+												<span>${myoffers[i].term} months term &middot; </span>
+												<span>${myoffers[i].apr}% APR &middot; </span>
+												<span>$${ currentValue } Financed</span>
+											</p>
+										</label>
+									</div>
+								</li>
+								`
+							}
+							$("#offer-list").html(html);
+						}
+					} );
+				}
+			}
+
+			function startLoader() {
+				$('#loaderidoffers').show();
+				return;
+			}
+
+			function saveSelectedOffer( idx ) {
+				startLoader();
+				$.ajax( {
+					cache: false,
+					type: "POST",
+					url: "/saveloanoffer",
+					dataType: "json",
+					contentType: 'application/json;charset=UTF-8',
+					data: JSON.stringify( { "screenid": "{{ screenDetails.id }}", "loanId": selectedOfferIndex } ),
+					success: function( msg ) {
+						window.location.href = "/contract";
+					}
+				} );
+			}
+
+		</script>

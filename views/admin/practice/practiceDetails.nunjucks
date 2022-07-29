@@ -1,0 +1,889 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+	<section class="content-header">
+		<h1>View Practice Details</h1>
+		<ol class="breadcrumb">
+			<li>
+				<a href="/admin/dashboard">
+					<i class="fa fa-dashboard"></i> Dashboard</a>
+			</li>
+			<li>
+				<a href="/admin/managepractice">
+					<i class="fa fa-dashboard"></i>Manage Practice</a>
+			</li>
+			<li class="active">View Practice Details</li>
+		</ol>
+	</section>
+
+	<section class="content">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">View Practice Details</h3>
+				<span class="pull-right">
+					<a href="/admin/managepractice">
+						<button type="button" class="btn btn-primary">
+							<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button>
+					</a>
+				</span>
+			</div>
+			<div class="box-body">
+				<div id="tabs">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-toggle="tab" href="#practiceinfo">Practice Details</a>
+						</li>
+						<li class="">
+							<a data-toggle="tab" href="#practicepaymentinfo">Payment Information</a>
+						</li>
+						<li class="">
+							<a data-toggle="tab" href="#banktransactionrules">Bank Transaction Rules</a>
+						</li>
+					</ul>
+					<div id="banktransactionrules" class="tab-pane fade">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<h3>Bank Transaction Rules</h3>
+							{% include "admin/practice/bankTransactionRules.nunjucks"%}
+						</div>
+					</div>
+					<div id="practicepaymentinfo" class="tab-pane fade">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<h3>Payment Information</h3>
+							{% include "admin/practice/paymentDetails.nunjucks"%}
+						</div>
+					</div>
+					<div class="tab-content">
+						<div id="practiceinfo" class="tab-pane fade in active">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<br>
+								<div class="panel-group">
+									<div class="panel panel-primary">
+										<div class="panel-heading">Practice Information</div>
+										<div class="panel-body">
+											<table class="table table-bordered">
+												<tbody>
+													<tr>
+														<th width="50%">Contact Name</th>
+														<td>{{practiceData.ContactName}}</td>
+													</tr>
+													<tr>
+														<th>Email Address</th>
+														<td>{{practiceData.PracticeEmail}}</td>
+													</tr>
+													<tr>
+														<th>Practice Name</th>
+														<td>{{practiceData.PracticeName}}</td>
+													</tr>
+													<tr>
+														<th>Practice Url</th>
+														<td>
+															{% if practiceData.UrlSlug != '' %}
+																<a href="{{practiceData.UrlSlug}}" target="_blank">{{practiceData.UrlSlug}}</a>
+															{% else %}
+														--
+														{% endif %}
+														</td>
+													</tr>
+													<tr>
+														<th>Practice Home Url</th>
+														<td>{{practiceData.PracticeHome}}</td>
+													</tr>
+													<tr>
+														<th>Location Name</th>
+														<td>{{practiceData.LocationName}}</td>
+													</tr>
+													<tr>
+														<th>Street Address</th>
+														<td>{{practiceData.StreetAddress}}</td>
+													</tr>
+													<tr>
+														<th>City</th>
+														<td>{{practiceData.City}}</td>
+													</tr>
+													<tr>
+														<th>State Code</th>
+														<td>
+															{{ practiceData.StateCode }}
+														</td>
+													</tr>
+													<tr>
+														<th>Zip Code</th>
+														<td>{{practiceData.ZipCode}}</td>
+													</tr>
+													<tr>
+														<th>Phone Number</th>
+														<td>{{practiceData.PhoneNo}}</td>
+													</tr>
+													<tr>
+														<th>Practice Link to Form/th>
+													<td>{{practiceData.LinkForm}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="practiceinfo" class="tab-pane fade in active"></div>
+					</div>
+					<!--
+					<div id="practiceinfo" class="tab-pane fade in active">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<br>
+							<div class="panel-group">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Product Rules (Version {{ruleVersion}}) - Last Edited {{lastUpdated}}</div>
+									<div class="panel-body">
+										<table class="table table-bordered">
+											<tbody id="productRules">
+												<script type="text/javascript">
+													// Converts inequality code in to readable
+													function convertToReadable(code) {
+														if (code == "lt") {
+															return "Less than"
+														}
+														if (code == "lte") {
+															return "Less than equal to"
+														}
+														if (code == "gt") {
+															return "Greater than"
+														}
+														if (code == "gte") {
+															return "Greater than equal to"
+														}
+													}
+													// Code to load table in dynamically
+													var html = "<tr><th>Rule Description</th><th>Declined If</th><th>Disabled</th></tr>";
+													if ("{{productRules[" rule1 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule1');\">{{productRules["rule1"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule1 "].declinedif}}") + " {{productRules["rule1"].value}}</td>";
+														html += "<td>{{productRules["rule1"].disabled}}</td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule2 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule2');\">{{productRules["rule2"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule2 "].declinedif}}") + " {{productRules["rule2"].value}}</td>";
+														html += "<td>{{productRules["rule2"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule3 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule3');\">{{productRules["rule3"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule3 "].declinedif}}") + " {{productRules["rule3"].value}}</td>";
+														html += "<td>{{productRules["rule3"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule4 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule4');\">{{productRules["rule4"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule4 "].declinedif}}") + " {{productRules["rule4"].value}}</td>";
+														html += "<td>{{productRules["rule4"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule5 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule5');\">{{productRules["rule5"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule5 "].declinedif}}") + " {{productRules["rule5"].value}}</td>";
+														html += "<td>{{productRules["rule5"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule6 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule6');\">{{productRules["rule6"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule6 "].declinedif}}") + " {{productRules["rule6"].value}}</td>";
+														html += "<td>{{productRules["rule6"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule7 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule7');\">{{productRules["rule7"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule7 "].declinedif}}") + " {{productRules["rule7"].value}}</td>";
+														html += "<td>{{productRules["rule7"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule8 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule8');\">{{productRules["rule8"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule8 "].declinedif}}") + " {{productRules["rule8"].value}}</td>";
+														html += "<td>{{productRules["rule8"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule9 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule9');\">{{productRules["rule9"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule9 "].declinedif}}") + " {{productRules["rule9"].value}}</td>";
+														html += "<td>{{productRules["rule9"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule10 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule10');\">{{productRules["rule10"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule10 "].declinedif}}") + " {{productRules["rule10"].value}}</td>";
+														html += "<td>{{productRules["rule10"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule11 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule11');\">{{productRules["rule11"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule11 "].declinedif}}") + " {{productRules["rule11"].value}}</td>";
+														html += "<td>{{productRules["rule11"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule12 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule12');\">{{productRules["rule12"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule12 "].declinedif}}") + " {{productRules["rule12"].value}}</td>";
+														html += "<td>{{productRules["rule12"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule13 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule13');\">{{productRules["rule13"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule13 "].declinedif}}") + " {{productRules["rule13"].value}}</td>";
+														html += "<td>{{productRules["rule13"].disabled}} </td>";
+														html += "</tr>";
+													}
+													if ("{{productRules[" rule14 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule14');\">{{productRules["rule14"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule14 "].declinedif}}") + " {{productRules["rule14"].value}}</td>";
+														html += "<td>{{productRules["rule14"].disabled}} </td>";
+														html += "</tr>";
+													}
+
+													if ("{{productRules[" rule15 "].description}}" !== "") {
+														html += "<tr>";
+														html += "<td><a onclick=\"editProductRule('rule15');\">{{productRules["rule15"].description}}</a></td>"
+														html += "<td>" + convertToReadable("{{productRules[" rule15 "].declinedif}}") + " {{productRules["rule15"].value}}</td>";
+														html += "<td>{{productRules["rule15"].disabled}} </td>";
+														html += "</tr>";
+													}
+
+													document
+														.getElementById("productRules")
+														.innerHTML = html; //
+												</script>
+											</div>
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-primary" onclick="openaddproductrulemodal();"> Add Product Rule +</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					-->
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- Edit modal -->
+<div id="editModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+	<form role="form" name="editCreditTiersForm" id="editCreditTiersForm" method="POST" enctype="multipart/form-data" action="/admin/editCreditTier" onsubmit="return validateForm();">
+		<input class="" type="hidden" id="practiceID" name="practiceID" value="{{ loanCreditTiers[0].practicemanagement }}"></input>
+		<!-- Modal content-->
+		<div class="modal-content" style="float: left;width: 100%;">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Credit Tiers</h4>
+			</div>
+			<div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+				<div class="form-group" id="notrange">
+					<div style="display: flex;">
+
+						<div style="margin-right: 60px;">
+							<label for="creditTier">Choose Tier to Edit</label><br>
+							<select id="creditTier" name="creditTier" onchange="changeFieldBasedOnInput(this)">
+								<option value="A">Tier A</option>
+								<option value="B">Tier B</option>
+								<option value="C">Tier C</option>
+								<option value="D">Tier D</option>
+								<option value="E">Tier E</option>
+								<option value="F">Tier F</option>
+								<option value="G">Tier G</option>
+							</select><br>
+						</div>
+
+						<div>
+							<label for="term">Choose Term to Edit</label><br>
+							<select id="term" name="term">
+								<option value="10">10 months</option>
+								<option value="15">15 months</option>
+								<option value="18">18 months</option>
+								<option value="24">24 months</option>
+							</select><br>
+						</div>
+					</div>
+					<div style="display: flex;">
+						<div style="margin-right: 17px;">
+							<label for="financedAmount">Financed Amount</label><br>
+							<input type="text" id="financedAmount" name="financedAmount" value="{{loanCreditTiers[0].financedAmount}}"><br>
+						</div>
+
+						<div>
+							<label for="interestRate">Interest Rate (%)</label><br>
+							<input type="text" id="interestRate" name="interestRate" value="{{loanCreditTiers[0].interestRate10}}"><br>
+						</div>
+					</div>
+					<label for="downPayment">Minimum Down Payment</label><br>
+					<input type="text" id="downPayment" name="downPayment" value="{{loanCreditTiers[0].downPayment}}"><br>
+
+					<label for="maxLoanAmount">Max Loan Amount</label><br>
+					<input type="text" id="maxLoanAmount" name="maxLoanAmount" value="{{loanCreditTiers[0].maxLoanAmount}}"><br>
+
+					<label for="loanAmount">Loan Amount</label><br>
+					<input type="text" id="loanAmount" name="loanAmount" value="{{loanCreditTiers[0].loanAmount}}"><br>
+
+					<label for="fundingRate">Funding Rate</label><br>
+					<input type="text" id="fundingRate" name="fundingRate" value="{{loanCreditTiers[0].fundingRate}}"><br>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer bg-info" style="float: left;width: 100%;">
+			<input type="submit"  class="btn btn-primary" value="Submit"  id="editCreditTierBtn" onclick="closeeditmodal();" >
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	</form>
+</div>
+</div>
+<!-- Edit Credit Score Range Modal -->
+<div id="editRangeModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+	<form role="form" name="editCreditScoreRange" id="editCreditScoreRange" method="POST" enctype="multipart/form-data" action="/admin/editCreditRange" onsubmit="return validateRangeForm();">
+		<input class="" type="hidden" id="practiceID" name="practiceID" value="{{ practiceID }}"></input>
+		<!-- Modal content-->
+		<div class="modal-content" style="float: left;width: 100%;">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Credit Tiers</h4>
+			</div>
+			<div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+				<div class="form-group" id="range">
+					<label>Edit credit score. Make sure no overlaps occur. </label><br>
+					<label>Tier A</label><br>
+					<input type="text" id="minA" name="minA" value="{{loanCreditTiers[0].minCreditScore}}"> - <input type="text" id="maxA" name="maxA" value="{{loanCreditTiers[0].maxCreditScore}}"><br>
+					<label>Tier B</label><br>
+					<input type="text" id="minB" name="minB" value="{{loanCreditTiers[1].minCreditScore}}"> - <input type="text" id="maxB" name="maxB" value="{{loanCreditTiers[1].maxCreditScore}}"><br>
+					<label>Tier C</label><br>
+					<input type="text" id="minC" name="minC" value="{{loanCreditTiers[2].minCreditScore}}"> - <input type="text" id="maxC" name="maxC" value="{{loanCreditTiers[2].maxCreditScore}}"><br>
+					<label>Tier D</label><br>
+					<input type="text" id="minD" name="minD" value="{{loanCreditTiers[3].minCreditScore}}"> - <input type="text" id="maxD" name="maxD" value="{{loanCreditTiers[3].maxCreditScore}}"><br>
+					<label>Tier E</label><br>
+					<input type="text" id="minE" name="minE" value="{{loanCreditTiers[4].minCreditScore}}"> - <input type="text" id="maxE" name="maxE" value="{{loanCreditTiers[4].maxCreditScore}}"><br>
+					<label>Tier F</label><br>
+					<input type="text" id="minF" name="minF" value="{{loanCreditTiers[5].minCreditScore}}"> - <input type="text" id="maxF" name="maxF" value="{{loanCreditTiers[5].maxCreditScore}}"><br>
+					<label>Tier G</label><br>
+					<input type="text" id="minG" name="minG" value="{{loanCreditTiers[6].minCreditScore}}"> - <input type="text" id="maxG" name="maxG" value="{{loanCreditTiers[6].maxCreditScore}}"><br>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer bg-info" style="float: left;width: 100%;">
+			<input type="submit"  class="btn btn-primary" value="Submit"  id="editCreditTierBtn" onclick="closeeditrangemodal();" >
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	</form>
+</div>
+</div>
+
+<!-- Edit Product Rules modal -->
+<div id="editProductModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+	<form role="form" name="editProductRuleForm" id="editProductRuleForm" method="POST" enctype="multipart/form-data" action="/admin/editProductRule" onsubmit="return validateProductForm();">
+		<input class="" type="hidden" id="practiceID" name="practiceID" value="{{ practiceID }}"></input>
+		<input class="" type="hidden" id="ruleVersion" name="ruleVersion" value="{{ ruleVersion }}"></input>
+		<!-- Modal content-->
+		<div class="modal-content" style="float: left;width: 100%;">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Product Rule</h4>
+			</div>
+			<div class="modal-body bgColorWhite" style="float:left; width:100%;">
+				<div class="form-group">
+					<label id="ruleDescription"></label><br><br>
+					<label for="ruleCondition">Declined If</label><br>
+					<select id="ruleCondition" name="ruleCondition">
+						<option value="lt">Less Than</option>
+						<option value="lte">Less Than, Equal To</option>
+						<option value="gt">Greater Than</option>
+						<option value="gte">Greater Than, Equal To</option>
+					</select>
+					<input type="text" id="ruleValue" name="ruleValue"><br>
+					<label for="ruleDisabled">Disabled</label><br>
+					<select id="ruleDisabled" name="ruleDisabled">
+						<option value="true">True</option>
+						<option value="false">False</option>
+					</select><br>
+					<input class="" type="hidden" id="ruleNumber" name="ruleNumber">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer bg-info" style="float: left;width: 100%;">
+			<input type="submit"  class="btn btn-primary" value="Submit" onclick="closeProductModal();" >
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	</form>
+</div>
+</div>
+
+<!-- Add Product Rules Modal -->
+<div id="addProductRuleModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-md">
+	<form role="form" name="addProductRuleForm" id="addProductRuleForm" method="POST" enctype="multipart/form-data" action="/admin/addProductRule" onsubmit="return validateAddProductForm();">
+		<input class="" type="hidden" id="practiceID" name="practiceID" value="{{ practiceID }}"></input>
+		<input class="" type="hidden" id="ruleVersion" name="ruleVersion" value="{{ ruleVersion }}"></input>
+		<!-- Modal content-->
+		<div class="modal-content" style="float: left;width: 100%;">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add Product Rule</h4>
+			</div>
+			<div class="modal-body bgColorWhite" style="float:left; width:100%;">
+				<div class="form-group">
+					<label>Choose Product Rule </label><br>
+					<select id="newRuleNumber" name="newRuleNumber" onchange="changeDefaultValues(this)">
+						<option value="rule14">Number of Deragotary Active Trades</option>
+					</select><br>
+					<label for="ruleCondition">Declined If</label><br>
+					<select id="ruleCondition" name="ruleCondition">
+						<option value="gt">Greater Than</option>
+						<option value="gte">Greater Than, Equal To</option>
+						<option value="lt">Less Than</option>
+						<option value="lte">Less Than, Equal To</option>
+					</select>
+					<input type="text" id="ruleValue" name="ruleValue" value="5"><br>
+					<label for="ruleDisabled">Disabled</label><br>
+					<select id="ruleDisabled" name="ruleDisabled">
+						<option value="true">True</option>
+						<option value="false">False</option>
+					</select><br>
+					<input class="" type="hidden" id="ruleNumber" name="ruleNumber">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer bg-info" style="float: left;width: 100%;">
+			<input type="submit"  class="btn btn-primary" value="Submit" onclick="closeAddProductModal();" >
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+		</div>
+	</form>
+</div>
+</div>
+</section>
+
+<script type="text/javascript">
+// Javascript for editing product rules
+function openaddproductrulemodal() {
+$("#addProductRuleModal").modal('show');
+}
+function closeAddProductModal() {
+$("#addProductRuleModal").modal('hide');
+}
+function validateAddProductForm() {
+if (document.forms["addProductRuleForm"]["ruleValue"].value === "") {
+	alert("Fill out all inputs.");
+	return false;
+}
+var newRuleNum = document
+	.forms["addProductRuleForm"]["newRuleNumber"]
+	.value;
+if ("{{productRules[" rule14 "].description}}") {
+	alert("You've already added this rule");
+	return false;
+}
+}
+function changeDefaultValues(selectedRule) {
+var rule = selectedRule.value;
+// Number of active deragatory trades
+if (rule === "rule14") {
+	document
+		.forms["addProductRuleForm"]["ruleValue"]
+		.value = 5;
+}
+}
+
+function changeInterestRateDependingOnSelectedTier() {
+const tier = $("#creditTier").val();
+const termVal = $("#term").val();
+if (tier == "A") {
+	if (termVal == "10") {
+		$("#interestRate").val("{{loanCreditTiers[0].interestRate10}}");
+	}
+	if (termVal == "15") {
+		$("#interestRate").val("{{loanCreditTiers[0].interestRate15}}");
+	}
+	if (termVal == "18") {
+		$("#interestRate").val("{{loanCreditTiers[0].interestRate18}}");
+	}
+	if (termVal == "24") {
+		$("#interestRate").val("{{loanCreditTiers[0].interestRate24}}");
+	}
+} else if (tier == "B") {
+	if (termVal == "10") {
+		$("#interestRate").val("{{loanCreditTiers[1].interestRate10}}");
+	}
+	if (termVal == "15") {
+		$("#interestRate").val("{{loanCreditTiers[1].interestRate15}}");
+	}
+	if (termVal == "18") {
+		$("#interestRate").val("{{loanCreditTiers[1].interestRate18}}");
+	}
+	if (termVal == "24") {
+		$("#interestRate").val("{{loanCreditTiers[1].interestRate24}}");
+	}
+} else if (tier == "C") {
+	if (termVal == "10") {
+		$("#interestRate").val("{{loanCreditTiers[2].interestRate10}}");
+	}
+	if (termVal == "15") {
+		$("#interestRate").val("{{loanCreditTiers[2].interestRate15}}");
+	}
+	if (termVal == "18") {
+		$("#interestRate").val("{{loanCreditTiers[2].interestRate18}}");
+	}
+	if (termVal == "24") {
+		$("#interestRate").val("{{loanCreditTiers[2].interestRate24}}");
+	}
+} else if (tier == "D") {
+	if (termVal == "10") {
+		$("#interestRate").val("{{loanCreditTiers[3].interestRate10}}");
+	}
+	if (termVal == "15") {
+		$("#interestRate").val("{{loanCreditTiers[3].interestRate15}}");
+	}
+	if (termVal == "18") {
+		$("#interestRate").val("{{loanCreditTiers[3].interestRate18}}");
+	}
+	if (termVal == "24") {
+		$("#interestRate").val("{{loanCreditTiers[3].interestRate24}}");
+	}
+} else if (tier == "E") {
+	if (termVal == "10") {
+		$("#interestRate").val("{{loanCreditTiers[4].interestRate10}}");
+	}
+	if (termVal == "15") {
+		$("#interestRate").val("{{loanCreditTiers[4].interestRate15}}");
+	}
+	if (termVal == "18") {
+		$("#interestRate").val("{{loanCreditTiers[4].interestRate18}}");
+	}
+	if (termVal == "24") {
+		$("#interestRate").val("{{loanCreditTiers[4].interestRate24}}");
+	}
+} else if (tier == "F") {
+	if (termVal == "10") {
+		$("#interestRate").val("{{loanCreditTiers[5].interestRate10}}");
+	}
+	if (termVal == "15") {
+		$("#interestRate").val("{{loanCreditTiers[5].interestRate15}}");
+	}
+	if (termVal == "18") {
+		$("#interestRate").val("{{loanCreditTiers[5].interestRate18}}");
+	}
+	if (termVal == "24") {
+		$("#interestRate").val("{{loanCreditTiers[5].interestRate24}}");
+	}
+} else if (tier == "G") {
+	if (termVal == "10") {
+		$("#interestRate").val("{{loanCreditTiers[6].interestRate10}}");
+	}
+	if (termVal == "15") {
+		$("#interestRate").val("{{loanCreditTiers[6].interestRate15}}");
+	}
+	if (termVal == "18") {
+		$("#interestRate").val("{{loanCreditTiers[6].interestRate18}}");
+	}
+	if (termVal == "24") {
+		$("#interestRate").val("{{loanCreditTiers[6].interestRate24}}");
+	}
+}
+}
+
+$("#term").on("change", () => {
+changeInterestRateDependingOnSelectedTier();
+});
+
+/*
+	$( "#interestRate" ).on("input", function (event) {
+		this.value = this.value.replace(/[^0-9]/g, '');
+	});
+	*/
+
+// Javasccript for opening edit product rule modal. Also for form validation for editing product rules
+function editProductRule(rule) {
+$('#editProductModal').modal('show');
+
+var description;
+var value;
+var disabled;
+var declinedIf;
+if (rule == "rule1") {
+	description = "{{productRules[" rule1 "].description}}";
+	value = "{{productRules[" rule1 "].value}}";
+	disabled = "{{productRules[" rule1 "].disabled}}";
+	declinedIf = "{{productRules[" rule1 "].declinedif}}";
+} else if (rule == "rule2") {
+	description = "{{productRules[" rule2 "].description}}";
+	value = "{{productRules[" rule2 "].value}}";
+	disabled = "{{productRules[" rule2 "].disabled}}";
+	declinedIf = "{{productRules[" rule2 "].declinedif}}";
+} else if (rule == "rule3") {
+	description = "{{productRules[" rule3 "].description}}";
+	value = "{{productRules[" rule3 "].value}}";
+	disabled = "{{productRules[" rule3 "].disabled}}";
+	declinedIf = "{{productRules[" rule3 "].declinedif}}";
+} else if (rule == "rule4") {
+	description = "{{productRules[" rule4 "].description}}";
+	value = "{{productRules[" rule4 "].value}}";
+	disabled = "{{productRules[" rule4 "].disabled}}";
+	declinedIf = "{{productRules[" rule4 "].declinedif}}";
+} else if (rule == "rule5") {
+	description = "{{productRules[" rule5 "].description}}";
+	value = "{{productRules[" rule5 "].value}}";
+	disabled = "{{productRules[" rule5 "].disabled}}";
+	declinedIf = "{{productRules[" rule5 "].declinedif}}";
+} else if (rule == "rule6") {
+	description = "{{productRules[" rule6 "].description}}";
+	value = "{{productRules[" rule6 "].value}}";
+	disabled = "{{productRules[" rule6 "].disabled}}";
+	declinedIf = "{{productRules[" rule6 "].declinedif}}";
+} else if (rule == "rule7") {
+	description = "{{productRules[" rule7 "].description}}";
+	value = "{{productRules[" rule7 "].value}}";
+	disabled = "{{productRules[" rule7 "].disabled}}";
+	declinedIf = "{{productRules[" rule7 "].declinedif}}";
+} else if (rule == "rule8") {
+	description = "{{productRules[" rule8 "].description}}";
+	value = "{{productRules[" rule8 "].value}}";
+	disabled = "{{productRules[" rule8 "].disabled}}";
+	declinedIf = "{{productRules[" rule8 "].declinedif}}";
+} else if (rule == "rule9") {
+	description = "{{productRules[" rule9 "].description}}";
+	value = "{{productRules[" rule9 "].value}}";
+	disabled = "{{productRules[" rule9 "].disabled}}";
+	declinedIf = "{{productRules[" rule9 "].declinedif}}";
+} else if (rule == "rule10") {
+	description = "{{productRules[" rule10 "].description}}";
+	value = "{{productRules[" rule10 "].value}}";
+	disabled = "{{productRules[" rule10 "].disabled}}";
+	declinedIf = "{{productRules[" rule10 "].declinedif}}";
+} else if (rule == "rule11") {
+	description = "{{productRules[" rule11 "].description}}";
+	value = "{{productRules[" rule11 "].value}}";
+	disabled = "{{productRules[" rule11 "].disabled}}";
+	declinedIf = "{{productRules[" rule11 "].declinedif}}";
+} else if (rule == "rule12") {
+	description = "{{productRules[" rule12 "].description}}";
+	value = "{{productRules[" rule12 "].value}}";
+	disabled = "{{productRules[" rule12 "].disabled}}";
+	declinedIf = "{{productRules[" rule12 "].declinedif}}";
+} else if (rule == "rule13") {
+	description = "{{productRules[" rule13 "].description}}";
+	value = "{{productRules[" rule13 "].value}}";
+	disabled = "{{productRules[" rule13 "].disabled}}";
+	declinedIf = "{{productRules[" rule13 "].declinedif}}";
+} else if (rule == "rule14") {
+	description = "{{productRules[" rule14 "].description}}";
+	value = "{{productRules[" rule14 "].value}}";
+	disabled = "{{productRules[" rule14 "].disabled}}";
+	declinedIf = "{{productRules[" rule14 "].declinedif}}";
+} else if (rule == "rule15") {
+	description = "{{productRules[" rule15 "].description}}";
+	value = "{{productRules[" rule15 "].value}}";
+	disabled = "{{productRules[" rule15 "].disabled}}";
+	declinedIf = "{{productRules[" rule15 "].declinedif}}";
+}
+
+var ruleDescription = document.getElementById("ruleDescription");
+ruleDescription.innerHTML = description;
+
+var ruleValue = document.getElementById("ruleValue");
+ruleValue.value = value;
+
+var ruleDisabled = document.getElementById("ruleDisabled");
+ruleDisabled.value = disabled;
+
+var ruleCondition = document.getElementById("ruleCondition");
+ruleCondition.value = declinedIf;
+
+var ruleNumber = document.getElementById("ruleNumber");
+ruleNumber.value = rule;
+}
+function closeProductModal() {
+$('#editProductModal').modal('hide');
+}
+function validateProductForm() {
+var ruleValue = isNaN(document.forms["editProductRuleForm"]["ruleValue"].value);
+
+if (ruleValue) {
+	alert("The input must be a number.");
+	return false;
+}
+
+if (document.forms["editProductRuleForm"]["ruleValue"].value === "") {
+	alert("One or more inputs are empty.");
+	return false;
+}
+}
+// Javascript for editing credit tier data
+function openeditmodal() {
+$('#editModal').modal('show');
+document
+	.forms["editCreditTiersForm"]
+	.reset();
+}
+
+function openeditrangemodal() {
+$('#editRangeModal').modal('show');
+document
+	.forms["editCreditScoreRange"]
+	.reset();
+}
+function closeeditmodal() {
+$('#editModal').modal('hide');
+}
+function closeeditmodal() {
+$('#editRangeModal').modal('hide');
+}
+
+function nextChar(c) {
+return String.fromCharCode(c.charCodeAt(0) + 1);
+}
+// Work on this using the same as previous tactics.
+function changeFieldBasedOnInput(selectedTier) {
+var tier = selectedTier.value;
+var maxLoanAmount;
+var loanAmount;
+var downPayment;
+var financedAmount;
+var interestRate;
+
+if (tier == "A") {
+	maxLoanAmount = "{{loanCreditTiers[0].maxLoanAmount}}";
+	loanAmount = "{{loanCreditTiers[0].loanAmount}}";
+	downPayment = "{{loanCreditTiers[0].downPayment}}";
+	financedAmount = "{{loanCreditTiers[0].financedAmount}}";
+	fundingRate = "{{loanCreditTiers[0].fundingRate}}";
+	interestRate = "{{loanCreditTiers[0].interestRate10}}";
+} else if (tier == "B") {
+	maxLoanAmount = "{{loanCreditTiers[1].maxLoanAmount}}";
+	loanAmount = "{{loanCreditTiers[1].loanAmount}}";
+	downPayment = "{{loanCreditTiers[1].downPayment}}";
+	financedAmount = "{{loanCreditTiers[1].financedAmount}}";
+	fundingRate = "{{loanCreditTiers[1].fundingRate}}";
+	interestRate = "{{loanCreditTiers[1].interestRate10}}";
+} else if (tier == "C") {
+	maxLoanAmount = "{{loanCreditTiers[2].maxLoanAmount}}";
+	loanAmount = "{{loanCreditTiers[2].loanAmount}}";
+	downPayment = "{{loanCreditTiers[2].downPayment}}";
+	financedAmount = "{{loanCreditTiers[2].financedAmount}}";
+	fundingRate = "{{loanCreditTiers[2].fundingRate}}";
+	interestRate = "{{loanCreditTiers[2].interestRate10}}";
+} else if (tier == "D") {
+	maxLoanAmount = "{{loanCreditTiers[3].maxLoanAmount}}";
+	loanAmount = "{{loanCreditTiers[3].loanAmount}}";
+	downPayment = "{{loanCreditTiers[3].downPayment}}";
+	financedAmount = "{{loanCreditTiers[3].financedAmount}}";
+	fundingRate = "{{loanCreditTiers[3].fundingRate}}";
+	interestRate = "{{loanCreditTiers[3].interestRate10}}";
+} else if (tier == "E") {
+	maxLoanAmount = "{{loanCreditTiers[4].maxLoanAmount}}";
+	loanAmount = "{{loanCreditTiers[4].loanAmount}}";
+	downPayment = "{{loanCreditTiers[4].downPayment}}";
+	financedAmount = "{{loanCreditTiers[4].financedAmount}}";
+	fundingRate = "{{loanCreditTiers[4].fundingRate}}";
+	interestRate = "{{loanCreditTiers[4].interestRate10}}";
+} else if (tier == "F") {
+	maxLoanAmount = "{{loanCreditTiers[5].maxLoanAmount}}";
+	loanAmount = "{{loanCreditTiers[5].loanAmount}}";
+	downPayment = "{{loanCreditTiers[5].downPayment}}";
+	financedAmount = "{{loanCreditTiers[5].financedAmount}}";
+	fundingRate = "{{loanCreditTiers[5].fundingRate}}";
+	interestRate = "{{loanCreditTiers[5].interestRate10}}";
+} else if (tier == "G") {
+	maxLoanAmount = "{{loanCreditTiers[6].maxLoanAmount}}";
+	loanAmount = "{{loanCreditTiers[6].loanAmount}}";
+	downPayment = "{{loanCreditTiers[6].downPayment}}";
+	financedAmount = "{{loanCreditTiers[6].financedAmount}}";
+	fundingRate = "{{loanCreditTiers[6].fundingRate}}";
+	interestRate = "{{loanCreditTiers[6].interestRate10}}";
+}
+
+changeInterestRateDependingOnSelectedTier();
+
+document
+	.getElementById("maxLoanAmount")
+	.value = maxLoanAmount;
+document
+	.getElementById("loanAmount")
+	.value = loanAmount;
+document
+	.getElementById("downPayment")
+	.value = downPayment;
+document
+	.getElementById("financedAmount")
+	.value = financedAmount;
+document
+	.getElementById("fundingRate")
+	.value = fundingRate;
+}
+function validateForm() {
+// Check if numbers are provided.
+// If empty counts it as 0 and lets it pass.
+var financedAmount = isNaN(document.forms["editCreditTiersForm"]["financedAmount"].value);
+var downPayment = isNaN(document.forms["editCreditTiersForm"]["downPayment"].value);
+var maxLoanAmount = isNaN(document.forms["editCreditTiersForm"]["maxLoanAmount"].value);
+var loanAmount = isNaN(document.forms["editCreditTiersForm"]["loanAmount"].value);
+var fundingRate = isNaN(document.forms["editCreditTiersForm"]["fundingRate"].value);
+var term = isNaN(document.forms["editCreditTiersForm"]["term"].value);
+var interestRate = isNaN(document.forms["editCreditTiersForm"]["interestRate"].value);
+if (financedAmount || downPayment || maxLoanAmount || fundingRate || term || interestRate) {
+	alert("Fields must be numbers.");
+	return false;
+}
+}
+function validateRangeForm() {
+var tier;
+for (tier = "A"; tier <= "G"; tier++) {
+	var currentTier = String(tier);
+	if (document.forms["editCreditScoreRange"]["min" + currentTier].value === "" || document.forms["editCreditScoreRange"]["max" + currentTier].value === "") {
+		alert("One or more inputs are empty.");
+		return false;
+	}
+
+	if (isNaN(document.forms["editCreditScoreRange"]["min" + currentTier].value) || isNaN(document.forms["editCreditScoreRange"]["max" + currentTier].value)) {
+		alert("One or more inputs are not numbers");
+		return false;
+	}
+}
+tier = "A";
+for (tier = "A"; tier <= "G"; tier++) {
+	// Range collision checks
+	var currentTier = String(tier);
+	if (Number(document.forms["editCreditScoreRange"]["min" + currentTier].value) >= Number(document.forms["editCreditScoreRange"]["max" + currentTier].value)) {
+		alert("The min of a tier must be less than the max.");
+		return false;
+	}
+
+	if (currentTier != "G") {
+		var currentmin = Number(document.forms["editCreditScoreRange"]["min" + currentTier].value);
+		var nexttiermax = "max" + nextChar(currentTier);
+		var nextmax = Number(document.forms["editCreditScoreRange"][nexttiermax].value);
+		if (currentmin <= nextmax) {
+			alert("Your score ranges are overlapping.");
+			return false;
+		}
+		if (currentmin !== nextmax + 1) {
+			alert("Your ranges need to be contiguous");
+			return false;
+		}
+	}
+}
+}
+</script>
+{% endblock %}

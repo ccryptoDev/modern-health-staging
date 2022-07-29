@@ -1,0 +1,95 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="addprovider">
+<div class="container-fluid">
+	<div class="heading">
+		<div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+		<h1 class="title">Refer your healthcare provider to enroll in {{LenderShortName}}.</h1>
+	</div>
+	<div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+		<div class="whitebox block-content-box">
+            <h2 class="your-provider-s-info">Your Healthcare Provider's Information</h2>
+            <br/>
+            {% if (errorval)  %}
+				<div class="alert alert-danger">
+					<a href="#" class="close" data-dismiss="alert">&times;</a>
+					{{errorval}}
+				</div>
+			{% endif %}
+            <div class="h-center">
+            	<div class="v-center">
+		          	<form class="formclass" id="addProvider" action="/addnewprovider" method="post" data-validation="btnDisable" name="addProvider" style="width:100%;">
+		          		<div class="row">
+		          			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		          				<div class="col-xs-12 col-sm-6 div-section form-group nopadding">
+									<label class="">HEALTHCARE PROVIDER NAME</label>
+									<input type="text" class="form-control input-lg" id="providername" name="providername" placeholder="Enter Healthcare Provider Name"  value="" required>
+									<i class="tick-focus-img"></i>
+								</div>
+								<div class="col-xs-12 col-sm-3 div-section form-group">
+									<label >CITY</label>
+									<input type="text" class="form-control" id="city" name="city" placeholder="Enter City" value="" required>
+									<i class="tick-focus-img"></i>
+								</div>
+								<div class="col-xs-12 col-sm-3 div-section form-group">
+									<label>STATE</label>
+	 								<select class="form-control" id="state" name="state" placeholder="state" required >
+									<option selected="true" disabled="disabled">State</option>
+			 							{% for state in states %}
+											<option value="{{state.stateCode}}" {% if userData.state==state.stateCode %} selected {% endif %}>{{state.stateName}}</option>
+										{% endfor %}
+									</select>
+									<i class="tick-focus-img"></i>
+								</div>
+		          			</div>
+		          		</div>
+		          		<div class="row">
+		          			<p id="enterinfo">Please enter your information below so we can notify you when your provider is added.</p>
+		          		</div>
+		          		<div class="row">
+		          			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label>FIRST NAME</label>
+									<input type="text" class="form-control input-lg" id="firstname" name="firstname" placeholder="Enter First Name" value="" required>
+									<i class="tick-focus-img"></i>
+		          			 	</div>
+		          			</div>
+
+		          			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label>LAST NAME</label>
+									<input type="text" class="form-control input-lg" id="lastname" name="lastname" placeholder="Enter Last Name" value="" required>
+									<i class="tick-focus-img"></i>
+								</div>
+							</div>
+		          		</div>
+
+		          		<div class="row">
+		          			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		          			 	<div class="form-group">
+									<label>PHONE NUMBER</label>
+									<input type="text" class="form-control input-lg" id="phonenumber" name="phonenumber" placeholder="Enter Phone Number" value="" data-mask="(000) 000-0000" required>
+									<i class="tick-focus-img"></i>
+		          			 	</div>
+		          			</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label>EMAIL ADDRESS</label>
+									<input type="text" class="form-control input-lg" id="email" name="email" placeholder="Enter Email Address" value="" required>
+									<i class="tick-focus-img"></i>
+								</div>
+		          			</div>
+		          		</div>
+		          		<div class="btnMain">
+							<a href="/applysearch" class="btn btn-default borderBtn">Back</a>
+							<button class="btn btn-default fillBtn ActivefillBtn">Next</button>
+						</div>
+		          	</form>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

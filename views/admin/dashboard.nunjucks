@@ -1,0 +1,325 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+<style type="text/css">
+	.ion {
+		padding:10px 0px 5px 0px;
+	}
+	.fixheight{
+		min-height:150px;
+	}
+	.small-box > .inner {
+		min-height: 125px;
+	}
+	.small-box .icon .ion-pie-graph{
+		/*color: #ccc;*/
+	}
+	.bg-light-salmon{
+		background-color:#E9967A;
+		color: #fff;
+	}
+	.bg-dark-grey{
+		background-color:#566573;
+		color: #fff;
+	}
+	.bg-dark-brown{
+		background-color:#784212;
+		color: #fff;
+	}
+	.bg-lime-green{
+		background-color:#929a40;
+		color: #fff;
+	}
+	.bg-search-blue{
+	background-color:#4d90fe;
+		color: #fff;
+	}
+	.bg-tan{
+		background-color:#D2B48C;
+		color: #fff;
+	}
+	.bg-lightsteelblue{
+		background-color:#B0C4DE;
+		color: #fff;
+	}
+	.bg-coral{
+		background-color:#FF7F50;
+		color: #fff;
+	}
+	.bg-rosybrown{
+		background-color:#BC8F8F;
+		color: #fff;
+	}
+	.bg-goldenrod{
+		background-color:#DAA520;
+		color: #fff;
+	}
+</style>
+  <!-- <div class="jumbotron">
+    <h1>Welcome</h1>
+    <p>Here you can manage categories, Aggrements and institutions</p>
+  </div> -->
+
+   <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="javascript:void(0)"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li class="active">Dashboard</li>
+      </ol>
+  </section>
+
+  <br/>
+  <section class="content">
+
+	{% if req.user.rolename =='Underwriter' or req.user.rolename =='Customer service' or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' or req.user.rolename =='Admin' or req.user.rolename =='PracticeDoctor' %}
+
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+			    <div class="small-box bg-green">
+			        <div class="inner">
+			            <h3>
+			                {{ completecount }}
+			            </h3>
+			            <p>
+			                <strong>Approved Contracts</strong>
+			            </p>
+			        </div>
+			        <div class="icon">
+			            <i class="ion ion-cash"></i>
+			        </div>
+			        <a href="/admin/showAllComplete" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+			    </div>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+			    <div class="small-box bg-dark-grey">
+			        <div class="inner">
+			            <h3>
+			                 {{ pendingCount }}
+			            </h3>
+			            <p>
+			                <strong>Pending Applications</strong>
+			            </p>
+			        </div>
+			        <div class="icon">
+			            <i class="ion ion-android-list"></i>
+			        </div>
+			        <a href="/admin/getOpenApplicationDetails" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+			    </div>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+				<div class="small-box bg-purple">
+					<div class="inner">
+						<h3>
+							{{ incompleteCount }}
+						</h3>
+						<p>
+							<strong>Incomplete Applications</strong>
+						</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-android-list"></i>
+					</div>
+					<a href="/admin/getIncompleteApplicationDetails" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+			    <div class="small-box bg-red">
+			        <div class="inner">
+			            <h3>
+			                {{ deniedcount }}
+			            </h3>
+			            <p>
+			                <strong>Denied Applications</strong>
+			            </p>
+			        </div>
+			        <div class="icon">
+			            <i class="ion ion-android-list"></i>
+			        </div>
+			        <a href="/admin/showAllDenied" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+			    </div>
+			</div>
+
+
+
+            {% if req.user.rolename =='Underwriter' or req.user.rolename =='Customer service' or req.user.rolename =='Admin' %}
+
+			<!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+			    <div class="small-box bg-maroon">
+			        <div class="inner">
+			            <h3>
+			               {{ blockedusercount }}
+			            </h3>
+			            <p>
+			               <strong>Blocked Application</strong>
+			            </p>
+			        </div>
+			        <div class="icon">
+			            <i class="ion ion-android-list"></i>
+			        </div>
+			        <a href="/admin/showAllBlocked" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+			    </div>
+			</div> -->
+
+			{% endif %}
+
+
+		    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+			    <div class="small-box bg-aqua">
+			        <div class="inner">
+			            <h3>
+			                {{ usercount }}
+			            </h3>
+			            <p>
+			                <strong>All Patients</strong>
+			            </p>
+			        </div>
+			        <div class="icon">
+			            <i class="ion ion-person-stalker"></i>
+			        </div>
+			        <a href="/admin/manageusers" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+			    </div>
+			</div>
+
+			{% if req.user.rolename =='Admin' %}
+				{# <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+				    <div class="small-box bg-light-salmon">
+				        <div class="inner">
+				            <h3>
+				            	&nbsp;
+				            </h3>
+				            <p>
+				               <strong>Audit Log</strong>
+				            </p>
+				        </div>
+				        <div class="icon">
+				            <i class="ion ion-pie-graph"></i>
+				        </div>
+				        <a href="/admin/managelogactivity" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+				    </div>
+				</div> #}
+
+
+				{# <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+				    <div class="small-box bg-light-blue">
+				        <div class="inner">
+				            <h3>
+				            	&nbsp;
+				            </h3>
+				            <p>
+				               <strong>Admin Users</strong>
+				            </p>
+				        </div>
+				        <div class="icon">
+				            <i class="ion ion-person-stalker"></i>
+				        </div>
+				        <a href="/admin/adminuserlist" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+				    </div>
+				</div> #}
+
+
+				{# <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+				    <div class="small-box bg-dark-brown">
+				        <div class="inner">
+				            <h3>
+				            	&nbsp;
+				            </h3>
+				            <p>
+				               <strong>Practice Management</strong>
+				            </p>
+				        </div>
+				        <div class="icon">
+				            <i class="ion ion-android-list"></i>
+				        </div>
+				        <a href="/admin/managepractice" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+				    </div>
+				</div> #}
+
+			{% endif %}
+
+			{# {% if req.user.rolename =='Admin' or req.user.rolename =='PracticeAdmin'  or req.user.rolename =='PracticeDoctor' %}
+
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+				   <div class="small-box bg-olive">
+				        <div class="inner">
+				            <h3>
+				            	&nbsp;
+				            </h3>
+				            <p>
+				               <strong>Practice Admin</strong>
+				            </p>
+				        </div>
+				        <div class="icon">
+				            <i class="ion ion-android-list"></i>
+				        </div>
+				        <a href="/admin/managepracticeadmin" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+				    </div>
+				</div>
+
+			{% endif %} #}
+
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+			   <div class="small-box bg-rosybrown">
+			        <div class="inner">
+			            <h3>
+			            	&nbsp;
+			            </h3>
+			            <p>
+			               <strong>Create Application</strong>
+			            </p>
+			        </div>
+			        <div class="icon">
+			            <i class="ion ion-android-list"></i>
+			        </div>
+			        <a href="/admin/addApplication" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+			    </div>
+			</div>
+
+         {# {% if req.user.rolename =='Admin' %}
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+				    <div class="small-box bg-goldenrod">
+				        <div class="inner">
+				            <h3>
+				            	&nbsp;
+				            </h3>
+				            <p>
+				               <strong>Reset Patients</strong>
+				            </p>
+				        </div>
+				        <div class="icon">
+				            <i class="ion ion-android-list"></i>
+				        </div>
+				 <a href="/admin/resetusers" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+				    </div>
+				</div>
+			{% endif %} #}
+
+	    {# {% if req.user.rolename =='Admin'  %}
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 fixheight">
+				    <div class="small-box bg-lime-green">
+				        <div class="inner">
+				            <h3>
+				            	&nbsp;
+				            </h3>
+				            <p>
+				               <strong>Credit Reports</strong>
+				            </p>
+				        </div>
+				        <div class="icon">
+				            <i class="ion ion-android-list"></i>
+				        </div>
+				 <a href="/admin/practiceCreditReportList" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i> </a>
+				    </div>
+				</div>
+			{% endif %} #}
+
+		</div>
+
+	{% else %}
+
+    {% endif %}
+ </section>
+{% endblock %}

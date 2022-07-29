@@ -1,0 +1,57 @@
+<h3>Email verification</h3>
+{% if user.isEmailVerified != false %}
+	<div class="alert alert-success">ACCOUNT VERIFIED</div>
+{% else %}
+	<div class="alert alert-danger"> Your email is not verified.<a href="javascript:void(0);" onClick="EmailVerify();">Click here</a> to resend verification email.</div>
+{% endif%}
+
+<!-- <h3>Add bank account</h3>
+
+{% if user.isBankAdded == true or userloancount > 0 %}
+	<div class="alert alert-success">BANK ACCOUNT ADDED</div>
+{% elseif paymentmanagementdata.screentracking.iscompleted != 1 and screentrackingdetails.iscompleted != 1%}
+	<div class="alert alert-danger"> Your bank account is not added. <a href="/addbankaccount/{{user.id}}" >Click here</a> to add the bank account.</div>
+{% endif%} -->
+
+<h3>Add bank & Link account</h3>
+
+{% if user.isBankAdded == true or userloancount > 0 %}
+	
+		{% if isAccountLinked==1  %}
+			<div class="alert alert-success">
+			   BANK ACCOUNT ADDED & ACCOUNT LINKED 
+			</div>
+
+			
+			    {% if screentrackingdetails.iscompleted!=1 %}
+			    	<br/>
+			    	<div class="alert alert-danger">
+			    	Your application is incomplete. Click &nbsp;
+
+					{% if screentrackingdetails.isoffercompleted==1 %}
+				  		<a href="/userpromissorynote/{{user.id}}">{{screentrackingdetails.applicationReference}}
+				  		</a>
+			  		{% else %}
+			  			<a href="/emailmyoffer/{{screentrackingdetails.id}}">{{screentrackingdetails.applicationReference}}
+			  			</a>
+			  		{% endif %} 
+			  		 &nbsp; here to complete.
+			  		</div>
+			  	{% endif %} 	
+			
+	  		
+		{% else %}
+
+			<div class="alert alert-success">
+			   BANK ACCOUNT ADDED
+			</div>
+			<br/>
+			<div class="alert alert-danger"> 
+				Your bank account is not linked for this application. Click &nbsp;
+			    <a href="/addbankaccount/{{user.id}}">{{screentrackingdetails.applicationReference}}</a> &nbsp; here to link your account.
+		    </div>
+		{% endif %}
+    
+{% else %}
+	<div class="alert alert-danger"> Your bank account is not added. <a href="/addbankaccount/{{user.id}}" >Click here</a> to add the bank account.</div>
+{% endif %}

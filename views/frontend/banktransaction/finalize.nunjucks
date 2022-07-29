@@ -1,0 +1,689 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+
+<style>
+	.finalize {
+		margin-right: 100px;
+		margin-left: 100px;
+		margin-bottom: 50px;
+		text-align: left;
+	}
+	.errormsg {
+		margin-right: 100px;
+		margin-left: 600px;
+	}
+	.successmsg {
+		margin-right: 110px;
+		margin-left: 110px;
+	}
+	.decoration {
+		border-bottom-style: solid;
+		border-bottom-color: #F1B649;
+	}
+	.btn.btn-cancel {
+		background: #aaa;
+		border: 1px solid #888;
+	}
+	.btn.btn-cancel:hover {
+		background: #a0a0a0;
+		border: 1px solid #888;
+	}
+	.finalizeInfoDivs{
+		margin-left: 30px;
+		margin-right: 30px;
+		/* margin-top: 15px; */
+		/* margin-bottom: 15px; */
+		font-size: 16px;
+	}
+	.finalizeInfoLine {
+		padding-bottom: 30px;
+		padding-top: 30px;
+		padding-right: 15px;
+		padding-left: 5px;
+	}
+	::-webkit-file-upload-button {
+		background: #FFF;
+		color: black;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+	.finalizeBtn {
+		background: #63944C;
+		height: 45px;
+		line-height: 23px;
+		border-radius: 8px;
+		border: none;
+		color: #FFFFFF;
+		font-size: 15px;
+		font-weight: 500;
+	}
+
+	.disabledFinalizeBtn {
+		height: 45px;
+		line-height: 23px;
+		border-radius: 8px;
+		border: none;
+		color: #6f7070;
+		font-size: 15px;
+		font-weight: 500;
+		background: #cdcfd1;
+	}
+
+	.finalize-edit-buttons {
+		padding-bottom: 20px;
+	}
+
+	.inputPhoneCode {
+		display: inline;
+		width: 65%;
+	}
+
+	.warning::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: red;
+	opacity: 1; /* Firefox */
+	}
+
+	.warning:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: red;
+	}
+
+	.warning::-ms-input-placeholder { /* Microsoft Edge */
+	color: red;
+	}
+
+	#finalize-page .logoMiddle {
+		margin:0;
+	}
+
+	.icon-label, .message-label {
+		display: inline-block;
+	}
+	.flex-item-row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+	.flex-item-row .flex-item.icon-label {
+		flex: 0 0 45px;
+	}
+	.flex-item-row .flex-item.message-label {
+		flex: 1 1 22px;
+	}
+	.flex-item-row button.flex-item {
+		flex: 0 0 130px;
+	}
+	.icon-label i {
+		display: inline;
+	}
+	.subtitle {
+		margin-top: 28px;
+	}
+	.form-group-lg {
+		margin-top: 10px;
+	}
+	.combodate {
+		position: relative;
+	}
+	#jobstartday-error {
+		position: absolute;
+		left: 0;
+		top: 21px;
+	}
+
+</style>
+
+	<div class="container has-practice-name-header-shown" id="finalize-page">
+		<div class="inner-content">
+			<div class="heading">
+				<div class="logoMiddle">
+					{% if practice.practiceLogo %}
+							<img src="images/logos/{{ practice.practiceLogo }}" class="img-reponsive" />
+					{% else %}
+							<img src="images/imgv3/logo.png" class="img-reponsive" />
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 personalInfoInner">
+				<div class="whitebox infoForm">
+					<div class="v-center">
+						<div class="h-center">
+							<!-- Verify/Edit Email -->
+							<br>
+							<div class="decoration"><h2 style="color:#606060; font-size: 24px; font-weight:400;">&nbsp;&nbsp;Verify Contact information</h2></div>
+							<br>
+							<div class="finalizeInfoDivs">
+								<!-- Edit/Verify Email Button -->
+								<div class="finalizeInfoLine flex-item-row">
+									<span class="flex-item icon-label"><i class="fa fa-check-circle" style="font-size:30px; color:#63944C;"></i>&emsp;</span>
+									<div class="message-label flex-item "><strong>Email Address: &nbsp;&nbsp;&nbsp;&nbsp;</strong><span id="savedEmailAddresss" style="display: inline-block;word-break: break-word;">{{emailAddress }}</span></div>
+									<button class="nav-apply-btn finalizeBtn flex-item " id="editEmailButton" onclick="dashboardEditEmailButton()" style="width: 130px;">Edit Email</button>
+								</div>
+
+
+								<!-- Edit Email Form -->
+								<form role="form" method="POST" enctype="multipart/form-data" action="/edituser" id="editEmailForm" style="display: none; padding-top: 10px;">
+									<div class="form-group emailIcon faicon">
+										<input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email address" value="{{ useremail }}" required autocomplete="off">
+									</div>
+									<div class="btn-class text-center finalize-edit-buttons">
+										<button type="button" id="cancelEmailUpdateBtn" onclick="cancelEmailUpdate()" class="nav-apply-btn finalizeBtn"style="background-color: #A94442; border-color: #A94442;">Cancel</button>&emsp;
+										<button type="button" onclick="updateEmailAddress();" name="user-submit" class="nav-apply-btn finalizeBtn">Update</button>
+									</div>
+								</form>
+								<p style="border-bottom: solid 1px; border-bottom-color: #606060;"></p>
+								<div id="finalizeVerifyEmail">
+									<div class="finalizeInfoLine flex-item-row">
+										<span id="emailValidationStatusIcon" class="flex-item icon-label"><i class="fa fa-exclamation-circle" style="font-size:30px; color:#A94442;"></i>&emsp;</span>
+										<span id="emailValidationStatusMessage" class="flex-item message-label">Please check your email to verify your account.</span>
+										<button class="flex-item nav-apply-btn finalizeBtn" id="verifyEmailButton" onclick="resendVerifyEmail()" style="width: 130px;">Resend Email</button>
+									</div>
+									<p style="border-bottom: solid 1px; border-bottom-color: #606060;"></p>
+								</div>
+							</div>
+
+							<div class="finalizeInfoDivs">
+								<!-- Edit/Verify phone Button -->
+								<div class="finalizeInfoLine flex-item-row">
+									<span id="mobileValidationStatusIcon" class="flex-item icon-label"><i class="fa fa-check-circle" style="font-size:30px; color:#63944C;"></i>&emsp;</span>
+									<div class="message-label flex-item"><strong style="display: inline-block">Mobile Number: &nbsp;&nbsp;&nbsp;&nbsp;</strong><span id="savedPhoneNumber"  style="display: inline-block">{{mobileNumber|phoneformat}}</span>&nbsp;&nbsp;<span id="savedMobileErr" style="color: red;"></span></div>
+									<button class="flex-item nav-apply-btn finalizeBtn" id="editMobileButton" onclick="dashboardEditMobileButton()" style="width: 130px;">Edit Mobile</button>
+
+								</div>
+								<!-- Edit Mobile Form -->
+								<form role="form" method="POST" enctype="multipart/form-data" action="/edituser" id="editMobileForm" style="display: none; padding-top: 10px;">
+									<div class="form-group phoneIcon faicon">
+										<input type="text"  class="form-control" id="phone" name="phoneNumber" size="12" minlength="12" maxlength="12" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="mobile phone number" value="{{ userphone }}" required autocomplete="off">
+										<input type="hidden" id="preventsubmit">
+									</div>
+									<div class="btn-class text-center finalize-edit-buttons">
+										<button type="button" id="cancelMobileUpdateBtn" onclick="cancelMobileUpdate()" class="nav-apply-btn finalizeBtn" style="background-color: #A94442; border-color: #A94442;">Cancel</button>&emsp;
+										<button type="button" name="user-submit" onclick="updateMobileNumber()" class="nav-apply-btn finalizeBtn">Update</button>
+									</div>
+								</form>
+
+								<p style="border-bottom: solid 1px; border-bottom-color: #606060;"></p>
+							</div>
+
+
+							<!-- Go To Dashboard Button -->
+							<div class="text-align: center" style="margin-top: 20px;">
+								<br><br>
+								<div class="finalizeInfoDivs">
+									<form class="formclass signupForm partner-logos-go-here" id="userinfoform" action="/submitApplicationButton" style="text-align: center" method="post" data-validation="btnDisable" name="userinfo" autocomplete="off">
+										<input class="" type="hidden" id="userid" name="userid" value="{{ user.id }}">
+										<input id="theFinalizeButton" class="nav-apply-btn{% if validated %} finalizeBtn{% else %} disabledFinalizeBtn{% endif %}" {% if not validated %} disabled {% endif %} type="submit" value="Submit Application">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{#<div id="finalize-page ">#}
+{#	<div class="container-fluid">#}
+{#			<div class="heading">#}
+{#				<div class="logoMiddle">#}
+{#					<div style="text-align:center;">#}
+{#						<br><br>#}
+{#						<h2 style="color:#606060; text-align:center; font-weight:400;">Congratulations!</h2>#}
+{#						<h2 style="color:#606060; text-align:center; font-weight:400;">Please complete all tasks with red  <i class="fa fa-exclamation-circle" style="font-size:30px; color:#A94442;"></i> </h2>#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+
+{#			{% if (successval)  %}#}
+{#				<div class="successmsg" style="margin-top:30px;">#}
+{#					<div class="alert alert-success">#}
+{#						<a href="#" class="close" data-dismiss="alert">&times;</a>#}
+{#						{{successval}}#}
+{#					</div>#}
+{#				</div>#}
+{#			{% endif %}#}
+{#			<div class="row">#}
+{#				<div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">#}
+{#					<div class="whitebox infoForm" style="max-width: 1090px;">#}
+{#						<div class="v-center">#}
+{#							<div class="h-center">#}
+
+{#								<div class="finalize">#}
+
+{#								</div>#}
+
+{#								{% if ( errorval )  %}#}
+{#									<div class="errormsg">#}
+{#										<div class="alert alert-danger">#}
+{#											<a href="#" class="close" data-dismiss="alert" style="">&times;</a>#}
+{#											{{ errorval }}#}
+{#										</div>#}
+{#									</div>#}
+{#								{% endif %}#}
+
+{#							</div>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
+
+{#			</div>#}
+
+{#	</div>#}
+
+{#	<!-- User Message Modal -->#}
+{#	<div id="userMsgModal" class="modal fade" role="dialog">#}
+{#		<div class="modal-dialog modal-md">#}
+{#			<div class="modal-content" style="margin-top; 1000px;">#}
+{#				<div class="modal-header bg-tcpa" style="background-color:#63944C;">#}
+{#					<button type="button" class="close" data-dismiss="modal" style="color:#FFF;">&times;</button>#}
+{#				</div>#}
+{#				<div id="userMsgText" class="modal-body bgColorWhite"></div>#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#</div>#}
+
+{% if screentrackingdetails[0].iscompleted != 0 %}
+	<script>
+		history.pushState(null, null, location.href);
+		window.onpopstate = function () {
+			history.go(1);
+		};
+	</script>
+{% endif %}
+
+<link rel="stylesheet" href="/styles/css/frontend/dashboard.css?v=0.3">
+
+
+{% include "twilio/twilioVerificationTemplate.nunjucks" %}
+<script>
+
+$('#jobstartdate').combodate({
+    minYear: 1920,
+    maxYear: 2020,
+    minuteStep: 10
+}); 
+
+$(".combodate .day").attr("name", "jobstartday");
+$(".combodate .month").attr("name", "jobstartmonth");
+$(".combodate .year").attr("name", "jobstartyear");
+
+function updateDaySelect( dayInt, monthdays ) {
+	var html = [];
+	if( !dayInt || ( dayInt > monthdays ) ) {
+		html.push( "<option value='' selected disabled hidden>Day</option>" );
+	}
+	for( var idx = 1; idx <= monthdays; idx++ ) {
+		let value;
+		if( idx < 10 ) {
+			value = "0" + idx;
+		} else {
+			value = "" + idx;
+		}
+		if( dayInt && dayInt == idx ) {
+			html.push("<option value='", value, "' selected>", idx, "</option>" );
+		} else {
+			html.push("<option value='", value, "'>", idx, "</option>" );
+		}
+	}
+	$(".combodate .day").html( html.join( "" ) );
+}
+
+$(".combodate .month").change( ( monthidx ) => {
+	var day = $(".combodate .day").val();
+	var dayInt;
+	if( day ) {
+		dayInt = parseInt( day );
+	}
+	var month = Number( $(".combodate .month").val() ) + 1 + "";
+	var year = $(".combodate .year").val();
+	var monthdays;
+	if( year ) {
+		monthdays = moment( year + "-" + month , "YYYY-MM" ).daysInMonth();
+	} else {
+		monthdays = moment( "1992" + "-" + month, "YYYY-MM" ).daysInMonth();
+	}
+	updateDaySelect( dayInt, monthdays );
+});
+
+$(".combodate .year").change( ( monthidx ) => {
+	var month = Number( $(".combodate .month").val() ) + 1 + "";
+	if( !month ) {
+		return;
+	}
+	var day = $(".combodate .day").val();
+	var dayInt;
+	if( day ) {
+		dayInt = parseInt( day );
+	}
+
+	var year = $(".combodate .year").val();
+	const monthdays = moment( year + "-" + month, "YYYY-MM" ).daysInMonth();
+	updateDaySelect( dayInt, monthdays )
+});
+
+function disableFinalizeBtn() {
+	$("#theFinalizeButton").attr( "disabled", true );
+	$("#theFinalizeButton").removeClass( "finalizeBtn" );
+	$("#theFinalizeButton").addClass( "disabledFinalizeBtn" );
+}
+
+function showMessage( msg, time ) {
+	$("#userMsgText").html(msg);
+	$("#userMsgModal").modal( "show" );
+	if( time ) {
+		setTimeout( () => {
+			$("#userMsgModal").modal( "hide" );
+		}, time );
+	}
+}
+
+	function dashboardEditEmailButton() {
+		$("#finalizeVerifyEmail").hide();
+		$("#editEmailButton").hide();
+		$("#editEmailForm").show();
+		$("#inputEmail").focus();
+		return;
+	}
+
+	function resendVerifyEmail() {
+		var url = "/sendverificationemail/" + "{{user.id}}";
+		$.ajax( {
+			url: url,
+			type: 'GET',
+			success: function( res ) {
+				var emailAddress = $("#savedEmailAddresss").html();
+				showMessage( "An E-mail message has been sent to " + emailAddress + ".", 2000 );
+			},
+			error: function( err ) {
+			}
+		});
+	}
+
+	function isEmailVerified() {
+		var url = "/emailverified/" + "{{user.id}}";
+		$.ajax( {
+			url: url,
+			type: 'GET',
+			success: function( res ) {
+				if( res.verified ) {
+					setEmailValidated();
+					finalValidation();
+					return;
+				}
+				setEmailNotValidated();
+			},
+			error: function( err ) {
+				setEmailNotValidated();
+			}
+		});
+	}
+
+
+	function showUpdatedEmailErr( msg ) {
+		var inputVal = $("#inputEmail").val();
+		$("#inputEmail").val("");
+		$("#inputEmail").attr( "placeholder", "'" + inputVal + "' " + msg );
+	}
+
+	function isEmailFormat(email) {
+		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		return regex.test(email);
+	}
+
+	function updateEmailAddress() {
+		var newAddress = $("#inputEmail").val();
+
+		if( !isEmailFormat( newAddress ) ) {
+			showUpdatedEmailErr( "is not a valid E-mail address." );
+			return;
+		}
+		if( newAddress == $("#savedEmailAddresss").text() ) {
+			showUpdatedEmailErr( "is not different." );
+			return;
+		}
+		var url = "/updateuseremail";
+		$.ajax( {
+			url: url,
+			type: 'POST',
+			data: {
+				email: newAddress
+			},
+			success: function( res ) {
+				if( !res.updated ) {
+					showUpdatedEmailErr( "failed to save. Please try again." );
+					return;
+				}
+				disableFinalizeBtn();
+				updateEmailAddressField( newAddress );
+				setEmailNotValidated();
+				resendVerifyEmail();
+			},
+			error: function( res ) {
+				if( res.status == 404 ) {
+					showMessage( "An E-mail has been sent to " + newAddress + ".", 2000 );
+				}
+				console.log( res );
+			}
+		});
+	}
+
+	function updateEmailAddressField( newAddress ) {
+		$("#savedEmailAddresss").text( newAddress );
+		$("#editEmailForm").hide();
+		$("#editEmailButton").show();
+		$("#inputEmail").val( "" );
+		$("#inputEmail").attr( "placeholder", "E-mail address" );
+	}
+
+	function setEmailNotValidated() {
+		var elm = document.getElementById( "emailValidationStatusMessage" );
+		elm.innerHTML = "Please check your E-mail to verify your account";
+		elm = document.getElementById( "emailValidationStatusIcon" );
+		elm.innerHTML = "<i class='fa fa-exclamation-circle' style='font-size:30px; color:#A94442;'></i>&emsp;";
+		elm = document.getElementById( "finalizeVerifyEmail" );
+		elm.style.display = "inline";
+ 	}
+
+	function setEmailValidated() {
+		var elm = document.getElementById( "emailValidationStatusMessage" );
+		elm.innerHTML = "E-mail validated";
+		elm = document.getElementById( "emailValidationStatusIcon" );
+		elm.innerHTML = "<i class='fa fa-check-circle' style='font-size:30px; color:#63944C;'></i>&emsp;";
+		elm = document.getElementById( "finalizeVerifyEmail" );
+		elm.style.display = "inline";
+	}
+
+	function updateMobileNumberField( newNumber ) {
+		$("#savedPhoneNumber").text( newNumber );
+		$("#editMobileForm").hide();
+		$("#editMobileButton").show();
+		hideSavedMobileError();
+		$("#phone").val( "" );
+		$("#phone").attr( "placeholder", "mobile phone number" );
+	}
+
+	function updateMobileNumber() {
+		var displayNumber = $("#phone").val();
+		var newNumber = cleanPhoneNumber( displayNumber );
+			if(!$("#phone").is(":valid")) {
+    			var inputVal = $("#phone").val();
+			if( inputVal.length > 0 ) {
+				showUpdatedMobileErr( inputVal + " is not a 10 digit number.");
+			} else {
+				showUpdatedMobileErr( "Please enter a 10 digit number here.");
+			}
+		} 	else {
+		url = "/changemobile";
+		$.ajax( {
+				url: url,
+				data: {
+						'userid': "{{user.id}}",
+						'userphone': newNumber
+				},
+				type: 'POST',
+				success: function( res ) {
+					disableFinalizeBtn();
+					updateMobileNumberField( displayNumber );
+					finalValidation();
+				},
+				error: function( data ) {
+					var inputVal = $("#phone").val();
+					showUpdatedMobileErr( "The number '" + inputVal + "' could not be saved." );
+				}
+		});
+		}
+	}
+
+	function dashboardEditMobileButton() {
+		$("#editMobileForm").toggle();
+		$("#phone").focus();
+		$("#editMobileButton").hide();
+		return;
+	}
+
+	function cancelMobileUpdate() {
+		$("#editMobileForm").hide();
+		$("#editMobileButton").show();
+		$("#phone").val( "" );
+		$("#phone").attr( "placeholder", "mobile phone number" );
+		var errElm = $("#phone-error");
+		if( errElm ) {
+			errElm.remove();
+		}
+		return;
+	}
+
+	function showUpdatedMobileErr( msg ) {
+		var inputVal = $("#phone").val();
+		$("#phone").val("");
+		$("#phone").attr( "placeholder", msg );
+	}
+
+	function cleanPhoneNumber( phoneString ) {
+		return ( '' + phoneString).replace(/\D/g, '' );
+	}
+
+	function dashboardVerifyEmailButton() {
+		window.location.href = "/profileEmailverification";
+	}
+
+	function cancelEmailUpdate() {
+		$("#editEmailForm").hide();
+		$("#editEmailButton").show();
+		isEmailVerified();
+		return;
+	}
+	function otherDocumentName(value, other) {
+		if( value == other ) {
+			$('#docuNameCheck').show();
+		}
+		else {
+			$('#docuNameCheck').hide();
+		}
+		return;
+	}
+	function Validate() {
+		var docutype = document.getElementById("docutype");
+		if (docutype.value == "Others") {
+			$("#documentname").show();
+
+			if(document.getElementById("documentname").value == ""){
+				$('#documentname').addClass('error');
+				$("#updocs").attr("disabled", false);
+				return false;
+			}
+			else{
+
+				if(document.getElementById("proofdocument").value == "") {
+					$('#documentname').removeClass('error');
+					$("#updocs").attr("disabled", false);
+				}
+				else {
+					$('#desc').submit();
+					$('#documentname').removeClass('error');
+					$("#updocs").attr("disabled", true);
+				}
+			}
+		}
+		else {
+			if(document.getElementById("proofdocument").value == "") {
+				$("#updocs").attr("disabled", false);
+			}
+			else {
+				$('#desc').submit();
+				$("#docuNameCheck").hide();
+				$("#updocs").attr("disabled", true);
+			}
+		}
+	}
+
+	function finalValidation() {
+		$.ajax( {
+			url: "/finalize/validate",
+			method : "get",
+			success: function( res ) {
+				window.location.href = window.location.href; // refresh
+			},
+			error: function( res ) {
+				console.log( res );
+			}
+		} );
+	}
+
+	function showSavedMobileError( msg ) {
+		var elm = document.getElementById( "savedMobileErr" );
+		elm.innerHTML = msg;
+		elm.style.display = "inline";
+ 	}
+
+	function hideSavedMobileError() {
+		var elm = document.getElementById( "savedMobileErr" );
+		elm.style.display = "none";
+	}
+
+	{% if docuploaded.emailVer != true %}
+	setEmailNotValidated();
+	{% else %}
+	setEmailValidated();
+	{% endif %}
+
+	document.addEventListener( "DOMContentLoaded", function( event ) {
+		io.sails.reconnection = true;
+		io.socket.post( '/joinRoom', {}, function( res ) {
+			io.socket.on( "emailverified", ( msg ) => {
+				setEmailValidated();
+				finalValidation();
+			} );
+		} );
+	} );
+
+	function handleNewMobileNumberForm( e ) {
+		if (e && e.preventDefault) e.preventDefault();
+		if( $( "#phone" ).val().length != 12 ) {
+			var inputVal = $("#phone").val();
+			if( inputVal.length > 0 ) {
+				showUpdatedMobileErr( inputVal + " is not a 10 digit number.");
+			} else {
+				showUpdatedMobileErr( "Please enter a 10 digit number here.");
+			}
+		}
+		checkIfVerificationNeeded();
+		return false;
+	}
+
+	function interceptChangePhoneFormSubmit(e) {
+		handleNewMobileNumberForm();
+	}
+
+	var form = document.getElementById( "editMobileForm" );
+	if (form.attachEvent) {
+		form.attachEvent("submit", handleNewMobileNumberForm);
+	} else {
+		form.addEventListener("submit", handleNewMobileNumberForm);
+	}
+
+</script>
+
+{% endblock %}
+

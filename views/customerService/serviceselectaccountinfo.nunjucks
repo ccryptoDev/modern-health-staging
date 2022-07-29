@@ -1,0 +1,139 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Target Fast Cash</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="/styles/tfc-css/fonts/gotham/stylesheet.css">
+	<link rel="stylesheet" href="/styles/css/frontend/style.css">
+	<link rel="stylesheet" href="/styles/css/frontend/style1.css">
+	<link rel="stylesheet" href="/styles/css/frontend/emailbanktransaction.css">
+	<link rel="stylesheet" href="/styles/css/frontend/style-home.css">
+	<link rel="stylesheet" href="/styles/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/styles/css/frontend/common.css">
+	<link href="/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini" style="font-family:'Gotham';">
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">Target Fast Cash</a>
+		</div>
+	</div>
+</nav>
+
+{% if(linkExpired == 0) %}
+
+<!--body content start-->
+<div class="content-section">
+	<div class="container">
+		<div class="row">
+			<div class="inner-content">
+				
+				<div class="inner-content-in">
+				
+					{% if (successval)  %}
+						<div class="alert alert-success">
+							{{successval}}
+						</div>
+					{% endif %}
+					
+					<form name="addconsolidate" method="post" action="/serviceaddconsolidate">
+					   <input type="hidden" name="userid" value="{{user}}">
+						<p><strong>Please select the accounts to consolidate</strong></p><br>
+						<div class="bankDetails selectaccountinfo">
+							<div class="table-reponsive">
+								<table class="table">
+									<thead>	
+										<tr>
+											<th>Account name </th>
+											<th>Balance </th>
+											<th>Consolidate </th>
+										</tr>
+									</thead>
+									<tbody>
+									{% if accountDetails.length > 0 %}
+									{% set k = 1 %}
+									{% for accountDetail in  accountDetails %}
+									{% set balance = accountDetail.currentBalance %}
+										<tr>
+											<td>{{accountDetail.subscriber.name.unparsed}} ({{accountDetail.subscriber.industryCode}})</td>
+											<td>${{balance}}</td>
+											<td>
+												<div class="checkbox">
+													<input name="selectrpf" id="checkboxOne_{{k}}" value="{{ accountDetail.accountNumber }}" type="checkbox" data-amount="{{balance}}" onclick="addamount('{{balance}}','{{accountDetail.accountNumber}}');">
+													<label class="check-box" for="checkboxOne_{{k}}"></label>
+												</div>
+											</td>
+										</tr>
+										{% set k = k+1 %}
+									{% endfor %}
+										<tr>
+										  <td><span style="font-size:25px; font-weight:normal;"><b>Total </b></span></td>
+										  <td>${{ totalbalance }}</td>
+										  <td><span id="totalamount" style="display:none;">$0</span></td>
+										</tr>  
+									{% else %}
+										<tr>
+											<td colspan="3">  <p>No account found</p> </td>
+										</tr>
+									{% endif %}			
+									</tbody>
+								</table>
+							</div>
+						</div>
+						{% if accountDetails.length > 0 %}			
+						<div class="done">
+							<button class="btn btn-grey greenBtn" type="button" onclick="selectnext();">Next</button>
+							<div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" >
+								<div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+									<div class="modal-body">Please check atleast one account</div>
+										<button type="button" id="closebutton" class="btn btn-default" data-dismiss="modal" style="font-size:16px; padding:6px 10px;">OK</button>
+								</div>
+							</div>
+						</div>
+						</div>
+						{% endif %}				
+				 </form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!--body content end-->
+	
+{% elseif(linkExpired == 1) %} 
+
+<div class="alert alert-danger text-center" style="margin-top: 75px;">
+	<span> Your Link Has been Expired! Contact Customerservice for Further details. </span>
+</div>
+
+{% endif %}
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/styles/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/js/common-new.js"></script>		
+<script>
+function addamount(amount,accnumber){
+	$('#totalamount').show();
+	var sum = 0;
+	
+    $(":checkbox:checked").each(function() {
+	  var attval = $(this).attr("data-amount");									 
+      sum += ~~attval.replace(',','');
+    });
+	if(sum > 0){
+		sum = parseFloat(sum);
+	   var totalamt = sum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");	
+	   $('#totalamount').html('$'+totalamt);
+	}else{
+	  $('#totalamount').hide();
+	}
+}
+</script>
+</body>
+</html>

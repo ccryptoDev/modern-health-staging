@@ -1,0 +1,38 @@
+{% extends "frontend/layout/layout.nunjucks" %}
+{% block body %}
+
+
+<div class="container">
+   <div class="inner-content">
+      
+      <div class="row">
+         <div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        
+         <br/> <br/>
+         <div >
+            <div class="content-tabs ">
+               <div class="smallblock-content-box" >
+                  <div class="row nomargin">
+                     <img src="/images/img/errorimage.png" class="img-responsive center-block" />
+                     <br/>
+                    <h1>Error: 
+                     {% if message %}
+                      {{ message }}
+                     {% else %}
+                        The requested URL not found
+                     {% endif %}
+                  </h1>
+                  </div>
+
+                  <div class="btn-Main">
+                   <a href="/"><button type="button" class="btn btn-default blueBtn" id="homebutton">Home</button></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

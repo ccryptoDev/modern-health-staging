@@ -1,0 +1,78 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        View Product Info
+        <!--<small>preview of Manage Users</small>-->
+      </h1>
+      <!--<ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">View User Info Details</li>
+      </ol>-->
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">View Product Info Details</h3>
+          <!--<span class="pull-right"><a href="/admin/manageusers"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a></span>-->
+        </div>
+        <div class="box-body" id="transuserinfo">
+
+		   <div id="tabs">
+						<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#productinfo">Product Info</a></li>
+						<li><a data-toggle="tab" href="#productrules">Product Rules</a></li>
+						<li><a data-toggle="tab" href="#amountcap">Interest rate Base LTI</a></li>
+						<!--<li><a data-toggle="tab" href="#amountcap">Income Range</a></li>-->
+						<li><a data-toggle="tab" href="#stateregulation">State Rate per Cycle</a></li>
+						<!--<li><a data-toggle="tab" href="#applicationfee">Application fee</a></li>-->
+						</ul>
+			<div class="tab-content">
+			   
+				<!--productinfo section start-->
+				 {% include "admin/user/manageproducts/productinfo.nunjucks" %}
+				<!--productinfo section end-->	 
+				 
+				<!--loanproductrules section start-->
+				 {% include "admin/user/manageproducts/loanproductrules.nunjucks" %}
+				<!--loanproductrules section end--> 
+				
+				<!--interestrate section start-->
+				 {% include "admin/user/manageproducts/intrestrate.nunjucks" %}
+				<!--interestrate section end--> 
+				
+				
+				
+					<!--applicationfee section start-->
+				 {% include "admin/user/manageproducts/applicationfee.nunjucks" %}
+				<!--applicationfee section end--> 
+					
+					
+				
+				<!--Loanamountcap section start-->
+				 {% include "admin/user/manageproducts/loanamountcap.nunjucks" %}
+				<!--Loanamountcap section end-->
+				
+				<!--stateregulation section start-->
+				 {% include "admin/user/manageproducts/stateregulation.nunjucks" %}
+				<!--stateregulation section end-->
+				
+		
+			
+				
+				
+			  
+			</div>
+		 </div>
+        </div>
+      </div>
+    </section>
+	
+      
+{% endblock %}
+<style>
+th {
+border: 1px solid #f4f4f4 !important;
+}
+</style>
+

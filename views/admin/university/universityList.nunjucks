@@ -1,0 +1,62 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        University Details
+        <small>preview of University Details</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">University Details</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">University Details Table</h3>
+		  <div class="cols-lg-2" style="float:right;">
+		  
+		   <div class="fileupload fileupload-new" data-provides="fileupload">
+		    <form action="/admin/importUniversity" enctype="multipart/form-data" method="post">
+             <span class="btn btn-success btn-file">
+			  <span class="fileupload-new">Import</span>
+              <input type="file" name="universityimport" id="universityimport" onchange="javascript:this.form.submit();" />
+			 </span>
+			 <a href="/admin/exportUniversity"> <button type="button" class="btn btn-warning">Export</button></a>
+			</form> 
+			
+          </div>
+		
+		  </div>
+        </div>
+        <div class="box-body">
+          <div class="container-fluid">
+		  {% if (req.session.flash)  %}
+			{% if (req.session.flash.error) %}
+			 <div class="alert alert-danger">
+			  {{req.session.flash.error}}
+			</div>
+			<br>
+		  {% endif %}
+		 {% endif %}
+	 
+            <table class="table table-striped table-bordered  dataTable" id="university_table">
+              <thead>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Created Date</th>
+				        <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+            
+              </tbody>
+            </table>
+           </div>   
+        </div>
+      </div>
+    </section>
+	
+{% endblock %}

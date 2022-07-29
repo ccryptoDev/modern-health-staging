@@ -1,0 +1,190 @@
+
+
+{% extends "frontend/layout/portallayout.nunjucks" %}
+
+{% block body %}
+
+ <section class="content">
+    <h1 class="text-center">  Add bank information  </h1>
+    <div class="box text-center">
+	  <p>&nbsp;</p>
+	  <h4>Congratulations, you've been pre-approved for up to $30,000! Please login to your bank account to see your offer.</h4> 
+
+      
+        <div id="ajaxLoaderPlaid" class="ajaxloadermodal modal fade">
+            <div id="ajaxLoader"></div>
+        </div>
+	  
+	   <div class="emptyAccountDiv">
+			<img src="/images/img/add-bank-screens.png" class="img-full" />
+			<button class="btn btn-default addCircleBtn" onClick="openlinkaccount();">
+				<!--<i class="glyphicon glyphicon-plus-sign plusicon"></i>-->
+				<span>Login <br>to<br> Bank</span>
+			</button>
+		</div>
+
+        {% include "customerService/incomeandloandata.nunjucks" %}  
+		
+	   <p>&nbsp;</p>
+	</div>
+ </section> 
+ 
+ 
+ <style>
+.img-full {
+    display: inline-block;
+	margin:20px;
+	width:70%;
+}
+
+.emptyAccountDiv {
+    margin: 0 auto;
+    position: relative;
+    width: 35%;
+}
+#ajaxLoaderPlaid{
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:15%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+}
+</style>
+
+
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script>
+
+    var appScheme = 'linkApp';
+    var linkHandler = Plaid.create({
+    env: "{{ sails.config.plaid.envType }}",
+    apiVersion: 'v2',
+    clientName: "{{ sails.config.plaid.clientName }}",
+    key: "{{ sails.config.plaid.publicKey }}",
+    product: ["auth","transactions"],
+    webhook: "{{sails.config.getBaseUrl}}/api/v1/getPlaidTransactions",
+    onLoad: function () {
+        
+        
+    },
+    onSuccess: function (public_token, metadata) {
+    
+    // Send the public_token to your app server here.
+    // The metadata object contains info about the institution the
+    // user selected and the account ID, if selectAccount is enabled.
+    // alert(public_token)
+    // console.log('account_id is', metadata);
+      
+    var action = 'handlePublicToken';
+    anim = lottie.loadAnimation(params);
+    $('#ajaxLoaderPlaid').modal('show');
+      
+   // $('#loaderid').show();
+    $('#changebankbtn').hide();
+     
+    $.ajax({
+        url     : '/servicesaveincomedetails',
+        method  : 'post',
+        data    : {
+            public_token  : public_token,
+            account_id    : metadata,
+            userId  : '{{userDetails.id}}'
+        },
+        headers:
+        {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+        
+           //alert(response);
+
+           $('#ajaxLoaderPlaid').modal('hide'); 
+           
+          // $('#loaderid').hide(); 
+           
+           if(response.status==200){
+		       $('#apierror').modal('hide');
+               window.location.href='/servicetransaction/{{userDetails.id}}';
+           }else{
+		      $('#apierror').modal('show');
+              //alert(response.message);
+           }
+        
+        }
+    });
+      
+    },
+    onExit: function (err, metadata) {
+    
+        /*alert("error :"+err);
+        console.log("metadata :"+metadata);
+        
+        for (var key in metadata) {
+        
+        if (metadata.hasOwnProperty(key)) {           
+            alert("keyvalue: "+key)
+            var submetadata = metadata[key];
+            alert("key length: "+submetadata.length);
+            alert("key value: "+submetadata);
+        }
+        }*/
+    
+        $('#plaidloader').html(''); 
+        // The user exited the Link flow.
+        var action = 'handleOnExit';
+        
+        
+        if (err != null) {
+            // The user encountered a Plaid API error prior to exiting.
+        }
+        // metadata contains information about the institution
+        // that the user selected and the most recent API request IDs.
+        // Storing this information can be helpful for support.
+    
+    }
+    });
+    
+    //If we use other bank short code ,it's loading html data 
+    //not working for simple
+    
+    function openlinkaccount(){  
+       setTimeout(function(){linkHandler.open();},1000);
+    }
+ 
+    /* Number divider and prefix dollar symbol ends here */
+    
+    
+    function openeftconsentservice(){
+	
+		 var defaultbankid = document.getElementById("defaultbankid").value;
+	     var selectitemid= $("#selectitemid").val();
+	 
+		 $.ajax({
+			url: '/ajaxlinkedbank',	
+			data: {
+				'slectbankid': defaultbankid,
+				'selectitemid':selectitemid
+			},
+			type: 'POST',
+			success: function(res) {
+				 
+				// alert('2423423423');
+				$('#linkedaccountid').html(res.listdata);  
+				$('#eftconsentservice').modal('show');
+				$('#eft_consent').prop('checked', true);
+			 }
+		 });	
+	 
+	 }
+    
+    function closeapierror(){
+	
+	    $('#apierror').modal('hide');
+		 window.location.href='/servicetransaction/{{userDetails.id}}';
+	}
+
+</script>
+{% endblock %}
+<!--Get plaid transaction ends here-->
+

@@ -1,0 +1,24 @@
+{% extends "emailTemplates/emaillayout.nunjucks" %}
+{% block body %}
+	<div class="emailBodyOuterDiv">
+        <h2 class="emailGreetings">Hi {{ name | capitalize }},</h2>
+        <div class="emailBodyMessage">
+            <p>Congratulations! We've received notice that you have an effective upcoming service start date with {{practiceName}}! Here are your {{practiceName}} financing details:</p>
+			<br><br>
+			<table>
+			<tr><td>Financing Amount</td><td>{{comprehensiveData.payOffAmount | $format}}</td></tr>
+			<tr><td>Monthly Payment</td><td>{{comprehensiveData.paymentSchedule[0].amount | $format}}</td></tr>
+			<tr><td>Practice Name</td><td>{{practiceName}}</td></tr>
+			<tr><td>Contract Date (Your Service Date)</td><td>{{comprehensiveData.loanSetdate | date("MM/DD/YYYY")}}</td></tr>
+			<tr><td>1st Payment Due Date</td><td>{{firstDueDate | date("MM/DD/YYYY")}}</td></tr>
+			<tr><td>Interest Rate</td><td>{{comprehensiveData.interestapplied}} %</td></tr>
+			<tr><td>APR</td><td>{{comprehensiveData.apr}} %</td></tr>
+			<tr><td>Number of Payments</td><td>{{comprehensiveData.paymentSchedule.length}}</td></tr>
+			</table>
+			<br><br>
+			<p>Please click this button and log into your Customer Portal to review your signed Retail Installment Contract & Electronic Funds Transfer Authorization in the “Document Center” of your Customer Portal.</p>
+			<br><br>
+            <a href="{{ link }}"><button class="btn-application">Login to your Customer Portal here</button></a><br><br>
+        </div>
+    </div>
+{% endblock %}

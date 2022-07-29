@@ -1,0 +1,11 @@
+{% extends "emailTemplates/emaillayout.nunjucks" %}
+{% block body %}
+    <div class="emailBodyOuterDiv">
+        <h2 class="emailGreetings">Hi {{ name }},</h2>
+
+        <div class="emailBodyMessage">
+            Please use the Invite link to login {{LenderShortName}} App and get your financing details.<br><br>
+            <a href="{{ Link }}"><button class="btn-application">Invite Url</button></a>
+        </div>
+    </div>
+{% endblock %}

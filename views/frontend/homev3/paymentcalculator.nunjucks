@@ -1,0 +1,106 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="paymentcalculator">
+	<div class="container-fluid">
+		<div class="heading">
+			<div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+			<h1 class="title">Estimate my monthly payment.</h1>
+		</div>
+		<div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+			<div class="whitebox block-content-box">
+			    <div class="h-center">
+			    	<div class="">
+			          	<form class="formclass" id="estimatePayment" action="" method="post" data-validation="btnDisable" name="estimatePayment">
+
+			          		<input type="hidden" name="financeamount" id="financeamount" value="" >
+			          		<div class="row">
+			          			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			          				<div class="form-group">
+										<label>FIRST NAME</label>
+										<input type="text" class="form-control input-lg" id="firstname" name="firstname" placeholder="Enter First Name" value="" required tabindex="1">
+										<i class="tick-focus-img"></i>
+			          			 	</div>
+			          			</div>
+			          			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			          				<div class="form-group">
+										<label>LAST NAME</label>
+										<input type="text" class="form-control input-lg" id="lastname" name="lastname" placeholder="Enter Last Name" value="" required tabindex="2">
+										<i class="tick-focus-img"></i>
+			          			 	</div>
+			          			</div>
+			          		</div>
+
+			          		<div class="row">
+			          			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			          			 	<div class="form-group">
+										<label>EMAIL ADDRESS</label>
+										<input type="email" class="form-control input-lg" id="email" name="email" placeholder="Enter Email Address" value=""  required tabindex="3">
+										<i class="tick-focus-img"></i>
+			          			 	</div>
+			          			</div>
+			          			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			          			 	<div class="form-group">
+										<label>FICO SCORE</label>
+										<input type="number" class="form-control input-lg" id="ficoscore" name="ficoscore" placeholder="Enter FICO score" value="" required tabindex="4" min="1" max="850" onkeyup="ficoscoreKeyup()">
+										<i class="tick-focus-img"></i>
+			          			 	</div>
+									   <script>
+									   function ficoscoreKeyup() {
+										   var f = $('#ficoscore');
+										   if( f.val() > 850 ) {
+											   f.val( 850 );
+											}
+									   }
+									   </script>
+			          			</div>
+			          		</div>
+
+			          		<div class="row">
+			          			<strong><p>ANTICIPATED FINANCED AMOUNT <span class="green-text">*</span></p></strong>
+			          		</div>
+
+			          		<div class="row col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+			          			<div id="anticipatefinanceamount" class="pay-val">&nbsp;</div>
+								<div class="slidecontainer">
+									<div class="silder-br">
+										<input type="range" min="1000" max="40000" value="7500" step ="100" class="slider" id="anticipateranage">
+									</div>
+									<p id="fir-amt">$1,000</p>
+									<p id="last-amt">$40,000</p>
+								</div>
+							</div>
+							<div class="clear">
+							</div>
+							<!-- <div class="row">
+	                          <button class="cal-pay">Calculate Payment</button>
+	                        </div> -->
+
+	                        <div class="row btnMain">
+	                            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12  col-xs-offset-0 nopadding ">
+									<a href="/{{req.session.appPracticeSlug}}" class="btn btn-default borderBtn">Back</a>
+									<button class="btn btn-default fillBtn ActivefillBtn">Calculate Payment</button>
+								</div>
+							</div>
+			          	</form>
+					</div>
+				</div>
+
+				<div id="estimatePaymentDiv">
+					<!-- {% include "frontend/homev3/estimatemonthlypayinfo.nunjucks"%} -->
+				</div>
+
+				<div id="continueapplydiv" style="display:none">
+					<strong><p class="text-center">Ready to get started?</p></strong>
+					<div class="row btnMain text-center">
+						<a href="javascript:void(0);" class="btn btn-default fillBtn ActivefillGreenBtn" onclick="triggerSingupStart();">Begin Application</a>
+					</div>
+				</div>
+			</div>
+           	<p class="anticipated-pg">
+				<span class="green-text">*</span> Anticipated Financed Amount is an estimate of the treatment cost eligible for financing. For example, if a treatment costs $10,000 and the healthcare provider requires a payment of $2,000 prior to treatment, then your Anticipated Financed Amount would be $8,000. Please contact the healthcare provider and confirm how much is due prior to treatment and how much is eligible for financing.
+			</p>
+
+		</div>
+  	 </div>
+</div>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        Edit Badge Details
+        <small>preview of Badge</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Edit Badge Details</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Edit Badge Details</h3>
+           <span class="pull-right" id="individualform" style="display:block;"> <a href="/admin/managebadges"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a></span>
+        </div>
+        <div class="box-body">
+		
+		   {% if (badgeupdateerror)  %}
+           <div class="alert alert-danger">
+            {{badgeupdateerror}}
+            </div>
+            <br>
+          {% endif %}
+
+          {% if (badgeupdatesuccess)  %}
+             <div class="alert alert-success">
+              {{badgeupdatesuccess}}
+            </div>
+            <br>
+          {% endif %}
+          
+		  <div>
+			<form role="form" method="POST" enctype="multipart/form-data" action="/admin/updateBadge">
+			   <input class="" type="hidden" id="badgeID" name="badgeID" value="{{ badgeinfo.id }}">
+				<table class="table table-bordered">
+				  <tbody>
+				  <tr>
+						<th width="20%"> Title </th>
+						<td><div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"><input type="text" class="form-control"  id="title" name="title" value="{{ badgeinfo.title }}" required></div></td>
+				  </tr>
+				  <tr>
+						<th>Sub Title</th>
+						<td>
+						  <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><input type="text" class="form-control" id="subtitle" name="subtitle" value="{{ badgeinfo.subtitle }}" required></div>
+						</td>
+				  </tr>
+				   <tr>
+						<th>Note</th>
+						<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><textarea class="form-control" id="note" name="note"  required>{{ badgeinfo.note }}</textarea> </div></td>
+				  </tr>
+
+				  <tr>
+						<th>How to claim badge</th>
+						<td><div class="col-md-8 col-lg-8 col-sm-12 col-xs-12"><textarea class="form-control" id="claimnote" name="claimnote" rows="5" required>{{ badgeinfo.claimnote }}</textarea> </div></td>
+				  </tr>
+
+				  <tr>
+						<th>Badge Category</th>
+						<td>
+						  <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+						  {# <input type="text" class="form-control" id="conditionlabel" name="conditionlabel"  value="{{ badgeinfo.conditionlabel }}" required>#}
+
+						  <select class="form-control"  id="conditionlabel" name="conditionlabel" required  onchange="checknewlabel(this.value);">
+						    	<option value=""> --- Select --- </option>
+						    	{% for categorydata in  badgecategorydata %}
+						    		<option value="{{ categorydata.id }}" {% if badgeinfo.conditionlabel.id == categorydata.id %} selected="selected" {% endif %}> {{ categorydata.badgename }} </option>
+						    	{% endfor %} 
+						    	<option disabled>────────────────</option>
+						    	<option value="new"> --- Add New Condition Label --- </option>
+						  	</select>
+
+						  	<span style="display:none;" id="newconditionlabeldiv">
+						  	<br/>
+						  	<input type="text" class="form-control" id="newconditionlabel" name="newconditionlabel" >
+						  	<small>Ex: financing, amount, like ..</small>
+						  	</span>
+
+						  </div>
+						</td>
+				  </tr>
+
+				   <tr>
+						<th>Condition</th>
+						<td>
+						 <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12"> 
+						 <select class="form-control"  id="conditionlogic" name="conditionlogic" required >
+						    <option value=""> --- Select --- </option>
+						    <option value="equal" {% if badgeinfo.conditionlogic == 'equal' %} selected="selected" {% endif %} >equal (=)</option>
+						    <option value="not_equal" {% if badgeinfo.conditionlogic == 'not_equal' %} selected="selected" {% endif %}>not equal (!=)</option>
+						    <option value="greater" {% if badgeinfo.conditionlogic == 'greater' %} selected="selected" {% endif %}>greater (>)</option>	
+						    <option value="greater_or_equal" {% if badgeinfo.conditionlogic == 'greater_or_equal' %} selected="selected" {% endif %}>greater or equal (>=)</option>
+						    <option value="less" {% if badgeinfo.conditionlogic == 'less' %} selected="selected" {% endif %}>less (<)</option>		
+						    <option value="less_or_equal" {% if badgeinfo.conditionlogic == 'less_or_equal' %} selected="selected" {% endif %}>less or equal (<=)</option>
+							<!-- <option value="between">between (<>)</option> -->
+						  </select>
+						  </div>
+						</td>
+				  </tr>
+
+				  <tr>
+						<th>Condition Type</th>
+						<td>
+						 <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12"> 
+						 <select class="form-control"  id="conditiontype" name="conditiontype" required  >
+						    <option value=""> --- Select --- </option>
+						    <option value="integer" {% if badgeinfo.conditiontype == 'integer' %} selected="selected" {% endif %} >Integer</option>
+						    <option value="string" {% if badgeinfo.conditiontype == 'string' %} selected="selected" {% endif %} >String</option>
+						    <option value="date" {% if badgeinfo.conditiontype == 'date' %} selected="selected" {% endif %} >Date</option>
+						  </select>
+						  </div>
+						</td>
+				  </tr>
+
+				  <tr>
+						<th>Condition Value</th>
+						<td>
+						  <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12"><input type="text" class="form-control" id="conditionvalue" name="conditionvalue" value="{{ badgeinfo.conditionvalue }}" required></div>
+						</td>
+				  </tr>
+
+
+		           <tr>
+						<th width="20%"> Image </th>
+						<td><div class="col-md-12 col-lg-12 col-sm-12 col-xs-12"><input type="file"  id="image" name="image">
+							<img style="width: 150px; height:150px" src="{{ badgeinfo.image }}">
+						</div></td>
+				  </tr>
+				  <tr>
+						<td colspan="2" align="center">
+						  <button type="submit" class="btn btn-primary" >Submit</button>
+						</td>  
+			      </tr>
+				</tbody>
+			</table>
+			</form>
+		  </div>			
+			
+       </div>
+     </div>
+    </section>
+	
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "practice/layout/layout.nunjucks" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="inner-content">
+		
+		<div class="row">
+			
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+
+				{% include "practice/layout/navigator.nunjucks" %}
+			</div>
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+					
+				<div class="content-tabs">
+					<h1>Add Staff Members </h1>
+					<form action="" method="post" name="addStaffMemberForm" id="addStaffMemberForm">
+						 <div class="block-content-box">
+                           
+                           <div id="addStaffMembertempty" class="text-center" style="display:none">
+                           	<p><label class="error">Atleast one staff member is compulsory</label></p>
+                           </div>
+
+                           <input type="hidden" id="addStaffMemberCount" name="addStaffMemberCount" value="1">
+						   <input type="hidden" id="availAddStaffMemberCount" name="availAddStaffMemberCount" value="1">
+
+
+						   <div>	
+								<div class="row addstafmenberwidth">
+									<div class="addstaffwidth txtBoxSec nopaddingLR1">
+										<div class="form-group">
+										<label>FIRST NAME</label>									
+										</div>
+									</div>
+									
+									<div class="addstaffwidth txtBoxSec nopaddingLR1">
+										<div class="form-group">
+										 <label>LAST NAME</label>								
+										</div>
+									</div>
+								
+									<div class="addstaffwidth txtBoxSec nopaddingLR1">
+										<div class="form-group">
+										<label>EMAIL ADDRESS</label>						
+										</div>
+									</div>
+									<div class="addstaffwidth txtBoxSec nopaddingLR1">
+										<div class="form-group">
+										<label>PHONE NUMBER</label>						
+										</div>
+									</div>
+									<div class="addstaffwidth txtBoxSec nopaddingLR1">
+										<div class="form-group">
+										<label>ROLL</label>	
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Staff Member row starts here -->
+							<div id="addStaffMemberData">	
+
+							</div>	
+							<div class="clearfix"></div>
+
+							<div class="btn-Main">
+								<div class="text-center"><button type="button" name="addstaffmembers" class="btn btn-default lightBlueBtn bgtransparent nopaddingTB" onclick="addStaffMemberDetails();">+ Add Staff</button></div>
+							</div>
+							<div class="btn-Main ">
+								<button type="button" name="back" class="btn btn-default lightBlueBtn bgtransparent">Back</button>
+								<button type="button" name="next" class="btn btn-default lightBlueBtn">Next</button>
+							</div>
+
+						</div>
+					</form>	
+				</div>
+		    </div>				
+		</div>
+	</div>
+</div>	
+  
+{% endblock %}

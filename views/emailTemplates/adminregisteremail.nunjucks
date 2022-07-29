@@ -1,0 +1,15 @@
+{% extends "emailTemplates/emaillayout.nunjucks" %}
+{% block body %}
+	<div class="emailBodyOuterDiv">
+        <h2 class="emailGreetings">Hi {{ name | capitalize }},</h2>
+
+        <div class="emailBodyMessage">
+            Please click button to access {{LenderShortName}} admin panel using credentials provided below.<br><br>
+            <a href="{{ Link }}"><button class="btn-application">Login</button></a><br><br>
+			Login Email: <strong>{{ user.email }}</strong><br>
+			Password: <strong>{{ user.newtemppassword }}</strong><br>
+			Your Role: <strong>{{ user.rolename }}</strong><br><br>
+			<strong>You can reset your password after login.</strong>
+        </div>
+    </div>	
+{% endblock %}

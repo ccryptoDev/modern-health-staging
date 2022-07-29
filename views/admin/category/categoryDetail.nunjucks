@@ -1,0 +1,63 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Categories
+      <small>preview of categories</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="/admin/category-list"><i class="fa fa fa-book"></i>Categories</a></li>
+      <li class="active">Category details</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Categories Table</h3>
+        <a title="Delete current " class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">Delete</a>
+        <a href="/UpdateCategoryView?id={{ category.id }}" title="Edit current " class="btn btn-info" style="margin-left:70%">Update</a>
+      </div>
+      <div class="box-body">
+        
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <th>Category Name</th>
+            <td>{{ category.categoryName }}</td>
+          </tr>
+          <tr>
+            <th>Category created At</th>
+            <td>{{ category.createdAt }}</td>
+          </tr>
+          <tr>
+            <th>Category updated At</th>
+            <td>{{ category.updatedAt }}</td>
+          </tr>
+          </tbody></table>
+      </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete Category?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Do you want to delete category '{{ category.categoryName }}'</p>
+          </div>
+          <div class="modal-footer">
+          <form action="/admin/deleteCategory?id={{ category.id }}" method="POST">
+            <button type="submit" class="btn btn-default">
+              Delete
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

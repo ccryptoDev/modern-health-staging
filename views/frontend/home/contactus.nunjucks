@@ -1,0 +1,36 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<div id="contactus">
+<div class="container documentary">
+	<div class="heading">
+		<div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+		<div style="display: none;">{% include "frontend/layout/navigator.nunjucks" %}</div>
+		<h1 class="title">Contact Us</h1>
+	</div>
+	<div class="row col-lg-10 col-lg-offset-1">
+		<div class="whitebox block-content-box">
+			<p class="text-center whitetext"> If you have a question or would like to learn more information, we are a phone call or email away! </p>
+			<div class="row" style="margin-top:50px;">
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 whitetext text-center" style="margin-bottom: 10px;">
+					<div class="circleBtn ">
+						<i class="fas fa-phone-square contact-icon1" aria-hidden="true"></i>
+					</div>
+					<p class="pfi-bottom-02">CALL US</p>
+					<p class="pfi-bottom-02">{{LenderPhone}}</p>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 whitetext text-center" style="margin-bottom: 10px">
+					<a href="mailto:{{LenderEmailAddress}}">
+						<div class="circleBtn">
+							<i class="fas fa-envelope-square contact-icon1" aria-hidden="true"></i>
+						</div>
+					</a>
+					<p class="pfi-bottom-02">EMAIL US</p>
+					<p class="pfi-bottom-02">{{LenderEmailAddress}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}

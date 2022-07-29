@@ -1,0 +1,46 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="applysearch">
+<div class="container-fluid">
+    <div class="heading">
+        <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+        <h1 class="title">Before we get started, let's find your healthcare provider.</h1>
+    </div>
+    <div class="row">
+		<form name="practicesearch" id="practicesearch" action="applysearch" method="post">
+			<div class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-12 col-md-offset-0 col-lg-8 col-lg-offset-2">
+				<div class="whitebox applysearch-box">
+					<div class="h-center">
+						<div class="row">
+							<img src="images/imgv3/compiend-shapes-icon.png" id="combined-img" class="img-responsive" />
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1" style="">
+								<div class="form-group searchBox">
+									<div class="box">
+										<input type="text" class="form-control" id="searchpractice" placeholder="Find your healthcare provider or city" name="searchpractice" value="{{searchpractice}}" style="border:1px solid rgba(83,150,65,1);padding-right:93px;" />
+										<button class="btn btn-default" onclick="$('#practicesearch').submit();" style="position:absolute;background:#63944C;padding:0 26px;height:40px;margin-top:-40px;right:0;border-top-left-radius: 0;border-bottom-left-radius: 0;">Search</button>
+									</div>
+									<input type="hidden" name="searchid" id="searchid">
+									<input type="hidden" name="searchtype" id="searchtype">
+									<input type="hidden" name="pagename" id="pagename" value="{{urlpath}}">
+									<div id="searchresults"></div>
+								</div>
+							</div>
+						</div>
+						<hr/>
+						<p id="noresults" class="search-results"><B>Search Results</B></p>
+						<div id="searchListing">
+							{% include "frontend/homev3/applysearchinfo.nunjucks"%}
+						</div>
+						<div class="text-center" id="viewmoreBtn"  {% if blockviewmore==1 %} style="display:none" {% endif %}><a href="javascript:void(0)" onclick="fetchPracticeDetails('{{searchid}}','{{searchpractice}}','{{searchtype}}','{{pagenumber}}')"><strong>View more</strong></a>
+						</div>
+						<div class="text-center noprovider"><a href="/addprovider">Provider not listed?</a></div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+</div>
+</div>
+{% endblock %}

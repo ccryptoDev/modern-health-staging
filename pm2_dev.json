@@ -1,0 +1,20 @@
+{
+	"apps" : [
+		{
+			"name"        : "modern-health",
+			"script"      : "app.js",
+			"exec_mode"   : "fork",
+			"watch"       : [ "api", "config", "assets" ],
+			"ignore_watch": [  "assets/styles", "assets/images/signatures", "assets/uploads", "assets/ActumCredit" , "assets/firstAssociatesUpload","assets/js" ],
+			"log_date_format": "YYYY-MM-DD HH:mm:ss.SSS",
+			"out_file": "~/.pm2/logs/modern-health.log",
+			"error_file": "~/.pm2/logs/modern-health.log",
+			"max_memory_restart": "512M",
+			"env" : {
+				"NODE_ENV": "development",
+				"PORT": 8300
+			},
+			"node_args": ["--inspect=9300"]
+		}
+	]
+}

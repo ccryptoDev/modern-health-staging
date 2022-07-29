@@ -1,0 +1,10 @@
+{% extends "emailTemplates/emaillayout.nunjucks" %}
+{% block body %}
+    <div class="emailBodyOuterDiv">
+        <h2 class="emailGreetings">Hi {{ user.name | capitalize }},</h2>
+
+        <div class="emailBodyMessage">
+            Please contact support with your verification code: {{ activationCode }}.<br><br>
+        </div>
+    </div>
+{% endblock %}  

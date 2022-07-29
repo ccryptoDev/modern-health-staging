@@ -1,0 +1,2636 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <style>
+      .badge-success {
+        background-color: green;
+      }
+
+      .badge-danger {
+        background-color: red;
+      }
+    </style>
+    <section class="content-header">
+      <!-- spinner start -->
+      <div class="row" id="loaderid" style="display:none;">
+        <div class="" align="center" style="text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,0.7);">
+          <!-- pre id="plaidresponse"><img src="/images/img/ajaxloader.gif"></pre -->
+          <div style="height:100%;width:100%;background:url('/images/img/ajaxloader.gif') no-repeat center;margin-top:-233px;"></div>
+        </div>
+      </div>
+      <!-- spinner end -->
+      <h1>
+        View Applications Details
+        <small>preview of View Applications Details</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="/admin/getAchDetails"><i class="fa fa-dashboard"></i>Manage Applications</a></li>
+        <li class="active">View Applications Details</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ practicedata.PracticeName }}</h3>
+          <span class="pull-right">
+
+            <!-- {% if req.session.viewType =='archived'  %}
+                <a href="/admin/getArchivedOpenDetails"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='open'  %}
+                <a href="/admin/getOpenApplicationDetails"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='toDo' %}
+                <a href="/admin/getToDoItemsOpenApplicationDetails"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='approvedContract' %}
+                <a href="/admin/showAllComplete"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='inprogressContract' %}
+                <a href="/admin/showAllInprogress"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='archiveContract' %}
+                <a href="/admin/showFundedContracts"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='denied' %}
+                <a href="/admin/showAllDenied"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='deniedArchive' %}
+                <a href="/admin/showAllArchivedDenied"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='deniedTodo' %}
+                <a href="/admin/showAllToDoItemsDenied"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% elseif req.session.viewType =='procedureDateSet' %}
+                <a href="/admin/showProcedureDateSet"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% else %}
+                <a href="/admin/getAchDetails"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+            {% endif %} -->
+
+
+          <!--{% if paymentmanagementdata.achstatus == 0 %}
+              <a href="/admin/getAchDetails"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+          {% endif%}
+
+          {% if paymentmanagementdata.achstatus == 3 %}
+             <a href="/admin/showAllBlocked"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+          {% endif %}
+
+          {% if paymentmanagementdata.achstatus == 1 %}
+             <a href="/admin/showAllComplete"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+          {% endif %}
+
+          {% if paymentmanagementdata.achstatus == 2 %}
+             <a href="/admin/showAllDenied"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+          {% endif %}-->
+
+      {% if paymentmanagementdata.achstatus == 0 %}
+          <a href="{{backviewType}}"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+      {% endif%}
+
+      {% if paymentmanagementdata.achstatus == 3 %}
+         <a href="{{backviewType}}"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+      {% endif %}
+
+      {% if paymentmanagementdata.achstatus == 1 %}
+         <a href="{{backviewType}}"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+      {% endif %}
+
+      {% if paymentmanagementdata.achstatus == 2 %}
+         <a href="{{backviewType}}"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a>
+      {% endif %}
+
+
+          </span>
+        </div>
+        <div class="box-body">
+
+         {% if (errorval)  %}
+             <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+              {{errorval}}
+             </div>
+             <br>
+        {% endif %}
+        {% if (successmsg)  %}
+             <div class="alert alert-success">
+                 <a href="#" class="close" data-dismiss="alert">&times;</a>
+              {{successmsg}}
+            </div>
+            <br>
+         {% endif %}
+         {% if (schudlesmsg)  %}
+             <div class="alert alert-success">
+                 <a href="#" class="close" data-dismiss="alert">&times;</a>
+              {{schudlesmsg}}
+            </div>
+            <br>
+         {% endif %}
+          <div id="tabs">
+          <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+          <input class="" type="hidden" id="incompleteScreenId" name="incompleteScreenId" value="{{ paymentmanagementdata.screentracking.id }}">
+
+          <input class="" type="hidden" id="showApproveButton" name="showApproveButton" value="{{ showApproveButton }}">
+          <input class="" type="hidden" id="loanSetDateExist" name="loanSetDateExist" value="{{ loanSetDateExist }}">
+          <input class="" type="hidden" id="hasConfirmedProcedure" name="hasConfirmedProcedure" value="{{ paymentmanagementdata.procedureWasConfirmed }}">
+
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#userinfo">User Information</a></li>
+
+            {% if req.user.rolename != 'PracticeStaff' %}
+                <li><a data-toggle="tab" href="#transunioninfo">Credit Report</a></li>
+                <li><a data-toggle="tab" href="#userbankinfo" id="userbankinfotab">Bank Accounts</a></li>
+            {% endif %}
+
+            <li><a data-toggle="tab" href="#employmentinfo" id="employmentinfotab">Employment</a></li>
+            <li><a data-toggle="tab" href="#payscheduleinfo" id="paymentinfotab">Payment Schedule</a></li>
+            <li><a data-toggle="tab" href="#uploaddocuments" id="uploaddoctab">Document Center</a></li>
+            <li><a data-toggle="tab" href="#DTIoffer" id="DTIoffertab">Counter Offer</a></li>
+            <li><a data-toggle="tab" href="#commentsection" >Comments</a></li>
+            <li><a data-toggle="tab" href="#loagactivitysection" >Log</a></li>
+            
+          </ul>
+
+          <div class="tab-content">
+            
+            <div id="userinfo" class="tab-pane fade in active">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              {# <div> #}
+                <h3>
+                 {# <div class="pull-right text-left col-lg-7 col-md-7 col-sm-12 col-xs-12"> #}
+                 <div class="row">
+                      <div class="col-md-2 float-left">
+                        User Information
+                      </div>
+
+                    <!-- Approve button -->
+                    {# <div class="col-md-2"> #}
+                      {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                           {% if paymentmanagementdata.achstatus==0 %}
+                            <button type="button" class="btn btn-primary" id="approveloan"  onclick="setApproveLoan();">Approve</button>&nbsp;&nbsp;
+                           {% endif %}
+                       {% endif %}
+                    {# </div> #}
+
+                      {# <div class="col-sm-12"> #}
+                      {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                           {% if paymentmanagementdata.achstatus==1 and paymentdebitCount == 0 and paymentmanagementdata.procedureWasConfirmed != 1 %}
+                            <button type="button" class="btn btn-primary" id="btnUpdateProcedureDate"  onclick="updateApproveLoan();">Update procedure date</button>&nbsp;&nbsp;
+                          {% endif %}
+                       {% endif %}
+                       {# </div> #}
+
+                      {# <div class="col-md-1"> #}
+                        {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                            {% if paymentmanagementdata.moveToArchive == 1 %}
+                              {# <div style="position: absolute; left: 250px; top: 0px;"> #}
+                                <button type="button" class="btn btn-primary" id="unarchive"  onclick="$('#movetoUnarchiveModal').modal('show');">Unarchive</button>
+                              {# </div> #}
+                            {% else %}
+                              {# <div style="position: absolute; left: 250px; top: 0px;"> #}
+                                <button type="button" class="btn btn-primary" id="archive"  onclick="$('#movetoarchiveModal').modal('show');">Archive</button>
+                              {# </div> #}
+                            {% endif %}
+                        {% endif %}
+                        {# </div> #}
+
+                      {# <div class="col-md-1"> #}
+                       <!--<button type="button" class="btn btn-primary" id="approveloan" data-toggle="modal" data-target="#approveModal">Approve</button> &nbsp;&nbsp;-->
+                      <!-- Release button -->
+                              {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                                   {% if paymentmanagementdata.achstatus==3 %}
+                                      <button type="button" class="btn btn-primary" id="releaseloan" data-toggle="modal" data-target="#releaseModal">Release</button>&nbsp;&nbsp;
+                                   {% endif %}
+                              {% endif %}
+                      {# </div> #}
+                      {# <div class="col-md-1"> #}
+                      <!-- Deny button -->
+                      {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                        {% if paymentmanagementdata.achstatus==0 or paymentmanagementdata.achstatus==3 %}
+                                  <button type="button" class="btn btn-primary" id="denyloan" data-toggle="modal" data-target="#denyModal">Deny</button>&nbsp;&nbsp;
+                        {% endif %}
+                      {% endif %}
+                      {# </div> #}
+
+                      {# <div class="d-none col-md-2"> #}
+                     {% if req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                         {% if paymentmanagementdata.achstatus==1 and (paymentmanagementdata.status =='OPENED' or paymentmanagementdata.status == "Current") and paymentmanagementdata.procedureWasConfirmed != 1 and showApproveButton %}
+                             &nbsp;
+                             <button type="button" class="btn btn-primary" id="btnInitiateConfirmProcedure"  onclick="initiateConfirmProcedure();">Confirm Procedure</button>
+                         {% endif %}
+                     {% endif %}
+                     {# </div> #}
+
+                       {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                        {% if paymentDatediff > 45 and paymentmanagementdata.moveToOpen != 1 and ( paymentmanagementdata.achstatus == 0 or paymentmanagementdata.achstatus == 2 ) %}
+                              <!--<button type="button" class="btn btn-primary" id="movetoopen" onclick="moveToOpenApplication();">Move to open</button> -->
+                        {% endif %}
+                      {% endif %}
+
+                     {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                    {% if paymentmanagementdata.appverified == 0 and paymentmanagementdata.achstatus == 2 %}
+                               <!-- <button type="button" class="btn btn-primary" id="moveToreview" onclick="markAsReviewApp();">Mark as reviewed</button> -->
+                     {% endif %}
+                   {% endif %}
+
+
+
+                    {# <div class="col-md-2"> #}
+                      {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' or req.user.rolename =='PracticeDoctor' %}
+                          {% if paymentmanagementdata.achstatus==0 or paymentmanagementdata.achstatus==1%}
+                            {# <div style="position: absolute; right: 0;  top: 0px;"> #}
+                              <button type="button" class="btn btn-primary" id="linkstaff"  onclick="doctorsList();">Link staff /
+                              doctor</button>&nbsp;&nbsp;
+                            {# </div> #}
+                        {% endif %}
+                      {% endif %}
+                    {# </div> #}
+                    
+
+                   </div>
+                </h3>
+                <br /><br />
+
+                <div id="responsemessage"></div>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                      <tbody>
+                        <tr>
+                        <th>User Reference </th>
+                        <td>
+                           <a href="/admin/viewUserDetails/{{user.id}}">
+                            {% if user.userReference %}
+                              {{ user.userReference }}
+                            {% else %}
+                               --
+                            {% endif %}
+                           </a>
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+                      <tr>
+                        <th>Name</th>
+                        <td>{{ user.firstname }} {{ user.lastname }} ( <i class="fa fa-edit" style="color:green;" aria-hidden="true"></i><a href="javascript:void(0);" onclick="editNameDetails();">Edit</a> )
+
+                            <div style="display:none; padding:10px 0px;" id="changenamediv" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                               <form name="changenameform" id="changenameform" method="post" action="" style="padding:0px; margin:0px;">
+                                   <input class="" type="hidden" id="paydetailID" name="paydetailID" value="{{ paymentmanagementdata.id }}">
+                                   <input class="" type="hidden" id="payUserID" name="payUserID" value="{{ user.id }}">
+                                   <input type="text" name="name" value="{{ user.firstname }} {{ user.lastname }}" style="width:60%; padding:3px;" required>
+                                   &nbsp;&nbsp;
+                                   <button type="submit" name="changename" id="changename" class="btn btn-primary" style="margin-top:-5px;">Submit</button>
+                                   <br/>
+                                   <span id="nameerror"></span>
+                                   <span id="namemessage"></span>
+                               </form>
+                              </div>
+
+                        </td>
+                        <td>
+                         {% if profileImage.thumbnail %}
+                             <img style="width: 100px; height:100px" src="{{ profileImage.thumbnail }}" class="img-responsive center-block">
+                          {% endif%}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th>Email Address</th>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.isEmailVerified %}
+                              <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i> Email verified</p>
+                            {% else %}
+                              <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i>Email unverified</p>
+                            {% endif%}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Phone Number</th>
+                        <td>{{ user.phoneNumber }}</td>
+                        <td>
+                            {% if user.isPhoneVerified %}
+                              <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i> Phone verified</p>
+                            {% else %}
+                              <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i>Phone unverified</p>
+                            {% endif%}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Date of Birth</th>
+                        <td>{{ user.dateofBirth }}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                              <tr>
+                                <th>Latitude</th>
+                                <td>
+                                  {% if user.latitude %}
+                                    {{ user.latitude }}
+                                   {% else %}
+                                    --
+                                   {% endif%}
+                                </td>
+                                <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <th>Longitude</th>
+                                 <td>
+                                  {% if user.longitude %}
+                                    {{ user.longitude }}
+                                   {% else %}
+                                    --
+                                   {% endif%}
+                                </td>
+                                <td>&nbsp;</td>
+                              </tr>
+                      <tr>
+                        <th>Address</th>
+                        <td>
+                            {% if user.street %}
+                            {{ user.street }}( <i class="fa fa-edit" style="color:green;" aria-hidden="true"></i>
+                              <a href="javascript:void(0);" onclick="editAddressDetails('street','{{ user.street }}')">Edit Street</a> )
+                            {% endif%}
+                             <br/>
+                            {{ user.city }}
+                            &nbsp;&nbsp;( <i class="fa fa-edit" style="color:green;" aria-hidden="true"></i>
+                            <a href="javascript:void(0);" onclick="editAddressDetails('city','{{ user.city }}');">Edit City</a> )
+                            <br/>
+                            {{ user.zipCode }}
+                            &nbsp;&nbsp;( <i class="fa fa-edit" style="color:green;" aria-hidden="true"></i>
+                            <a href="javascript:void(0);" onclick="editAddressDetails('zipcode','{{ user.zipCode }}');">Edit Zipcode</a> )
+
+                            <div style="display:none; padding:10px 0px;" id="changeaddressdiv" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                               <form name="changeaddressform" id="changeaddressform" method="post" action="" style="padding:0px; margin:0px;">
+                                   <input class="" type="hidden" id="changetype" name="changetype" value="">
+                                   <input class="" type="hidden" id="addressPayID" name="addressPayID" value="{{ paymentmanagementdata.id }}">
+                                   <input class="" type="hidden" id="addressUserID" name="addressUserID" value="{{ user.id }}">
+                                   <label id="addresslabel"></label><br/>
+                                   <input type="text" name="addressdata" id="addressdata" value="" style="width:60%; padding:3px;" required>
+                                   &nbsp;&nbsp;
+                                   <button type="submit" name="changeaddress" id="changeaddress" class="btn btn-primary" style="margin-top:-5px;">Submit</button>
+                                    <button type="button" name="canceladdress" id="canceladdress" class="btn btn-primary" style="margin-top:-5px;" onclick="return canceladdressbtn();">Cancel</button>
+                                   <br/>
+                                   <span id="addressrror"></span>
+                                   <span id="addressmessage"></span>
+                               </form>
+
+                            </div>
+
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>State</th>
+                          <td>
+                            {% if user.state %}
+                            {{ user.state}}
+                            {% else %}
+                              --
+                            {% endif %}
+                        </td>
+
+                        <td>&nbsp;</td>
+                      </tr>
+
+
+                      <tr>
+                        <th>Financing Exist</th>
+                        <td>
+                          {% if paymentmanagementdata.achstatus==1 %}
+                          Yes
+                          {% else %}
+                          No
+                          {% endif %}
+
+                        </td>
+                        <td>
+                            {% if paymentmanagementdata.achstatus==1 %}
+                              <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i> Financing Exists</p>
+                            {% else %}
+                              <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i>No Financing</p>
+                            {% endif%}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Bank Added</th>
+                        <td>
+                            {% for accountdata in  accountDetail %}
+                              {% if accountdata.id== paymentmanagementdata.account %}
+                                {{ accountdata.accountName }} - {{ accountdata.accountNumber }}
+                              {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if user.isBankAdded %}
+                              <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i> Bank Added </p>
+                            {% else %}
+                               <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i> Bank not yet added</p>
+                            {% endif%}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th>Registered Date</th>
+                        <td>{{ user.createdAt }}
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>Last Profile Update Date</th>
+                        <td>{{ user.updatedAt }}
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+                                <tr>
+                        <th>Annual Income </th>
+                        <td>{{ annualIncome }}</td>
+                                    <td>&nbsp;</td>
+                      </tr>
+                        <tr>
+                            <th>Monthly Income </th>
+                            <td>{{ monthlyIncomeAmount }}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                      <tr>
+                        <th>Anticipated Financed Amount </th>
+                        <td>
+                          {% if  paymentmanagementdata.payOffAmount %}
+                            {{ paymentmanagementdata.payOffAmount }}
+                          {% else %}
+                            {{ paymentmanagementdata.screentracking.requestedLoanAmount }}
+                          {% endif %}
+                      </td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>PreDTI Debt </th>
+                        <td>{{ paymentmanagementdata.screentracking.preDTIMonthlyAmount }}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                        <tr>
+                            <th>Funding Tier </th>
+                            <td>
+                                {% if dtiandoffers.fundingTier %}
+                                    {{ dtiandoffers.fundingTier }}{{ "_" + dtiandoffers.fundingRate if dtiandoffers.fundingRate and dtiandoffers.fundingRate != "--" else '' }}
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                      <tr>
+                        <th>PreDTI Debt(%) </th>
+                        <td>{{ paymentmanagementdata.screentracking.preDTIPercentValue }}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>Payroll Detected Income </th>
+                        <td>{{ payroll_detected }}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>Housing Expense </th>
+                        <td>{{ paymentmanagementdata.screentracking.housingExpense }}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>Housing Status </th>
+                        <td>{{ paymentmanagementdata.screentracking.residenceType }}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <th>Income Type</th>
+                        {% if paymentmanagementdata.screentracking.incometype == "Manually" %}
+                        <td>Entered Manually</td>
+                        {% elseif paymentmanagementdata.screentracking.incometype == "Automatically" %}
+                        <td>Detected from Payroll</td>
+                        {% else %}
+                        <td>Modified by admin</td>
+                        {% endif %}
+                        <td>&nbsp;</td>
+                      </tr>
+
+          {% set deniedlength = paymentmanagementdata.screentracking.rulesDetails.approvedrulemsg.length %}
+          					  <tr>
+          						<th>Underwriting Rules{% if paymentmanagementdata.screentracking.rulesDetails.approvedrulemsg %}<p style="font-weight: 300">(Version: {% if req.session.rolename == 'Admin' %}{{ practicedata.PracticeName }} {% endif %}{{ paymentmanagementdata.screentracking.rulesDetails.version }})</p>{% endif %}</th>
+          						<td>
+                        {% for approvemsg in  paymentmanagementdata.screentracking.rulesDetails.approvedrulemsg %}
+                          <p>
+                            {{ approvemsg }}
+                            {% if ruleDataHasLength %}
+                              {% if getRuleEntry(loop.index0) %}
+                                &nbsp;<span class="badge badge-success">Passed</span>
+                              {% else %}
+                                &nbsp;<span class="badge badge-danger">Failed</span>
+                              {% endif %}
+                            {% endif %}
+                          </p>
+                        {% endfor %}</td>
+          					  </tr>
+          {% if paymentmanagementdata.screentracking.rulesDetails.ruledatacount %}
+						<tr>
+						<th>User Rule Values</th>
+						<td> {% for ruledatacount in  paymentmanagementdata.screentracking.rulesDetails.ruledatacount %}<p>{{ ruledatacount }} </p>{% endfor %} </td>
+						<td>&nbsp;</td>
+						</tr>
+					{% endif %}
+          {% if btrHasLength %}
+            <tr>
+              <th>Bank Transaction Rules</th>
+              <td>
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr1'].passed %}
+                  <p>BTR1: Average income in 6 months < 2000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr1'].value }}</p>
+                {% else %}
+                  <p>BTR1: Average income in 6 months < 2000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr1'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr2'].passed %}
+                  <p>BTR2: NSF transactions in a month > 0 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr2'].value }}</p>
+                {% else %}
+                  <p>BTR2: NSF transactions in a month > 0 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr2'].value }}</p>
+                {% endif %}
+
+                 {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr3'].passed %}
+                  <p>BTR3: NSF transactions in 3 months > 2 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr3'].value }}</p>
+                {% else %}
+                  <p>BTR3: NSF transactions in 3 months > 2 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr3'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr4'].passed %}
+                  <p>BTR4: Average balance in 6 months < $400 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr4'].value }}</p>
+                {% else %}
+                  <p>BTR4: Average balance in 6 months < $400 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr4'].value }}</p>
+                {% endif %}
+                
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr5'].passed %}
+                  <p>BTR5: Current balance < $200 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr5'].value }}</p>
+                {% else %}
+                  <p>BTR5: Current balance < $200 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr5'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr6'].passed %}
+                  <p>BTR6: Balance from all depository bank accounts < $50 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr6'].value }}</p>
+                {% else %}
+                  <p>BTR6: Balance from all depository bank accounts < $50 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr6'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr7'].passed %}
+                  <p>BTR7: Average balance from depository accounts in 3 months < $200 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr7'].value }}</p>
+                {% else %}
+                  <p>BTR7: Average balance from depository accounts in 3 months < $200 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr7'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr8'].passed %}
+                  <p>BTR8: Total income in 6 months < 1000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr8'].value }}</p>
+                {% else %}
+                  <p>BTR8: Total income in 6 months < 1000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr8'].value }}</p>
+                {% endif %}
+                
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr9'].passed %}
+                  <p>BTR9: Days since oldest transaction < 180 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr9'].value }}</p>
+                {% else %}
+                  <p>BTR9: Days since oldest transaction < 180 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr9'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr10'].passed %}
+                  <p>BTR10: Average most recent available balance < -$1000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr10'].value }}</p>
+                {% else %}
+                  <p>BTR10: Average most recent available balance < -$1000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr10'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr11'].passed %}
+                  <p>BTR11: Ratio of time in days from primary checking account having no activity > 10% then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr11'].value }}</p>
+                {% else %}
+                  <p>BTR11: Ratio of time in days from primary checking account having no activity > 10% then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr11'].value }}</p>
+                {% endif %}
+
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr12'].passed %}
+                  <p>BTR12: Total spending related transactions in the past 30 days < $500 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr12'].value }}</p>
+                {% else %}
+                  <p>BTR12: Total spending related transactions in the past 30 days < $500 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr12'].value }}</p>
+                {% endif %}
+                
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr13'].passed %}
+                  <p>BTR13: Total payment related transaction in past 3 months < than $50 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr13'].value }}</p>
+                {% else %}
+                  <p>BTR13: Total payment related transaction in past 3 months < than $50 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr13'].value }}</p>
+                {% endif %}
+                
+                {% if paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr14'].passed %}
+                  <p>BTR14: Total ATM fee related transactions in the past 3 months > than $1000 then decline &nbsp;<span class="badge badge-success">Passed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr14'].value }}</p>
+                {% else %}
+                  <p>BTR14: Total ATM fee related transactions in the past 3 months > than $1000 then decline &nbsp;<span class="badge badge-danger">Failed</span>&nbsp; Value: {{ paymentmanagementdata.screentracking.rulesDetails.banktransactionrules['btr14'].value }}</p>
+                {% endif %}
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+          {% endif %}
+          <tr>
+            <th>Income</th>
+            <td>
+              <p style="color: blue; cursor: pointer;" id="show-income">Show</p>
+              <div id="income-content" style="display:none;">
+                {% for data in incomeObject %}
+                  <p>{{ data.name }}: {{ data.value }}
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Credit Risk</th>
+            <td>
+              <p style="color: blue; cursor: pointer;" id="show-creditrisk">Show</p>
+              <div id="creditrisk-content" style="display:none;">
+                {% for data in creditObject %}
+                  <p>{{ data.name }}: {{ data.value }}
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>User Analysis</th>
+            <td>
+              <p style="color: blue; cursor: pointer;" id="show-useranalysis">Show</p>
+              <div id="useranalysis-content" style="display:none;">
+                {% for data in userObject %}
+                  <p>{{ data.name }}: {{ data.value }}
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+
+                      <tr>
+                        <th>Financing Reference Number</th>
+                        <td>
+                            {% if paymentmanagementdata.loanReference %}
+                             {{ paymentmanagementdata.loanReference }}
+                            {% else %}
+                             --
+                            {% endif %}
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+
+                      <tr>
+                        <th>Financing Status</th>
+                        <td>
+                            {% if paymentmanagementdata.achstatus==1 %}
+                              <i class='fa fa-circle text-success' aria-hidden='true' ></i> Approved
+                            {% elseif paymentmanagementdata.achstatus==2 %}
+                              <i class='fa fa-circle text-danger' aria-hidden='true' ></i> Denied
+                            {% else %}
+                             <i class='fa fa-circle text-warning' aria-hidden='true' ></i> Pending
+                            {% endif %}
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+                         {% if paymentmanagementdata.screentracking.deniedmessage %}
+                           <tr>
+                            <th>Denied Reason</th>
+                            <td colspan="2">
+                              <div style=" color: #a94442; border-radius: 4px; margin-bottom: 20px; padding: 15px;">{{paymentmanagementdata.screentracking.deniedmessage}}</div>
+                            </td>
+
+                            </tr>
+                         {% else %}
+                             <tr>
+                                <th>Denied Reason</th>
+                                <td colspan="2">
+                                  <div style=" color: #a94442; border-radius: 4px; margin-bottom: 20px; padding: 15px;">{{paymentmanagementdata.declinereason}}</div>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <th>Counter offered</th>
+                            <td>
+                              {{counterOfferdecline}}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                        {% if screentracking.rulesDetails.loanstatus == 'Approved' %}
+                         {% set deniedlength = screentracking.rulesDetails.approvedrulemsg.length %}
+                          <tr>
+                            <th>Underwriting Rules</th>
+                            <td> {% for approvemsg in  screentracking.rulesDetails.approvedrulemsg %}<p>{{ approvemsg }} </p>{% endfor %}</td>
+                            <td>&nbsp;</td>
+                          </tr>
+                        {% endif %}
+
+                        {% if screentracking.rulesDetails.loanstatus == 'Denied' %}
+                         {% set deniedlength = screentracking.rulesDetails.declinedrulemsg.length %}
+                          <tr>
+                            <th>Denied Details</th>
+                            <td> {% for deniedmsg in  screentracking.rulesDetails.declinedrulemsg %}<p>{{ deniedmsg }} </p>{% endfor %}</td>
+                            <td>&nbsp;</td>
+                          </tr>
+                        {% endif %}
+                        {% if screentracking.rulesDetails.ruledatacount %}
+                         <tr>
+                            <th>User Rule Values</th>
+                            <td> {% for ruledatacount in  screentracking.rulesDetails.ruledatacount %}<p>{{ ruledatacount }} </p>{% endfor %} </td>
+                            <td>&nbsp;</td>
+                          </tr>
+                        {% endif %}
+            <tr>
+            <th>Application Created By</th>
+            <td>{{ user.underwriter }}
+            </td>
+            <td>&nbsp;</td>
+            </tr>
+
+            {# {% if paymentmanagementdata.screentracking.rulesDetails.loanstatus == 'Denied' %}
+          					     {% set deniedlength = paymentmanagementdata.screentracking.rulesDetails.declinedrulemsg.length %}
+          						  <tr>
+          							<th>Denied Details</th>
+          							<td> {% for deniedmsg in  paymentmanagementdata.screentracking.rulesDetails.declinedrulemsg %}<p>{{ deniedmsg }} </p>{% endfor %}</td>
+          						  </tr>
+          					  {% endif %} #}
+
+            {% if paymentmanagementdata.achstatus==1  and paymentmanagementdata.approvedunderwriter %}
+              <tr>
+              <th>Financing Approved By</th>
+              <td>{{ paymentmanagementdata.approvedunderwriter }}</td>
+              <td>&nbsp;</td>
+              </tr>
+            {% endif %}
+            <!-- <tr>
+            <th>Documents Uploaded By</th>
+            <td> vinoth
+            </td>
+            <td>&nbsp;</td>
+            </tr> -->
+            {% if user.plaidresend %}
+              <tr>
+              <th> Plaid Re-sent By</th>
+              <td>{{ user.plaidresend }}</td>
+              <td>&nbsp;</td>
+              </tr>
+            {% else %}
+            <tr>
+              <th> Plaid Re-sent By</th>
+              <td>---</td>
+              <td>&nbsp;</td>
+              </tr>
+            {% endif %}
+            {% if user.offerlinksend %}
+            <tr>
+            <th> Offer Link Sent By</th>
+            <td>{{ user.offerlinksend }}</td>
+            <td>&nbsp;</td>
+            </tr>
+            {% else %}
+             <tr>
+            <th> Offer Link Send By</th>
+            <td>---</td>
+            <td>&nbsp;</td>
+            </tr>
+            {% endif %}
+            </tbody>
+                  </table>
+                    <div class="text-center" id="underwritersection">
+
+                      <!-- Approve button -->
+                      {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                          {% if paymentmanagementdata.achstatus==0 %}
+                            <!-- <button type="button" class="btn btn-primary" id="approveloan" data-toggle="modal" data-target="#approveModal">Approve</button> &nbsp;&nbsp; -->
+
+                             <button type="button" class="btn btn-primary" id="approveloan"  onclick="setApproveLoan();">Approve</button>&nbsp;&nbsp;
+
+                          {% endif %}
+                      {% endif %}
+                       <!--<button type="button" class="btn btn-primary" id="approveloan" data-toggle="modal" data-target="#approveModal">Approve</button> &nbsp;&nbsp;-->
+
+                      <!-- Release button -->
+                              {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                                   {% if paymentmanagementdata.achstatus==3 %}
+                                      <button type="button" class="btn btn-primary" id="releaseloan" data-toggle="modal" data-target="#releaseModal">Release</button>
+                                   {% endif %}
+                              {% endif %}
+
+                      <!-- Deny button -->
+                      {% if req.session.rolename =='Underwriter' or req.session.rolename =='Admin'  or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' %}
+                        {% if paymentmanagementdata.achstatus==0 or paymentmanagementdata.achstatus==3 %}
+                                  <button type="button" class="btn btn-primary" id="denyloan" data-toggle="modal" data-target="#denyModal">Deny</button>
+                        {% endif %}
+                      {% endif %}
+
+                      </div>
+
+                </div>
+               </div>
+            </div>
+
+             <!-- Counter Offer Tab Start -->
+              <div id="DTIoffer" class="tab-pane fade">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  {# % include "admin/screentracking/dtiandoffersnew.nunjucks"% #}
+                  {% include "admin/screentracking/changeLoanAmount.nunjucks" %}
+                  {# {% if incompleteloanCount == 0 %} #}
+                  {# % include "admin/screentracking/changeLoanAmount.nunjucks" % #}
+
+                  {# {% else %}
+                    <br>
+                    <p>This user already has an incomplete application. <a href="/admin/viewUserDetails/{{user.id}}">Click here</a> to view user application.</p>
+                    <br>
+                  {% endif %} #}
+                </div>
+              </div>
+              <!-- Counter Offer Tab End -->
+
+              <!-- User Employment Info -->
+              <div id="employmentinfo" class="tab-pane fade">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    {% include "admin/screentracking/employmentTab.nunjucks" %}
+                </div>
+              </div>
+
+            {% if req.user.rolename != 'PracticeStaff' %}
+            <div id="userbankinfo" class="tab-pane fade">
+        			{% include "admin/userbank/accounts.nunjucks" %}
+            </div>
+            {% endif %}
+
+            <!-- Payment Schedule Tab Start -->
+            <div id="payscheduleinfo" class="tab-pane fade">
+              <!-- {% if creditfilefound==1 %}
+                {% if creditfilename!='' %}
+                    <h3>financing Actum Credit File</h3>
+
+                    {% set acp = 1 %}
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                      <tr>
+                      <th> # </th>
+                      <th> Documents </th>
+                      <th> PDF </th>
+                      </tr>
+                      <tbody>
+
+                        <tr>
+                          <td>{{ acp }}</td>
+                          <td>Actum Credit File</td>
+                          <td><a href="{{creditfilename}}" target="_blank">Dowload File</a></td>
+                        </tr>
+
+                      </tbody>
+                      </table>
+                    </div>
+                  {% endif %}
+                {% endif %}-->
+
+        <h3>Financing Agreement Documents</h3>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+           <tr>
+           <th> # </th>
+             <th> Documents </th>
+            <th> PDF </th>
+           </tr>
+           <tbody>
+             {% set p = 0 %}
+              {% for pdfdocument in  pdfdocument %}
+			  	{% if pdfdocument.documentKey != "132" or req.user.rolename != 'PracticeStaff' %}
+                {% set p = p+1 %}
+                <tr>
+                  <td>{{ p }}</td>
+                  {% if pdfdocument.documentName == "tcpa" %}
+                    <td>SMS Policy</td>
+                  {% else %}
+                    <td>{{ pdfdocument.documentName }}</td>
+                  {% endif%}
+                  <td><a href="{{ pdfdocument.agreementpath }}" target="_blank">View Document</a></td>
+                </tr>
+				{% endif %}
+              {% endfor %}
+             </tbody>
+          </table>
+        </div>
+
+              <h3>Payment Information</h3>
+              <br/>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th>Financing Start Date</th>
+                      <td>
+                         {% if paymentmanagementdata.loanStartdate %}
+                          <strong>{{ paymentmanagementdata.loanStartdate }}</strong>
+                         {% else %}
+                          --
+                         {% endif %}
+                      </td>
+                    </tr>
+
+                            <tr>
+                      <th>Financing Amount</th>
+                      <td>
+                        ${{paymentmanagementdata.payOffAmount}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Remaining Balance</th>
+                      <td>
+                        ${% if(paymentmanagementdata.finalpayoffAmount) %} {{paymentmanagementdata.finalpayoffAmount}} {% else %}{{paymentmanagementdata.payOffAmount}} {% endif %}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Rate per cycle</th>
+                      <td>
+                        {{paymentmanagementdata.interestapplied}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Funding Fee</th>
+                      <td>
+                        ${{paymentmanagementdata.fundingfee}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>APR</th>
+                      <td>
+                        {{paymentmanagementdata.apr}}%
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Financing Term</th>
+                      <td>
+                        {{paymentmanagementdata.loantermcount}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Financing Status</th>
+                      <td>
+                      {{paymentmanagementdata.status}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Maturity Date</th>
+                      <td>
+                        {{paymentmanagementdata.maturityDate}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Next Payment Schedule Date</th>
+                      <td>
+                        {# paymentmanagementdata.nextPaymentSchedule #}
+                        {{ nextpaymentDate }}
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th>ACH Application Status</th>
+                      <td>
+                        {{ statusicon }}
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th>Payment Status</th>
+                      <td>
+                        {{ PaymentScheduleStatus }}
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th>Payment Type</th>
+                      <td>
+                        {{ loanPaymentType }}
+                      </td>
+                    </tr>
+
+
+
+
+                    {% if transactionStatus!='' %}
+                        <tr>
+                          <th>Transaction Status</th>
+                          <td>
+                            {{ transactionStatus }}
+                          </td>
+                        </tr>
+                    {% endif %}
+
+
+
+
+                  </tbody>
+                </table>
+              </div>
+              {% if paymentmanagementdata.achstatus !=2 %}
+
+              <!-- <h3>Payment Schedule Information {% if paymentmanagementdata.achstatus == 1 and vikingPendingCount == 0 %} <button type="button" class="btn btn-warning pull-right" style="" onclick="$('#CancelScheduleModal').modal('show');">Cancel / Close Schedule</button>  {% endif %} {% if paymentmanagementdata.achstatus==1 and (makebuttonshow=='yes') %}<button type="button" class="btn btn-primary pull-right" style="margin-right:4px;" onclick="addmanualschedule('open');">Make Payment</button>{% endif %}</h3> -->
+
+              <h3>Payment Schedule Information </h3>
+              <br/>
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Transaction ID</th>
+                        <th>Amount (USD)</th>
+                        <th>Schedule Date</th>
+                        <th>Status</th>
+                                    <!-- <th>Unique Id</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% set p = 0 %}
+                      {% for paymentSchedule in  paymentmanagementdata.paymentSchedule %}
+                        {% set p = p+1 %}
+                        <tr>
+                          <td>{{ p }}</td>
+
+                          <td>{{ paymentSchedule.transaction }}</td>
+                          <td>{{ paymentSchedule.amount }} </td>
+                          <!-- <td>{{ paymentSchedule.date}} {% if paymentmanagementdata.achstatus==1 and (paymentSchedule.status == 'Current') %}<div class="pull-right" style="margin-right:20px;"><i class="fa fa-edit" style="color:green;" aria-hidden="true"></i> <a href="javascript:void(0);" onclick="editScheduleDate('{{ paymentSchedule.transaction}}','open');">Edit</a></div>{% endif %} </td> -->
+
+                          <td>{{ paymentSchedule.date}} </td>
+                          <td>{% if paymentSchedule.status == 'Closed' %} Revoked {% else %} {{ paymentSchedule.status }} {% endif %}  </td>
+                                      <!-- <td>{{ paymentSchedule.uniqueScheduleId }}</td> -->
+                        </tr>
+
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+            {% endif %}
+                {% if ipaddress == '192.168.1.103' or ipaddress == '192.168.1.110' or ipaddress ==  '192.168.1.145' %}
+                    {% if paymentmanagementdata.achstatus == 1 %}
+                     <h3>Viking Schedule Information </h3>
+                     <br/>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Transaction ID</th>
+                                <th>Type</th>
+                                <th>Amount (USD)</th>
+                                <th>Schedule Date </th>
+                                <th>Type (1 Waiting, 2 Sent)</th>
+                                <th>Unique Id</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% set p = 0 %}
+                              {% for vikingData in  vikingData %}
+                                {% set p = p+1 %}
+                                <tr>
+                                  <td>{{ p }}</td>
+                                  <td>{{ vikingData.uniqueID }}</td>
+                                  <td>{{ vikingData.lenderType }}</td>
+                                  <td>{{ vikingData.amount }} </td>
+                                  <td>{{ momentDate(vikingData.scheduleDate).format('ddd, MMM Do YYYY')}} <div class="pull-right" style="margin-right:20px;"><i class="fa fa-edit" style="color:green;" aria-hidden="true"></i> <a href="javascript:void(0);" onclick="editVikingScheduleDate('{{ vikingData.id}}','open','{{vikingData.scheduleDate}}');">Edit</a></div></td>
+                                  <td>{{ vikingData.processType }}--{{ vikingData.status }}</td>
+                                  <td>{{ vikingData.uniqueScheduleId }} - {{ vikingData.uniqueID }}</td>
+
+                                </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                     {% endif %}
+                {% endif %}
+
+
+                {% if paymentmanagementdata.achstatus != 2 %}
+
+                {% if paymentmanagementdata.interestapplied > 0 %}
+                  <h3> Financing Repayments Information by Month</h3>
+                  <br/>
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th style="width: 10px">SNO</th>
+                            <th>Unpaid Principal Balance (USD)</th>
+                            <th>Principal (USD)</th>
+                            <th>Interest (USD)</th>
+                            <th>Paid Principal (USD)</th>
+                            <th>Paid Interest (USD)</th>
+                            <th>Schedule Amount (USD)</th>
+                            <th>Schedule Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% set lp = 0 %}
+                          {% for paymentScheduledata in  pendingSchedule %}
+                            {% set lp = lp+1 %}
+                            <tr>
+                              <td>{{ lp }}</td>
+                              <td>{{ paymentScheduledata.startBalanceAmount }}</td>
+                              <td>{{ paymentScheduledata.principalAmount }}</td>
+                              <td>{{ paymentScheduledata.interestAmount }}</td>
+                              <td>{{ paymentScheduledata.paidprincipalAmount }}</td>
+                              <td>{{ paymentScheduledata.paidinterestAmount }}</td>
+                              <td>{{ paymentScheduledata.amount }}</td>
+                              <td>{{ paymentScheduledata.date}}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+
+                  <h3>Financing Paidback Information by Month</h3>
+                  <br/>
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th style="width: 10px">SNO</th>
+                             <th>Start Balance (USD)</th>
+                            <th>Principal (USD)</th>
+                            <th>Interest (USD)</th>
+                            <th>Paid Principal (USD)</th>
+                            <th>Paid Interest (USD)</th>
+                            <th>Schedule Amount (USD)</th>
+                            <th>Schedule Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% set slp = 0 %}
+                          {% for paidpaymentScheduledata in  paidSchedule %}
+                            {% set slp = slp+1 %}
+                            <tr>
+                              <td>{{ slp }}</td>
+                              <td>{{ paidpaymentScheduledata.startBalanceAmount }}</td>
+                              <td>{{ paidpaymentScheduledata.principalAmount }}</td>
+                              <td>{{ paidpaymentScheduledata.interestAmount }}</td>
+                              <td>{{ paidpaymentScheduledata.paidprincipalAmount }}</td>
+                              <td>{{ paidpaymentScheduledata.paidinterestAmount }}</td>
+                              <td>{{ paidpaymentScheduledata.amount }}</td>
+                              <td>{{ paidpaymentScheduledata.date}}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  {% endif %}
+
+
+              <h3>Manual Payment Transaction Information</h3>
+              <br/>
+              {% if paymentmanagementdata.manualPayment.length>0 %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Transaction Message</th>
+                            <th>Transaction Amount</th>
+                            <th> Date</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        {% set m = 0 %}
+                        {% for manualPayment in  paymentmanagementdata.manualPayment %}
+                           {% set m = m+1 %}
+                          <tr>
+                            <td>{{ m }}</td>
+                            <td>{{ manualPayment.message }}</td>
+                            <td>{{ manualPayment.amount }}</td>
+                            <td>{{ manualPayment.date }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+              {% else %}
+                  <p>No manual transaction from app</p>
+              {% endif %}
+
+              <h3>   Financing Repayment Transaction Information</h3>
+
+              {% if paymentmanagementdata.usertransactions %}
+                  {% if paymentmanagementdata.usertransactions.length>0 %}
+                       <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Financing ID</th>
+                                <th>Transaction Amount</th>
+                                <th>Transaction ID</th>
+                                <th>Transaction Type</th>
+                                <th>Failure Reason</th>
+                                <th>Transaction Status</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% set um = 0 %}
+                            {% for usertransactions in  paymentmanagementdata.usertransactions %}
+                               {% set um = um+1 %}
+                              <tr>
+                                <td>{{ um }}</td>
+                                <td>{{ usertransactions.loanID }}</td>
+                                <td>{{ usertransactions.amount }}</td>
+                                <td>{{ usertransactions.transactionId }}</td>
+                                <td>{{ usertransactions.transactionType }}</td>
+                                <td>
+                                        {% if usertransactions.failurereason %}
+                                            {{ usertransactions.failurereason }}<br>
+                                            {{vikingConfig.rejectReason[usertransactions.failurereason]}}
+                                        {% else %}
+                                            --
+                                        {% endif %}
+                                </td>
+                                <td>
+                                    {% if usertransactions.status==2 %}
+                                       Settled
+                                    {% elseif usertransactions.status==3 %}
+                                       Failed
+                                    {% else %}
+                                       Pending
+                                    {% endif %}
+                                </td>
+                                <td>{{ usertransactions.date }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                  {% else %}
+                    <p>No Financing repayment transaction from system</p>
+                  {% endif %}
+              {% else %}
+                  <p>No Financing repayment transaction from system</p>
+              {% endif %}
+
+              {% endif %}
+
+
+
+
+              {% if paymentmanagementdata.potentialdefaultexist==1 or  paymentmanagementdata.potentialdefaultexist==0  %}
+                  <h3>Financing Potential Default Information</h3>
+                  {% if paymentmanagementdata.potentialdefaultlog.length>0 %}
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Schedule No</th>
+                                <th>Amount (USD)</th>
+                                <th>Schedule Date</th>
+                                <th>Failure message</th>
+                                <th>Log Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% set plog = 0 %}
+                                {% for potentialdefaultlog in  paymentmanagementdata.potentialdefaultlog %}
+                                  {% set plog = plog+1 %}
+                                  <tr>
+                                    <td>{{ plog }}</td>
+                                    <td>Schedule {{ potentialdefaultlog.scheduleID }}</td>
+                                    <td>{{ potentialdefaultlog.amount }}</td>
+                                    <td>{{ potentialdefaultlog.logdate }}</td>
+                                    <td>{{ potentialdefaultlog.logmessage }} </td>
+                                    <td>{{ potentialdefaultlog.logdate }} </td>
+                                  </tr>
+                                 {% endfor %}
+                            </tbody>
+                        </table>
+                       </div>
+                  {% else %}
+                    <p>No Potential default log exist</p>
+                  {% endif %}
+
+              {% endif %}
+
+              <h3>Credit report information</h3>
+                  {% if creditReports.length>0 %}
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Debit ID</th>
+                                <th>Origination fee(USD)</th>
+                                <th>Fixed fee(USD)</th>
+                                <th>Percent fee(USD)</th>
+                                <th>To {{LenderShortName}}(USD)</th>
+                                <th>To Practice(USD)</th>
+                                <th>Credit ID</th>
+                                <th>Credit amount(USD)</th>
+                                <th>Credit status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% set plog = 0 %}
+                                {% for credit in  creditReports %}
+                                  {% set plog = plog+1 %}
+                                  <tr>
+                                    <td>{{ plog }}</td>
+                                    <td>{{ credit.orderId }}</td>
+                                    <td>
+                                        {% if credit.orginiationfee %}
+                                            {{credit.orginiationfee | round(2)}}
+                                        {% else %}
+                                            0
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        {% if credit.fixedfee %}
+                                            {{credit.fixedfee | round(2)}}
+                                        {% else %}
+                                            0
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        {% if credit.percentfee %}
+                                            {{credit.percentfee | round(2)}}
+                                        {% else %}
+                                            0
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        {% if credit.comissionamount %}
+                                            {{credit.comissionamount | round(2)}}
+                                        {% else %}
+                                            0
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        {% if credit.paybackAmount %}
+                                            {{credit.paybackAmount | round(2)}}
+                                        {% else %}
+                                            0
+                                        {%endif%}
+                                    </td>
+                                      <td>
+                                        {% if credit.creditorderID %}
+                                            {{credit.creditorderID}}
+                                        {% else %}
+                                            -
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        {% if credit.creditrunAmount %}
+                                            {{credit.creditrunAmount | round(2)}}
+                                        {% else %}
+                                            0
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        {% if credit.creditorderID and credit.creditpaymentstatus == 0 %}
+                                            Pending
+                                        {% elseif credit.creditpaymentstatus == 1 %}
+                                            Settled
+                                        {% elseif credit.creditpaymentstatus == 2 %}
+                                            Failed
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                  </tr>
+                                 {% endfor %}
+                            </tbody>
+                        </table>
+                       </div>
+                  {% else %}
+                    <p>No Credit reports found.</p>
+                  {% endif %}
+              <!-- <h3>Payment Transaction Log Information</h3>
+              <br/>
+              {% if paymentmanagementdata.logs.length>0 %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Transaction Message</th>
+                          <th>Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% set lg = 0 %}
+                        {% for logsdata in  paymentmanagementdata.logs %}
+                           {% set lg = lg+1 %}
+                          <tr>
+                            <td>{{ lg }}</td>
+                            <td>{{ logsdata.message }}</td>
+                            <td>{{ logsdata.date }}</td>
+                        </tr>
+                        {% endfor %}
+                       </tbody>
+                     </table>
+                  </div>
+              {% else %}
+                  <p>No automatic transaction from system</p>
+              {% endif %} -->
+
+            </div>
+
+            <div id="uploaddocuments" class="tab-pane fade">
+
+              <h3>Loan Agreement Documents</h3>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th> # </th>
+                      <th> Documents </th>
+                      <th> PDF </th>
+                    </tr>
+                    <tbody>
+                      {% set p = 0 %}
+                      {% for pdfdocument in userconsents %}
+                        {% set p = p + 1 %}
+                        <tr>
+                          <td>{{ p }}</td>
+                          <td>{{ pdfdocument.documentName }}</td>
+                          <td>
+                            <a href="{{ pdfdocument.agreementpath }}" target="_blank">View Document</a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+              <h3>Uploaded Documents</h3>
+
+                    {% if paymentmanagementdata.status!='DENIED' %}
+                   <form role="form" method="post" enctype="multipart/form-data" action="/admin/uploadDocumentProof" id="desc">
+                     <input type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+                     <input class="" type="hidden" id="userId" name="userId" value="{{ user.id }}">
+                    <input type="hidden" id="screenId" name="screenId" value="{{ paymentmanagementdata.screentracking.id }}">
+                     <input type="hidden" id="categoryId" name="category" value="pendingusers">
+                        <table class="table table-bordered">
+                          <tbody>
+                          <div id="docuCheck" style="display:none;">
+                            <p>Please select</p>
+                          </div>
+                          <tr>
+                                <th> Document Type </th>
+                                <td>
+                                <select name="docutype" id="docutype" required="">
+                                 <option value="" >Select Document Type</option>
+                              <option value="{{ documenttype.documenttype1 }}" >{{ documenttype.documenttype1 }}</option>
+                              <option value="{{ documenttype.documenttype2 }}" >{{ documenttype.documenttype2 }}</option>
+                              <option value="{{ documenttype.documenttype3 }}" >{{ documenttype.documenttype3 }}</option>
+                                </select>
+                                </td>
+                          </tr>
+                          <div class="existsdoc">You have already uploaded selected doucment type!!!</div>
+
+                            <tr id="docuNameCheck" style="display:none;">
+                                    <th> Document Name </th>
+                                    <td><input type="text" class="form-control" id="documentname" name="documentname" style="width:50%;" ></td>
+                             </tr>
+                          <tr>
+                                <th>Document</th>
+                                <td>
+                                  <input  type="file"  id="proofdocument" name="proofdocument" required>
+
+                                </td>
+                          </tr>
+                          <tr>
+                                <td colspan="2" align="center">
+                      <button type="submit"  class="btn btn-primary" id="updocs" value="Validate" onclick="Validate();">Submit</button>
+                                </td>
+                  </tr>
+                        </tbody>
+                </table>
+               </form>
+               {% endif %}
+
+                    <div class="container-fluid ">
+
+                     {% if achdocumentDetails.length>0 %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                                      <th>Document Type</th>
+                                      <th>Document </th>
+                           <th>Underwriter </th>
+                                      <th>Created Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% set lg = 0 %}
+                        {% for logsdata in  achdocumentDetails %}
+                           {% set lg = lg+1 %}
+                          <tr>
+                            <td>{{ lg }}</td>
+                            <td>{{ logsdata.docname }}</td>
+                            <td>
+                            <a href="{{ logsdata.proofdocument.standardResolution }}" target="_blank">View Document</a>
+                            </td>
+                            {% if logsdata.underwriter != ''%}
+                             <td>{{ logsdata.underwriter }}</td>
+                             {% else %}
+                              <td>user</td>
+                             {% endif %}
+
+                                          <td>{{ logsdata.createdAt }}</td>
+                        </tr>
+                        {% endfor %}
+                       </tbody>
+                     </table>
+                  </div>
+              {% else %}
+                  <p>No document added from system</p>
+              {% endif %}
+
+                      </div>
+            </div>
+
+            <div id="consolidationinfo" class="tab-pane fade">
+
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% include "admin/screentracking/consolidationinfo.nunjucks"%}
+                </div>
+
+              </div>
+
+            <div id="commentsection" class="tab-pane fade">
+              <h3>Comments Section</h3>
+
+                   <form role="form" method="POST" enctype="multipart/form-data" action="">
+                     <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+                     <input class="" type="hidden" id="userId" name="userId" value="{{ user.id }}">
+                        <table class="table table-bordered">
+                          <tbody>
+                          <tr>
+                                <th> Subject </th>
+                                <td><input type="text" class="form-control"  id="subject" name="subject" style="width:50%;" required></td>
+                          </tr>
+                          <tr>
+                                <th>Comments</th>
+                                <td>
+                                  <textarea class="form-control" id="comments" name="comments" required></textarea>
+                                </td>
+                          </tr>
+                          <tr>
+                                <td colspan="2" align="center">
+                                  <button type="button" class="btn btn-primary" id="achcomment" onclick="addachcommnet();">Submit</button>
+                                </td>
+                  </tr>
+                          </tbody>
+                </table>
+                    </form>
+
+
+                     <!-- Comments starts here -->
+                        <div class="tab-content faq-subcat-content">
+                          <h3>Comments Details</h3>
+                          <br/>
+                           <div class="panel panel-default">
+                                <div class="panel-heading">Comments Details</div>
+                                <div class="panel-body">
+
+                                  <div class="container-fluid ">
+                                     <table class="table table-striped table-bordered dataTable" id="achcomments_table">
+                                        <thead>
+                                        <tr>
+                                          <th style="width: 10px">#</th>
+                                          <th>Subject</th>
+                                          <th>Comments</th>
+                                            <th>Created By</th>
+                                          <th>Created Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                              <!-- {% set z= 10 %}
+                                              {% for kz in range(0, z) %}
+                                                <tr>
+                                                <td style="width: 10px">1</td>
+                                                <td>Subject</td>
+                                                <td>Comments</td>
+                                                <td>Created Date</td>
+                                                </tr>
+                                              {% endfor %} -->
+                                        </tbody>
+                                     </table>
+                                     </div>
+                                </div>
+                           </div>
+                        </div>
+                        <!-- Comments ends here -->
+            </div>
+
+            <div id="loagactivitysection" class="tab-pane fade">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>Log Activity Details</h3>
+                <br/>
+                 <div class="panel panel-default">
+                    <div class="panel-heading">Log Activity Details</div>
+                    <div class="panel-body">
+
+                      <div class="container-fluid ">
+                         <table class="table table-striped table-bordered dataTable" id="achlogactivity_table">
+                          <thead>
+                          <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Log Reference</th>
+                            <th>Module Name</th>
+                            <th>Message</th>
+                            <th>Created Date</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                           {% set lg = 0 %}
+                            {% for logdata in  logDetails %}
+                              {% set lg = lg+1 %}
+                              <tr>
+                                <td>{{ lg }}</td>
+                                <td>{{ logdata.logreference }}</td>
+                                <td>{{ logdata.modulename }}</td>
+                                <td>{{ logdata.logmessage }}</td>
+                                <td data-sort='MMDDYYYY'>{{ logdata.createdAt }}</td>
+                              </tr>
+                            {% endfor %}
+                             {% for communicationLogData in  communicationDetails %}
+                           {% set lg = lg+1 %}
+                              <tr>
+                                <td>{{ lg }}</td>
+                                <td>--</td>
+                                <td>{{ communicationLogData.subject }}</td>
+                                <td>{{ communicationLogData.logdata }}</td>
+                                <td>{{ communicationLogData.createdAt }}</td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                         </table>
+                       </div>
+                    </div>
+                 </div>
+               </div>
+            </div>
+
+            <!-- Geo location -->
+            <div id="usertracking" class="tab-pane fade">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                   <h3>User Tracking Information</h3>
+                    <input class="" type="hidden" id="trackingUserID" name="trackingUserID" value="{{ user.id }}">
+
+                    <br/>
+                    <div id="map_usertracking" style="width:100%;height:400px;display:none;">&nbsp;</div>
+                    <br/>
+
+
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered dataTable" id="usertracking_table">
+                    <thead>
+                     <tr>
+                    <th>#</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Country</th>
+                    <th>Postal Code</th>
+                    <th>Created Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                  
+                </div>
+
+               </div>
+             </div>
+
+              <!-- Credit Report Start -->
+              
+              {% if req.user.rolename != 'PracticeStaff' %}
+              <div id="transunioninfo" class="tab-pane fade">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <!-- Display DTI Debt Amount -->
+              <div class="col-md-12">
+              <b>PreDTI Debt &ensp;</b>
+              <td>${{ DTItrade.monthlyPayments}} </td>
+              <br>
+              <br>
+                {% set lg = 0 %}
+                  {% for trade in  DTItrade.trades %}
+                    {% set lg = lg+1 %}
+                      <tr>
+                      <th>{{ trade.subscriber.name.unparsed }} &ensp;</th>
+                      <th>${{ trade.terms.scheduledMonthlyPayment }}</th>
+                      </tr>
+                      <br>
+                  {% endfor %}
+              </div>
+                   {% include "admin/user/transunion.nunjucks"%}
+                </div>
+              </div>
+              {% endif %}
+              <!-- Credit Report Tab End -->
+
+          </div>
+         </div>
+       </div>
+      </div>
+
+
+
+
+      <!-- Approve Modal -->
+      <div id="approveModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+        <form role="form" id="loanapproveform" method="POST" enctype="multipart/form-data" action="/admin/approvepatientloan">
+              <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+          <!-- Modal content-->
+          <div class="modal-content" style="float: left;width: 100%;">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Financing Approval Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+              <p><strong>Are you sure you want to approve this application?</strong></p>
+              <input type="hidden" value="{{ currentEmploymentHistory.nextPayDate if currentEmploymentHistory.nextPayDate else ''}}" id="nextPayDateVal" />
+
+
+              <div class="row col-lg-12 text-center" id="loanstartdiv">
+                <label>Procedure start date</label>&nbsp;&nbsp;
+                <input type="text" name="loanstartdate" id="loanstartdate" class="form-group" autocomplete="off" value="{{ paymentmanagementdata.loanSetdate}}"required>
+                         &nbsp;&nbsp;
+                 <input type="button"  class="btn btn-primary"  id="setDatebtn"
+                 {% if loanSetDateExist==1 %}   value="Edit Date"  {% else %}  value="Set Date"  {% endif %} />
+              </div>
+              <div class="row col-lg-12 text-center" id="updatemessageDiv">&nbsp;</div>
+              <input type="hidden" id="preferredDateHidden" value="{{ paymentmanagementdata.screentracking.preferredDueDate }}" />
+              <div class="row col-lg-12 text-center" id="loanstartdiv">
+                <label>Payment Due Date</label>&nbsp;&nbsp;
+                <select class="form-group" style="width: 159px; margin-right: 10px; margin-left: 10px;" name="preferredDueDate" id="preferredDueDate">
+                  <option value="01">1</option>
+                  <option value="02">2</option>
+                  <option value="03">3</option>
+                  <option value="04">4</option>
+                  <option value="05">5</option>
+                  <option value="06">6</option>
+                  <option value="07">7</option>
+                  <option value="08">8</option>
+                  <option value="09">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+              </select>
+              <input type="button"  class="btn btn-primary"  id="setPreferredButton" name="setPreferredButton" value="Set Date"/>
+              </div>
+              <div class="row col-lg-12 text-center" id="updatepreferredmessageDiv">&nbsp;</div>
+            </div>
+            <br>
+            <div class="modal-footer bg-info" style="float: left;width: 100%;">
+              <input type="button"  class="btn btn-primary" value="Confirm"  id="approvePatientLoanbtn"
+              {% if loanSetDateExist==0 %} style="display:none;" {% endif %} >
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+      <div id="updateapproveModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+        <form role="form" id="updatepatientloanstartdateform" method="POST" enctype="multipart/form-data" action="/admin/updatepatientloanstartdate">
+          <input class="" type="hidden" id="paymentID" name="paymentID" autocomplete="off" value="{{ paymentmanagementdata.id }}">
+          <!-- Modal content-->
+          <div class="modal-content" style="float: left;width: 100%;">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Financing Approval Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+              <p><strong>Are you sure you want to approve this application?</strong></p>
+              <div class="row col-lg-12 text-center" id="loanstartdiv1">
+                <label>Procedure start date</label>&nbsp;&nbsp;
+                <input type="text" name="updateloanstartdate" id="updateloanstartdate" class="form-group" value="{{ paymentmanagementdata.loanSetdate}}"required readonly="true">
+              </div>
+            </div>
+            <div class="modal-footer bg-info" style="float: left;width: 100%;">
+              <input type="button"  class="btn btn-primary" value="Confirm"  id="updatePatientLoanbtn">
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+      <div id="doctorListModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+        <form role="form" id="linkdoctorstaffform" method="POST" enctype="multipart/form-data" action="/admin/linkdoctorstaff">
+          <input class="" type="hidden" id="linkpaymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+          <!-- Modal content-->
+          <div class="modal-content" style="float: left;width: 100%;">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Link Staff/Doctor</h4>
+            </div>
+            <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+              <div class="col-lg-6 text-center">
+                <label>Practice Staff</label><br><br>
+
+                {% if practiceAllResults.length > 0 %}
+                    <select name="practicestaff" id="practicestaff" multiple>
+                      {% for practice in practiceAllResults %}
+                        <option value="{{practice.id}}" {% if practice.staffexist==1 %}selected{% endif %}>{{practice.fullname}}</option>
+                      {% endfor %}
+                    </select>
+                {% else%}
+                    <p>No practice staffs are found.
+                {% endif %}
+              </div>
+              <div class="col-lg-6 text-center">
+                <label>Practice Doctor</label><br><br>
+                {% if practiceDocResults.length > 0 %}
+                    <select name="practicedoctor" id="practicedoctor" multiple>
+                      {% for practicDoc in practiceDocResults %}
+                        <option value="{{practicDoc.id}}" {% if practicDoc.doctorexist==1 %}selected{% endif %}>{{practicDoc.fullname}}</option>
+                      {% endfor %}
+                    </select>
+                {% else%}
+                    <p>No practice doctors are found.
+                {% endif %}
+              </div>
+            </div>
+            <div class="text-center" id="responseMsg"></div>
+            <div id="doctorsList">
+                {% include "admin/pendingach/doctorsStafflist.nunjucks" %}
+            </div>
+            <div class="modal-footer bg-info" style="float: left;width: 100%;">
+                {% if practiceAllResults.length > 0  or  practiceDocResults.length > 0 %}
+                    <input type="submit"  class="btn btn-primary" value="Submit"  id="linkdoctorstaffbtn">
+                {% endif %}
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+
+      <!-- Deny Modal -->
+      <div id="denyModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Deny Confirmation</h4>
+            </div>
+            <form role="form" method="POST" enctype="multipart/form-data" action="">
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure you want to deny this Financing?</strong></p>
+
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th width="30%"> Eligible to reapply </th>
+                                <td>
+                                     <div class="checkbox checkbox-primary checkbox-inline">
+                                       <input type="radio" id="inlineRadio1"  autocomplete="off" name="eligiblereapply" value="1"  >
+                                       <label for="inlineRadio1" > Yes </label>
+                                     </div>
+                                     <div class="checkbox checkbox-primary checkbox-inline">
+                                        <input type="radio" id="inlineRadio2" autocomplete="off" name="eligiblereapply"  value="0" checked="checked" >
+                                        <label for="inlineRadio2" > No </label>
+                                     </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Decline</th>
+                                <td>
+                                  <select class="form-control" id="decline" name="decline" required>
+                                        <!--<option disabled>Credit decline email:</option>
+                                        <option value='Suspected Fraud'>1.Suspected Fraud</option>
+                                        <option value='Insufficient Income - 30 minus days to decline'>2.Insufficient Income - 30 minus days to decline</option>
+                                        <option value='Insufficient credit history - 30 minus days to decline'>3.Insufficient credit history - 30 minus days to decline</option>
+                                        <option value='High DTI - 30 minus days to decline'>4.High DTI - 30 minus days to decline</option>
+                                        <option value='Insufficient amount balance'>5.Insufficient amount balance</option>-->
+                                        <option value='Canceled - No longer interested'>Canceled - No longer interested</option>
+                                        <option value='Eligible to reapply'>Eligible to reapply</option>
+                                        <!--<option disabled>&nbsp;</option>
+                                        <option disabled>Identity decline:</option>
+                                        <option value='Duplicate application'>1.Duplicate application</option>
+                                        <option value='Unable to verify ID'>2.Unable to verify ID</option>-->
+                                  </select>
+                                </td>
+                            </tr>
+                            <tr>
+                              <th>Decline Reason</th>
+                              <td>
+                                <textarea class="form-control" id="declinereason" name="declinereason" required>Canceled - No longer interested</textarea>
+                                <strong><span id="declineerromessage" class="error"></span></strong>
+                              </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                   </div>
+
+              <div class="modal-footer bg-info">
+              <button type="submit" data-dismiss="modal" class="btn btn-primary" id="denyconfirm">Confirm</button>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+              </div>
+            </form>
+           </div>
+
+          </div>
+        </div>
+
+        <div id="releaseModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+          <!-- Modal content-->
+          <div class="modal-content">
+          <form role="form" method="POST" enctype="multipart/form-data" action="/admin/releaseApp">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Release Comments</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+                <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+                <table class="table table-bordered">
+                   <tbody>
+                      <tr>
+                        <th> Subject </th>
+                        <td><input type="text" class="form-control"  id="subject" name="subject" style="width:50%;" required></td>
+                      </tr>
+                      <tr>
+                        <th>Comments</th>
+                        <td>
+                          <textarea class="form-control" id="comments" name="comments" required></textarea>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="submit"  class="btn btn-primary" id="releaseconfirm">Confirm</button>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Story like or dislike  Modal -->
+      <div id="storyinfopopup" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title" id="storyinfopopupheader">Story Information</h4>
+            </div>
+            <div class="modal-body bgColorWhite" id="storyinfopopupcontent">
+
+            </div>
+            <div class="modal-footer bg-info">
+
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+     <div id="ScheduleModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Payment Schedule Confirmation</h4>
+          </div>
+          <form role="form" method="POST" enctype="multipart/form-data" action="/admin/changescheduledate">
+            <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+            <input class="" type="hidden" id="transaction" name="transaction" value="">
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure want to change schedule date?</strong></p>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <th width="30%"> Schedule date </th>
+                    <td>
+                       <input class="form-control date-range-filter" id="scheduledate" data-date-format="yyyy-mm-dd" placeholder="" name="scheduledate" type="text" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Standard reason</th>
+                    <td><select class="form-control" id="standardreason" name="standardreason" required>
+                        <option value=''>--Select--</option>
+                        <option value='Hardship'>1.Hardship </option>
+                        <option value='Loss of job'>2.Loss of job</option>
+                        <option value='Death in family'>3.Death in family</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Reason Comment</th>
+                    <td><textarea class="form-control" id="reasoncomment" name="reasoncomment"></textarea>
+                      <strong><span id="declineerromessage" class="error"></span></strong> </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="submit" class="btn btn-primary">Confirm</button>
+              <button type="button" class="btn btn-primary" onclick="editScheduleDate('','close');">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="VikingScheduleModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Payment Viking Schedule Confirmation</h4>
+          </div>
+          <form role="form" method="POST" enctype="multipart/form-data" action="/admin/changevikingscheduledate">
+            <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure want to change schedule date?</strong></p>
+              <p><strong>Current Schedule : <span id="schedule_cur_date"></span></strong></p>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <th width="30%"> Schedule date </th>
+                    <td>
+                        <input type="hidden" name="vikingId" id="vikingId" value="">
+                       <input class="form-control date-range-filter datepickerClass" id="vikingScheduleDate" data-date-format="yyyy-mm-dd" placeholder="" name="vikingscheduledate" type="text" required>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="submit" class="btn btn-primary">Confirm</button>
+              <button type="button" class="btn btn-primary" onclick="editVikingScheduleDate('','close');">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="ScheduleAmountModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Payment Schedule Confirmation</h4>
+          </div>
+          <form role="form" name="changescheduleamount" method="POST" enctype="multipart/form-data" action="/admin/changescheduleamount" onsubmit="return amountvalidate()">
+            <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+            <input class="" type="hidden" id="amounttransaction" name="amounttransaction" value="">
+            <input class="" type="hidden" id="oldscheduleamount" name="oldscheduleamount" value="">
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure want to change schedule amount?</strong></p>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <th width="30%"> Payment push </th>
+                    <td>
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                           <input type="radio" id="inlineRadio1"  autocomplete="off" name="pushpayment" value="addend"  checked="checked">
+                           <label for="inlineRadio1" style="font-weight:normal;"> Add to end </label>
+                         </div>
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <input type="radio" id="inlineRadio2" autocomplete="off" name="pushpayment"  value="nextpayment"  >
+                            <label for="inlineRadio2"  style="font-weight:normal;"> Next payment </label>
+                         </div>
+                    </td>
+                 </tr>
+                  <tr>
+                    <th width="30%"> Paid amount</th>
+                    <td>
+                       <input class="form-control" id="scheduleamount"  placeholder="" autocomplete="off" name="scheduleamount" type="text" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Standard reason</th>
+                    <td><select class="form-control" id="standardreason" name="standardreason" required>
+                        <option value=''>--Select--</option>
+                        <option value='Hardship'>1.Hardship </option>
+                        <option value='Loss of job'>2.Loss of job</option>
+                        <option value='Death in family'>3.Death in family</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Reason Comment</th>
+                    <td><textarea class="form-control" id="reasoncomment" name="reasoncomment"></textarea>
+                      <strong><span id="declineerromessage" class="error"></span></strong> </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="submit" class="btn btn-primary">Confirm</button>
+              <button type="button" class="btn btn-primary" onclick="editScheduleAmount('','close','');">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+      <div id="ManualScheduleModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <button type="button" class="close" onclick="addmanualschedule('close');">&times;</button>
+            <h4 class="modal-title">Make Payment</h4>
+          </div>
+          <form role="form" method="POST" name="makepayment" id="makepayment" enctype="multipart/form-data" action="/admin/makepayment">
+            <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+            <input class="" type="hidden" id="paymentType" name="paymentType" value="Viking">
+            <div class="modal-body bgColorWhite">
+              <table class="table table-bordered">
+                <tbody>
+                 <tr>
+                    <th width="30%"> Payment Option </th>
+                    <td>
+                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                           <input name="paymentOption" type="radio" id="inlineRadio1"  autocomplete="off"  value="fullpayment"  checked="checked" onclick="changepaymentoption()">
+                           <label for="inlineRadio1" style="font-weight:normal;"> Full Payment </label><br>
+                           (${{makePaymentForStory.makePaymentObject.fullPayoffAmount}})
+                         </div>
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <input name="paymentOption" type="radio" id="inlineRadio2" autocomplete="off"  value="useramount"  onclick="changepaymentoption()">
+                            <label for="inlineRadio2"  style="font-weight:normal;"> Partial payment </label>
+                         </div>
+                    </td>
+                 </tr>
+                 <tr id="fullpaymentrow">
+                    <th width="30%"> Amount </th>
+                    <td>
+                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        Principal
+                        <input class="form-control date-range-filter" id="fullmakeamount" value="{{makePaymentForStory.makePaymentObject.fullprincipalamount}}" placeholder="" name="fullmakeamount" type="text" readonly>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        Interest
+                        <input class="form-control date-range-filter" id="fullintrestamount" value="{{makePaymentForStory.makePaymentObject.finalinterestAmount}}" placeholder="" name="fullintrestamount" type="text" required >
+                        <input class="form-control date-range-filter" id="hiddenintrestamount" value="{{makePaymentForStory.makePaymentObject.finalinterestAmount}}" placeholder="" name="hiddenintrestamount" type="hidden" >
+                        <div id="Interesterromessage" class="error" style="display:none;">Please enter interest </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style="display:none;" id="paymentrow">
+                    <th width="30%"> Amount </th>
+                    <td>
+                       <input class="form-control date-range-filter" id="makeamount"  name="makeamount" type="text" required>
+                       <div id="amounterromessage" class="error" style="display:none;">Please enter amount </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Comment</th>
+                    <td><textarea class="form-control" id="reasoncommentMake" name="reasoncomment" required></textarea>
+                      <div id="commenterromessage" class="error" style="display:none;">Please enter Comment </div>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer bg-info">
+             {% if(makePaymentForStory.makePaymentObject.fullprincipalamount > 0) %}
+               <button type="button" class="btn btn-primary" onclick="makefullpayment();">Confirm</button>
+             {% endif %}
+              <button type="button" class="btn btn-primary" onclick="addmanualschedule('close');">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+     <div id="CancelScheduleModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <button type="button" class="close" onclick="$('#CancelScheduleModal').modal('hide');">&times;</button>
+            <h4 class="modal-title">Cancel Schedule</h4>
+          </div>
+          <form role="form" method="POST" name="achCancelForm" id="achCancelForm" enctype="multipart/form-data" action="/admin/cancelACH">
+            <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+            <input class="" type="hidden" id="userID" name="userID" value="{{ paymentmanagementdata.user }}">
+            <div class="modal-body bgColorWhite">
+
+              <table class="table table-bordered">
+                <tbody>
+                <tr>
+                <td colspan="2">{% if (creditFileStatus == 'sent')  %} <b>Credit</b> file has been submitted to viking, Now you can close the upcoming <b>debit</b> if needed.  {% else %} Credit file not yet sent to viking, Now you can close all the <b>credit</b> and <b>debit</b> if needed. {% endif %}</td>
+                <tr>
+                 <tr>
+                    <th width="30%"> Schedule Status</th>
+                    <td>
+                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        Revoke
+                        <input type="hidden" value="0" name="scheduleStatus">
+                       <!--<select class="form-control" name="scheduleStatus">
+                            <option value="0">REVOKE</option>
+                            {% if (creditFileStatus == 'sent')  %}<option value="5">PAID OFF</option>{% endif %}
+                       </select>-->
+                     </div>
+                    </td>
+                 </tr>
+                 {% if (creditFileStatus == 'sent')  %}
+                 <tr>
+                    <th width="32%">Reversal <font size="2">(ACH Auto Debit)</font></th>
+                    <td>
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                       <input type="radio" name="reversalApprove" value="yes" checked="checked" onchange="$('.reversalError').hide();"> Yes  &nbsp
+                       <input type="radio" name="reversalApprove" value="no" onchange="$('.reversalError').show();"> No &nbsp (${{vikingCreditAmt}})
+                       <div class="error reversalError" style="display:none;">Ach will not send, Please collect payment manually from user.</div>
+                     </div>
+                    </td>
+                 </tr>
+                 {% endif %}
+                  <tr>
+                    <th>Comment</th>
+                    <td><textarea class="form-control" id="reasoncommentMakeViking" name="reasoncomment" required></textarea>
+                      <div id="commenterromessageViking" class="error" style="display:none;">Please enter Comment </div>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer bg-info">
+               <button type="button" class="btn btn-primary" onclick="makeCancelViking();">Confirm</button>
+              <button type="button" class="btn btn-primary" onclick="$('#CancelScheduleModal').modal('hide');">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  <div id="repullexistsModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+              <h4 class="modal-title">Plaid Repull Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p id="pliadrepull_error">&nbsp;</p>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- moveToArchive Modal -->
+        <div id="movetoarchiveModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+              <h4 class="modal-title">Archive Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure you want to archive the application?</strong></p>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="movetoarchive();">Confirm</button>
+              <span id="repull_loading" style="display:none;margin-left:5px;"><img src="/images/img/loading.gif"></span>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+	      <!-- moveToUnArchive Modal -->
+        <div id="movetoUnarchiveModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+              <h4 class="modal-title">Unarchive Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure you want to unarchive the application?</strong></p>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="movetoUnarchive();">Confirm</button>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- Confirm Procedure Modal -->
+        <div id="confirmProcedureModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-md">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="float: left;width: 100%;">
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirm Procedure</h4>
+                    </div>
+                    <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+                        <p><strong>Did this procedure happen?</strong></p>
+
+                        <div class="row col-lg-12 text-center">
+                            <label>Procedure start date</label>&nbsp;&nbsp;
+                            <span>{{ paymentmanagementdata.loanSetdate}}</span>
+                            <br />
+                            <label>Amount</label>
+                            <span>{{ paymentmanagementdata.payOffAmount | $format(true, 2) }}</span>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="modal-footer bg-info" style="float: left;width: 100%;">
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" >Cancel</button>
+                        <input type="button"  class="btn btn-primary yes-button" value="Confirm"  id="btnConfirmProcedure" name="btnConfirmProcedure" onclick="confirmProcedure('{{ paymentmanagementdata.id }}')"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmProcedureFinalizedModal" class="modal fade pfi-modal" role="dialog">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content" style="float:left;width: 100%;">
+                    <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+                        <div class="row text-center sell-contract-modal-content">
+                            <div>
+                                <img src="/images/img/greyCheckmark.svg" style="width:50px;" class="img-responsive center-block" alt="Procedure Completed"/>
+                            </div>
+                            <h3 class="pfi-modal-title">Procedure Completed!</h3>
+                            <div class="row col-lg-12 text-center"   style="padding-bottom: 10px;">
+                                <label>Procedure start date</label>&nbsp;&nbsp;
+                                <span>{{ paymentmanagementdata.loanSetdate}}</span>
+                            </div>
+                            Thank you for confirming for Modern Health Finance that the practice has completed the scheduled procedure for this patient. By taking this action, you also confirm and agree that the Practice has approved and agreed to financing for the patient as provided in this Patient Contract.
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="modal-footer bg-info" style="float: left;width: 100%;">
+                        <button type="button" data-dismiss="modal" class="btn btn-primary">Dismiss</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		{% include "admin/userbank/modals.nunjucks" %}
+    </section>
+
+<script>
+$(document).ready(function() {
+    $("#docutype").change(function() {
+        //var end = this.value;
+        if (docutype.value == "Others") {
+            $("#docuNameCheck").show();
+        }else{
+            $("#docuNameCheck").hide();
+        }
+    });
+
+});
+var showIncome = false;
+$("#show-income").click(() => {
+  if (!showIncome) {
+    $("#income-content").css("display", "");
+    $("#show-income").html("Hide");
+    showIncome = true;
+  } else {
+    $("#income-content").css("display", "none");
+    $("#show-income").html("Show");
+    showIncome = false;
+  }
+})
+
+var showCreditRisk = false;
+$("#show-creditrisk").click(() => {
+  if (!showCreditRisk) {
+    $("#creditrisk-content").css("display", "");
+    $("#show-creditrisk").html("Hide");
+    showCreditRisk = true;
+  } else {
+    $("#creditrisk-content").css("display", "none");
+    $("#show-creditrisk").html("Show");
+    showCreditRisk = false;
+  }
+})
+
+var showUserAnalysis = false;
+$("#show-useranalysis").click(() => {
+  if (!showUserAnalysis) {
+    $("#useranalysis-content").css("display", "");
+    $("#show-useranalysis").html("Hide");
+    showUserAnalysis = true;
+  } else {
+    $("#useranalysis-content").css("display", "none");
+    $("#show-useranalysis").html("Show");
+    showUserAnalysis = false;
+  }
+})
+
+function confirmProcedure(payId) {
+    if (payId) {
+        ajaxPost("/admin/confirmProcedure/{{ paymentmanagementdata.id }}").then(function(response) {
+            $("#btnInitiateConfirmProcedure").css("display","none");
+            $("#btnUpdateProcedureDate").css("display", "none");
+            toggleModalById("confirmProcedureModal",false);
+            toggleModalById("confirmProcedureFinalizedModal", true);
+        });
+    }
+}
+function initiateConfirmProcedure() {
+    toggleModalById("confirmProcedureModal",true);
+}
+function toggleModalById(modalId, show) {
+    $("#" + modalId).modal(show? "show": "hide");
+}
+
+</script>
+<style>
+    .error{border-color:red;}
+    .success{
+            color:#3c763d;
+            font-size:14px;
+            }
+    .existsdoc {display:none; text-align:center; color:red;}
+    .checkbox input[type="radio"] {
+      opacity: 1!important;
+    }
+    .pfi-modal .modal-content {
+        border-radius: 7px;
+    }
+    .pfi-modal .pfi-modal-title {
+        background: transparent;
+        z-index: 10;
+        /*color: #29D4A3;*/
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    .pfi-modal .sell-amount {
+        color: #5A7DA1;
+        font-size: 32px;
+        font-weight: 700;
+        padding-bottom: 10px;
+        display: block;
+        width: 100%;
+    }
+    .pfi-modal .modal-body {
+        padding-bottom: 0;
+    }
+    .pfi-modal .modal-footer{
+        border:0;
+        background-color: #fff;
+        text-align: center;
+        border-bottom-right-radius: 7px;
+        border-bottom-left-radius: 7px;
+        /*border-bottom: 6px solid #29D4A3;*/
+    }
+    /*.pfi-modal .modal-footer button.btn, .pfi-modal button.sub-button {*/
+    /*    background: white;*/
+    /*    color: black;*/
+    /*    border-color: lightgray;*/
+    /*    border-radius: 20px;*/
+    /*    width: 175px;*/
+    /*}*/
+    .pfi-modal button.sub-button {
+        margin: 10px 0 10px 15px;
+    }
+    .pfi-modal .modal-footer button.btn-confirm {
+        background-color: #3aa9ff;
+        color:#fff;
+    }
+    .sell-contract-modal-content {
+        padding: 0 30px 10px 30px;
+    }
+    .modal-footer .btn-primary {
+        width: 150px;
+    }
+    .field-container .field-group {
+        margin-bottom: 10px;
+    }
+    .field-group .field-label {
+        display: inline-block;
+        width:100%;
+        padding-left: 12px;
+        text-align: left;
+    }
+    .multiple-sub-headers .sub-header{
+        margin-top: 20px;
+    }
+    .multiple-sub-headers .sell-contract-terms .sub-header {
+        margin-top: 0;
+    }
+    .field-group .field-value {
+        width: 100%;
+    }
+    .field-group .field-value:focus {
+        border-color: #29D4A3 !important;
+    }
+    .field-group .field-value {
+        border-radius: 20px;
+        border: 1px solid #F0F4F8;
+        background: #F0F4F8;
+        margin-top: 5px;
+        width: 100%;
+        height: 40px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+    }
+
+    .pfi-modal label.error {
+        text-align: left;
+        display: block;
+        margin-left: 12px;
+        margin-top: 10px;
+    }
+
+    #linkstaff{
+        float: right;
+        margin-right: 2px;
+    }
+</style>
+
+{% if (schudlesmsg)  %}
+<script>
+  setTimeout(function(){
+    $('#paymentinfotab').click();
+  }, 500);
+</script>
+{% endif %}
+{% if (uploaddocmsg)  %}
+<script>
+  setTimeout(function(){
+    $('#uploaddoctab').click();
+  }, 500);
+</script>
+{% endif %}
+{% if (banksuccessmsg or bankerror )  %}
+<script>
+  setTimeout(function(){
+    $('#userbankinfotab').click();
+  }, 500);
+</script>
+{% endif %}
+
+{% if (changeincomemsg)  %}
+<script>
+  setTimeout(function(){
+    $('#DTIoffertab').click();
+  }, 500);
+</script>
+{% endif %}
+
+{% if (fromResetToPending)  %}
+<script>
+  setTimeout(function(){
+    $('#DTIoffertab').click();
+  }, 500);
+</script>
+{% endif %}
+
+{% endblock %}

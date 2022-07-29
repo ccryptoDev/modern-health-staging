@@ -1,0 +1,168 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Target Fast Cash </title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/styles/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/styles/css/Customerservice/style.css">
+ 
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="#">Target Fast Cash</a>
+			</div>
+		</div>
+	</nav>
+<div class="container" >
+	<div class="row" >
+		<div class="col-md-8  col-sm-8 col-lg-8">
+		
+			{% if status==400  %}
+				 <div class="alert alert-danger">
+				  {{message}}
+				 </div>
+		     {% endif %}
+			<div class="row" id="loaderid" style="padding-top:20px; padding-bottom:20px; display:none;">
+			  <div class="col-lg-12" align="center" style="text-align:center;">
+				<pre id="plaidresponse"><img src="/images/img/ajaxloader.gif"></pre>
+			  </div>
+			</div>
+			
+			{% if checkExpiration>0  %}
+				<div class="row" style="padding-top:20px; padding-bottom:20px;color:red;">
+					<p>Error: The plaid invite link has been expired.</p>
+				</div>
+			{% endif %}
+		
+			<div class="success-meg" style="margin-top:30px;margin-bottom:20px;">
+				<span id="banksuccessmeg">
+				
+				</span>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+
+<!--Get plaid transaction starts here-->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script>
+
+  	var appScheme = 'linkApp';
+	var linkHandler = Plaid.create({
+	env: 'sandbox',
+	apiVersion: 'v2',
+	clientName: "{{ sails.config.plaid.clientName }}",
+	key: "{{ sails.config.plaid.publicKey }}",
+	product: ["auth","transactions","identity"],
+	webhook: "{{sails.config.getBaseUrl}}/api/v1/getPlaidTransactions",
+	onLoad: function () {
+	    
+		
+	},
+	onSuccess: function (public_token, metadata) {
+	
+	// Send the public_token to your app server here.
+	// The metadata object contains info about the institution the
+	// user selected and the account ID, if selectAccount is enabled.
+	// alert(public_token)
+	// console.log('account_id is', metadata);
+	  
+	var action = 'handlePublicToken';
+	  
+	$('#loaderid').show();
+    $('#changebankbtn').hide();
+     
+	$.ajax({
+		url     : '/servicesaveincomedetails',
+		method  : 'post',
+		data    : {
+			public_token  : public_token,
+			account_id    : metadata,
+			userId	: '{{userId}}'
+		},
+		headers:
+		{
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		success : function(response){
+		
+		   //alert(response);
+		   
+		   $('#loaderid').hide(); 
+		   
+		   if(response.status==200){
+			  window.location.href='/servicetransaction/{{userId}}';
+		   }else{
+			  alert(response.message);
+		   }
+		
+		}
+	});
+	  
+	},
+	onExit: function (err, metadata) {
+	
+		/*alert("error :"+err);
+		console.log("metadata :"+metadata);
+		
+		for (var key in metadata) {
+		
+		if (metadata.hasOwnProperty(key)) {           
+			alert("keyvalue: "+key)
+			var submetadata = metadata[key];
+			alert("key length: "+submetadata.length);
+			alert("key value: "+submetadata);
+		}
+		}*/
+	
+		$('#plaidloader').html(''); 
+		// The user exited the Link flow.
+		var action = 'handleOnExit';
+		
+		
+		if (err != null) {
+			// The user encountered a Plaid API error prior to exiting.
+		}
+		// metadata contains information about the institution
+		// that the user selected and the most recent API request IDs.
+		// Storing this information can be helpful for support.
+	
+	}
+	});
+	
+	//If we use other bank short code ,it's loading html data 
+	//not working for simple
+	
+	function openlinkaccount(){ 	
+	   setTimeout(function(){linkHandler.open();},1000);
+	}
+	
+	if({{checkExpiration}} < 1) {
+    	openlinkaccount();
+	}
+	
+
+</script>
+<!--Get plaid transaction ends here-->
+
+</body>
+</html>

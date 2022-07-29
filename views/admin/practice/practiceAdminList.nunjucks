@@ -1,0 +1,52 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        Practice Admin User
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Practice Admin User</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Practice Admin User Table</h3>
+		  <span class="pull-right"><a href="/admin/addPracticeAdmin"><button type="button" class="btn btn-primary">Create Practice Admin</button></a></span>
+        </div>
+        <div class="box-body">
+			{% if (approveerror)  %}
+				<div class="alert alert-danger">
+				{{approveerror}}
+			</div>
+			<br>
+			{% endif %}
+			{% if (approvesuccess)  %}
+				<div class="alert alert-success">
+				{{approvesuccess}}
+			</div>
+			<br>
+			{% endif %}
+          <table class="table table-striped table-bordered  dataTable" id="adminschoolAdminUserList">
+            <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+			  <th>UserName</th>
+              <th>First Name</th>
+			  <th>Last Name</th>
+			  <th>Email</th>
+              <th>Phone</th>
+			  <th>Practice Name</th> 
+			  <th>Role</th>
+			  <th>Created Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+           
+            </tbody></table>
+        </div>
+      </div>
+    </section>
+{% endblock %}

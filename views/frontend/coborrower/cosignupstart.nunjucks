@@ -1,0 +1,77 @@
+{% extends "frontend/layout/layout.nunjucks" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="inner-content">
+
+		<div class="row">
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+				{% include "frontend/layout/navigator.nunjucks" %}
+				<form class="formclass" id="co_termsform" action="/couserinformation" method="post" data-validation="btnDisable" name="co_termsform">
+				<div class="content-tabs">
+					<h1>Welcome! Let's get started.</h1>
+					<div class="block-content-box">
+						<p>Before we continue, please review and check {{LenderShortName}}'s Consent for Use of Electronic Records and signatures.</p>
+						<ul class="list-of-goroups consent-ul">
+							<li>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox1" value="Electronic Signatures" required  name="Electronicsign" onchange="removeConsentErrorMsg(this);">
+									<label for="checkbox1"><span>Consent for Use Electronic Records and Signatures</span></label>
+									<span id="consentError" class="error">You must select this option.</span>
+								</div>
+							</li>
+
+						</ul>
+
+						<div class="">
+							<p>Next, please kindly read and accept our Terms & Conditions as well as our Privacy Policy.</p>
+							<ul class="list-of-goroups list-consent">
+								<li>
+									<div class="checkbox">
+										<input type="checkbox" id="checkbox2" class="selectall" onchange="selectAll('selectall','singlecheck')" >
+										<label for="checkbox2"><p>Select all</p></label>
+									</div>
+								</li>
+
+								<ul class="list-of-goroups ">
+									<li>
+										<div class="checkbox sublist-check">
+											<input type="checkbox" id="checkbox3" name="TermsConditions[]" class="singlecheck" value="Consent and Authorization" onchange="removeSelectallErrorMsg();">
+											<label for="checkbox3"><span>Consent and Authorization to Obtain Credit Report</span></label>
+										</div>
+									</li>
+									<li>
+										<div class="checkbox sublist-check">
+											<input type="checkbox" id="checkbox4" name="TermsConditions[]" class="singlecheck" value="Prior Express Consent" onchange="removeSelectallErrorMsg();">
+											<label for="checkbox4"><span>Prior Express Consent for Non-Telemarketing Calls and Texts</span></label>
+										</div>
+									</li>
+									<li>
+										<div class="checkbox sublist-check">
+											<input type="checkbox" id="checkbox5" name="TermsConditions[]" value="Privacy Policy" class="singlecheck" onchange="removeSelectallErrorMsg();" >
+											<label for="checkbox5"><span>Privacy Policy</span></label>
+										</div>
+									</li>
+
+								</ul>
+
+
+							</ul>
+							<span id="checkError" class="error">You must select at least one option.</span>
+						</div>
+
+						<div class="btn-Main">
+						<button type="submit" class="btn btn-default blueBtn" id="regSubmit">Next</button>
+						</div>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Edit New user
+      <small>preview of User</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/adminuserlist"><i class="fa fa fa-building"></i>Admin User List</a></li>
+      <li class="active">User details</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">User Form </h3>
+      </div>
+      <div class="box-body">
+	   {% if (error)  %}
+         <div class="alert alert-danger">
+          {{error}}
+        </div>
+        <br>
+       {% endif %}
+	  <form role="form" method="POST"  enctype="multipart/form-data" id="edituser" name="edituser" action="/admin/updateuser">
+        <input type="hidden" class="form-control" id="userid" name="userid" value="{{ userdata.id }}">
+        <input type="hidden" class="form-control"  id="allowedPracticeRoles" name="allowedPracticeRoles" 
+          value="{{sails.config.allowedPracticeRoles }}" >
+        <input type="hidden" class="form-control" id="practiceset" name="practiceset" value="{{ practiceset }}">
+
+  	    <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <th>User Name</th>
+              <td><input type="text" class="form-control"  id="username" name="name" value="{{userdata.name}}" style="width:50%;" required autocomplete="off" ></td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td><input type="text" class="form-control" id="useremail" name="email" value="{{userdata.email}}" style="width:50%;" required autocomplete="off" ></td>
+            </tr>
+            <tr>
+              <th>Phone Number</th>
+              <td><input type="text" class="form-control" id="userphone" name="phoneNumber" value="{{userdata.phoneNumber}}" style="width:50%;"  data-mask="(000) 000-0000" required autocomplete="off" ></td>
+            </tr>
+  		      <tr>
+              <th>Role</th>
+              <td>
+      				<select id="userrole" name="role" style="width:50%;" required onchange="showPracticeOption();">
+                  <option value="">--Select One--</option>
+                  {% for roledata in roledetails %}
+                    <option value="{{roledata.id}}" {% if userdata.role.id == roledata.id %} selected="selected" {% endif %} >{{roledata.rolename}}</option>
+                  {% endfor %} 
+      				</select>
+              <p id="error_editrole"></p>
+  			     </td>
+            </tr>
+
+            <tr id="practiceoption">
+              <th widh="50%">Practice Name</th>
+              <td>
+                  <div> 
+                    <select id="practiceId" name="practiceId"  required autocomplete="off" style="width:50%;">
+                      <option value="">--Select One--</option>
+                      {% for practicedata in practiceDetails %}
+                        <option value="{{practicedata.id}}"  {% if userdata.practicemanagement.id == practicedata.id %} selected="selected" {% endif %}>{{practicedata.PracticeName}}</option>
+                      {% endfor %} 
+                    </select>
+                    <p id="error_practice"></p>
+                  </div>  
+              </td>
+            </tr>
+
+            <tr>
+              <th>&nbsp;</th>
+              <td>
+  			       <button type="submit" class="btn btn-primary">Submit</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+		   </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+
+    setTimeout(function(){ 
+
+       if(document.getElementById('practiceset'))
+       {
+          var practiceset = $("#practiceset").val();
+          
+          if(practiceset==1)
+          {
+            $("#practiceoption").show();
+          }
+          else
+          {
+            $("#practiceoption").hide();
+          }
+       }
+
+     }, 500);
+    
+  </script>  
+{% endblock %}

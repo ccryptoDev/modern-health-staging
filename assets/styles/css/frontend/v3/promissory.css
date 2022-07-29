@@ -1,0 +1,76 @@
+h3{color:#233749; padding:10px; margin:0px;}
+.box{min-height:100px;}
+.table-bordered{border:solid 1px #a5d7fb;}
+th{border:none !important; color:#233749; font-size:16px; }
+td{padding:5px !important;}
+.alert{width:90%; padding:5px; margin:10px; } .alert-danger{background:none !important; color:#FF0000!important; border:solid 1px #2e3b48}
+.alert-success{background:none !important; color:#00a65a!important; border:solid 1px #2e3b48}
+.input-left input {
+    background: #111c26 none repeat scroll 0 0;
+    border: 0 none;
+    font-size: 18px;
+    height: 47px;
+    padding-left: 20px;
+    width: 100%;
+	color:#FFF;
+}
+.profiletable{border:none!important;}
+.table>tbody>tr>td{border:solid 1px #E5ECF4; }
+label{font-size:20px; color:#a5d7fb}
+.edit-input-name {
+    border-top: 1px solid #a5d7fb;
+    width: 100%;
+}
+.panel {
+    background-color: none !important;
+	border:solid 1px #2e4456;
+	
+}
+.checkbox{margin:0px !important;}
+
+.panel-default > .panel-heading {
+    background-color: #2e4456;
+    border-color: #2e4456;
+    color: #FFF;
+	text-align:left;
+	
+}
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #2e4456;
+}
+.formcontrol{
+    background: transparent none repeat scroll 0 0;
+    border-color: #2c3f52;
+    border-radius: 20px;
+    height: 40px;
+	border:solid 1px #2c3f52;
+	padding-left:2px;
+}
+pre {background:none; border:none;}
+
+
+.promissory .table-bordered{border:1px solid rgba(203,218,233,0.48) !important;}
+.promissory .table-bordered th{border:1px solid rgba(203,218,233,0.48) !important;}
+.checkbox label a{color: #0cd4b7;text-decoration: blink;}
+.modal-content{background-color: #fff;}
+.modal-dialog{margin-top: 6%;width: 800px;}
+.modal-content .close{opacity: 1; color: rgb(221, 221, 221); margin: 1%;}
+.modal-body {border: 1px solid rgba(203,218,233,0.48);	border-radius: 6px;	background-color: rgba(229,242,255,0.24) !important;}
+.modal-body p {  color: #F2FEFF; font-size:13px;line-height: 20px;padding: 8px 0px;}
+.policy-with1{width:20%;height:auto;float:left;}
+.policy-with2{width:80%height:auto;}
+.policy-bg1{background-color:#000;color:#fff;border:1px solid #233749;}
+.policy-bg2{background-color:#9ca4ab;color:#fff;border:1px solid #ddd;}
+.policy-txt1{color:#9ca4ab;}
+.policy-header{border-bottom: 2px solid #000;color: #000;padding-top: 20px;}
+.modal-body ul{list-style-type: circle; margin:2%;}
+.modal-body strong{font-weight:500;}
+.modal-body  p{ color:#3F576C;}
+.docTextWhite{color: #233749}
+.checkbox a i {  font-size: 11px;margin-left: -2px;}
+
+label.error{ color: red;font-weight: normal;font-size: 14px;}
+/*table, tbody, tr, td{ border:1px solid #E5ECF4;}*/
+.eftText strong{color: #3F576C !important;}
+.eftText table.mTB-2 tr td, th{color: #3F576C !important;}
+.checkbox input[type=checkbox]:checked + label:after{  left: 6px; top: 4px}

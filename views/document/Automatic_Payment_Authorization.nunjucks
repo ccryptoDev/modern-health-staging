@@ -1,0 +1,106 @@
+<style>
+@media only screen and (max-width: 767px) {
+	.eftText .promissory-table-responsive td {
+		width: 100%;
+		display: block;
+		white-space: normal !important;
+	}
+}
+</style>
+
+<div class="inner-content">
+
+		<div class="block-content-box eftText">
+			<!-- <h1 class="text-center">Automatic Payment Authorization</h1> -->
+			<table width="100%" class="mTB-2 promissory-table-responsive">
+				<tbody>
+
+				<tr>
+					<td colspan="3"><strong>Customer/Deposit Account Owner(s) (“you” and “your”):</strong> <span style="color:#28d2a1;">{{pdfData.laonusername}}</span></td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Retail Installment Contract: </strong> <span style="color:#28d2a1;">{{pdfData.loanTerm}} month </span>
+					</td>
+					<td colspan="2"><strong>Contract Date:</strong> <span style="color:#28d2a1;">{{pdfData.todaydate}}</span></td>
+				</tr>
+				<tr>
+					<td colspan="3"><strong>Regularly Scheduled Contract Payments:</strong>Payments of <span style="color:#28d2a1; text-decoration:underline;"> ${{pdfData.scheduleLoanAmount}} </span> due on the <span style="color:#28d2a1; text-decoration:underline;"> {{pdfData.todaydate}} </span> of each month</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Your Deposit Account #: </strong>
+						<p style="color:#28d2a1;">{{pdfData.accountNumberLastFour}}</p>
+					</td>
+					<td>
+						<strong>9-Digit ABA Bank Routing #:</strong>
+						<p style="color:#28d2a1;">{{pdfData.routingNumber}}</p>
+					</td>
+					<td valign="top">
+
+						<strong>Account Type (check one):</strong>
+
+							<p style="color:#28d2a1;"> Checking </p>
+
+
+
+
+					</td>
+				</tr>
+
+				</tbody>
+			</table>
+			<h5 class="">Defined Terms; Account Verification:</h5>
+			<p> In this Automatic Payment Authorization, the “Contract” is the retail installment contract shown above and the words “we,” “us” and “our” means {{LenderLongName}}, and its assigns, successors and service providers. These payment transactions will be processed through the Automated Clearing House (“ACH”). Upon our request, you agree to help us verify your deposit account information by providing a voided check, deposit slip and other assistance. You agree we may work directly with the ACH network and your depository institution to verify information about your deposit account and make any changes needed to make this information correct and complete. You authorize us, if necessary, to initiate ACH credit (deposit) entries to this deposit account at any time to correct any errors we might make.</p>
+
+			<h5> Automatic Payments: </h5>
+			<p>You authorize us to make recurring ACH charges to your deposit account in the amount of your Regularly Scheduled Contract Payment identified above each month on or about the day that each scheduled Contract payment is due, until the earlier of the date the Contract is paid in full or these charges are otherwise cancelled by you, your depository institution or us. You understand these charges may be made on the next business day after any due date that falls on a weekend, holiday, or other day when we or depository institutions are not open for business. You authorize us to make these ACH charges to your deposit account for an amount at least equal to the regularly scheduled Contract payment then due (see amount shown above) or any lesser amount that would pay any scheduled Contract payment or pay the Contract itself in full. If a charge is returned unpaid due to insufficient or uncollected funds, you agree we may initiate ACH charges to collect this amount up to two additional times at any time within 180 days after the original debit entry.   In the event that the amount of your Regularly Scheduled Contract Payment changes, we will provide you 10 days advance notice prior to initiating an ACH charge to your deposit account for the changed Regularly Scheduled Contract Payment. </p>
+
+			<h5>Cancellation; Other Terms: </h5>
+			<p> We may cancel these automatic payments from your deposit account at any time and for any reason, without giving you advance notice. You may cancel our authorization to make ACH charges at any time by notifying us or by notifying your depository institution. The party you notify must be allowed a reasonable period of time to process your cancellation request (at least three (3) business days after receiving your request). Contact your depository institution directly to learn more about how to cancel ACH charges through the depository institution. To notify us of any cancellation request or any charge you believe was made in error, you must either write to us at {{LenderMailingAddress}} or call us during our regular business hours at <span style="color:#28d2a1;">[{{LenderPhone}}]</span>. We or your depository institution may require you to confirm cancellation instructions in writing. Even if these payments are cancelled, you understand and agree that the you must make all of the Contract payments in the amounts and by the dates required by the Contract. You certify the information shown is correct and complete to the best of your knowledge. You certify that you are individually authorized to have funds charged to the identified deposit account to pay the Contract. You agree that we did not require you to sign this authorization as a condition ofobtaining any extension of credit. You agree that you voluntarily elected to sign this form for your convenience and to allow you to make payments in the time and amounts required by the Contract. You agree to keep sufficient funds in your deposit account to pay the full amount of these payments on the dates scheduled. You agree that the ACH transactions authorized by this form comply with all applicable law.</p>
+
+			<p>By signing, you agree to all terms and conditions in this Automatic Payment Authorization as of the date shown below and agree that you received a completed copy of this form. Please print or keep a copy of this authorization with your account records. </p>
+			<div class="row nopaddingLR2">
+			  <table width="100%" border="0" class="mTB-2" >
+			    <tr>
+					<td align="left">
+					  {{pdfData.laonusername}}
+					</td>
+					<td align="right">
+					  Date: {{pdfData.todaydate}}
+					</td>
+				</tr>
+				</table>
+
+
+			</div>
+
+			<p style="padding:0px; margin:0px;">Borrower Name: {{pdfData.screentrackingdetails.user.firstname}} {{pdfData.screentrackingdetails.user.lastname}}</p>
+			<p style="padding:0px; margin:0px;">Ip: {{pdfData.ip}}</p>
+			<p style="padding:0px; margin:0px;">Date: {{pdfData.todaydate}}</p>
+
+		</div>
+	</div>
+	<style>
+
+{% if(pdfData.type == 'pdf') %}
+
+.eftText h1, h2, h3, h4, h5, h6 p {color: #8093a5;margin: 1%;font-family:helvetica;}
+.eftText strong{color: #000;font-family:helvetica;}
+.eftText ul li { list-style: outside !important; color: #000; margin-left: 40px;font-family:helvetica;}
+.eftText table, tr, td, th {  border: 1px solid #000; padding: 10px; color: #000;font-family:helvetica;}
+.eftText table{border-collapse: collapse; font-family:helvetica;}
+ h5{color:#000; font-size:20px;font-family:helvetica;}
+ span{color:#000 !important;font-family:helvetica;}
+ p{color:#000 !important;font-family:helvetica;}
+
+{% else %}
+.eftText h1, h2, h3, h4, h5, h6 p {color: #8093a5;margin: 1%;font-family:helvetica;}
+.eftText strong{color: #8093a5;font-family:helvetica;}
+.eftText ul li { list-style: outside !important; color: #8093a5; margin-left: 40px;font-family:helvetica;}
+.eftText table.mTB-2 tr td, th {  border: 1px solid #8093a5; padding: 10px;color: #8093a5;font-family:helvetica;}
+.eftText table{border-collapse: collapse; font-family:helvetica;}
+h5{color:#FFF; font-size:20px;font-family:helvetica;}
+{% endif %}
+
+	</style>

@@ -1,0 +1,221 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        View Reset User Info
+        <small>preview of Manage Reset Users</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">View Reset User Info Details</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">View Reset User Info Details</h3>
+
+            {% if user.userblocked==1 %}
+            	<span class="pull-right"><a href="/admin/manageblockedusers"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a></span>
+            {% else %}
+          		<span class="pull-right"><a href="/admin/resetusers"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a></span>
+          	{% endif %}
+        </div>
+        <div class="box-body" id="transuserinfo">
+
+         <input type="hidden" name="transcurrentTab" id="transcurrentTab" value=""/>
+
+		<div id="tabs">
+          <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#userinfo">User Information</a></li>
+            <li><a data-toggle="tab" href="#userbankinfo">Financing Info</a></li>
+          </ul>
+			<div class="tab-content">
+			   <div id="userinfo" class="tab-pane fade in active">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <h3>User Information</h3>
+				 {% if (errorval)  %}
+				 <div class="alert alert-danger">
+				    <a href="#" class="close" data-dismiss="alert">&times;</a>
+				  {{errorval}}
+				 </div>
+				<br>
+				{% endif %}
+				{% if (successmsg)  %}
+					 <div class="alert alert-success">
+					     <a href="#" class="close" data-dismiss="alert">&times;</a>
+					  {{successmsg}}
+					</div>
+					<br>
+				 {% endif %}
+				  <div class="table-responsive">
+					<table class="table table-bordered">
+					  <tbody>
+
+					   <tr>
+                        <th>User Reference </th>
+                        <td>
+                            {% if user.userReference %}
+                              {{ user.userReference }}
+                            {% else %}
+                               --
+                            {% endif %}
+                        </td>
+                      </tr>
+
+					  <tr>
+						<th>Name</th>
+						<td>{{ name }}</td>
+					  </tr>
+					  <tr>
+						<th>Email Address</th>
+						<td>{{ user.email }} </td>
+					  </tr>
+					  <tr>
+						<th>Phone Number</th>
+						<td>
+						  {% if user.phoneNumber %}
+						    {{ user.phoneNumber }}
+					      {% else %}
+						   --
+						  {% endif%}
+						</td>
+					  </tr>
+					   <tr>
+						<th>Date of Birth</th>
+						<td>{{ user.dateofBirth }}</td>
+					  </tr>
+					   <tr>
+						<th>Address</th>
+						<td>{{ user.addresses }} <br/>
+		                      	{% if user.unitapp %}
+								{{user.unitapp}},
+								 {% endif%}
+							{% if user.street %}
+							{{ user.street }} <br/>
+							{% endif%}
+							{{ user.city }},{{user.state}} <br/>
+							{{ user.zipCode }} <br/>
+						</td>
+					  </tr>
+					 <th>IP Address</th>
+						<td>{{ ip }}
+						</td>
+					  </tr>
+					  <tr>
+					  <th>Social Security Number</th>
+						<td>{{ user.ssn_number }}
+						</td>
+					  </tr>
+					 <tr>
+						<th>Registered Date</th>
+						<td>{{ user.createdAt }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+					  <tr>
+						<th>Last Profile Update Date</th>
+						<td>{{ user.updatedAt }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+					  <tr>
+						<th>Application Created By</th>
+						<td>{{ user.underwriter }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+					  </tbody>
+					</table>
+				  </div>
+			   </div>
+			  </div>
+
+			  <div id="userbankinfo" class="tab-pane fade">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <h3>Financing Information</h3>
+
+				  <div class="table-responsive">
+					  <table class="table table-striped table-bordered dataTable" id="loaninfo_table">
+						 <thead>
+						   <tr>
+							<th>#</th>
+							<th>Financing Reference</th>
+							<th>Financing Amount</th>
+							<th>Maturity Date</th>
+							<th>Created Date</th>
+							<th>Status</th>
+						  </tr>
+						 </thead>
+						  <tbody>
+						  		{% set i = 1 %}
+                              {% for loandetails in userloandata %}
+								<tr>
+									<td>{{i}}</td>
+									<td>{{loandetails.loanReference}}</td>
+									<td>
+										{% if loandetails.payOffAmount %}
+											{{loandetails.payOffAmount}}
+									    {% else %}
+									      --
+								 		{% endif%}
+									</td>
+									<td>{{loandetails.maturityDate}}</td>
+									<td>{{loandetails.createdAt}}</td>
+									{% if loandetails.achstatus == 0 %}
+										<td><i class="fa fa-circle text-message" aria-hidden="true"></i> Pending </td>
+									{% elseif loandetails.achstatus == 1 %}
+										<td><i class="fa fa-circle text-success" aria-hidden="true"></i> Funded </td>
+									{% elseif loandetails.achstatus == 2 %}
+										<td><i class="fa fa-circle text-danger" aria-hidden="true"></i> Denied </td>
+									{% elseif loandetails.achstatus == 3 %}
+										<td><i class="fa fa-circle text-warning" aria-hidden="true"></i> Blocked </td>
+									{% else %}
+										<td><i class="fa fa-circle text-detect" aria-hidden="true"></i> Incomplete </td>
+									{% endif %}
+								</tr>
+								{% set i = i+1 %}
+							  {% endfor %}
+
+							  {% for incompleteLoandetails in incompleteLoandata %}
+								<tr>
+									<td>{{i}}</td>
+									<td>{{incompleteLoandetails.applicationReference}}</td>
+									<td> {% if incompleteLoandetails.requestedLoanAmount %}{{incompleteLoandetails.requestedLoanAmount | float}} {% else %}  -- {% endif %} </td>
+									<td> {% if incompleteLoandetails.maturityDate %}{{incompleteLoandetails.maturityDate}} {% else %}  -- {% endif %}</td>
+									<td>{{incompleteLoandetails.createdAt}}</td>
+									<td><i class="fa fa-circle text-detect" aria-hidden="true"></i> Incomplete </td>
+								</tr>
+								{% set i = i+1 %}
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+			   </div>
+			  </div>
+
+			</div>
+		 </div>
+        </div>
+      </div>
+    </section>
+
+	<!-- Delete phone -->
+
+
+     <!-- Delete user -->
+
+
+      <!-- Story Information  Modal -->
+
+
+      <!-- Reset user -->
+
+
+      <!-- Block user -->
+
+
+{% endblock %}
+
+

@@ -1,0 +1,70 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Agreement
+      <small>preview of agreements</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/getAllAgreement"><i class="fa fa fa-files-o"></i>Agreements</a></li>
+      <li class="active">Agreement details</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Agreement Table</h3>
+        <a title="Delete current " class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">Delete</a>
+        <a href="/UpdateAgreementView?id={{ agreement.agreement.id }}" title="Edit current " class="btn btn-info" style="margin-left:70%">Update</a>
+      </div>
+      <div class="box-body">
+      
+        <table class="table table-reflow table-bordered">
+          <tbody>
+          <tr>
+            <th>Document Name</th>
+            <td>{{ agreement.agreement.documentName }}</td>
+          </tr>
+          <tr>
+            <th>Document Key</th>
+            <td>{{ agreement.agreement.documentKey }}</td>
+          </tr>
+          <tr>
+            <th>Document Version</th>
+            <td>{{ agreement.agreement.documentVersion }}</td>
+          </tr>
+          <tr>
+            <th>Document Body</th>
+            <td>{{ agreement.agreement.documentBody }}</td>
+          </tr>
+          <tr>
+            <th>Document Created At</th>
+            <td>{{ agreement.agreement.updatedAt }}</td>
+          </tr>
+          <tr>
+            <th>Document updated At</th>
+            <td>{{ agreement.agreement.updatedAt }}</td>
+          </tr>
+          </tbody></table>
+      </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete Agreement?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Do you want to delete Agreement '{{ agreement.agreement.documentName }}'</p>
+          </div>
+          <div class="modal-footer">
+            <a href="/admin/deleteAgreement?id={{ agreement.agreement.id }}"><button type="button" class="btn btn-default">Delete</button></a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

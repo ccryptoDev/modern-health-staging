@@ -1,0 +1,250 @@
+<!-- {% extends "frontend/layout/layout.nunjucks" %} -->
+{% extends "frontend/layout/portallayout.nunjucks" %}
+
+
+{% block body %}
+<style type="text/css">
+	.notifi{color: #FFFFFF;}
+
+.btn-bs-file{
+    position:relative;
+  }
+  .btn-bs-file input[type="file"]{
+    position: absolute;
+    top: -9999999;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    width:0;
+    height:0;
+    outline: none;
+    cursor: inherit;
+  }
+
+</style>
+<div class="container-fluid">
+<div class="row" style="background-color: #2e4356;">
+	<div class="col-xs-offset-1 col-xs-10 col-sm-6 col-sm-offset-5 col-lg-offset-5 col-lg-6">
+		<button type="button" name="imageUpload" class="btn-xs btn-default profileBtn1 col-xs-12 col-lg-5" onclick="profileBtn();">Profile Setting</button>
+		<button type="button" name="imageUpload" class="btn-xs btn-default profileBtn1 col-xs-12 col-lg-5" onclick="exitingBtn();">Exiting Contacts</button>
+	</div>
+</div>
+			<div class="content-tabs landingtop  col-xs-12 col-sm-offset-4 col-sm-8 col-md-8 col-lg-5 col-lg-offset-5" id="proflieSetting">
+				<span ><h1 class="whitetext text-center">Profile Settings</h1></span>
+				<span class="stlbluetxt text-center"> <h4 class="mb-4"> User Avatar </h4></span>
+				<!-- <form method="post" action="/uploadAvatar" id="avatarprofile" name="avatarprofile" enctype="multipart/form-data"> -->
+					<form id="avatarprofile" ame="avatarprofile" action="" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<div class="circle">
+							<!-- <img class="profile-pic" src="/images/img/user.jpg"> -->
+							{% if (userprofile) %}
+				          		<img class="profile-pic" src="{{userprofile}}">
+				          	{% else %}
+				          		<img class="profile-pic" src="/images/img/user.jpg">
+							{% endif %}
+				          	</div>
+				         <div class="clearfix"></div>
+				         <img id="loading-image" src="/images/img/ajax-loader.gif" style="display:none;"/>
+					</div>
+
+					<div class="form-group">
+				        <div class="btn-Main">
+				            <!-- <input type='file' name="vendorimage" value="Upload Photo" id="imageUpload" accept=".png, .jpg, .jpeg" />
+				          	<label for="imageUpload" onchange="fileupload(this);"></label> -->
+
+				          	<label class="btn-bs-file  btn btn-sm profileBtn2" id="browse">
+							  <input type="file" id="userprofileBrowse" name="userprofile" "/> Select avatar
+							</label>
+
+				           
+				        </div>
+				        <div class="clearfix"></div>
+				        <div class="text-center">
+				        <!--  <button type="submit" name="imageUpload" class="btn-xs btn-default profileBtn2 uploadBtn"></button> -->
+				      </div>
+				    </div>
+
+				</form>
+				
+					 <div class="alert alert-danger" id="uploadError" style="display:none;">
+					 	{{errorval}}
+					 </div>
+
+				    <span class="stlbluetxt text-center"><h5 class="mb-3">Password</h5></span>
+
+				    		{% if (errorval)  %}
+								 <div class="alert alert-danger">
+								  {{errorval}}
+								 </div>
+							{% endif %}
+									
+						    {% if (successval)  %}
+								 <div class="alert alert-success">
+								  {{successval}}
+								</div>
+						    {% endif %}
+
+				  <form action="/savechangepassword" method="post" name="savepasswordData" id="savepasswordDataForm">
+
+				    <div class="form-group">
+					    <label for="currentPassword">CURRENT PASSWORD</label>
+					    <input type="password" class="form-control" id="currentPassword" placeholder="Enter Current Password" name="currentPassword">
+				  </div>
+				  <div class="form-group">
+					    <label for="newPassword">NEW PASSWORD</label>
+					    <input type="password" class="form-control" id="newPassword" placeholder="Enter New Password" name="newPassword">
+				  </div>
+
+				  <div class="form-group">
+					    <label for="confirmPassword">CONFIRM NEW PASSWORD</label>
+					    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Enter Confirm Password">
+				  </div>
+				  <div class="form-group">
+				        <div class="btn-Main text-center mt-3">
+				            <button type="submit" class="btn btn-default profileBtn2" id="changePwdform">Change password</button>
+				        </div>
+				        <div class="clearfix"></div>
+				    </div>
+				  <div class="text-center stlbluetxt"> <h5 class="mb-3 text-center">Receive Notifications</h5></div>
+				</form>
+				<form action="/receivenotifi" method="post" name="notifications" id="notificationsForm">
+				  <div class="form-group">
+				  	<label for="avataremail">EMAIL ADDRESS</label>
+				  	{% if (Notifiemail) == '' %}
+				  		<input type="email"  class="form-control notifi" name="notifiemail" placeholder="Email Address" id="notifiemail" value="{{email}}">
+				  	{% else %}
+				  		<input type="email"  class="form-control notifi" name="notifiemail" placeholder="Email Address" id="notifiemail" value="{{Notifiemail}}">
+				  	{% endif %}
+				  </div>
+
+				  <div class="form-group">
+				  	<label for="avatarMobile">MOBILE PHONE</label>
+				  	<input type="text" class="form-control form-rounded input-color notifi" id="notifimobile" name="notifimobile" placeholder="Mobile Number" data-mask="(000) 000-0000" {% if (Notifimobile) == '' %} value="{{phoneNumber}}" {% else %} value="{{Notifimobile}}" {% endif %}>
+
+				  	<div class="btn-Main text-center mt-3">
+						<button type="submit" class="btn btn-default profileBtn2" style="min-width: 140px;">Save</button>
+					</div>
+				  </div>
+				</form>
+			</div>
+			
+		</div>	
+		<div class="col-lg-offset-3 col-lg-5 ">
+		
+			<div class="exitingContact" id="exitingContact" style="display: none;"> 
+			<h1 class="text-center">Coming soon</h1>
+			<!-- 
+				<h1 class="text-center">Existing Contracts</h1>
+				<div class="block-content-box">
+					<h5> Breast Augumnetation </h5>
+					<table width="100%" class="mTB-2">
+						<tbody>
+							<tr>
+								<td>Total cost </td>
+								<td>:</td>
+								<td class="whitetext">$3,200</td>
+								<td>Term Length</td>
+								<td>:</td>
+								<td class="whitetext">24 month</td>
+							</tr>
+							<tr>
+								<td>Total Downpayment</td>
+								<td>:</td>
+								<td class="whitetext">$1,000</td>
+								<td>Interest Rate</td>
+								<td>:</td>
+								<td class="whitetext">0%</td>
+							</tr>
+							<tr>
+								<td>Total Financed </td>
+								<td>:</td>
+								<td class="whitetext">$3,200</td>
+								<td>Start Date</td>
+								<td>:</td>
+								<td class="whitetext">Jul 13,2017</td>
+							</tr>
+							<tr>
+								<td>Monthly Payment </td>
+								<td>:</td>
+								<td class="whitetext">$120</td>
+								<td>Maturity Date</td>
+								<td>:</td>
+								<td class="whitetext">Jul 13, 2019</td>
+							</tr>
+							<tr>
+								<td rowspan="2"><div>Total Paid</div><div>Total Outstanding</div> </td>
+								<td rowspan="2"><div>:</div> <div>:</div></td>
+								<td rowspan="2" class="whitetext"><div>$640</div> <div>$2,200</div></td>
+								<td colspan="3">
+									* <strong>Notice:</strong>tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum, massa justo sit amet risus.
+								</td>
+							</tr>
+							</tbody>
+					</table>
+					<table>
+						<tbody>
+							<tr>
+								<td class="whitetext"> Notification</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="checkbox">
+									<input type="checkbox" id="checkbox1" value="" required="" name="textMessage">
+									<label for="checkbox1"><span>Text Message</span></label>
+									</div>
+								</td>
+								<td>
+									<div class="checkbox">
+									<input type="checkbox" id="checkbox2" value="" required="" name="emailMessage">
+									<label for="checkbox2"><span>Email Address</span></label>
+									</div>
+								</td>
+								
+								<td></td><td></td><td></td><td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="block-content-box mTB-3">
+					<h5> Beauty Essence (membership)</h5>
+					<table width="100%" class="mTB-2">
+						<tbody>
+							<tr>
+								<td>Monthly Payment </td>
+								<td>:</td>
+								<td class="whitetext">$250</td>
+							</tr>
+							<tr>
+								<td>Start Date </td>
+								<td>:</td>
+								<td class="whitetext">Jul 25,2017</td>
+							</tr>
+							<tr>
+								<td>Treatments</td>
+								<td>:</td>
+								<td class="whitetext">Box, Lip Filler, Coolsclpting</td>
+							</tr>
+							<tr>
+								<td class="whitetext"> Notification</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="checkbox">
+									<input type="checkbox" id="checkbox3" value="" required="" name="textMessage">
+									<label for="checkbox3"><span>Text Message</span></label>
+									</div>
+								</td>
+								<td>
+									<div class="checkbox">
+									<input type="checkbox" id="checkbox4" value="" required="" name="emailMessage">
+									<label for="checkbox4"><span>Email Address</span></label>
+									</div>
+								</td>
+							</tbody>
+					</table>
+				</div>-->
+				
+			</div> 
+		</div>
+  
+{% endblock %}

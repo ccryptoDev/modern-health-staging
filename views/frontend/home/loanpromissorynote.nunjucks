@@ -1,0 +1,356 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="loanpromissorynote">
+<style type="text/css">
+.modal-body {background-color: rgba(229,242,255,0.24) !important;}
+@media only screen and (max-width: 600px) {
+  #promissory-personalinfoinner {
+    margin-left: 0;
+    width: 100%;
+    float: none;
+  }
+  #promissory-personalinfoinner #promissory-promissorypage {
+    width: 100%;
+  }
+}
+  @media only screen and (max-width: 800px) {
+    #achPaymentDocument .modal-dialog {width: calc(100% - 20px);}
+  }
+</style>
+<div class="container">
+   <div class="inner-content">
+      <div class="heading">
+         <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" />
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-12 personalInfoInner">
+            {% include "frontend/layoutv3/navigator.nunjucks" %}
+            <h1 class="title">You are one step away!</h1>
+            <div id="promissory-personalinfoinner" class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-10 col-lg-offset-1 personalInfoInner">
+                <div id="promissory-promissorypage" class="whitebox promissorypage">
+                  {% if  req.session.userfilloutmanually == 1 %}
+                    <form id="manualpromissoryform" name="promissoryform" method="post" action="/createloanpromissorypdf">
+                  {% else %}
+                    <form id="promissoryform" name="promissoryform" method="post" action="/createloanpromissorypdf">
+                  {% endif %}
+
+                  <div class="text-left prominfo"><strong>Before finalizing your contract, we need to confirm that you agree with the terms and conditions of your Retail Installment Contract. You have no obligation to pay the contract you sign until after the procedure is completed. Your first scheduled monthly payment will be due 30 days after the procedure is completed.</strong></div>
+                  <div class="mt1 greentext promheading">Retail Installment Contract</div>
+                  <div class="box">
+                     <div class="modal-body" id="promissory-modal" style="margin: 2% 0 0;">
+                        <div class="promissory text-left">
+                              {% if(screentrackingdetails.practicemanagement.StateCode=='CA') %} {% include "document/PromissoryNote_CA_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='KY') %} {% include "document/PromissoryNote_KY_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='PA') %} {% include "document/PromissoryNote_PA_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='TX') %} {% include "document/PromissoryNote_TX_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='LA') %} {% include "document/PromissoryNote_LA_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='NJ') %} {% include "document/PromissoryNote_NJ_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='RI') %} {% include "document/PromissoryNote_RI_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='FL') %} {% include "document/PromissoryNote_FL_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='TN') %} {% include "document/PromissoryNote_TN_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='GA') %} {% include "document/PromissoryNote_GA_v1.nunjucks" %}
+															{% elseif(screentrackingdetails.practicemanagement.StateCode=='NY') %} {% include "document/PromissoryNote_NY_v1.nunjucks" %}
+															{% endif %}
+                        </div>
+                     </div>
+                  </div>
+
+                  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+                     <div class="checkbox">
+                      <input type="checkbox" id="eftagreement" class="singlecheck" required name="ElectronicFundsConditions" value="203" onclick="removeElectronicFunds();">
+                      <label for="eftagreement">
+                      <a href="javascript:void(0)" onclick="openachpayment();"> <span class="greentext" style="font-size:16px;  color: #42B2FF;">Electronic Funds Transfer Authorization</span></a>
+                      </label>
+                     </div>
+                     <div class="col-xs-12" id="eftconsentsign"></div>
+                     <div class="mt1">By selecting this box, I have reviewed this authorization for having my contract payments made automatically and agree to its terms.</div>
+                  </div> -->
+
+                  <!-- Automatic Payment Authorization Popup -->
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+                        <div id="achPaymentDocument" class="modal fade" role="dialog">
+                           <div class="modal-dialog modal-md">
+                             <div class="modal-content">
+                              <div class="text-center">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Automatic Payment Authorization</h3></span>
+                              </div>
+                              <div class="modal-body">
+                                  {% include "document/Automatic_Payment_Authorization.nunjucks" %}
+                              </div>
+                              <div class="btnMain text-center">
+                                <button type="button" data-dismiss="modal" class="btn btn-default fillBtn ActivefillBtn" onclick="checkdocstatus();" >Accept</button>
+                              </div>
+                             </div>
+                           </div>
+                        </div>
+                  </div>
+
+                  <div class="row"><hr></div>
+                  {% if  req.session.userfilloutmanually == 1 %}
+					<input type="hidden" id="bankname" name="bankname" />
+					<input type="hidden" id="bankid" name="bankid" />
+					<input type="hidden" id="banktype" name="banktype" />
+					<input type="hidden" id="accountholder" name="accountholder" />
+					<input type="hidden" id="routingno" name="routingno" />
+					<input type="hidden" id="bankaccno" name="bankaccno" />
+					<input type="hidden" id="cbankaccno" name="cbankaccno" />
+                    <div class="btnMain text-center">
+						<button type="submit" name="formsubmit" id="agree" class="btn btn-default fillBtn ActivefillBtn">Agree &amp; Finalize</button>
+					</div>
+
+                  {% else %}
+                    <div class="row text-center">
+                          <div class="btnMain text-center">
+                            <!-- <a href="" class="btn btn-default borderBtn">Back</a> -->
+                            <button type="submit" name="formsubmit" id="agree" class="btn btn-default fillBtn ActivefillBtn" >Agree &amp; Finalize</button>
+                          </div>
+                    </div>
+                  {% endif %}
+
+                  <input type="hidden" name="checkCanvasEmpty" id="checkCanvasEmpty" class="form-control input-normal" value="{{signatureExist}}">
+                  <input type="hidden" name="hiddensignatureid" id="hiddensignatureid" class="form-control input-normal" value="{{signatureId}}">
+
+                </form>
+                </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% if signatureExist == 1 and agreementsignpath != ''%}
+<!-- <script type="text/javascript">
+var imgSource = document.getElementById('stampimg').src;
+var hiddensignatureid = document.getElementById("hiddensignatureid").value;
+signatureImage(imgSource,hiddensignatureid)
+</script> -->
+{% endif %}
+<script type="text/javascript">
+   function checkdocstatus() {
+
+    var checkCanvasEmpty = $('#checkCanvasEmpty').val();
+    var hiddensignatureid = $('#hiddensignatureid').val();
+     if(checkCanvasEmpty == 1 && hiddensignatureid!=''){
+         // document.getElementById('signpadDiv').style.display = "none";
+         document.getElementById("eftagreement").checked = true;
+         $("#agree").removeClass("ActivefillBtn").addClass("ActivefillGreenBtn");
+         $("#save").removeClass("lightBlueBtn").addClass("greenBtn");
+         $('#achPaymentDocument').modal('hide');
+         $('#eftconsentsign').html('');
+     }
+     else{
+       document.getElementById("eftagreement").checked = true;
+       // document.getElementById('signpadDiv').style.display = "block";
+       $("#agree").removeClass("ActivefillBtn").addClass("ActivefillGreenBtn");
+       $("#save").removeClass("lightBlueBtn").addClass("greenBtn");
+       $('#achPaymentDocument').modal('hide');
+       $('#eftconsentsign').html('');
+     }
+   }
+
+function signpad(){
+	var checkCanvasEmpty = $('#checkCanvasEmpty').val();
+	var hiddensignatureid = $('#hiddensignatureid').val();
+
+	if(checkCanvasEmpty ==1 && hiddensignatureid!='') {
+		// document.getElementById('signpadDiv').style.display = "none";
+		if(document.getElementById('promissoryform')){
+			document.getElementById("promissoryform").submit();
+		}
+		if(document.getElementById('manualpromissoryform')){
+			document.getElementById("manualpromissoryform").submit();
+		}
+    } else {
+		var checked = $("input[class=singlecheck]:checked").length;
+		if(checked > 0 && checkCanvasEmpty ==0 && hiddensignatureid=='') {
+        	// document.getElementById('signpadDiv').style.display = "block";
+		} else {
+			// document.getElementById('signpadDiv').style.display = "none";
+		}
+	}
+}
+
+function hideSignPadIfAlreadySigned() {
+	var checkCanvasEmpty = $( "#checkCanvasEmpty" ).val();
+	var hiddensignatureid = $( "#hiddensignatureid" ).val();
+	if( checkCanvasEmpty == 1 && hiddensignatureid != '' ) {
+		document.getElementById('signpadDiv').style.display = "none";
+		var checked = $("input[name=ElectronicFundsConditions]:checked").length;
+		if( checked > 0 ) {
+			$("#agree").removeClass("lightBlueBtn").addClass("greenBtn");
+			$("#save").removeClass("lightBlueBtn").addClass("greenBtn");
+		}
+	}
+}
+
+window.onload = hideSignPadIfAlreadySigned;
+
+</script>
+<link href="/styles/css/frontend/v3/promissory.css" rel="stylesheet" type="text/css" />
+
+{% if  req.session.userfilloutmanually == 1 %}
+{% if req.session.savedbankinfo == true %}
+{% else %}
+<style>
+#bankmodal.financepagemodal:before {
+	display:none;
+}
+#bankmodal > .modal-dialog {
+	vertical-align: top;
+	width: 75%;
+}
+#bankmodal > .modal-dialog > .modal-content .modal-header,
+#bankmodal > .modal-dialog > .modal-content .modal-footer {
+	border: none;
+}
+#bankmodal > .modal-dialog > .modal-content > .modal-body {
+	margin-bottom: 0;
+}
+#bankmodal > .modal-dialog > .modal-content .btnMain {
+	padding: 5px 0;
+}
+#bankmodal > .modal-dialog > .modal-content label {
+	cursor: pointer;
+}
+#bankmodal > .modal-dialog > .modal-content .modal-btn {
+	height: 35px;
+    line-height: 35px;
+    padding: 0 40px;
+}
+</style>
+<div id="bankmodal" class="modal fade financepagemodal" role="dialog" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog modal-lg">
+    	<div class="modal-content">
+			<form id="bankinfo" name="bankinfo">
+				<div class="modal-body">
+					<h5 class="promissorybankinfo mt1 mb-2 text-center">BANK ACCOUNT INFORMATION FOR AUTO-PAY</h5>
+					<div class="row">
+						<div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
+							<div class="form-group">
+								<label for="bankname">BANK NAME</label>
+								<input type="text" name="bankname" id="bi_bankname" class="form-control" placeholder="Enter Bank Name" autocomplete="off" required />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-md-6">
+							<div class="form-group">
+								<label for="accountholder">PRIMARY ACCOUNT HOLDER</label>
+								<input type="text" name="accountholder" id="bi_accountholder" value="{{accountholder}}" class="form-control" placeholder="Primary Account Holder" required />
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<div class="form-group">
+								<label for="routingno">ROUTING NUMBER</label>
+								<input type="text" name="routingno" id="bi_routingno" pattern="\d*" class="form-control" value="{{routingno}}" placeholder="Bank Routing Information" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required />
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<div class="form-group">
+								<label for="bankaccno">ACCOUNT NUMBER</label>
+								<input type="text" name="bankaccno" class="form-control" id="bi_bankaccno" placeholder="Bank Account Number" required />
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<div class="form-group">
+								<label for="cbankaccno">CONFIRM ACCOUNT NUMBER</label>
+								<input type="text" name="cbankaccno" class="form-control" id="bi_cbankaccno" placeholder="Confirm Bank Account Number" required />
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<!-- button type="button" class="btn btn-default" data-dismiss="modal">Close</button -->
+					<div class="btnMain text-center">
+						<button type="submit" name="banksubmit" id="banksubmit" class="btn btn-default modal-btn lightBlueBtn">Continue</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+document.addEventListener( "DOMContentLoaded", function() {
+	$( "#bankmodal" ).modal( { backdrop: "static", keyboard: false, show: true } );
+	jQuery.validator.addMethod( "abarouting", function( value, element ) { return this.optional( element ) || validateABARouting( value ); }, "Invalid ABA Routing Number." );
+	$( "#bankinfo" ).validate( {
+		rules: {
+			"bankname": { required: true },
+			"accountholder": { required: true },
+			"routingno": { required: true, digits: true, minlength: 9, maxlength: 9, abarouting: true },
+			"bankaccno": { required: true },
+			"cbankaccno": { required: true, equalTo: "#bi_bankaccno" }
+		},
+		messages: {
+			"bankname": { required: "Please enter the name of your bank." },
+			"accountholder": { required: "Please enter primary account holder's name." },
+			"routingno": { required: "Please enter your bank routing number.", digits: "Please enter a valid routing number.", minlength: "Routing number is too short.", maxlength: "Routing number is too long." },
+			"bankaccno": { required: "Please enter your bank account number." },
+			"cbankaccno": { required: "Please confirm your bank account number.", equalTo: "Account numbers must match." }
+		},
+		onkeyup: enableBtn,
+		onfocusout: enableBtn
+	} );
+	$( "#bankinfo" ).on( "submit", function( e ) {
+		console.log( "#bankinfo.submit" );
+		return saveBankAccount( e );
+	} );
+} );
+
+function enableBtn() {
+	if( $( "#bankinfo" ).valid() ) {
+		$( "#banksubmit" ).removeClass( "lightBlueBtn" ).addClass( "blueBtn" );
+		return;
+	}
+	$( "#banksubmit" ).removeClass( "blueBtn" ).addClass( "lightBlueBtn" );
+}
+
+function saveBankAccount( event ) {
+	console.log( "saveBankAccount()" );
+	if( event.preventDefault ) {
+		event.preventDefault();
+	} else {
+		event.returnValue = false; // MS-IE
+	}
+	if( $( "#bankinfo" ).valid() ) {
+		$( "#bankmodal" ).modal( "hide" );
+		$( "#bankname" ).val( $( "#bi_bankname" ).val() );
+		$( "#accountholder" ).val( $( "#bi_accountholder" ).val() );
+		$( "#routingno" ).val( $( "#bi_routingno" ).val() );
+		$( "#bankaccno" ).val( $( "#bi_bankaccno" ).val() );
+		$( "#cbankaccno" ).val( $( "#bi_cbankaccno" ).val() );
+		$.ajax( {
+			type: "POST",
+			url: "/savebankinfo",
+			dataType : 'json',
+			data : $( "#bankinfo" ).serialize(),
+			success : function( result ) {
+				console.log( "success:", result );
+				window.location.href = window.location.href;
+			},
+			error: function( xhr, resp, text ) {
+				console.log( "error:", xhr, resp, text );
+			}
+		} );
+	}
+	return false;
+}
+
+function validateABARouting( aba ) {
+	if( typeof aba === "number" ) {
+		aba = aba.toString();
+	}
+	var n = 0;
+	for( var i = 0; i < aba.length; i += 3 ) {
+		n += ( parseInt( aba.charAt( i ), 10 ) * 3 ) + ( parseInt( aba.charAt( i + 1 ), 10 ) * 7 ) + ( parseInt( aba.charAt( i + 2 ), 10 ) );
+	}
+	// If the resulting sum is an even multiple of ten (but not zero), the aba routing number is good.
+	return ( n != 0 && n % 10 == 0 );
+}
+</script>
+{% endif %}
+{% endif %}
+</div>
+{% endblock %}

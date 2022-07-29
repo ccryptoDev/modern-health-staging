@@ -1,0 +1,223 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        Messaging
+        <small>preview of Messaging</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Messaging</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Messaging Table</h3>
+		  <span class="pull-right"><a href="/admin/createNewMessage"><button type="button" class="btn btn-primary">Create Message</button></a></span>
+        </div>
+        <div class="box-body">
+          <!-- <table class="table table-striped table-bordered  dataTable" id="messaging_table">
+            <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Subject</th>
+              <th>Message</th>
+              <th>Category</th>
+              <th>University</th>
+              <th>Access Type</th>
+              <th>Created Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+           
+            </tbody>
+          </table> -->
+
+          <div id="tabs">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#messaging">User Messages</a></li>
+              <li><a data-toggle="tab" href="#systemmessages">System Messages</a></li>
+             <!--  <li><a data-toggle="tab" href="#universitymessages">University Messages</a></li> -->
+            </ul>
+
+            <div class="tab-content">
+
+              <div id="messaging" class="tab-pane fade in active">
+
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                    <br/><br/>
+                    <div class="row justify-content-md-center">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> &nbsp; </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                          <P><strong>Filter by date:</strong></P>
+                          <div class="input-group input-daterange">
+                            <input type="text" id="messaging_start_date" class="form-control date-range-filter" data-date-format="mm/dd/yyyy" placeholder="Start Date">
+
+                            <div class="input-group-addon">to</div>
+
+                            <input type="text" id="messaging_end_date" class="form-control date-range-filter" data-date-format="mm/dd/yyyy" placeholder="End Date">
+
+                            <span class = "input-group-btn">
+                                  <button class = "btn btn-default" type = "button" id="messaging_table_filterdate">
+                                     Go!
+                                  </button>
+                            </span>
+                          </div>
+                          <span id="displaymessage_error" class="error"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> &nbsp; </div>
+                    </div>
+
+                     <br/> 
+                     <table class="table table-striped table-bordered  dataTable" id="messaging_table">
+                        <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Subject</th>
+                          <th>Message</th>                          
+                          <th>Name</th>
+                          <th>Category</th>
+                          <th>Access Type</th>
+                          <th>Created Date</th>
+                          <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>                       
+                        </tbody>
+                     </table>    
+                      
+                </div>
+              </div>
+
+              <div id="systemmessages" class="tab-pane fade">
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    
+                    <br/><br/>
+                    <div class="row justify-content-md-center">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> &nbsp; </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                          <P><strong>Filter by date:</strong></P>
+                          <div class="input-group input-daterange">
+                            <input type="text" id="systemmessaging_start_date" class="form-control date-range-filter" data-date-format="mm/dd/yyyy" placeholder="Start Date">
+
+                            <div class="input-group-addon">to</div>
+
+                            <input type="text" id="systemmessaging_end_date" class="form-control date-range-filter" data-date-format="mm/dd/yyyy" placeholder="End Date">
+
+                            <span class = "input-group-btn">
+                                  <button class = "btn btn-default" type = "button" id="systemmessaging_table_filterdate">
+                                     Go!
+                                  </button>
+                            </span>
+                          </div>
+                          <span id="displaysystemmessage_error" class="error"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> &nbsp; </div>
+                    </div>
+
+                    <table class="table table-striped table-bordered  dataTable" id="systemmessages_table">
+                        <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Subject</th>
+                          <th>Message</th>                          
+                          <th>Name</th>
+                          <th>Category</th>
+                          <th>Access Type</th>
+                          <th>Created Date</th>
+                          <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>                       
+                        </tbody>
+                     </table> 
+                      
+                </div>
+              </div>
+
+
+              <!-- <div id="universitymessages" class="tab-pane fade">
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    
+                    <br/><br/>
+                    <div class="row justify-content-md-center">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> &nbsp; </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                          <P><strong>Filter by date:</strong></P>
+                          <div class="input-group input-daterange">
+                            <input type="text" id="universitymessaging_start_date" class="form-control date-range-filter" data-date-format="mm/dd/yyyy" placeholder="Start Date">
+
+                            <div class="input-group-addon">to</div>
+
+                            <input type="text" id="universitymessaging_end_date" class="form-control date-range-filter" data-date-format="mm/dd/yyyy" placeholder="End Date">
+
+                            <span class = "input-group-btn">
+                                  <button class = "btn btn-default" type = "button" id="universitymessaging_table_filterdate">
+                                     Go!
+                                  </button>
+                            </span>
+                          </div>
+                          <span id="displayuniversitymessage_error" class="error"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> &nbsp; </div>
+                    </div>
+
+                   
+                    
+                    <br/>
+                    <div class="row justify-content-md-center">
+                       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"> &nbsp; </div>
+                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                           <P style="text-align:center; "><strong> (or)</strong></P>                            
+                           <P><strong>Filter by universtiy:</strong></P>
+                           <input type="hidden" class="form-control"  id="universityid" name="universityid" >
+
+                           <div class = "input-group">
+                              <input type="text" class="form-control typeahead tt-query" id="university" name="university"  autocomplete="off" onkeyup="searchuniversity(this.value);">
+                               <span class = "input-group-btn">
+                                <button class = "btn btn-default" type = "button" id="universitymessaging_filter">
+                                   Go!
+                                </button>
+                             </span>                             
+                           </div>
+                           <span id="displayuniversitymissing_error" class="error"></span>
+
+                           <div class="tt-menu" style="position: absolute; top: 90%; left: 3%; z-index: 100; display: none;">
+                             <div class="ttc-dataset tt-dataset-countries"></div>
+                           </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"> &nbsp; </div>
+                    </div>  
+                    <br/>
+
+                    <table class="table table-striped table-bordered  dataTable" id="universitymessages_table">
+                        <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Subject</th>
+                          <th>Message</th>                          
+                          <th>University</th>
+                          <th>Category</th>
+                          <th>Access Type</th>
+                          <th>Created Date</th>
+                          <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>                       
+                        </tbody>
+                     </table>                        
+                </div>
+              </div>
+
+
+
+            </div> -->
+          </div>
+              
+        </div>
+      </div>
+    </section>
+{% endblock %}

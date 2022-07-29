@@ -1,0 +1,152 @@
+{% extends "frontend/layout/portallayout.nunjucks" %}
+
+{% block body %}
+
+{% if errorcode==201  %}
+<section class="content">
+	<div class="alert alert-danger">
+		{{errormsg}}
+	</div>
+</section>>
+{% elseif loanstatus == 'Declined' %}
+<section class="content">
+	<div class="alert alert-infonew">
+		<p class="income_low_msg">Hello,</p>
+		<p class="income_low_msg">Unfortunately at this time we are unable to move forward with your  financing request, because your reported income is not high enough to qualify you credit.  Although we are unable to move forward with the financing at this time we want to thank you for applying for credit with us. If you have questions or concerns regarding your application please feel free to contact us Monday through Friday 5am -7pm PST at 000.000.0000 or if you prefer email communication, <a href="mailto:customerservice@modern-health.alchemylms.com">customerservice@modern-health.alchemylms.com</a>. </p>
+		<p class="income_low_msg">Thank you for choosing {{LenderShortName}}, we hope that in the future we will be able to assist you with your lending needs! </p>
+	</div>
+</section>
+{% else %}
+
+ <section class="content">
+
+ 	<!-- {% if sessionerrorMsg!='' and sessionerrorMsg!=null and sessionerrorMsg!="undefined" %}
+	 	<h1 class=" text-center alert alert-danger">
+			{{ sessionerrorMsg }}
+	    </h1>
+ 	{% endif %} -->
+		<button class="btn btn-default" type="button" onclick="goBackToPlaid();" style="font-size: 18px; margin-left: 100px;">< Go back to Plaid</button>
+    <h1 class="text-center">  Offer Information  </h1>
+    <div class="box text-center">
+
+					<div class="table-reponsive ">
+					<form name="myofferform" method="post" action="/saveloanoffer">
+					<input type="hidden" name="screenid" id="screenid" value="{{screenid}}">
+					<input type="hidden" name="totalcost" id="totalcost" value="{{financedAmount}}">
+
+	 				<table class="table">
+						<thead>
+							<tr class="headerbg">
+								<th rowspan="2" scope="rowgroup" class="attributes" style="border-right:2px solid white;text-align: center;">Attribute</th>
+								<th {% if(outputarray[0].month.length == 2) %}{% else %}colspan="5"{% endif %}scope="colgroup" style="border-bottom:2px solid white;text-align: center;"> Term (Months)</th>
+							</tr>
+
+						{% for reslist in  outputarray %}
+							 <tr class="headerbg" >
+								{% for reslistdata in  reslist.month %}
+									{% if(reslistdata != 'Months') %}
+										<th scope="col" style="text-align: center;">{{reslistdata}}</th>
+										<!-- <input type="text" name="term" id="term" value="{{reslistdata}}"> -->
+									{% endif %}
+								{% endfor %}
+							</tr>
+						</thead>
+						<tr>
+						{% if(outputarray.length > 0) %}
+							<td> </td>
+							{% for reslist in  outputarray %}
+								 {% set k = 1 %}
+								 {% for loansetid in  reslist.loansetid %}
+									<td>
+										<div class="checkbox">
+											<input type="radio" name="offerarray" {% if(k==1) %}checked="checked"{% endif %} value="{{loansetid}}" id="checkboxOne_{{k}}" />
+											<label class="check-box" for="checkboxOne_{{k}}"></label>
+										</div>
+									</td>
+									{% set k = k+1 %}
+								 {% endfor %}
+							{% endfor %}
+						{% else %}
+
+						{% endif %}
+						</tr>
+						<tr>
+							{% for loandata in  reslist.financedAmount %}
+								<td scope=""> {% if(loandata == 'Loan Amount') %}Financed Amount{% else %}{{loandata}}{% endif %}</td>
+								<!-- {% if(loandata != 'Loan Amount') %}
+									<input type="hidden" name="financedAmount" id="financedAmount" value="{{loandata}}">
+								{% endif %}	 -->
+							{% endfor %}
+						</tr>
+						<tr>
+							{% for monthpay in  reslist.monthpayment %}
+								<td scope="">{{monthpay}}</td>
+								<!-- {% if(monthpay != 'Monthly payment') %}
+									<input type="hidden" name="monthpay" id="monthpay" value="{{monthpay}}">
+								{% endif %}	 -->
+							{% endfor %}
+						</tr>
+						<tr>
+							{% for appfeerate in  reslist.appfeerate %}
+							<td scope="">{{appfeerate}}</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							{% for appfeefixedrate in  reslist.appfeefixedrate %}
+								<td scope="">{{appfeefixedrate}}</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							{% for interestrate in  reslist.interestrate %}
+								<td scope="">{{interestrate}}</td>
+
+								<!-- {% if(interestrate != 'Interest Rates') %}
+									<input type="hidden" name="interestrate" id="interestrate" value="{{interestrate}}">
+								{% endif %} -->
+							{% endfor %}
+						</tr>
+						<tr>
+							{% for aprrate in  reslist.apr %}
+								<td scope="">{{aprrate}}</td>
+								<!-- {% if(aprrate != 'APR') %}
+									<input type="hidden" name="APR" id="APR" value="{{aprrate}}">
+								{% endif %} -->
+
+							{% endfor %}
+						</tr>
+						{% if(reslist.paymentfreq.length > 0) %}
+							<tr>
+								{% for paymentfreq in  reslist.paymentfreq %}
+									<td scope="">{{paymentfreq}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								{% for totalpayments in  reslist.totalpayments %}
+									<td scope="">{{totalpayments}}</td>
+								{% endfor %}
+							</tr>
+						{% endif %}
+
+
+						{% endfor %}
+					</table>
+						</form>
+						<div class="text-center">
+							<button class="btn btn-default greenBtn" type="button" onclick="saveoffer();" style="font-size: 14px; min-width: 20%;">Next</button>
+						</div>
+						<p>&nbsp;</p>
+
+
+				</div>
+ </section>
+ {% endif %}
+ <style>
+ .alert-infonew {
+    background: none !important;
+    color: #29d7a6 !important;
+    border: solid 1px #2e3b48;
+    font-size: 16px;
+}
+ </style>
+ <link href="/styles/css/frontend/borrowerportal/addbank.css" rel="stylesheet" type="text/css" />
+ {% endblock %}

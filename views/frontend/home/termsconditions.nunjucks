@@ -1,0 +1,146 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="termsconditions">
+	<div class="container documentary">
+		<div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+		<div style="display: none;">{% include "frontend/layout/navigator.nunjucks" %}</div>
+		<div class="whitebox block-content-box">
+			<center><h1 class="bold">Terms and Conditions</h1></center>
+			<br>
+			<p> In this Contract the words "we," "us," and ' 'our*' refer to Seller. The words "you" and "your ' refer to Buyer (and Co-Buyer, if any) named above. By signing this Contract, you are buying the "Services" described below from the Seller named above, and you agree to the terms set forth on the front and back of this Contract.
+			</p>
+			<p>Services:</p>
+			<p> The price of the Services is shown below as the "Cash Price." By signing this Contract, you choose to buy the Services on credit and agree to pay us the total principal amount shown below as the "Amount Financed," which will be (1) the total cash price of the Services; plus (2) any costs, fees, or other amounts financed; plus (3) interest at the rate of : &nbsp;&nbsp;&nbsp;{{interestRate}}%&nbsp;&nbsp;&nbsp; on the unpaid balance until it is fully repaid. The interest will be calculated on a simple-interest basis based upon a year of 365 days and the actual number of days elapsed. You agree to pay us in the amounts and under the terms set forth in this Contract. If this Contract is signed by a Buyer and Co-Buyer, each is individually and jointly responsible for all agreements in this Contract.
+			</p>
+			<br>
+			<br>
+			<center><h3 class="bold">ADDITIONAL TERMS AND CONDITIONS</h3></center>
+			<br>
+			<p class="roomy">
+			l. Application of Payments: You agree that payments will be applied first to interest accrued but unpaid as of the date of processing
+			of the payment, next to late charges or other charges, and finally to principal.
+			</p>
+			<p class="roomy">
+			2. Default and Acceleration: You will be in default if you fail to make payment or keep other promises you make in this Contract.
+			If you default in making any payment when due, or in the performance of any term or condition of this Contract, we may, in
+			addition to our other remedies, declare all unpaid sums immediately due and payable. You waive your right to require us to do
+			certain things. Those things are (a) to demand payment of amounts do; (b) to give notice that amounts due have not been paid; (c)
+			to obtain an official certification of financing payments. Anyone else who agrees to keep the promises made in this Contract or who
+			agrees to make payments to us of you fail to keep your promises under this Contract (these persons are known as "Co-Signors" or
+			"Guarantors") also waives these rights. As required by law, you are hereby notified that a negative credit report reflecting on your
+			credit record may be submitted to a credit reporting agency if you fail to fulfill the terms of your credit obligations. If we take any
+			adverse action as defined by Section 1785.3 of the California Civil Code and the adverse action is based, in whole or in part, on any
+			information contained in a consumer credit report, you have the right to obtain within 60 days a free copy of your consumer credit
+			report form the consumer reporting agency who furnished us your consumer credit report and from any other consumer reporting
+			agency which compiles and maintains files on consumers on a nationwide basis. You have the right as described by Section
+			1785.16 of the California Civil Code to dispute the accuracy or completeness of any information in a consumer credit report
+			furnished by the consumer credit reporting agency.
+			</p>
+			<p class="roomy">
+			3. Co-Buyers, Co-signers and Guarantors: If more than one person signs this Contract, each of you agrees to be fully and
+			personally obligated to pay the full amount owed and to keep all the promises made in this Contract. Any guarantor of this Contract
+			(as described in paragraph 3, above), is also obligated to do these things. You agree that we may enforce our rights under this
+			Contract against each of you individually or against all of you together. This means that any one of you may be required to pay all
+			of the amounts owed under this Contract.
+			<p class="roomy">
+			4. Prepayment and Acceleration: You may prepay all amounts due under this Contract at any time without penalty.
+			</p>
+			<p class="roomy">
+			5. Promotional Financing Option. You will be billed for monthly payments beginning one month after your date of purchase. Your billing will
+			include interest the rate of [IntRate] to your account from the date of the purchase contract. However, if your purchase contract is paid 
+			in full within the 180 day promotional period, then all the interest you have paid will be rebated to you. The Minimum Monthly Payment may
+			or may not pay off the promotional purchase before the end of the promotional period. Interest will be credited to your account if you 
+			meet the following conditions:<br>
+			<div class="dualrow">
+				<div class="colleft" style="font-weight: bold;">
+					(a)
+				</div>
+				<div class="colright" style="font-weight: bold;">
+					Make all minimum monthly payments on time.
+				</div>
+			</div>
+			<div class="dualrow">
+				<div class="colleft" style="font-weight: bold;">
+					(b)
+				</div>
+				<div class="colright" style="font-weight: bold;">
+					Do not incur a late fee or NSF fee.
+				</div>
+			</div>
+			<div class="dualrow">
+				<div class="colleft" style="font-weight: bold;">
+					(c)
+				</div>
+				<div class="colright" style="font-weight: bold;">
+					Notify us via telephone at 949-207-9323 extension 1 or via email <br>
+					Contact@ModernHealthFinance.com before you make your final payment to confirm.
+				</div>
+			</div>
+			</p>
+			<p class="roomy">
+			6. Credit Information: You warrant that all information contained in your application for credit is true and correct, and acknowledge
+			that we have relied upon the accuracy thereof in connection with this Contract. You agree that we may make inquiries conceming
+			your credit history and standing, and may report information concerning your performance under this Agreement to credit reporting
+			agencies. As required by law, you are informed that failure to pay this obligation may result in a negative credit report being filed
+			on you. If we take any adverse action as defined by Section 1785.3 of the California Civil Code and the adverse action is based, in
+			whole or in part, on any information contained in a consumer credit report, you have the right to obtain within 60 days a free copy
+			of your consumer credit report form the consumer reporting agency who furnished us your consumer credit report and from any
+			other consumer reporting agency which compiles and maintains files on consumers on a nationwide basis. You have the right as set
+			forth in Section 1785.16 of the California Civil Code to dispute the accuracy or completeness of any information in a consumer
+			credit report furnished by the consumer credit reporting agency.
+			</p>
+			<p class="roomy">
+			7. Non Refundable Application Fee: A fee of 0.00 is charged and collected at time of application. "This fee pays for underwriting
+			and third party credit report services.
+			</p>
+			<p class="roomy">
+			8. Late Charges; Returned Check Charges: If you default in the payment of any installment for a period of 10 days or more, we
+			will collect a late charge in the amount of $15.00. You also recognize that you will pay more interest if you do not make a payment
+			by the date it is due. If you make any payment to us or to our agent with a check that is returned unpaid, we will collect a $25.00
+			returned check charge.
+			</p>
+			<p class="roomy">
+			9. Governing Law: Illis Contract will be governed by the laws of the State of California, County of San Diego.
+			</p>
+			<p class="roomy">
+			10. Rights Upon Default: If (a) you default in the performance of any of the terms and conditions of this Contract, including but not
+			limited to the making of any payment when due; (b) you become insolvent or are the subject of bankruptcy proceedings; or (c) you
+			die, we at our option and without notice may (i) declare all unpaid sums due under this Contract immediately due and payable; or
+			(ii) file suit against you for all unpaid sums due under this Contract. In the event that you fail to notify us of any change of address
+			or fail to communicate with us for a period of 45 days after any default in paying any installment due under this Contract, we may
+			collect reasonable costs of collection. In the event that any action to enforce the terms or conditions of this Contract is brought, the
+			prevailing party shall be entitled to reasonable attomeys' fees and court costs.
+			</p>
+			<p class="roomy">
+			11. Other Agreements: You agree that if we accept monies in sums less than those due or make extensions of due dates or
+			payments under this Contract, doing so will not be a waiver of any later right to enforce the contract terms as written. You agree to
+			send any communication about a disputed debt, including any check or other payment instrument marked "paid in full" or with
+			similar words, to the following address: 2475 Paseo De Las Americas #1023, San Diego, CA, 92154. We intend to transfer this Contract to an
+			assignee, you will be given full notice thereof and you agree that the assignee will have all our rights and remedies under this
+			Contract and you agree to pay all that is still owed under this Contract at all times, and in the amount, to the assignee. You agree
+			that all of the agreements between you and us are set forth in this Contract and that no modification of this Contract shall be valid
+			unless it is made in writing and signed by you and us. You agree that if any provision of this Contract is held invalid, that shall not
+			affect the validity of any other provision of this Contract, and that the remaining provisions of the Contract continue to be
+			binding and enforceable.
+			</p>
+			<br>
+			<br>
+			<center><h3 class="bold">NOTICE</h3></center>
+			<br>
+			<p class="roomy">
+			ANY HOLDER OF THIS CONSUMER CREDIT CONTRACT IS SUBJECT TO ALL CLAIMS AND
+			DEFENSES WHICH THE DEBTOR COULD ASSERT AGAINST THE SELLER OF GOODS OR
+			SERVICES OBTAINED PURSUANT HERETO OR WITH THE PROCEEDS HEREOR.
+			RECOVERY HEREUNDER BY THE DEBTOR SHALL NOT EXCEED AMOUNTS PAID BY THE
+			DEBTOR HEREUNDER.
+			<strong></p>
+			<p class="roomy">
+			Notice to Buyer: (1) Do not sign this Contract before you read it or if it contains any blank spaces to be filled
+			in. (2) You are entitled to a completely filled-in copy of this Contract. (3) You can prepay the full amount
+			due under this Contract at any time. (4) If you desire to pay off in advance the full amount due, that amount
+			will be furnished upon request.
+			</p>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,158 @@
+/* Media Quiries */
+@media only screen and (max-width:1920px) and (min-width: 992px){
+
+}
+@media only screen and (max-width:1920px){
+
+}
+@media only screen and (max-width:1680px){	
+
+}
+@media only screen and (max-width:1440px){
+
+}
+@media only screen and (max-width:1366px){
+
+}
+@media only screen and (max-width:1280px){
+
+}
+@media only screen and (max-width : 1200px) {
+
+}
+@media only screen and (max-width:1080px){ 
+
+}
+@media only screen and (max-width:1024px){
+    .addCircleBtn {
+            border-radius: 90px !important;
+			float: left;
+			height: 22%;
+			left: 0%;
+			position: absolute;
+			right: 0;
+			top: 38%;
+			width: 25%;
+			font-size: 12px;
+			margin: auto;
+	}
+     .content{padding: 45px 0 0;}
+     .circle{transform: translate(200%, 5%);}
+}
+@media only screen and (max-width : 992px) {
+
+}
+@media only screen and (max-width : 991px) {
+
+}
+@media only screen and (max-width : 980px) {
+	
+}
+@media only screen and (max-width : 960px) {
+
+}
+@media only screen and (max-width : 950px) {
+
+}
+@media only screen and (max-width : 900px){
+
+}
+@media only screen and (max-width : 768px){
+    .addCircleBtn {
+        border-radius: 90px !important;
+        float: left;
+        height: 29%;
+        left: 5%;
+        position: absolute;
+        right: 0;
+        top: 33%;
+        width: 35%;
+        font-size: 12px;
+        margin: auto;
+    }
+    .circle{transform: translate(130%, 5%);}
+    .block-content-box ul { margin-left: -30px;}
+    .consent-ul{padding-bottom: 7%;}
+    #createApplicateValidate .checkbox label::before {width: 15px; height: 15px;}
+    #createApplicateValidate .checkbox input[type="checkbox"]:checked + label::after {left: 3px; font-size: 10px;}
+    #checkError{margin-left: 0;}
+    .incomeLable2{text-align: center;}
+    .sidebar-collapse .appplicationId .box{width:90%; margin: 3% 8%;}
+    .appplicationId .box{width:65%}
+}
+@media only screen and (max-width : 767px) {
+    body.sidebar-open {background-color: #121C26;}
+}
+@media only screen and (max-width:736px){
+
+}
+@media only screen and (max-width:731px){
+
+}
+@media only screen and (max-width:667px){
+
+}
+@media only screen and (max-width:640px){
+
+}
+@media only screen and (max-width:600px){
+
+}
+@media only screen and (max-width:568px){
+
+}
+@media only screen and (max-width:540px){
+
+}
+@media only screen and (max-width:480px){
+    .addCircleBtn {
+        border-radius: 90px !important;
+        float: left;
+        height: 34%;
+        left: 5%;
+        position: absolute;
+        right: 0;
+        top: 33%;
+        width: 47%;
+        font-size: 11px;
+        margin: auto;
+    }
+    .circle{transform: translate(90%, 5%);}
+    .boxmargin{margin: 15% 5% 5%}
+    .appplicationId .box{width:90%}
+
+}
+@media only screen and (max-width:435px){
+
+}
+@media only screen and (max-width:414px){
+.logo .logo-lg { margin: 0 37%; text-align: center;}
+}
+@media only screen and (max-width:411px){
+
+}
+@media only screen and (max-width:375px){
+
+    .addCircleBtn {
+        border-radius: 90px !important;
+        float: left;
+        height: 35%;
+        left: 9%;
+        position: absolute;
+        right: 0;
+        top: 33%;
+        width: 48%;
+        font-size: 9px;
+        margin: auto;
+    }
+    .logo .logo-lg { margin: 0 35%; text-align: center;}
+    .circle{transform: translate(73%, 5%);}
+    #achPaymentDocument .modal-content{width: 45%;}
+}
+@media only screen and (max-width:360px){
+
+}
+@media only screen and (max-width:320px){
+    .circle{transform: translate(50%, 5%);}
+
+}

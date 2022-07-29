@@ -1,0 +1,508 @@
+
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="getbankdetails" class="has-practice-name-header-shown">
+{% if status==400  %}
+	<div class="alert alert-danger">
+		{{message}}
+	</div>
+{% endif %}
+
+<style>
+	.emptyAccountDiv {
+		position: relative;
+		padding: 20px 0 20px;
+	}
+	.emptyAccountDiv .img-Div {
+		padding: 0;
+	}
+	button.btn.addCircleBtn {
+		top: 300px;
+		border: 8px solid #F1B649;
+		background-color: #729E5D;
+	}
+	button.btn.addCircleBtn:hover {
+		border: 8px solid #F1B649;
+		background-color: #729E5D;
+	}
+	button.btn.addCircleBtn:active,
+	button.btn.addCircleBtn:focus {
+		outline: none;
+	}
+	table.banklist {
+		border-collapse: collapse;
+	}
+	.banklist th {
+		color: white;
+		font-weight: 600;
+	}
+	.banklist td {
+		border: 1px solid #4c4c48 !important;
+	}
+	.table-bordered {
+		border: 1px solid #4c4c48;
+	}
+	.table-bordered th {
+		border: 1px solid #5f5f5f !important;
+	}
+	.table-bordered td {
+		border: 1px solid #4c4c48;
+	}
+	.greenBtn {
+		background-color: #729E5D;
+		border-color: #367fa9;
+		border-radius: 3px;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		border: 1px solid transparent;
+		color: #fff;
+	}
+
+	.getbankdetails {
+		padding-top: 0px;
+		padding-bottom: 14px;
+		margin-top: 20px;
+	}
+
+	@media(max-width: 500px) {
+		.getbankdetails {
+			padding-top: 80px;
+		}
+	}
+
+</style>
+
+<div class="getbankdetails">
+	<div class="row" id="loaderidoffers" style="display:none;">
+		<div class="" align="center" style="text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,0.7);">
+			<div style="height:100%;width:100%;background:url('/images/img/ajaxloader.gif') no-repeat center;margin-top:-233px;"></div>
+		</div>
+	</div>
+	{#
+	<div class="heading">
+		<div class="logoMiddle">
+			<img src="images/imgv3/logo.png" class="img-reponsive" />
+		</div>
+	</div>
+	#}
+	{# {% if userBankAccount.length == 0 %}
+		<h2 style="color:#606060; text-align:center; font-weight:400;">Login to your bank to verify income.</h2>
+	{% endif %} #}
+	<div class="row" id="loaderid" style="display:none;">
+		<div class="" align="center" style="text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,0.7);">
+			<div style="height:100px;width:100%;background:url('/images/img/ajaxloader.gif') no-repeat center;margin-top: 20%;"></div>
+			<div style="font-size: 190%; color: #FFF; margin: auto 0;">Please wait, this may take a few moments.</div>
+		</div>
+	</div>
+
+	{% if userBankAccount.length > 0 %}
+		<div class="AccountDetailDiv">
+			{% if applicationerror != "" %}
+				<div class="alert alert-danger" style="text: center;">
+					{{ applicationerror }}
+				</div>
+			{% endif %}
+			<form name="changebank1" method="post" action="/selectedAccount">
+				<input type="hidden" id="pciwalletToken" name="pciwalletToken" value="" />
+				<input type="hidden" value="{{ incomeamount }}" name="user_income" id="user_income" />
+				<div class="payrollSec" style="margin:10px 0px;">
+				</div>
+				<div class="bankDetails" style="margin-top:10px;">
+					<div class="table-responsive-sm" style="display:none;">
+						{% if checkingcnt == 0 %}
+							<div class="alert alert-danger">
+								No checking account. Please add another bank
+							</div>
+						{% else %}
+							<table class="table table-bordered banklist" style="width:100%">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Institution Name</th>
+										<th>Account Name</th>
+										<th>Account Type</th>
+										<th>Account Subtype</th>
+										<th>Account Number<br/> (Last 4 Digit)</th>
+										<th>Balance<br/> Available</th>
+										<th>Balance<br/> Current</th>
+									</tr>
+								</thead>
+								<tbody>
+						{% endif %}
+
+						{% if userBankAccount.length > 0 %}
+							{% set b = 1 %}
+							{% for bankdetails in userBankAccount %}
+								{% if bankdetails.accounts.length>0 %}
+									{% set k = 1 %}
+									{% set chk = 0 %}
+									{% for accountDetail in bankdetails.accounts %}
+										{% if accountDetail.subtype !== 'credit card' %}
+											{% if( k == 1 and b == 1 ) %}
+												<input type="hidden" name="defaultbankid" id="defaultbankid" value="{{bankdetails.id}}">
+												<input type="hidden" name="bankid" id="bankid" value="{{bankdetails.id}}">
+												<input type="hidden" name="selectitemid" id="selectitemid" value="{{accountDetail._id}}" />
+											{% endif %}
+												<tr {% if( accountDetail.subtype != 'checking' ) %} style="display:none;" {% endif %} >
+													<td class="tname">
+														<div class="checkbox">
+											{% set isChecked = "" %}
+											{% set isDisabled = "" %}
+											{% if linkbankid %}
+												{% if linkaccountid == accountDetail._id %}
+													{% set isChecked = "checked" %}
+												{% endif %}
+											{% elseif(bankdetails.repullstatus==1) %}
+											{% else %}
+												{% if( k == 1 and b == 1 and accountDetail.subtype == 'checking') %}
+													{% set chk = 1 %}
+													{% set isChecked = "checked" %}
+												{% elseif( k > 1 and chk == 0 and accountDetail.subtype == 'checking' ) %}
+													{% set isChecked = "checked" %}
+												{% endif %}
+												{% if accountDetail.subtype != 'checking' %}
+													{% set isDisabled = "disabled" %}
+												{% endif %}
+											{% endif %}
+														<input type="radio" name="bankaccount" id="checkboxOne_{{b}}_{{k}}" value="{{accountDetail._id}}" onclick="checkaccount('{{k}}','{{b}}');" {{isChecked}} {{isDisabled}} />
+														<label class="check-box" for="checkboxOne_{{b}}_{{k}}"></label>
+														</div>
+														<input type="hidden" name="rowbankid_{{b}}_{{k}}" id="rowbankid_{{b}}_{{k}}" value="{{bankdetails.id}}">
+													</td>
+													<td>{{ accountDetail.institutionName }}</td>
+													<td>{{ accountDetail.meta.name }} {{ accountDetail.meta.id }} </td>
+													<td>{{ accountDetail.type }}</td>
+													<td>{{ accountDetail.subtype }}</td>
+													<td>{{ accountDetail.meta.number }}</td>
+														{% if(accountDetail.balance.available) %}
+													<td>${{ accountDetail.balance.available }}</td>
+														{% else %}
+													<td>{{ accountDetail.balance.available }}</td>
+														{% endif %}
+														{% if(accountDetail.balance.current) %}
+													<td>${{ accountDetail.balance.current }}</td>
+														{% else %}
+													<td>{{ accountDetail.balance.current }}</td>
+														{% endif %}
+												</tr>
+											{% set k = k+1 %}
+										{% endif %}
+									{% endfor %}
+								{% else %}
+											<tr>
+												<td colspan="8"><p>No account found</p></td>
+											</tr>
+								{% endif %}
+
+
+								{% set b = b+1 %}
+							{% endfor %}
+											</tbody>
+										</table>
+						{% else %}
+										<div class="panel-group" id="accordion">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Bank Details</a>
+													</h4>
+												</div>
+												<div id="collapseOne" class="panel-collapse collapse in">
+													<div class="panel-body">
+														No Bank found
+													</div>
+												</div>
+											</div>
+										</div>
+						{% endif %}
+
+			    </div>
+		    </div>
+				<div class="col-md-12  col-sm-12 col-lg-12" style="text-align:right;">
+					<div class="addBankBtn">
+						<button type="button" class="btn btn-default greenBtn" id="nextbtnbankdetails" onclick="selectaccountbankdetails();" disabled="disabled" style="border:none; padding:5px 30px; font-size:18px;display:none;">NEXT</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	{% else %}
+		<div class="row whyBankInfo emptyAccountDiv">
+			<h3 class="bankHeader">Connect your bank</h3>
+			<h4 class="losSubSubHeader">Please choose the account where your monthly income is deposited</p>
+			<h5 class="losSubHeader">Why do we need your banking information?</h3>
+			<div class="bankinfo" style="display: inline-block">
+				<ul style="padding: 0;">
+					<li style="color: #729E5D;">To confirm bank account is in good standing.</li>
+					<li style="color: #729E5D;">To screen for fraud and confirm identity.</li>
+					<li style="color: #729E5D;">To authorize automatic monthly payments.</li>
+					<li style="color: #729E5D;">To verify your Monthly Gross income (Required).</li>
+				</ul>
+			</div>
+			<img src="/images/img/add-bank-screens.png" class="img-responsive img-full" onClick="openlinkaccount();" style="cursor:pointer;" />
+			<p style="color: #729E5D;font-size: 18px;"><strong>or</strong></p>
+			<br>
+			<br>
+			<button class ="btn btn-default greenBtn" id="manualPathBtn">I don't know my banking login
+			</button>
+			<button class="btn btn-default addCircleBtn" onClick="openlinkaccount();">
+				<!--<i class="glyphicon glyphicon-plus-sign plusicon"></i>-->
+				<span style="color: #FFF;">Login<br>to<br>Bank</span>
+			</button>
+		</div>
+
+	{% endif %}
+
+	<div id="annualincome" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header bg-tcpa" style="background-color:#3cc4c6;">
+					<h4 class="modal-title" id="storyinfopopupheader">Annual Income</h4>
+					<button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+				</div>
+				<div class="modal-body bgColorWhite">
+					<div style="text-align:center">
+						<button type="button" class="btn"onClick="openlinkaccount();" style="border:2px; padding:5px 30px; font-size:18px; color:#3cc4c6;"><span>+ Add Bank with direct deposit</span></button>
+						<br/><br>
+						<label for="user_income"><b>Or manually change annual income. </b></label><br><br>
+						<input type="text"  value="{{totalpayroll}}" name="user_income" id="user_income" style="height: 30px; border-radius:4px; border: 1px solid #000;text-align:center;" />
+						<span style="display:none;color:#FF0000;" id="user_income_error">Enter annual income</span>
+					</div>
+				</div>
+				<div class="modal-footer bg-info-tcpa">
+					<button type="button" data-dismiss="modal" style="color:#fff;" class="btn bg-tcpa">Continue</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+				<div class="modal-body">Please check at least one account</div>
+				<button type="button" id="closebutton" class="btn btn-default greenBtn" data-dismiss="modal" style="font-size:16px; padding:6px 10px;">OK</button>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="apierror" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+				<div class="modal-body">We are sorry that we weren't able to link your account. Please click on Add Bank and try again.</div>
+				<button type="button" id="closebutton" class="btn btn-default greenBtn" data-dismiss="modal" style="font-size:16px !important; padding:6px 10px;" onclick="closeapierror();">OK</button>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="plaiderror" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+				<div class="modal-body">No accounts were found with this bank and these credentials. Please try again</div>
+				<button type="button" id="closebutton" class="btn btn-default greenBtn" data-dismiss="modal" style="font-size:16px !important; padding:6px 10px;" onclick="closeapierror();">Try Again</button>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="servererror" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" >
+			<div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+				<div class="modal-body" id="servererrorid">INTERNAL_SERVER_ERROR <br> an unexpected error occurred</div>
+				<button type="button" id="closebutton" class="btn btn-default greenBtn" data-dismiss="modal" style="font-size:16px !important; padding:6px 10px;" onclick="closeservererror();">Retry</button>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% include "frontend/home/myoffersmodal.nunjucks" %}
+{% include "frontend/home/manualbankmodal.nunjucks" %}
+
+
+<!--Get plaid transaction starts here-->
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script>
+
+  var appScheme = 'linkApp';
+	var linkHandler = Plaid.create({
+		env: "{{ sails.config.plaid.envType }}",
+		apiVersion: 'v2',
+		clientName: "{{ sails.config.plaid.clientName }}",
+		key: "{{ sails.config.plaid.publicKey }}",
+		product: ["assets","auth"],
+		webhook: "{{sails.config.getBaseUrl}}/api/v1/getPlaidTransactions",
+		onLoad: function () {},
+		onSuccess: function (public_token, metadata) {
+			// var action = 'handlePublicToken';
+			var addBankRequest = window.location.pathname.startsWith('/addbank/');
+			var $ = window.$ = jQuery.noConflict();
+			$('#loaderid').show();
+			$('#changebankbtn').hide();
+			$.ajax({
+				url     : '/saveplaidresponse',
+				method  : 'post',
+				data    : {
+					public_token  : public_token,
+					account_id    : metadata,
+					addBankRequest: addBankRequest
+				},
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success : function(response){
+					$( "#myoffers-modal" ).modal({ backdrop: "static", show: true, backdrop: false });
+					// $('#loaderid').hide();
+					/*
+					if(response.status==200) {
+						if( addBankRequest ) {
+							window.location.assign( "/addbank/savebankdata" );
+							return;
+						}
+						window.location.reload( true );
+					} else if(response.status==400){
+						if( response.code ) {
+							let msg;
+							switch( response.code ) {
+								case "INSTITUTION_NOT_RESPONDING":
+									msg = "Your finanacial institution did not respond. Please try later or contact {{LenderShortName}} at {{LenderPhone}}.";
+									btnLabel = "Try Again Anyway";
+									break;
+								case "NO_ACCOUNTS":
+									msg = "No accounts were found with this bank and these credentials. Please try again.";
+									btnLabel = "Try Now";
+									break;
+								default:
+									msg = "An error occurred trying to access your account information. Please try again or contact {{LenderShortName}} at {{LenderPhone}}.";
+									btnLabel = "Try Again";
+							}
+							$('#plaiderror .modal-body').html( msg );
+							$('#plaiderror button').html( btnLabel );
+							$('#loaderid').hide();
+							$('#plaiderror').modal('show');
+							return;
+						}
+						alert(response.message);
+					} else {
+						$('#loaderid').hide();
+						$('#apierror').modal('show');
+					} */
+				}
+			});
+		},
+		onExit: function (err, metadata) {
+
+			$('#plaidloader').html('');
+			// var action = 'handleOnExit';
+			if (err != null) {
+				// The user encountered a Plaid API error prior to exiting.
+			}
+
+			$.ajax({
+				url     : '/saveplaidresponseerror',
+				method  : 'post',
+				data    : {
+					errorres  : err,
+					metares   : metadata,
+				},
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success : function(response){
+
+						if(response.error_code=='INVALID_CREDENTIALS')
+					{
+						$('#servererrorid').html('The provided credentials were not correct. Please click on "Retry" button below.');
+						$('#servererror').modal('show');
+					}
+					else if(response.error_code=='INTERNAL_SERVER_ERROR')
+					{
+						$('#servererrorid').html('Unable to connect your bank. Please click on "Retry" button below.');
+							$('#servererror').modal('show');
+					}
+					else
+					{
+						// $('#servererrorid').html(response.error_code+'<br>'+response.error_message);
+						$('#servererrorid').html(response.error_message+' Please click on "Retry" button below.');
+							$('#servererror').modal('show');
+						}
+				}
+			});
+
+		}
+	});
+
+	//If we use other bank short code ,it's loading html data
+	//not working for simple
+	function openlinkaccount(){
+	  setTimeout(function(){linkHandler.open();},1000);
+	}
+   //openlinkaccount();
+
+  function closeapierror() {
+		$('#apierror').modal('hide');
+		window.location.href='/banktransaction';
+	}
+
+	function closeservererror() {
+	  $('#servererror').modal('hide');
+		window.location.href='/banktransaction';
+	}
+
+	function selectaccountbankdetails() {
+		document.getElementById("nextbtnbankdetails").disable = true;
+		var inc = 0;
+		$('[name="bankaccount"]').each(function () {
+			if ($(this).is(':checked')) inc++;
+		});
+		var payroll_exist = $("#payroll_exist").val();
+
+		if(payroll_exist == "no") {
+			var userIncome = $("#user_income").val();
+			if(userIncome.trim() == "") {
+				$("#user_income_error").show();
+				document.getElementById("nextbtnbankdetails").disable = false;
+				$('#loaderid').hide();
+				return false;
+			}
+			else if (inc == 0) {
+				$("#user_income_error").hide();
+				$('#demoModal').modal('show');
+				document.getElementById("nextbtnbankdetails").disable = false;
+				$('#loaderid').hide();
+				return false;
+			}
+			else {
+				$("#user_income_error").hide();
+				$('#loaderid').show();
+				document.changebank1.submit();
+				return true;
+			}
+		} else {
+			var userIncome = $("#user_income").val();
+			if(userIncome.trim() == "") {
+				$("#user_income_error").show();
+				document.getElementById("nextbtnbankdetails").disable = false;
+				$('#loaderid').hide();
+				return false;
+			} else if (inc == 0) {
+				$('#demoModal').modal('show');
+				document.getElementById("nextbtnbankdetails").disable = false;
+				$('#loaderid').hide();
+				return false;
+			} else {
+				$('#loaderid').show();
+				document.changebank1.submit();
+				return true;
+			}
+	 	}
+	}
+
+</script>
+<!--Get plaid transaction ends here-->
+<style>
+	#plaid-link-container .Overlay {
+		opacity: 0.90 !important;
+	}
+	.Overlay{
+	opacity: 0.97 !important;
+	}
+</style>
+</div>
+
+{% endblock %}

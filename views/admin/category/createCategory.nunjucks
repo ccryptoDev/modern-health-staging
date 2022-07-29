@@ -1,0 +1,37 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Categories
+      <small>preview of categories</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="/admin/category-list"><i class="fa fa fa-book"></i>Categories</a></li>
+      <li class="active">Create Categories</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box-wrapper">
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Create category</h3>
+        </div>
+        <form class="form-horizontal" method="POST" action="/createCategory">
+          <div class="box-body">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Category Name</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="categoryName" name="categoryName" placeholder="Input category name">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="_csrf" value="{{ _csrf }}"/>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-info" style="margin-left:17%">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}

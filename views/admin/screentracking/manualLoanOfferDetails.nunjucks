@@ -1,0 +1,68 @@
+<div class="table-responsive">
+	<div><h3>Financing Details</h3></div>
+	<form name="manualLoanupdateform" id="manualLoanupdateform" action="javascript:void(0);" onsubmit="manualLoanUpdateForm('{{offerData.pagename}}_btn');">
+		<input type="hidden" name="manualincome" id="manualincome" value="{{offerData.manualincome}}">
+		<input type="hidden" name="manualloanAmount" id="manualloanAmount" value="{{offerData.manualloanamount}}">
+		<input type="hidden" name="manualApr" id="manualApr" value="{{offerData.manualinterestrate}}">
+		<input type="hidden" name="manualTerm" id="manualTerm" value="{{offerData.manualloanmonth}}">
+		<input type="hidden" name="screenId" id="screenId" value="{{offerData.screenid}}">
+		<input type="hidden" name="requesttype" id="requesttype" value="manualLoansave">
+		<input type="hidden" name="pagename" id="pagename" value="{{offerData.pagename}}">
+
+
+		<table align="center" cellpadding="0" cellspacing="0" width="80%" >
+		<tr>
+		<td align="center" valign="top">
+		<table border="1" cellpadding="0" cellspacing="0" width="100%">
+		<tbody>
+		  <tr>
+		    <td align="center" valign="top" width="50%">
+		      Financing Amount
+		    </td>
+		    <td align="center" valign="top">
+		      ${{offerData.financedAmount}}
+		    </td>
+		  </tr>
+		  <tr>
+		    <td align="center" valign="top">
+		      Monthly Payment
+		    </td>
+		    <td align="center" valign="top">
+		      ${{offerData.monthpayment}}
+		    </td>
+		  </tr>
+		  <tr>
+		    <td align="center" valign="top">
+		      Interest Rate
+		    </td>
+		    <td align="center" valign="top">
+		      {{offerData.interestrate}}%
+		    </td>
+		  </tr>
+		  <tr>
+		    <td align="center" valign="top">
+		      APR
+		    </td>
+		    <td align="center" valign="top">
+		      {{offerData.apr}}%
+		    </td>
+		  </tr>
+		  <tr>
+		    <td align="center" valign="top">
+		      Number of payments
+		    </td>
+		    <td align="center" valign="top">
+		      {{offerData.loanmonth}} months
+		    </td>
+		  </tr>
+		</tbody>
+		</table>
+		<br/>
+
+		<div class="text-center">
+			<button type="submit" class="btn btn-primary" id="{{offerData.pagename}}_btn" >Submit</button>
+			<div class="{{offerData.pagename}}_btn"></div>
+		</div>
+	</form>
+</div>
+<br/>

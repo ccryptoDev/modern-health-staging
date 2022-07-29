@@ -1,0 +1,79 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Categories
+      <small>preview of categories</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/getAllInstitution"><i class="fa fa fa-building"></i>Institution</a></li>
+      <li class="active">Institution details</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Categories Table</h3>
+        {#<a title="Delete current " class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">Delete</a>#}
+        {#<a href="/UpdateCategoryView?id={{ category.id }}" title="Edit current " class="btn btn-info" style="margin-left:80%">Update</a>#}
+      </div>
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <th>Institution Name</th>
+            <td>{{ institution.institutionName }}</td>
+          </tr>
+          <tr>
+            <th>Institution Type</th>
+            <td>{{ institution.institutionType }}</td>
+          </tr>
+          <tr>
+            <th>Institution hasMfa</th>
+            <td>{{ institution.hasMfa }}</td>
+          </tr>
+          <tr>
+            <th>Institution created At</th>
+            <td>{{ institution.createdAt }}</td>
+          </tr>
+          <tr>
+            <th>Institution updated At</th>
+            <td>{{ institution.updatedAt }}</td>
+          </tr>
+          <tr>
+            <th>Institution Color</th>
+            <td><div style = "height : 25px; width :120px; background-color: {{ institution.institutionColor }}"></div></td>
+          </tr>
+          <tr>
+            <th>Institution Image</th>
+            <td><div style="background-color:#EAEAEA;width: 240px; height:150px"><img style="width: 240px; height:150px" src="{{ institution.image }}"></div>
+              <br><br><div id="col-md-3">
+                <a class="btn btn-large btn-info" href="/admin/UploadInstitutionImageView?id={{ institution.id }}">Change Image</a>
+              </div>
+            </td>
+
+          </tr>
+          </tbody></table>
+      </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete Institution?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Do you want to delete Institution '{{ institution.institutionName }}'</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default"><a href="/admin/deleteInstitution?id={{ institution.id }}">Delete</a></button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

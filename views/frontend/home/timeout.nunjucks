@@ -1,0 +1,41 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+
+{% block body %}
+<div id="loanfailure">
+
+<div class="container-fluid">
+	<div class="heading">
+		<div class="logoMiddle"><img src="/images/imgv3/logo.png" class="img-reponsive" /></div>
+	</div>
+	<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+		 {% include "frontend/layoutv3/navigator.nunjucks"%}
+		<div class="whitebox pfi-loanfailure">
+			<h1> Oops!</h1>
+			<div class="text-center failure-icon-container">
+{#				<img src="/images/img/error-icon.png"> #}
+					<i class="fas fa-exclamation-circle error-icon-1" aria-hidden="true"></i>
+			</div>
+			<p>{{errorMsg}}</p>
+			<a href="/login">
+			<div class="btn-Main"><button class="btn-application">Login</button></div>
+			</a>
+		</div>
+	</div>
+</div>
+</div>
+	<style>
+		.error-icon-1 {
+			font-size: 80px;
+			text-align: center;
+			color: #A94442;
+		}
+		#loanfailure .btn-application {
+			width: unset;
+		}
+		#loanfailure .failure-icon-container {
+			margin:20px;
+		}
+		#loanfailure .failure-icon-container
+	</style>
+{% endblock %}
+

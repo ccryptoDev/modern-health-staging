@@ -1,0 +1,26 @@
+
+/** flex box table **/
+.flex-box-table-row, .flex-box-table-col {
+    display: flex;
+}
+.flex-box-table-col {
+    flex-direction: column;
+}
+.flex-box-table-row.flex-wrap-me, .flex-box-table-col.flex-wrap-me{
+    flex-wrap: wrap;
+}
+.flex-box-table-row.center-items, .flex-box-table-col.center-items{
+    justify-content: center;
+}
+.flex-box-table-row .flex-box-item, .flex-box-table-col .flex-box-item{
+    flex: 1 1 100%;
+}
+.flex-box-table-row .flex-box-item-same-width, .flex-box-table-col .flex-box-item-same-width{
+    flex: 1 1 100%;
+}
+.flex-box-table-col .flex-box-item {
+    padding: 5px;
+}
+.flex-box-table-col.flex-box-item, .flex-box-table-row.flex-box-item {
+    padding: 0;
+}

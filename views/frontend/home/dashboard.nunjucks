@@ -1,0 +1,725 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+
+<style>
+
+
+	/* Customer Dashboard */
+	.customer-dashboard-page ul.tabs li.active {
+		/*background: #8F8F8F;*/
+	}
+	.customer-dashboard-page ul.tabs {
+		display: inline-block;
+		vertical-align: top;
+		position: relative;
+		z-index: 10;
+		margin:0;
+		padding: 0;
+		width: 23%;
+		min-width: 175px;
+		list-style: none;
+		-ms-transition: all .3s ease;
+		-webkit-transition: all .3s ease;
+		transition: all .3s ease;
+		box-shadow:none;
+	}
+	.customer-dashboard-page ul.tabs li {
+		margin: 0;
+		cursor: pointer;
+		padding: 10px 15px;
+		line-height: 31px;
+		color:#4c4c48;
+		text-align: left;
+		font-weight: normal;
+		-ms-transition: all .3s ease;
+		-webkit-transition: all .3s ease;
+		transition: all .3s ease;
+	}
+	.customer-dashboard-page ul.tabs li .tabs-text {
+		margin-left: 5px;
+	}
+	.customer-dashboard-page ul.tabs li:hover {
+		background: #63944C;
+		color: white;
+		-ms-transition: all .3s ease;
+		-webkit-transition: all .3s ease;
+		transition: all .3s ease;
+	}
+	.customer-dashboard-page ul.tabs li.active {
+		background: #63944C;
+		color: #fff;
+		-ms-transition: all .3s ease;
+		-webkit-transition: all .3s ease;
+		transition: all .3s ease;
+	}
+
+	.customer-dashboard-page .tab_container {
+		display: inline-block;
+		vertical-align: top;
+		position: relative;
+		z-index: 20;
+		left: 1%;
+		width: 76%;
+		min-width: 10px;
+		text-align: left;
+		border-radius: 0;
+		box-shadow:none;
+
+	}
+
+	.customer-dashboard-page .tab_content {
+		padding: 0px 0px;
+		display: none;
+		/*background:#FFF !important;*/
+	}
+	.customer-dashboard-page hr {
+		border-bottom: 2px solid #63944C;
+		margin: 0 10px 0 0;
+	}
+	.dashboard-bottom tr,
+	.dashboard-bottom tr th,
+	.dashboard-bottom tr td {
+		text-align:left;
+	}
+	#dashboardtitles {
+
+		font-size: 36px;
+		padding-left: 30px;
+		font-weight: 330;
+	}
+	.doc-item {
+		font-size: 17px;
+	}
+	.profileInfo {
+		font-size: 17px;
+		color: #606060;
+		margin-left: 15px;
+		padding-top: 5px !important;
+	}
+	.emailIcon {
+		color: #63944C
+	}
+	.sidemenu {
+		font-size: 16px;
+		margin: 10px;
+		border-radius: 5px;
+	}
+	#dashboardUserDocsTitles {
+		/*color: #606060;*/
+		/*font-size: 17px;*/
+		margin: 15px;
+		padding-bottom: 10px;
+	}
+	.dashboardLoanDetailsTitles {
+		/*color: #606060;*/
+		font-size: 17px;
+		margin:15px 0 0 15px;
+
+	}
+	.dashboardLoanDetailsTitles hr {
+		border: 1px solid #63944C
+	}
+	.dashboardTitles.main-container {
+		font-size: 17px;
+	}
+	.displayDocs {
+		padding: 5px 20px 5px 0;
+		display: flex;
+		border-bottom: 1px solid #3F576C;
+		margin-left: 15px;
+	}
+	.displayDocs .doc-item {
+		flex: 1 1 auto;
+		padding: 10px;
+		align-self: center;
+	}
+	.displayDocs .doc-item > div:last-child {
+		float: right;
+	}
+	#docName {
+		padding-left: 35px;
+	}
+	.plusMinusToggleFormat {
+		float: right;
+		color: #67944C;
+		padding-right: 30px;
+		padding-left: 10px;
+	}
+	.loanDetailsTableDivs {
+		padding-right: 20px;
+		padding-left: 15px;
+		color: #606060;
+	}
+	.hoverPointer:hover {
+		cursor: pointer;
+	}
+	#promnoteModal {
+		padding-right: 0px !important;
+	}
+	i.fa-file-download {
+		/*float: right;padding-right: 35px; font-size: 20px;*/
+		font-size: 24px;
+		color: #63944C;
+	}
+	i.fa-file-download:hover {
+		color: #63944C
+	}
+
+	.dashboard-grid {
+		margin: auto;
+		padding-right: 20px;
+		padding-bottom: 50px;
+	}
+	.profileInfo .header-item {
+		flex: 0 0 100px;
+	}
+	.profileInfo.flex-box-item.flex-box-table-row {
+		border-bottom: 1px solid #606060;
+	}
+	.dashboard-grid .profileInfo .flex-box-item:not(.header-item) {
+		word-break: break-word;
+	}
+	.isa-contract-section .flex-box-table-col .flex-box-item, .isa-contract-details-section .flex-box-table-row .flex-box-item {
+		border-right: 1px solid #606060;
+		border-bottom: 1px solid #606060;
+
+	}
+	.isa-contract-section.flex-box-table-col.flex-box-item {
+		border: 0 !important;
+	}
+	.isa-contract-section .flex-box-table-col.flex-box-item:last-child .flex-box-item, .isa-contract-details-section .flex-box-table-row .flex-box-item:last-child{
+		border-right: 0;
+	}
+
+	@media (max-width: 991px) {
+
+		.isa-contract-section.flex-box-table-row {
+			flex-direction: column;
+		}
+		.isa-contract-section.flex-box-table-row .flex-box-table-col {
+			flex-direction: row;
+		}
+
+		.isa-contract-details-section.flex-box-table-col {
+			flex-direction: column;
+		}
+
+
+		.isa-contract-section .flex-box-table-col .flex-box-item:first-child {
+			border-right: 1px solid #606060 !important;
+		}
+		.isa-contract-section .flex-box-table-col .flex-box-item:last-child{
+			border-right: 0;
+		}
+		.payment-schedule-section.flex-box-table-row {
+			margin-bottom: 15px;
+		}
+	}
+	.header-item{
+		font-weight: bold;
+	}
+
+	/* Responsive Break Points */
+
+
+	@media (max-width: 1210px) {
+		.customer-dashboard-page {
+			width: 930px;
+		}
+	}
+	@media (max-width: 930px) {
+		.customer-dashboard-page {
+			width: 710px;
+		}
+	}
+
+	@media (max-width: 750px) {
+		.customer-dashboard-page {
+			width: 390px;
+		}
+		#dashboardUserInfo .flex-box-table-row {
+			flex-direction: column;
+		}
+		.profileInfo .header-item {
+			flex: 1 1 100% !important;
+		}
+		#dashboardUserInfo {
+			padding-right: 0!important;
+		}
+	}
+
+	@media (max-width: 470px) {
+		.customer-dashboard-page {
+			width: 300px;
+			margin-bottom:  60px;
+		}
+		.footer-links {
+			flex-direction: column;
+		}
+		.dashboard-grid {
+			/*width: 95% !important;*/
+		}
+		.loanDetailsTableDivs {
+			padding: 0 !important;
+		}
+		.dashboardUserDocs {
+			padding-right: 0;
+		}
+		.dashboardLoanDetailsTitles {
+			margin: 15px 0 0 0 !important;
+		}
+		.displayDocs {
+			margin: 0 !important;
+			padding-right: 0;
+		}
+	}
+	/* end responsive break points */
+
+	@media (max-width: 600px) {
+		.customer-dashboard-page {
+			margin-top: 200px;
+		}
+	}
+
+
+	@media (max-width: 930px) {
+		.container ul.tabs {
+			margin-bottom: 15px;
+			transition: none;
+		}
+	}
+
+
+</style>
+<div class="container customer-dashboard-page  has-practice-name-header-shown">
+	<div class="inner-content">
+		<div class="heading">
+	        <div class="logoMiddle">
+	        	<img src="images/imgv3/logo.png" class="img-reponsive" />
+	        </div>
+	    </div>
+
+		<div class="personalInfoInner">
+            <div class="whitebox infoForm">
+                <div class="v-center">
+                    <div class="h-center">
+						<br /><h3>Your Customer Portal</h3><br /><br />
+						<div class="tabs_wrapper">
+							<!-- Tabs selection -->
+							<ul class="tabs">
+								<li rel="tab1" class="sidemenu {% if( activeTab == 'tab1' ) %} active {% endif %}"><i class="fc_icons fa fa-user"></i> <span class="tabs-text">&nbsp;Your Profile</span></li>
+								<li rel="tab2" class="sidemenu {% if( activeTab == 'tab2' ) %} active {% endif %}"><i class="fc_icons fas fa-file"></i> <span class="tabs-text">&nbsp;Document Center</span>{% if( paymentmanagementdata.newpromnotestatus == 0 ) %} <span style="color: #cc0000;float:right;padding-top:4px;font-size:22px;"><i class="fas fa-exclamation-circle"></i></span> {% endif %}</li>
+								<li rel="tab3" class="sidemenu {% if( activeTab == 'tab3' ) %} active {% endif %}"><i class="fc_icons fa fa-briefcase"></i> <span class="tabs-text">&nbsp;Financing Details</span></li>
+								<li rel="tab4" class="sidemenu {% if( activeTab == 'tab4' ) %} active {% endif %}"><i class="fc_icons fa fa-briefcase"></i> <span class="tabs-text">&nbsp;To Make a Payment</span></li>
+							</ul>
+
+
+							<!-- Tab Container -->
+							<div class="tab_container">
+
+								<!-- Profile Tab1 -->
+								<div id="tab1" class="tab_content">
+									<div class="dashboardTitles main-container"><strong>Profile</strong></div>
+									<hr/>
+
+									<!-- User Information Div-->
+									<div id="dashboardUserInfo" class="dashboard-grid last-item-border flex-box-table-col" >
+										<div class="profileInfo flex-box-item flex-box-table-row">
+											<div class="flex-box-item header-item">Name:</div><div class="flex-box-item">{{ userName }}</div>
+										</div>
+										<div class="profileInfo flex-box-item flex-box-table-row">
+											<div class="flex-box-item header-item">Address:</div><div class="flex-box-item">{{ userAddress }}</div>
+										</div>
+										<div class="profileInfo flex-box-item flex-box-table-row">
+											<div class="flex-box-item header-item">Phone:</div><div class="flex-box-item">{{ userPhone }}</div>
+										</div>
+										<div class="profileInfo flex-box-item flex-box-table-row" id="editEmail">
+											<div class="flex-box-item header-item">Email:</div><div class="flex-box-item">{{ userEmail }}</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Document Center Tab2 -->
+								<div id="tab2" class="tab_content">
+									<div class="dashboardTitles main-container"><strong>Document Center</strong></div>
+									<hr/>
+									<div class="dashboardUserDocs dashboard-grid" style="">
+										<div class="dashboardLoanDetailsTitles">
+											<strong>&nbsp;&nbsp;Financing Agreement Documents</strong>
+											<hr style="margin-right: 0;"/>
+										</div>
+										<!-- list and download link to all agreement documents -->
+										<div>
+											<div class="displayDocs">
+												<div class="doc-item">SMS Policy</div>
+												<div class="doc-item"><div><a href="{{ tcpaDownload }}" target="_blank"><i class="fas fa-file-download"></i></a></div></div>
+											</div>
+											<div class="displayDocs">
+												<div class="doc-item">Credit Pull Consent</div>
+												<div class="doc-item"><div><a href="{{ creditAuthDownload }}" target="_blank"><i  class="fas fa-file-download"></i></a></div></div>
+											</div>
+											<div class="displayDocs">
+												<div class="doc-item">E-Signature</div>
+												<div class="doc-item"><div><a href="{{ esignDownload }}" target="_blank"><i  class="fas fa-file-download"></i></a></div></div>
+											</div>
+											<div class="displayDocs">
+												<div class="doc-item">Electronic Funds Transfer Authorization</div>
+												<div class="doc-item"><div><a href="{{ eftaDownload }}" target="_blank"><i  class="fas fa-file-download"></i></a></div></div>
+											</div>
+											<div class="displayDocs">
+												<div class="doc-item">Retail Installment Contract {% if( paymentmanagementdata.newpromnotestatus == 0 ) %}<span style="color:#cc0000;padding-left:8px;font-size:16px;"><i class="fas fa-exclamation-circle"></i></span> {% endif %}</div>
+												<div class="doc-item">
+													<div>
+														{% if( paymentmanagementdata.newpromnotestatus == 0 ) %}
+															<button class="nav-apply-btn" data-toggle="modal" data-target="#promnoteModal" onclick="promnoteModalOpen();">Sign</button>
+														{% else %}
+															<a href="{{ promNoteDownload }}" target="_blank"><i class="fas fa-file-download"></i></a>
+														{% endif %}
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										{% if achDocslength %}
+										<hr/>
+										<div class="dashboardUserDocs dashboard-grid" style="">
+											<div class="dashboardLoanDetailsTitles">
+												<strong>&nbsp;&nbsp;Uploaded Documents</strong>
+												<hr style="margin-right: 0;"/>
+											</div>
+											<!-- list and download link to all agreement documents -->
+											{% for documentt in achDocs %}
+											<div>
+												<div class="displayDocs">
+													<div class="doc-item">{{ documentt.docname }}</div>
+													<div class="doc-item"><div><a href="{{ documentt.proofdocument.standardResolution }}" target="_blank"><i class="fas fa-file-download"></i></a></div></div>
+												</div>
+											</div>
+											{% endfor %}
+										</div>
+										{% endif %}
+								</div>
+
+
+							</div>
+
+							<div id="tab3" class="tab_content">
+								<div class="dashboardTitles main-container"><strong>Financing</strong></div>
+								<hr/>
+
+								<!-- Financing Details Body -->
+								<div style="margin: auto;padding-bottom: 50px;">
+									<!-- Short Financing Details -->
+									<div class="loanDetailsTableDivs">
+										<div class="jh table-content isa-contract-section last-item-border flex-box-table-row">
+											<div class="flex-box-item flex-box-table-col">
+												<div class="flex-box-item header-item">
+													Financing Reference
+												</div>
+												<div class="flex-box-item">
+													{{ paymentmanagementdata.loanReference }}
+												</div>
+											</div>
+											<div class="flex-box-item flex-box-table-col">
+												<div class="flex-box-item header-item">
+													Name
+												</div>
+												<div class="flex-box-item">
+													{{ userName }}
+												</div>
+											</div>
+											<div class="flex-box-item flex-box-table-col">
+												<div class="flex-box-item header-item">
+													Amount Financed
+												</div>
+												<div class="flex-box-item">
+													${{ paymentmanagementdata.payOffAmount }}
+												</div>
+											</div>
+											<div class="flex-box-item flex-box-table-col">
+												<div class="flex-box-item header-item">
+													Status
+												</div>
+												<div class="flex-box-item">
+													{% if( paymentmanagementdata.status == "PENDING" ) %}
+														Pending
+													{% elseif( paymentmanagementdata.status == "FUNDED" ) %}
+														Funded
+													{% else %}
+														Under Review
+													{% endif %}
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Financing Details -->
+									<div class="dashboardLoanDetailsTitles">
+										<div class="plusMinusToggleFormat">
+											<!-- <i class="fas fa-plus hoverPointer" id="togglePlusLoanDetails" data-toggle="collapse" data-target="#loanDetails" onclick="toggleLoanDetails()"></i> -->
+											<!-- <i class="fas fa-minus hoverPointer" id="toggleMinusLoanDetails" style="display: none;" data-toggle="collapse" data-target="#LoanDetails" onclick="toggleLoanDetails()"></i> -->
+										</div>
+										<div id="dashboardTitles"><strong>Financing Details</strong></div>
+										<!-- <p class="hoverPointer" data-toggle="collapse" data-target="#loanDetails" onclick="toggleLoanDetails()"><strong>&nbsp;&nbsp;Loan Details</strong></p> -->
+										<hr/>
+									</div>
+									<!-- Financing Details Table -->
+									<div id="loanDetails">
+										<div class="loanDetailsTableDivs">
+											<div class="jh table-content isa-contract-details-section last-item-border flex-box-table-col">
+												<div class="flex-box-table-row">
+													<div class="flex-box-item flex-box-item header-item">
+														Financing Reference
+													</div>
+													<div class="flex-box-item">
+														{{ paymentmanagementdata.loanReference }}
+													</div>
+												</div>
+												<div class="flex-box-item flex-box-table-row">
+													<div class="flex-box-item header-item">
+														Amount Financed
+													</div>
+													<div class="flex-box-item">
+														${{ paymentmanagementdata.payOffAmount }}
+													</div>
+												</div>
+												<div class="flex-box-item flex-box-table-row">
+													<div class="flex-box-item header-item">
+														Interest Rate
+													</div>
+													<div class="flex-box-item">
+														{{ paymentmanagementdata.interestapplied }}%
+													</div>
+												</div>
+												<div class="flex-box-item flex-box-table-row">
+													<div class="flex-box-item header-item">
+														APR
+													</div>
+													<div class="flex-box-item">
+														{{ paymentmanagementdata.apr }}%
+													</div>
+												</div>
+												<div class="flex-box-item flex-box-table-row">
+													<div class="flex-box-item header-item">
+														Financing Term
+													</div>
+													<div class="flex-box-item">
+														{{ loanTerm }} months
+													</div>
+												</div>
+												<div class="flex-box-item flex-box-table-row">
+													<div class="flex-box-item header-item">
+														Maturity Date
+													</div>
+													<div class="flex-box-item">
+														{{ paymentmanagementdata.maturityDate }}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Payment Schedule -->
+									<div class="dashboardLoanDetailsTitles">
+
+										<div class="plusMinusToggleFormat">
+											<i class="fas fa-plus hoverPointer togglePlusPaymentSchedule" id="togglePlusPaymentSchedule" data-toggle="collapse"  data-target="#paymentSchedule"  onclick="togglePaymentSchedule()"></i>
+											<i class="fas fa-minus hoverPointer togglePlusPaymentSchedule" style="display: none;" id="toggleMinusPaymentSchedule" data-toggle="collapse" data-target="#paymentSchedule"  onclick="togglePaymentSchedule()"></i>
+										</div>
+										<div class="dashboardTitles hoverPointer" data-toggle="collapse"  data-target="#paymentSchedule" onclick="togglePaymentSchedule()"><strong>Payment Schedule</strong></div>
+										<hr/>
+									</div>
+									<!-- Payment Schedule Table -->
+									<div class="payment-schedule-wrapper">
+										<div id="paymentSchedule" class="collapse">
+											{% if paymentmanagementdata and paymentmanagementdata.paymentSchedule %}
+											<div class="loanDetailsTableDivs">
+												{% for paymentScheduleItem in paymentmanagementdata.paymentSchedule  %}
+												<div class="jh table-content isa-contract-section payment-schedule-section last-item-border flex-box-table-row">
+													<div class="flex-box-item flex-box-table-col">
+														<div class="flex-box-item header-item">
+															Number
+														</div>
+														<div class="flex-box-item">
+															{{loop.index}}
+														</div>
+													</div>
+													<div class="flex-box-item flex-box-table-col">
+														<div class="flex-box-item header-item">
+															Amount (USD)
+														</div>
+														<div class="flex-box-item">
+															{{ paymentScheduleItem.amount | $format(true,2) }}
+														</div>
+													</div>
+													<div class="flex-box-item flex-box-table-col">
+														<div class="flex-box-item header-item">
+															Schedule Date
+														</div>
+														<div class="flex-box-item">
+															{{ paymentScheduleItem.date }}
+														</div>
+													</div>
+
+												</div>
+												{% endfor %}
+											</div>
+											{% else %}
+												<p align="center" >No Payment Schedule due to Denied Application</p>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+
+							</div>
+								<!-- Make a Payment Tab4 -->
+							<div id="tab4" class="tab_content">
+								<div class="dashboardTitles main-container"><strong>To Make a Payment</strong></div>
+								<hr/>
+
+								<div id="dashboardUserInfo" class="dashboard-grid last-item-border flex-box-table-col">
+									<br>
+									<div>
+										<a class="btn btn-info" href="http://modernhealthfinance.com/manage-account/" target="_blank">Click here to manage your account</a>
+									</div>
+
+									<br>
+									<p>You can also <a href="http://www.PayMHF.com/" target="_blank"><u>click here</u></a> to have your payment instructions.</p>
+									<br>
+									<p>You can also contact customer service to make your payments, Customer Service: 888-585-8319</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- govIDModal -->
+<div class="modal fade" id="govIDModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+		<form role="form" method="post" enctype="multipart/form-data" action="/uploadUserRequiredDocs" id="desc">
+			<input type="hidden" id="userId" name="userId" value="{{ userId }}">
+			<input type="hidden" id="docutype" name="docutype" value="{{ documenttype1 }}">
+			<div class="modal-header bg-tcpa">
+				<h4 class="modal-title" id="storyinfopopupheader">Upload Your Document</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<h3>Government Issued ID </h3>
+				<table class="table jh" style="margin-top: 20px;">
+				<tbody>
+					<tr>
+						<th>Document</th>
+						<td><input  type="file"  id="proofdocument" name="proofdocument" required></td>
+					</tr>
+					<tr>
+						<th colspan="2" align="center">
+							<button type="submit" class="btn btn-info" id="updocs" value="Validate" onclick="Validate();" style="margin: 15px;">Upload Document</button>
+						</th>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>
+
+<!-- payrollModal -->
+<div class="modal fade" id="payrollModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+		<form role="form" method="post" enctype="multipart/form-data" action="/uploadUserRequiredDocs" id="desc">
+			<input class="" type="hidden" id="userId" name="userId" value="{{ userId }}">
+			<input type="hidden" id="docutype" name="docutype" value="{{ documenttype2 }}">
+			<div class="modal-header bg-tcpa">
+				<h4 class="modal-title" id="storyinfopopupheader">Upload Your Document</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<h3>Payroll</h3>
+				<table class="table table-bordered jh">
+				<tbody>
+					<tr>
+						<th>Document</th>
+						<td>
+							<input type="file" id="proofdocument" name="proofdocument" required>
+						</td>
+					</tr>
+						<tr>
+							<th colspan="2" align="center">
+								<button type="submit" class="btn btn-info" id="updocs" value="Validate" onclick="Validate();">Upload Document</button>
+							</th>
+						</tr>
+				</tbody>
+				</table>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+	function otherDocumentName(value, other) {
+		if( value == other ) {
+			$('#docuNameCheck').show();
+		}
+		else {
+			$('#docuNameCheck').hide();
+		}
+		return;
+	}
+	function Validate() {
+		if(document.getElementById("proofdocument").value == "") {
+			$("#updocs").attr("disabled", false);
+		}
+		else {
+			$('#desc').submit();
+			$("#docuNameCheck").hide();
+			$("#updocs").attr("disabled", true);
+		}
+	}
+	function toggleLoanDetails() {
+		$( "#togglePlusLoanDetails" ).toggle();
+		$( "#toggleMinusLoanDetails" ).toggle();
+	}
+	function togglePaymentSchedule() {
+		$( "#togglePlusPaymentSchedule" ).toggle();
+		$( "#toggleMinusPaymentSchedule" ).toggle();
+	}
+document.addEventListener( "DOMContentLoaded", function() {
+	$("ul.tabs li").click(function() {
+
+		$(".tab_content").hide();
+		var activeTab = $(this).attr("rel");
+		$("#"+activeTab).fadeIn();
+
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active");
+
+	});
+	var tab1 = $("ul.tabs li[rel=tab1]").hasClass( "active" );
+	var tab2 = $("ul.tabs li[rel=tab2]").hasClass( "active" );
+	var tab3 = $("ul.tabs li[rel=tab3]").hasClass( "active" );
+	var tab4 = $("ul.tabs li[rel=tab4]").hasClass( "active" );
+	$tab1 = $("#tab1");
+	$tab2 = $("#tab2");
+	$tab3 = $("#tab3");
+	$tab4 = $("#tab4");
+	$tab1.hide();
+	$tab2.hide();
+	$tab3.hide();
+	$tab4.hide();
+	if( tab1 ) $tab1.show();
+	if( tab2 ) $tab2.show();
+	if( tab3 ) $tab3.show();
+	if( tab4 ) $tab4.show();
+} );
+function promnoteModalOpen() {
+	setTimeout( initSigPads, 500 );
+}
+</script>
+{% endblock %}

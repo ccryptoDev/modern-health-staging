@@ -1,0 +1,51 @@
+
+<div id="addStaffinfo_{{rowCount}}">	
+	<div class="row">
+		<div class="addstaffmenberwidth">
+			<div class="addstaffwidth txtBoxSec nopaddingLR1">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Enter First Name" name="stafFirstname[]" id="stafFirstname_{{rowCount}}" required autocomplete="off"/>
+					<i class="arrow-focus-img"></i>	
+				</div>										
+			</div>
+
+			<div class="addstaffwidth txtBoxSec nopaddingLR1">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Enter Last Name" name="stfLastname[]" id="stfLastname_{{rowCount}}" required autocomplete="off"/>
+					<i class="arrow-focus-img"></i>	
+				</div>										
+			</div>
+
+			<div class="addstaffwidth txtBoxSec nopaddingLR1">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Enter Email" name="stfEmail[]" id="stfEmail_{{rowCount}}" required autocomplete="off"/>
+					<i class="arrow-focus-img"></i>	
+				</div>										
+			</div>
+
+
+			<div class="addstaffwidth txtBoxSec nopaddingLR1">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Enter Phone Number" name="stfPhonenumber[]" id="stfPhonenumber_{{rowCount}}" required autocomplete="off"/>
+					<i class="arrow-focus-img"></i>	
+				</div>										
+			</div>
+
+			<div class="addstaffwidth txtBoxSec nopaddingLR1">
+				<div class="form-group">
+					<select class="form-control" name="stfRoll[]" id="stfRoll_{{rowCount}}"  required>
+						<option value="">Select Roll</option>
+						<option value="PracticeAdmin">Administrator</option>
+						<option value="PracticeStaff">Staff</option>						
+					</select>	
+				</div>										
+			</div>
+
+		</div>
+
+		<div class="lenderdelete">
+			<span class="delete" onclick="removeStaffMemberData({{rowCount}})"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+		</div>
+
+	</div>
+</div>	

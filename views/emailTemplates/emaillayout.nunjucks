@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        .wrapper {
+            border: 5px solid #eee;
+            border-radius: 5px;
+        }
+        .emailHeader {
+            width: auto; 
+            background-color: #63944C;
+            color: #FFF;
+            height: 90px;
+            max-height: 90px;
+            text-align: center;
+            padding: 10px;
+            border-bottom: 4px solid rgba(241,182,73,0.85);
+            font-size: 150%;
+        }
+        .practiceHeaderName {
+            text-align: center;
+            color: #FFF;
+            font-size: 190%;
+        }
+        .emailLogo {
+            height: 40px;
+            max-height: 40px;
+            width: auto;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            color: rgb(47,97,183);
+            font-size: 30px;
+            font-weight: 700;
+        }
+        .emailLayout {
+            margin: 0 auto; 
+            max-width: 600px; 
+            min-width: 320px; 
+            width: auto; 
+            overflow-wrap: break-word; 
+            word-wrap: break-word; 
+            word-break: break-word;
+        }
+        .emailLayoutMargins {
+            margin-bottom: 50px;
+        }
+        .emailSignature {
+            margin-top: 30px; 
+            text-align: center;
+            color: #60666d; 
+            font-size: 16px;
+        }
+        .emailBodyOuterDiv {
+            color: #60666d; 
+            font-size: 16px;
+            text-align: center;
+        }
+        .emailGreetings {
+            margin-bottom: 30px;
+            font-style: normal;
+            font-weight: normal;
+            color: #60666d;
+            font-size: 20px;
+            text-align: center;
+        }
+        .btn-application {
+            font-size: 14px;
+            webkit-font-smoothing: antialiased;
+            cursor: pointer;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            display: inline-block;
+            font-weight: normal;
+            text-align: center;
+            text-decoration: none;
+            -moz-transition: all .4s ease;
+            -webkit-transition: all .4s ease;
+            -o-transition: all .4s ease;
+            background-color: #63944C;
+            border-radius: 6px;
+            border-width: 0px;
+            color: rgb(255,255,255);
+            font-family: sans-serif;
+            height: auto;
+            transition: all .4s ease;
+            padding: 8px 20px;
+            text-shadow: none;
+            width: auto;
+            line-height: 1.5em;
+        }
+        .emailBold {
+            font-weight: 700;
+        }
+
+		table, th, td {
+			border: 1px solid black;
+		}
+		td {
+			padding: 5px;
+		}
+		table {
+			margin: auto;
+			width: 70%;
+			border-collapse: collapse;
+		}
+		p {
+			text-align: left;
+			color: #60666d;
+		}
+    </style>
+    <style>
+        @media (max-width: 721px) {
+            .emailHeader {
+                max-height: 700px;
+            }
+            .modernHealthName {
+                font-size: 50%;
+            }
+            .practiceHeaderName {
+                font-size: 80%;
+            }
+        }
+    </style>
+</head> 
+
+<div class="wrapper">
+    <div class="emailHeader">
+        <div class="emailHeaderLogo">
+            <span class="modernHealthName">Modern Health Finance</span>
+            <br>
+            <span class="practiceHeaderName">{{ practiceName }}</span>
+        </div>
+        {# <div class="emailHeaderName">{{LenderShortName}}</div> #}
+    </div>
+    <div class="emailLayout">
+        <div class="emailLayoutMargins">
+            {% block body %}
+            {% endblock %}
+            <div class="emailSignature">
+                Thank you,<br /><br>
+                {% if LenderShortName %}
+                    {{ LenderShortName }} Team <br />
+                    <a href="https://apply.modernhealthfinance.com/login">Login Here</a><br />
+                    contact@modernhealthfinance.com
+                {% else %}
+                    Your Modern Health Finance Team
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</html>

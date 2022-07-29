@@ -1,0 +1,58 @@
+<style type="text/css">
+	.table > thead > tr > td,.table > tbody > tr > td{
+		border:solid 2px #F4F4F4;
+	}
+	.box{
+		border:solid 1px #F4F4F4 !important;
+	}
+</style>
+<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+		      <button type="button" class="close" data-dismiss="modal">&times;</button>
+		      <h4 class="modal-title">Financing term details</h4>
+		    </div>
+		    <div class="modal-body bgColorWhite">
+
+                {% if loantermdetails.loangradeAmntArray %}
+			    	{% for loantermdata in loantermdetails.loangradeAmntArray %}
+			    		<h3 class="text-center">{{loantermdata.stateCode}} - {{loantermdata.financedAmount}}</h3>
+	  			    	<div class="box text-center">
+					    	<div class="table-reponsive">
+						    	<table class="table">
+									<thead>
+										<tr class="headerbg">
+											<th rowspan="2" scope="rowgroup" class="attributes" style="border-right:2px solid #F4F4F4;text-align: center;">Attribute</th>
+											<th scope="colgroup" colspan="5" style="border-bottom:2px solid #F4F4F4;text-align: center;"> Term (Months)</th>
+										</tr>
+										<tr class="headerbg" >
+	 											{% for reslistData in loantermdata.gradeofferdata %}
+													<th scope="col" style="text-align: center;">{{reslistData.loanTerm}}</th>
+												{% endfor %}
+	 									</tr>
+									</thead>
+									<tr>
+										<td scope="">Minimum financing amount</td>
+										{% for reslistData in loantermdata.gradeofferdata %}
+											<td scope="">{{reslistData.minimumamount}}</td>
+										{% endfor %}
+	 								</tr>
+									<tr>
+										<td scope="">Maximum financing amount</td>
+			 							{% for reslistData in loantermdata.gradeofferdata %}
+											<td scope="">{{reslistData.maximumamount}}</td>
+										{% endfor %}
+									</tr>
+								</table>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+				  <br/>
+				  <p class="text-center">
+				  	<strong>Financing term details not avialable for this application.</strong>
+				  </p>
+				{% endif %}
+		    </div>
+	    </div>
+	</div>

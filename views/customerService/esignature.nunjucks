@@ -1,0 +1,105 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Target Fast Cash </title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/styles/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles/css/Customerservice/style.css">
+
+ 
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  
+  <script src="/js/js/customerservicesignaturepad.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="#">Target Fast Cash</a>
+			</div>
+		</div>
+	</nav>
+	<div class="content-section">
+		<div class="container">
+			<div class="row">
+				<div class="inner-content">
+				<div class="inner-contents"
+					<div class="col-md-8  col-sm-8 col-lg-8 signaturecustomer">
+						<div class="content text-center">
+							<p>Adopt Your Signature</p>
+							<p class="test">Confirm your name, initial, and signature</p>
+						</div>
+						{% if status==400  %}
+							 <div class="alert alert-danger">
+							  {{message}}
+							 </div>
+						{% endif %}
+						<div class="row" id="loaderid" style="padding-top:20px; padding-bottom:20px; display:none;">
+						  <div class="col-lg-12" align="center" style="text-align:center;">
+							<pre id="plaidresponse"><img src="/images/img/ajaxloader.gif"></pre>
+						  </div>
+						</div>
+						<div class="add-link row" >
+						<form  role="form"  method="post" enctype="multipart/form-data" id="esignature">
+							<div class="row" style="padding-top:20px;">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<section class="signature-component" style="margin-left:0px;">
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 signaturefield" id="userFormColumn1">
+											<div class="form-group float-label-control">
+												<label for="firstName">Your Full Name</label>
+												<input type="text" name="firstName" id="fullname" class="form-control input-normal" value="{{userFullName}}">
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 signaturefieldinitial" id="userFormColumn2">
+											<div class="form-group float-label-control">
+												<label for="lastName">Your Initials</label>
+												<input type="text" name="lastName" id="initials" class="form-control input-normal" value="{{activeSignatureData[0].initial}}">
+												<input type="hidden" name="checkCanvasEmpty" id="checkCanvasEmpty" class="form-control input-normal" value="0">
+												<input type="hidden" name="user_id" id="user_id" class="form-control input-normal" value="{{userid}}">
+											</div>
+										</div>
+									</section> 
+								</div> 
+							</div>
+							
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+								<section class="signature-component">
+									<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+										<h4>Draw Signature with mouse</h4>
+										<canvas id="signature-pad" width="436" height="100" style="width:100%;border:1px solid;"></canvas>
+										<div style="text-align:center;">
+											<button id="save" type="button" class="btn custom-btn" style="margin-top:10px;">Accept</button>
+											<button id="clear" type="button" class="btn custom-btn" style="margin-top:10px;">Clear</button><span id="save_signature_loading" style="display:none;margin-left:5px;"><img src="/images/img/loading.gif"></span>
+										</div>
+									</div>
+								</section>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/styles/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/js/underscore-min.js"></script>
+<script src="/js/js/customerservicesignaturepad.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<div id="banktransactionrules" class="tab-pane fade in active">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <br>
+    <div class="panel-group">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Bank Transaction Rules</div>
+        <div class="panel-body">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>Rule Description</th>
+                <th>Declined If</th>
+                <th>Disabled</th>
+              </tr>
+              {% for btrule in btrs %}
+                <tr>
+                  <td><a style="cursor: pointer;" onclick="return openbtrmodal({{ loop.index - 1 }});">{{ btrule.text }}</a></td>
+                  <td>{{ btrule.declinedif }}</td>
+                  <td>{{ btrule.disabled }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <!--
+          <button type="button" class="btn btn-primary" onclick="openbtrmodal();">Add new bank transaction rule</button>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="addBtrModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <form role="form" name="addBtrForm" id="addBtrForm" method="POST" enctype="multipart/form-data" action="/admin/addBtr" onsubmit="return validateBtrForm();">
+      <input class="" type="hidden" id="practiceID" name="practiceID" value="{{ practiceData.id }}"></input>
+      <!-- Modal content-->
+      <div class="modal-content" style="float: left;width: 100%;">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Bank Transaction Rule</h4>
+        </div>
+        <div class="modal-body bgColorWhite" style="float:left; width:100%;">
+          <div class="form-group">
+            <label>Choose Bank Transaction Rule </label><br>
+            <select id="btrSelector" name="btrSelector" onchange="return updateBTRForm(this.value - 1, true)">
+              {% for btrule in btrs %}
+                <option value="{{ loop.index }}">{{ btrule.text }}</option>
+              {% endfor %}
+            </select><br>
+            <label for="btrCondition">Declined If</label><br>
+            <select id="btrCondition" name="btrCondition">
+              <option value="gt">Greater Than</option>
+              <option value="gte">Greater Than, Equal To</option>
+              <option value="lt">Less Than</option>
+              <option value="lte">Less Than, Equal To</option>
+            </select>
+            <input type="text" id="btrValue" name="btrValue" value=""><br>
+            <label for="btrDisabled">Disabled</label><br>
+            <select id="btrDisabled" name="btrDisabled">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select><br>
+            <input class="" type="hidden" id="ruleNumber" name="ruleNumber">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-info" style="float: left;width: 100%;">
+        <input type="submit"  class="btn btn-primary" value="Submit" onclick="closeAddProductModal();" >
+        <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+
+  function updateBTRForm ( rule = null, isSelector = false ) {
+    if (rule == 0) {
+      $('#btrValue').val("{{ btrs[0].value }}");
+      $('#btrCondition').val("{{ btrs[0].condition }}");
+      $('#btrDisabled').val("{{ btrs[0].disabled }}");
+    }
+    if (rule == 1) {
+      $('#btrValue').val("{{ btrs[1].value }}");
+      $('#btrCondition').val("{{ btrs[1].condition }}");
+      $('#btrDisabled').val("{{ btrs[1].disabled }}");
+    }
+    if (rule == 2) {
+      $('#btrValue').val("{{ btrs[2].value }}");
+      $('#btrCondition').val("{{ btrs[2].condition }}");
+      $('#btrDisabled').val("{{ btrs[2].disabled }}");
+    }
+    if (rule == 3) {
+      $('#btrValue').val("{{ btrs[3].value }}");
+      $('#btrCondition').val("{{ btrs[3].condition }}");
+      $('#btrDisabled').val("{{ btrs[3].disabled }}");
+    }
+    if (rule == 4) {
+      $('#btrValue').val("{{ btrs[4].value }}");
+      $('#btrCondition').val("{{ btrs[4].condition }}");
+      $('#btrDisabled').val("{{ btrs[4].disabled }}");
+    }
+    if (rule == 5) {
+      $('#btrValue').val("{{ btrs[5].value }}");
+      $('#btrCondition').val("{{ btrs[5].condition }}");
+      $('#btrDisabled').val("{{ btrs[5].disabled }}");
+    }
+    if (rule == 6) {
+      $('#btrValue').val("{{ btrs[6].value }}");
+      $('#btrCondition').val("{{ btrs[6].condition }}");
+      $('#btrDisabled').val("{{ btrs[6].disabled }}");
+    }
+    if (rule == 7) {
+      $('#btrValue').val("{{ btrs[7].value }}");
+      $('#btrCondition').val("{{ btrs[7].condition }}");
+      $('#btrDisabled').val("{{ btrs[7].disabled }}");
+    }
+    if (rule == 8) {
+      $('#btrValue').val("{{ btrs[8].value }}");
+      $('#btrCondition').val("{{ btrs[8].condition }}");
+      $('#btrDisabled').val("{{ btrs[8].disabled }}");
+    }
+    if (rule == 9) {
+      $('#btrValue').val("{{ btrs[9].value }}");
+      $('#btrCondition').val("{{ btrs[9].condition }}");
+      $('#btrDisabled').val("{{ btrs[9].disabled }}");
+    }
+    if (rule == 10) {
+      $('#btrValue').val("{{ btrs[10].value }}");
+      $('#btrCondition').val("{{ btrs[10].condition }}");
+      $('#btrDisabled').val("{{ btrs[10].disabled }}");
+    }
+    if (rule == 11) {
+      $('#btrValue').val("{{ btrs[11].value }}");
+      $('#btrCondition').val("{{ btrs[11].condition }}");
+      $('#btrDisabled').val("{{ btrs[11].disabled }}");
+    }
+    if (rule == 12) {
+      $('#btrValue').val("{{ btrs[12].value }}");
+      $('#btrCondition').val("{{ btrs[12].condition }}");
+      $('#btrDisabled').val("{{ btrs[12].disabled }}");
+    }
+    if (rule == 13) {
+      $('#btrValue').val("{{ btrs[13].value }}");
+      $('#btrCondition').val("{{ btrs[13].condition }}");
+      $('#btrDisabled').val("{{ btrs[13].disabled }}");
+    }
+
+    if (!isSelector) {
+      $('#btrSelector').val(rule + 1);
+    }
+  }
+
+  function openbtrmodal( rule = null ) {
+    document.forms["addBtrForm"].reset();
+    updateBTRForm(rule);
+    $('#addBtrModal').modal('show');
+  }
+</script>

@@ -1,0 +1,258 @@
+<!-- Manual Bank Account Modal -->
+<style>
+	.header-info-modal {
+		text-align: center;
+	}
+
+	.header-info-modal-connector {
+		font-size: 120%;
+		color: #000;
+		margin: 5px;
+		margin-top: 10px;
+	}
+
+	.header-info-modal-title {
+		color: #000;
+		margin-bottom: 20px;
+		font-size: 20px;
+	}
+</style>
+<div id="manual-bank-form" class="modal fade primary-modal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content user-modal-content">
+            <div class="modal-header user-modal-header">
+                <h4 class="modal-title manual-bank-title" style="color: #fff">Bank Account Information For Auto-Pay</h4>
+                {# <a type="button" class="close" data-dismiss="modal">&times;</a> #}
+            </div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="error-msg"></div>
+				</div>
+			</div>
+            <div class="modal-body">
+								<div class="header-info-modal">
+									<button type="submit" class="btn-application-long" name="goBackToPlaid" id="goBackToPlaid">Login to bank (Recommended)</button>
+									<p class="header-info-modal-connector"><b>or</b></p>
+									<h4 class="header-info-modal-title"><b>Manually enter information</b></p>
+								</div>
+                <form role="form" id="bank-info-form" name="bank-info-form">
+						<div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group manual-bank-name center-form-div">
+                                    <div class="bank-name-div form-input-titles">Bank Name</div>
+                                    <input type="text" class="form-control form-application bank-name-input" id="bank-name-input" name="bank-name-input" value="" required />
+                                    <div id="bank-name-error" class="error bank-name-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-bank-account-holder">
+                                    <div class="bank-account-holder-div form-input-titles">Primary Account Holder</div>
+                                    <input type="text" class="form-control form-application account-holder-input" id="account-holder-input" name="account-holder-input" value="" required />
+                                    <div id="bank-account-holder-error" class="error bank-account-holder-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-bank-routing">
+                                    <div class="bank-routing-div form-input-titles">Routing Number</div>
+                                    <input type="text" class="form-control form-application routing-input" id="routing-input" name="routing-input" value="" required />
+                                    <div id="bank-routing-error" class="error bank-routing-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-account-number">
+                                    <div class="account-number-div form-input-titles">Account Number</div>
+                                    <input type="text" class="form-control form-application account-number-input" id="account-number-input" name="account-number-input" value="" required />
+                                    <div id="account-number-error" class="error account-number-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group manual-confirm-number">
+                                    <div class="confirm-number-div form-input-titles">Confirm Account Number</div>
+                                    <input type="text" class="form-control form-application confirm-number-input" id="confirm-number-input" name="confirm-number-input" value="" required />
+                                    <div id="confirm-number-error" class="error confirm-number-error" style="display: none;"></div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn-application-long isDisabled" name="bank-submit" id="bank-submit" onclick="saveBankAccount();">Save & continue</button>
+								
+                {# <button type="button" data-dismiss="modal" class="btn-application">Cancel</button> #}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+		$( "#bank-skip" ).click(() => {
+			$("#manual-bank-form").modal("hide");
+		});
+		$( "#goBackToPlaid").click(() => {
+			window.location.href = "/banktransaction";
+		});
+
+    $( document ).ready( function() {
+
+		if( !window.location.href.includes( "import" ) && !window.location.href.includes( "banktransaction" ) && !window.location.href.includes( "getAchUserDetails" ) ) {
+			enableManualBankModal();
+		}
+		$( "#manualPathBtn" ).click( () => {
+			if( window.location.href.includes( "addbank" ) ) {
+				enableManualBankModal();
+			} else {
+				$( "#myoffers-modal" ).modal({ backdrop: "static", show: true });
+			}	
+		});
+
+		jQuery.validator.addMethod( "abarouting", function( value, element ) { return this.optional( element ) || validateABARouting( value ); }, "Invalid ABA Routing Number." );
+		$( "#bank-info-form" ).validate( {
+			rules: {
+				"bank-name-input": { required: true },
+				"account-holder-input": { required: true },
+				"routing-input": { required: true, digits: true, minlength: 9, maxlength: 9, abarouting: true },
+				"account-number-input": { required: true, digits: true, minlength: 6, maxlength: 17 },
+				"confirm-number-input": { required: true, digits: true, equalTo: "#account-number-input" }
+			},
+			messages: {
+				"bank-name-input": { required: "Please enter the name of your bank." },
+				"account-holder-input": { required: "Please enter primary account holder's name." },
+				"routing-input": { required: "Please enter your bank routing number.", digits: "Please enter a valid routing number.", minlength: "Routing number is too short.", maxlength: "Routing number is too long." },
+				"account-number-input": { required: "Please enter your bank account number.", digits: "Please enter a valid account number.", minlength: "Account number is too short.", maxlength: "Account number is too long."},
+				"confirm-number-input": { required: "Please confirm your bank account number.", digits: "Please enter a valid account number.", equalTo: "Account numbers must match." }
+			},
+			onkeyup: enableBtn,
+			onfocusout: enableBtn
+		} );
+		$( "#bank-info-form" ).on( "submit", function( e ) {
+			console.log( "#bank-info.submit" );
+			return saveBankAccount( e );
+		} );
+    } );
+	function enableManualBankModal() {
+		$( "#manual-bank-form" ).modal( { backdrop: "static", keyboard: false, show: true } );
+		jQuery.validator.addMethod( "abarouting", function( value, element ) { return this.optional( element ) || validateABARouting( value ); }, "Invalid ABA Routing Number." );
+		$( "#bank-info-form" ).validate( {
+			rules: {
+				"bank-name-input": { required: true },
+				"account-holder-input": { required: true },
+				"routing-input": { required: true, digits: true, minlength: 9, maxlength: 9, abarouting: true },
+				"account-number-input": { required: true, digits: true, minlength: 6, maxlength: 17 },
+				"confirm-number-input": { required: true, digits: true, equalTo: "#account-number-input" },
+				"eftaCB": { required: true}
+			},
+			messages: {
+				"bank-name-input": { required: "Please enter the name of your bank." },
+				"account-holder-input": { required: "Please enter primary account holder's name." },
+				"routing-input": { required: "Please enter your bank routing number.", digits: "Please enter a valid routing number.", minlength: "Routing number is too short.", maxlength: "Routing number is too long." },
+				"account-number-input": { required: "Please enter your bank account number.", digits: "Please enter a valid account number.", minlength: "Account number is too short.", maxlength: "Account number is too long."},
+				"confirm-number-input": { required: "Please confirm your bank account number.", digits: "Please enter a valid account number.", equalTo: "Account numbers must match." }
+			},
+			errorPlacement: function( error, element ) {
+				if( element.attr( "name" ) == "eftaCB" ) {
+			    	error.appendTo( "#eftconsentsign" );
+				} else {
+			    	error.insertAfter( element );
+			  	}
+		  	},
+			onkeyup: enableBtn,
+			onfocusout: enableBtn,
+			onclick: enableBtn,
+		} );
+		$( "#bank-info-form" ).on( "submit", function( e ) {
+			console.log( "#bank-info.submit" );
+			return saveBankAccount( e );
+		} );
+	}
+	function enableBtn() {
+		if( $( "#bank-info-form" ).valid() ) {
+			$( "#bank-submit" ).removeClass( "isDisabled" );
+			return;
+		}
+		$( "#bank-submit" ).addClass( "isDisabled" );
+	}
+
+	function routingNumberIsValid(routingNumber) {
+		let number = parseInt(routingNumber);
+		let digits;
+		if (number.length !== 9 || isNaN(number)) {
+			return false;
+		}
+		else {
+			digits = number.split("");
+		}
+		var sum = digits[0] * 7 + digits[1] * 3 + digits[2] 
+					+ digits[3] * 7 + digits[4] * 3 + digits[5] 
+				+ digits[6] * 7 + digits[7] * 3 + digits[8];
+				
+		return sum % 10 === 0;
+	}
+
+	function saveBankAccount( event ) {
+		console.log( "saveBankAccount() = ", $( "#bank-info-form" ).valid() );
+		var addBankRequest = window.location.pathname.startsWith('/addbank/');
+		
+		/*
+		if(!routingNumberIsValid($( "#routing-input" ).val())) {
+			$("#bank-routing-error").css("display", "");
+			$("#bank-routing-error").html("Invalid routing number");
+			return false;
+		} else {
+			$("#bank-routing-error").css("display", "none");
+		}
+		*/
+
+		if( $( "#bank-info-form" ).valid() ) {
+			$( "#bank-info-form" ).modal( "hide" );
+			var bankData = {
+				bankname: $( "#bank-name-input" ).val(),
+				accountholder: $( "#account-holder-input" ).val(),
+				routingno: $( "#routing-input" ).val(),
+				bankaccno: $( "#account-number-input" ).val(),
+				cbankaccno: $( "#confirm-number-input" ).val()
+			};
+			$.ajax( {
+				type: "POST",
+				url: "/savebankinfo",
+				dataType: 'json',
+				data: bankData,
+				success : function( result ) {
+					if( result.status == 200 ) {
+						console.log( "success:", result );
+												if( addBankRequest ) {
+							window.location.assign( "/addbank/savebankdata" );
+							return;
+						}
+						window.location.href = window.location.href;
+					} else {
+						console.log( "error-msg" );
+						$( "#manual-bank-form" ).modal( { backdrop: "static", keyboard: false, show: true } );
+						$( ".error-msg" ).html( "Server error please check your information and try again." );
+						$( ".error-msg" ).show();
+					}
+				},
+				error: function( xhr, resp, text ) {
+					console.log( "error:", xhr, resp, text );
+				}
+			} );
+		}
+		return false;
+	}
+
+	function validateABARouting( aba ) {
+		if( typeof aba === "number" ) {
+			aba = aba.toString();
+		}
+		var n = 0;
+		for( var i = 0; i < aba.length; i += 3 ) {
+			n += ( parseInt( aba.charAt( i ), 10 ) * 3 ) + ( parseInt( aba.charAt( i + 1 ), 10 ) * 7 ) + ( parseInt( aba.charAt( i + 2 ), 10 ) );
+		}
+		// If the resulting sum is an even multiple of ten (but not zero), the aba routing number is good.
+		return ( n != 0 && n % 10 == 0 );
+	}
+</script>

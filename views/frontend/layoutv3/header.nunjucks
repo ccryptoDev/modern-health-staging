@@ -1,0 +1,85 @@
+{% if urlpath == 'borrowerlogin' %}
+	<header id="header">
+		<div class="container-fluid">
+			<div class="practice-name-header" style="display: none;"><h3></h3></div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 top-nav pull-right">
+				<a href="/apply"><button class="btn btn-default PfiLogin">New Application</button></a>
+			</div>
+		</div>
+	</header>
+{% else %}
+	{% if req.session.appPracticeName and req.session.appPracticeName != '' and req.session.appPracticeName != null %}
+		<header id="header">
+			<div class="container-fluid">
+				<div class="practice-name-header" style="display: none;"><h3></h3></div>
+				<input type="hidden" />
+				<div class="col-xs-12 col-sm-5 col-md-6 col-lg-4 locationNameView"><a href=""><span>{{req.session.appPracticeName}} - {{req.session.appPracticeStateName}},   {{req.session.appPracticeStateCode | upper }} </span></a></div>
+				<div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 top-nav pull-right">
+					{% if urlpath == 'paymentcalculator' or req.session.getStartedPage == 1 or urlpath == 'userinformation' %}
+						<a href="/login"><button class="btn btn-default PfiLogin">Login to {{LenderShortName}}</button></a>
+					{% else %}
+						<a href="/userlogout"><button class="btn btn-default PfiLogin">Logout of {{LenderShortName}}</button></a>
+					{% endif %}
+				</div>
+			</div>
+	    </header>
+	{% else %}
+		<header id="header">
+			<div class="container-fluid">
+				<div class="practice-name-header" style="display: none;"><h3></h3></div>
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 top-nav pull-right">
+					{% if urlpath == 'login' %}
+						<a href="/apply"><button class="btn btn-default PfiLogin">Start Application</button></a>
+					{% elif urlpath == 'banktransaction' or urlpath == 'myoffers' or urlpath == 'contract' or urlpath == 'finalize' or urlpath == 'dashboard' or urlpath == 'thankyou' %}
+						<a href="/userlogout"><button class="btn btn-default PfiLogin">Logout of {{LenderShortName}}</button></a>
+					{% elif req.path == '/addbank/banktransaction' or req.path == '/addbank/consents' or req.path == '/addbank/thankyou' %}
+						<a href="/userlogout" class="btn-hover-type">Logout of {{LenderShortName}}</a>
+					{% else %}
+						<a href="/login"><button class="btn btn-default PfiLogin">Login to {{LenderShortName}}</button></a>
+					{% endif %}
+				</div>
+			</div>
+		</header>
+	{% endif %}
+{% endif %}
+<style type="text/css">
+	.container-fluid .practice-name-header h3 {
+		color: #fff;
+		float: left;
+		padding: 20px 15px;
+	}
+</style>
+
+<script type="text/javascript">
+	var currentPath = null;
+	$(document).ready(function() {
+		if($(".has-practice-name-header-shown").length > 0 && (!currentPath || currentPath !== window.location.pathname || !$(".practice-name-header h3").val())) {
+			currentPath = window.location.pathname;
+			ajaxGet("/ajaxGetCurrentLoggedInPractice").then(function(results) {
+				if(results && results.practiceManagement && results.practiceManagement.PracticeName){
+					$(".practice-name-header h3").html(results.practiceManagement.PracticeName);
+					if (results.practiceManagement.practiceColor) {
+						$("#header").css("background", results.practiceManagement.practiceColor);
+						$(".btn-application").append('<style type="text/css"></style>');
+						var newStyleElement = $(".btn-application").children(':last');
+						var color = results.practiceManagement.practiceColor;
+						newStyleElement.html(`.btn-application {  background: ${color}; }`);
+					}
+					if (results.practiceManagement.practiceSecondaryColor) {
+						$("#header").css("border-bottom", "5px solid " + results.practiceManagement.practiceSecondaryColor);
+						$(".whitebox").append('<style type="text/css"></style>');
+						var newStyleElement = $(".whitebox").children(':last');
+						var secondaryColor = results.practiceManagement.practiceSecondaryColor;
+						newStyleElement.html(`.whitebox {  border: 2px solid ${secondaryColor}; border-bottom: 8px solid ${secondaryColor} }`);
+					}
+					$(".practice-name-header").show();
+				}
+			}, function(errorObj) {
+				console.error(errorObj);
+			})
+		}else {
+			$(".practice-name-header h3").val("");
+			$(".practice-name-header").hide();
+		}
+	});
+</script>

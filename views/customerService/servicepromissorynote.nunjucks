@@ -1,0 +1,180 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Target Fast Cash </title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/styles/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+
+  <!-- CSS -->
+	<link rel="stylesheet" href="/styles/tfc-css/fonts/gotham/stylesheet.css">
+  <link rel="stylesheet" href="/styles/css/Customerservice/style.css">
+  <link rel="stylesheet" href="/styles/css/frontend/style.css">
+  <link rel="stylesheet" href="/styles/css/frontend/style1.css">
+  <link rel="stylesheet" href="/styles/css/frontend/emailbanktransaction.css">
+	<link rel="stylesheet" href="/styles/css/frontend/style-home.css">
+	<link rel="stylesheet" href="/styles/css/frontend/common.css">
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+</head>
+<body style="font-family:'Gotham';">
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">Target Fast Cash</a>
+		</div>
+	</div>
+</nav>
+
+
+
+{% if(checkExpiration == 0) %}
+
+{% if(alreadysigned == 0) %}
+
+<div class="container" >
+	<div class="row" >
+		<div class="col-md-12  col-sm-12 col-lg-12 addbankcontent">
+			<div class="scroll" style="overflow: auto; height: 500">
+				<div class="promissory" >
+					<h2>PROMISSORY NOTE </h2>
+					<p>
+					 {% if(docversion==1) %}
+					   {% include "document/loanAgreementAndPromissoryNote_v1.nunjucks" %}
+					 {% elseif(docversion==2) %}
+					   {% include "document/loanAgreementAndPromissoryNote_v2.nunjucks" %}
+					 {% endif %}
+					</P>
+				</div>
+			</div>
+			<div class="agree" >
+
+				<h5>Borrower Signature</h5>
+
+				<p id="signatureimg"></p>
+				<form  role="form"  method="post" enctype="multipart/form-data" id="esignature">
+
+				    <table border='0' width="100%" style="border:none;"><tr>
+					<!--<td width="50%" style="border:none;">
+					<canvas id="signature-pad" width="500" height="100" style="width:90%;border:1px solid;"></canvas>
+					</td>-->
+					<td style="border:none;">
+					<span class="date">
+						<p> Borrower Name</p>
+						<p>{{fname}} {{lname}}</p>
+						Today&rsquo;s Date: <span id="dateval" style="border-bottom:1px solid #000000;width:150px;display:inline-block;">&nbsp;{{obj.date}}</span></P>
+						<p>Ip:{{ip}}</p>
+					</span>
+
+					</td></tr>
+					<tr><td style="border:none;">
+					<input type="hidden" name="userid" id="userId" class="form-control input-normal" value="{{userid}}">
+					<input type="hidden" name="firstName" id="fullname" class="form-control input-normal" value="{{obj.name}}">
+					<input type="hidden" name="lastName" id="initials" class="form-control input-normal" value="">
+					<input type="hidden" name="checkCanvasEmpty" id="checkCanvasEmpty" class="form-control input-normal" value="0">
+					<input type="hidden" name="hiddensignatureid" id="hiddensignatureid" class="form-control input-normal" value="">
+					<div style="text-align:center;">
+						<button id="save" type="button" class="btn custom-btn" style="margin-top:10px;">Accept</button>
+						<div class="modal fade" id="drawmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" >
+							<div class="modal-content" style="padding: 37px 15px;margin-top: 220px;">
+								<div class="modal-body">Please draw signature</div>
+									<button type="button" id="closebutton" class="btn btn-default" data-dismiss="modal" style="font-size:16px; padding:6px 10px;">OK</button>
+							</div>
+						</div>
+					</div>
+						<!--<button id="clear" type="button" class="btn custom-btn" style="margin-top:10px;">Clear</button>-->
+						<span id="save_signature_loading" style="display:none;margin-left:5px;"><img src="/images/img/loading.gif"></span>
+					</div>
+					</td><td style="border:none;">&nbsp;</td></tr></table>
+				</form>
+				<br>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+{% elseif(alreadysigned == 1) %}
+
+ <div class="alert alert-danger text-center" style="margin-top: 30px;">
+		<span> You have already signed the promissory note agreement! </span>
+ </div>
+
+{% endif %}
+
+{% elseif(checkExpiration == 1) %}
+
+ <div class="alert alert-danger text-center" style="margin-top: 30px;">
+		<span> Your Link Has been Expired! Contact Customerservice for Further details. </span>
+ </div>
+
+{% endif %}
+
+
+
+
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/styles/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/js/jquery.validate.js"></script>
+<script src="/js/js/validatefrontend.js?v=0.3"></script>
+<script src="/js/js/underscore-min.js"></script>
+<script src="/js/js/dropzone.js"></script>
+<script src="/js/js/customerservicesignaturepad.js"></script>
+<script src="/js/js/bootbox.min.js"></script>
+<script src="/js/js/validate.js"></script>
+<script src="/js/js/common-new.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+<script>
+
+function selectsignature(){
+
+	$('#signaturepopup').modal('show');
+}
+
+
+function documentsignature(imagesrc,signatureid) {
+
+	var user_id = $('#user_id').val();
+	alert(user_id);
+	alert(signatureid);
+
+	$('#loaderid').show();
+	$.ajax({
+		url: '/serviceconfirmsignature',
+		data: {'signatureid': signatureid,'user_id' : user_id},
+		dataType: 'json',
+		type: 'POST',
+		success: function(res) {
+		   $('#loaderid').hide();
+		   $('#signatureimg').html('<img src="'+imagesrc+'" width="240">');
+	       $('#signaturepopup').modal('hide');
+	       $('#submitbutton').show();
+	    }
+    });
+}
+</script>
+
+</body>
+</html>

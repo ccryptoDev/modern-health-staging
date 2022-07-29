@@ -1,0 +1,144 @@
+<div class="table-responsive"> 
+  <table class="table table-striped table-bordered dataTable" id="currentSpendID_table">
+    <thead>
+     <tr>
+		<th>Subscriber Industry Code</th>
+		<th>Description</th>
+		<th>Subscriber Name</th>
+		<th>Portfolio Type</th>   
+		<th>Account Number</th>    
+		<th>ECOA Designator</th>   
+		<th>Date Opened</th>   
+		<th>Current Balance</th>   
+		<th>High Credit</th>   
+		<th>Credit Limit</th>   
+		<th>Account Rating</th>   
+		<th>Remark Code</th>    
+		<th>Remark Type</th>    
+		<th>Past Due</th>    
+		<th>Most Recent Payment</th>    
+    </tr>
+    </thead>
+    <tbody>
+	
+	   {% if transData.trade.length > 0 %}
+	     {% for tradeData in transData.trade %}   
+		 <tr>
+		   <td>
+			  {% if tradeData.subscriber.industryCode %}
+				{{ tradeData.subscriber.industryCode }}
+			  {% else %}
+				  --
+			  {% endif %} 
+			</td>
+			<td>
+			 {% if tradeData.description %}
+			   {{ tradeData.description }}
+			 {% else %}
+				  --
+			 {% endif %} 
+			</td>
+			 <td>
+			  {% if tradeData.subscriber.name.unparsed %}
+				{{ tradeData.subscriber.name.unparsed }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.portfolioType %}
+				{{ tradeData.portfolioType }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.accountNumber %}
+				{{ tradeData.accountNumber }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.ECOADesignator %}
+				{{ tradeData.ECOADesignator }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.dateOpened %}
+				{{ tradeData.dateOpened }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.currentBalance %}
+				{{ tradeData.currentBalance }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.highCredit %}
+				{{ tradeData.highCredit }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			   {% if tradeData.creditLimit %}
+				{{ tradeData.creditLimit }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.accountRating %}
+				{{ tradeData.accountRating }}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.remark.code %}
+				{{ tradeData.remark.code}}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.remark.type %}
+				{{ tradeData.remark.type}}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.pastDue %}
+				{{ tradeData.pastDue}}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+			<td>
+			  {% if tradeData.mostRecentPayment %}
+				{{ tradeData.mostRecentPayment}}
+			  {% else %}
+				  --
+			  {% endif %}
+			</td>
+		</tr>
+		 {% endfor %}
+		 
+	   {% else %}
+	    <tr>
+		   <td colspan="15"> No Data Received </td>
+		</tr> 
+	   {% endif %}  
+        
+    </tbody>
+  </table>
+</div>
+      

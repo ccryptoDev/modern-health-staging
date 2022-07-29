@@ -1,0 +1,53 @@
+  <style type="text/css">
+
+  .repullplaidinfopanel-heading {
+      background-color: #f5f5f5;
+      border-color: #ddd;
+      color: #333;
+  }
+  .panel-group .panel-heading + .panel-collapse > .list-group, .panel-group .panel-heading + .panel-collapse > .panel-body{
+    border:none !important;
+  }
+  </style>
+
+<div id="repulldivinfo">
+{% if accountdata.repull.length > 0 %}
+	<h3 style="margin-bottom: 15px;">
+		Repulled Bank Information
+		<span class="pull-right">
+			<button type="button" class="btn btn-primary" id="repullplaid" onclick="requestRepullPlaidAccount( '{{ accountdata.userBankAccount.id }}' );">Repull Plaid</button> &nbsp;&nbsp;&nbsp;
+		</span>
+	</h3>
+  	<div class="panel-group" id="repullplaidinfopanel">
+		<div class="panel panel-default panel-faq">
+		{% set repcounter = 1 %}
+		{% set repsubaccountval = 0 %}
+		{% for repulldata in  accountdata.repull %}
+
+			<div class="panel-heading header-bar" style="color: black;"> 
+				<a class="collapse-trigger" data-toggle="collapse" data-parent="" href="#repullinfo_{{repulldata.id}}">
+					<h4 class="panel-title" align="left" style="color: black;">
+						{{ repulldata.accountName }} - {{ repulldata.accountNumber }} - {{ accountdata.userBankAccount.institutionName }} - (Repull Date : {{ repulldata.createdAt }} )
+						<i class="pull-right action-element more-less glyphicon glyphicon-plus"></i>
+
+						<input type="hidden" name="repullpanelstatus{{repulldata.id}}" id="repullpanelstatus{{repulldata.id}}" value="0" class="repullpanelstatus">
+					</h4>
+				</a>
+			</div>
+
+			<div id="repullinfo_{{repulldata.id}}" class="panel-collapse collapse repullplaidinfodiv">
+				<div class="panel-body" id="content_repullinfo_{{repulldata.id}}">
+
+				</div>
+			</div>
+
+			{% set repcounter = repcounter + 1 %}
+		{% endfor %}
+		</div>
+	</div>
+{% else %}
+	<span class="pull-right">
+		<button type="button" class="btn btn-primary" id="repullplaid" onclick="requestRepullPlaidAccount( '{{ accountdata.userBankAccount.id }}' }}' );">Repull Plaid</button> &nbsp;&nbsp;&nbsp;
+	</span>
+{% endif %}
+</div>

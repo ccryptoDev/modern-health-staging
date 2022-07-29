@@ -1,0 +1,45 @@
+<body>
+    <head> 
+        <style>
+        body {  
+            background-color: white;
+            font-family:"Neo Sans fonts", Verdana, sans-serif ;
+        } 
+		h2 {
+			font-family:helvetica;
+		}
+		p {
+			color: black;
+			font-family:helvetica;
+		} 
+		p1 {
+			color: black;
+			font-family:helvetica;
+		}
+      </style>
+    </head >
+    <br><br>
+    <p class="practiceName" style="margin:0px; text-align: center; font-size: 200%; font-weight: 500;"> {{ practiceName }} </p>
+    <p class="practiceAddress" style="margin:0px; text-align: center; font-size: 130%;"> {{ practiceAddress }} </p>
+    <p class="practiceCityLine" style="margin:0px; text-align: center; font-size: 130%;"> {{ practiceCity }} {{ practiceState }}, {{ practiceZip }} </p>
+    <p class="practicePhoneEmail" style="margin:0px; text-align: center; font-size: 130%;"> {{ practicePhone }} - {{ practiceEmail }} </p>
+    <br><br>    
+    <h2 style="margin:0px; text-align: center; font-size: 180%; color: black;"> BORROWER AUTHORIZATION AND RELEASE TO OBTAIN PERSONAL CREDIT INFORMATION </h2>
+    <br>
+    <p style="margin:0px; text-align: justify; font-size: 110%;"> By submitting this application I also hereby certify that all the above information is accurate and complete. I authorize <span class="practiceName"> {{ practiceName }} </span> and it's financing servicer Modern Asset Management, Inc. dba Modern Health Finance to obtain credit reports on me and to verify any information I provided on this application including my employment history and information about my bank relationships and I authorize these companies aformentioned to obtain "consumer reports" and/or "investigative consumer reports" about me from any consumer reporting agency and/or bureaus, including consumer or commercial credit decisions regarding my credit application, extension of credit, or with respect to any extension or modification of existing credit. </p>
+    <br>
+    <p style="margin:0px; text-align: justify; font-size: 110%;"> I acknowledge that as an individual there are various Federal and/or State laws such as the "Fair Credit Reporting Act" that control the issuance or use of "consumer reports" and/or "investigative consumer reports" by creditor. I understand that I am not obligated to provide creditor this authorization to review such "consumer reports" and/or "investigative consumer reports". However, I have voluntarily agreed that such reports can be released to creditor so that it will consider my credit application, extension of credit, or with respect to any extension or modification of existing credit.</p>
+    <br>
+    <p style="margin:0px; text-align: justify; font-size: 110%;"> By my agreement to this policy, I hereby authorize procurement or cause an investigation to be procured, for credit evaluation purposes, whether or not subject to the Fair Credit Reporting Act. I authorize, without reservation, any person or entity contacted by creditor or anyone acting on its behalf, to furnish information regarding verification of my social security number, education, military record, motor vehicle reports, credit history, financial account balance and history, professional licensees, public records, criminal record and/or employment references.</p>
+    <br>
+    <p style="margin:0px; text-align: justify; font-size: 110%;"> I hereby release credit grantor(s) and any subsequent holders, including its employees, agents or representatives from any and all liability for furnishing such information. I also release creditor from any and all liability for conducting such an investigation. A photocopy, digital agreement, scan or facsimile copy of this Authorization and Release be treated as though it were the original.</p>
+    <br><br>
+    <p1 style="margin:0px; text-align: left; font-size: 130%; color: black;">
+      	Date:&nbsp;{{ agreementObject.date }}
+    </p1>
+    <br><br>
+    <p1 style="margin:0px; text-align: left; font-size: 130%; color: black;">
+      	Ip:&nbsp;{{ ip }}
+    </p1>  
+</body>
+  

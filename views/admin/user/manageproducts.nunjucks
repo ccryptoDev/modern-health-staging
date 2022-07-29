@@ -1,0 +1,45 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      Manage Products
+      <!--<small>preview of agreements</small>-->
+    </h1>
+    <!--<ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li class="active">Agreement</li>
+    </ol>-->
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <!--<h3 class="box-title">Agreements Table</h3>
+        <a href="/createAgreement" class="btn btn-info pull-right" role="button">Create Agreement</a>-->
+      </div>
+      <div class="box-body">
+        <table class="table table-bordered" style="margin-top: 25px;margin-bottom: 25px;">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Minimum Maximum Creditscore</th>
+						<th>Status</th>
+						<th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{loop.index}}</td>
+							<td><a href="/admin/viewproduct/{{ product.id }}">{{ product.productname }}</a></td>
+							<td>{{ product.mincreditscore }}  {% if loop.index == 1 %} & Above{% else %} - {{ product.maxcreditscore }}{% endif %}</td>
+							<td>{% if product.isDeleted == 0 %}Active{% else %} In Active {% endif %}</td>
+							<td><a href="/admin/viewproduct/{{ product.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+						</tr>
+					{% endfor %}
+          </tbody>
+					</table>
+      </div>
+    </div>
+  </section>
+{% endblock %}

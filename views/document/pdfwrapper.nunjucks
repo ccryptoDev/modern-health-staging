@@ -1,0 +1,31 @@
+<!doctype html>
+  <html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- Favicon -->
+	<!-- <link href="images/favicon.ico" rel="shortcut icon"> -->
+    <!-- meta View port tag -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <!-- Title -->
+	<title>{{LenderShortName}}</title>
+	<link href="/images/img/favicon.ico" rel="shortcut icon">
+	<!-- css animations -->
+	<link href="/styles/css/frontend/v3/animate.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome css -->
+	<link href="/styles/css/frontend/v3/font-awesome.css" rel="stylesheet" type="text/css" />
+	<link href="/styles/css/font-awesome-all.min.css" rel="stylesheet" type="text/css" />
+    <!-- General Font CSS -->
+    <link href="/styles/css/frontend/v3/fonts.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap CSS -->
+    <link href="/styles/css/frontend/v3/bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- Common & Responsive CSS -->
+    <link href="/styles/css/frontend/v3/newcommon.css?ver=4" rel="stylesheet" type="text/css" />
+    <link href="/styles/css/frontend/jquery-ui.css" rel="stylesheet">
+    <link href="/styles/css/frontend/v3/custom.css?ver=4" rel="stylesheet" type="text/css" />
+    <link href="/styles/css/frontend/v3/custom1.css?ver=4" rel="stylesheet" type="text/css" />
+	<link href="/styles/css/frontend/v3/newresponsive.css?ver=4" rel="stylesheet" type="text/css" />
+</head>
+<body style="zoom: 60%;">
+{% include practiceRICPath %}
+</body>
+</html>

@@ -1,0 +1,436 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+    <div id="ccaliforniaconsumerprivacyactnotice">
+        <style type="text/css">
+            .containerStyling {
+                padding-right: 38%;
+                padding-left: 10%;
+            }
+
+            .grayColor {
+                color: #4f5d6b
+            }
+
+            .blackColor {
+                color: black
+            }
+
+            .blueColor {
+                color: blue
+            }
+
+            p {
+                color: #4f5d6b;
+            }
+
+            h3 {
+                color: black;
+            }
+
+            @media only screen and (max-width: 995px) {
+                .containerStyling {
+                    padding-right: 35%;
+                    padding-left: 10%;
+                }
+            }
+
+            @media only screen and (max-width: 776px) {
+                .containerStyling {
+                    padding-right: 25%;
+                    padding-left: 10%;
+                }
+            }
+
+            @media only screen and (max-width: 700px) {
+                .containerStyling {
+                    padding-right: 20%;
+                    padding-left: 10%;
+                }
+            }
+
+        </style>
+        <div class="container documentary">
+            <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive"/></div>
+            <div style="display: none;">{% include "frontend/layout/navigator.nunjucks" %}</div>
+            <div class="whitebox block-content-box containerStyling">
+                <h3 class="bold">California Consumer Privacy Act Notice</h3>
+                <p class="bold">Last Modified September 29, 2020</p>
+                <br>
+                <p class="bold">
+                    This PRIVACY NOTICE FOR CALIFORNIA RESIDENTS supplements the information contained in the Privacy
+                    Policy of Modern Asset Management, Inc dba Modern Health Finance and Executive Loan Center and its
+                    subsidiaries (collectively, “we,” “us,” or “our”) and applies solely to visitors, users, and others
+                    who reside in the State of California (“consumers” or “you”). We adopt this notice to comply with
+                    the California Consumer Privacy Act of 2018 (“CCPA”) and other California privacy laws. Any terms
+                    defined in the CCPA have the same meaning when used in this notice.
+                </p>
+                <br>
+                <p class="bold blackColor">Information We Collect</p>
+                <p class="bold" style="color: #4f5d6b">
+                    We collect information that identifies, relates to, describes, references, is capable of being
+                    associated with, or could reasonably be linked, directly or indirectly, with a particular consumer
+                    or device (“personal information”). In particular, we have collected the following categories of
+                    personal information from consumers within the last twelve (12) months:
+                </p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">Identifiers, such as name and government-issued identifier (e.g., Social
+                        Security number);
+                    </li>
+                    <br>
+                    <li class="bold grayColor">Personal information, as defined in the California safeguards law, such
+                        as contact information and financial information;
+                    </li>
+                    <br>
+                    <li class="bold grayColor">Characteristics of protected classifications under California or federal
+                        law, such as sex and marital status;
+                    </li>
+                    <br>
+                    <li class="bold grayColor">Commercial information, such as transaction information and purchase
+                        history;
+                    </li>
+                    <br>
+                    <li class="bold grayColor">Professional or employment-related information, such as work history and
+                        prior employer.
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold">
+                    We will not collect additional categories of personal information or use the personal information we
+                    collected for materially different, unrelated, or incompatible purposes without providing you
+                    notice.
+                </p>
+                <br>
+                <p class="bold">
+                    The categories of sources from whom we collected this Personal Information are:
+                </p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">
+                        Directly from customers, or other individuals acting on their behalf. For example, from
+                        documents that our customers provide to us related to the services for which they engage us.
+                    </li>
+                    <br>
+                    <li>
+                        Indirectly from our customers or their agents. For example, through information we collect from
+                        our customers in the course of providing services to them.
+                    </li>
+                    <br>
+                    <li>
+                        Directly and indirectly from activity on our website <a class="blueColor"
+                                                                                href="https://www.executiveloancenter.com">www.executiveloancenter.com </a>,
+                        <a class="blueColor" href="https://www.modernhealthfinance.com">www.modernhealthfinance.com</a>
+                        and <a class="blueColor">www.modernassetmanagement.com</a>. For example, from submissions
+                        through our website portal. We do not access information about your identity while you browse
+                        our website. You remain anonymous to us. While you view our site, our system tracks the pages
+                        you visit, the pages you download, the site you came from, and notes your IP address (but not
+                        your identity).
+                    </li>
+                    <br>
+                    <li>
+                        From third parties that interact with us in connection with the services we perform.
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold">
+                    The categories of third parties to whom we disclosed Personal Information for our business purposes
+                    described in this privacy disclosure are:
+                </p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">
+                        Our affiliates
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Vendors and service providers who provide services such as website hosting, payment processing,
+                        order fulfillment and information technology
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Third parties to whom you or your agents authorize us to disclose your personal information in
+                        connection with products or services we provide to you
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Government Agencies as required by laws and regulations
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold blackColor">
+                    Use of Personal Information
+                </p>
+                <p class="bold grayColor">
+                    In the past 12 months, we have used Personal Information relating to California residents to
+                    operate, manage, and maintain our business, to provide our products and services, and to accomplish
+                    our business purposes and objectives, including the following:
+                </p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">
+                        Performing services, including maintaining or servicing accounts, providing customer service,
+                        processing or fulfilling orders and transactions, verifying customer information, processing
+                        payments, providing financing, providing advertising or marketing services, or providing similar
+                        services.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Detecting security incidents, protecting against malicious, deceptive, fraudulent, or illegal
+                        activity, and prosecuting those responsible for that activity.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Short-term, transient use where the information is not disclosed to a third party and is not
+                        used to build a profile or otherwise alter an individual consumer’s experience outside the
+                        current interaction, including, but not limited to, the contextual customization of ads shown as
+                        part of the same interaction.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Auditing related to a current interaction and concurrent transactions, including, but not
+                        limited to, counting ad impressions to unique visitors, verifying positioning and quality of ad
+                        impressions, and auditing compliance with this specification and other standards.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Undertaking activities to verify or maintain the quality or safety of a service controlled by
+                        us, and to improve, upgrade, or enhance the service controlled by the business.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Debugging to identify and repair errors that impair existing intended functionality.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Undertaking internal research for technological development and demonstration.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Complying with laws and regulations and to comply with other legal process and law enforcement
+                        requirements (including any internal policy based on or reflecting legal or regulatory guidance,
+                        codes or opinions).
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold blackColor">
+                    Sale of Personal Information
+                </p>
+                <p class="bold">
+                    In the past 12 months, we have not “sold” Personal Information subject to the CCPA. For purposes of
+                    this Disclosure, “sold” means the disclosure of Personal Information to a third-party for monetary
+                    or other valuable consideration.
+                </p>
+                <br>
+                <p class="bold blackColor">
+                    Your Rights and Choices
+                </p>
+                <p class="bold">
+                    The CCPA provides consumers (California residents) with specific rights regarding their personal
+                    information. This section describes your CCPA rights and explains how to exercise those rights.
+                </p>
+                <br>
+                <p class="bold blackColor">
+                    Access to Specific Information and Data Portability Rights
+                </p>
+                <p class="bold">
+                    You have the right to request that we disclose certain information to you about our collection and
+                    use of your personal information over the past 12 months. Once we receive and confirm your
+                    verifiable consumer request, we will disclose to you:
+                </p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">
+                        The categories of personal information we collected about you.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        The categories of sources for the personal information we collected about you.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Our business or commercial purpose for collecting that personal information. Please note that we
+                        do not sell and will not sell your personal information.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        The categories of third parties with whom we share that personal information.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        The specific pieces of personal information we collected about you (also called a data
+                        portability request).
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold blackColor">
+                    Deletion Request Rights
+                </p>
+                <p class="bold">
+                    You have the right to request that we delete any of your personal information that we collected from
+                    you and retained, subject to certain exceptions. Once we receive and confirm your verifiable
+                    consumer request, we will delete (and direct our service providers to delete) your personal
+                    information from our records, unless an exception applies.
+                </p>
+                <br>
+                <p class="bold">We may deny your deletion request if retaining the information is necessary for us or
+                    our service providers to:</p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">
+                        Complete the transaction for which we collected the personal information, provide a good or
+                        service that you requested, take actions reasonably anticipated within the context of our
+                        ongoing business relationship with you, or otherwise perform our contract with you.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Detect security incidents, protect against malicious, deceptive, fraudulent, or illegal
+                        activity, or prosecute those responsible for such activities.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Debug products to identify and repair errors that impair existing intended functionality.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Exercise free speech ensure the right of another consumer to exercise their free speech rights,
+                        or exercise another right provided for by law.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Comply with the California Electronic Communications Privacy Act (Cal. Penal Code § 1546 seq.).
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Engage in public or peer-reviewed scientific, historical, or statistical research in the public
+                        interest that adheres to all other applicable ethics and privacy laws, when the information's
+                        deletion may likely render impossible or seriously impair the research's achievement, if you
+                        previously provided informed consent.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Enable solely internal uses that are reasonably aligned with consumer expectations based on your
+                        relationship with us.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Comply with a legal obligation.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Make other internal and lawful uses of that information that are compatible with the context in
+                        which you provided it.
+                    </li>
+                    <br>
+                </ul>
+                <br>
+                <p class="bold blackColor">
+                    Exercising Access, Data Portability, and Deletion Rights
+                </p>
+                <p class="bold">
+                    If you are a California resident, you may:
+                </p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">
+                        Email contact@modernhealthfinance.com or
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Call 1-949-207-9323 extension 1
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold">
+                    Only you or a person registered with the California Secretary of State that you authorize to act on
+                    your behalf, may make a verifiable consumer request related to your personal information. You may
+                    also make a verifiable consumer request on behalf of your minor child.
+                </p>
+                <br>
+                <p class="bold">
+                    You may only make a verifiable consumer request for access or data portability twice within a
+                    12month period. The verifiable consumer request must:
+                </p>
+                <br>
+                <ul>
+                    <li class="bold grayColor">
+                        Provide sufficient information that allows us to reasonably verify you are the person about whom
+                        we collected personal information or an authorized representative.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Describe your request with sufficient detail that allows us to properly understand, evaluate,
+                        and respond to it.
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold">
+                    <strong>We cannot respond to your request or provide you with personal information if we cannot
+                        verify your
+                        identity or authority to make the request and confirm the personal information relates to
+                        you.</strong>
+                    Making a verifiable consumer request does not require you to create an account with us. We will only
+                    use personal information provided in a verifiable consumer request to verify the requestor's
+                    identity or authority to make the request.
+                </p>
+                <br>
+                <p class="boldy blackColor">
+                    Response Timing and Format
+                </p>
+                <p class="bold">
+                    We endeavor to respond to a verifiable consumer request within 45 days of its receipt. If we require
+                    more time (up to 90 days), we will inform you of the reason and extension period in writing. If you
+                    have an account with us, we will deliver our written response to that account. If you do not have an
+                    account with us, we will deliver our written response by mail or electronically, at your option. Any
+                    disclosures we provide will only cover the 12-month period preceding the verifiable consumer
+                    request's receipt. The response we provide will also explain the reasons we cannot comply with a
+                    request, if applicable. For data portability requests, we will select a format to provide your
+                    personal information that is reasonably useable and should allow you to transmit the information
+                    from one entity to another entity.
+                </p>
+                <br>
+                <p>
+                    We do not charge a fee to process or respond to your verifiable consumer request unless it is
+                    excessive, repetitive, or manifestly unfounded. If we determine that the request warrants a fee, we
+                    will tell you why we made that decision and provide you with a cost estimate before completing your
+                    request.
+                </p>
+                <br>
+                <p class="bold blackColor">
+                    Non-Discrimination
+                </p>
+                <p class="bold">
+                    We will not discriminate against you for exercising any of your CCPA rights. Unless permitted by the
+                    CCPA, we will not:
+                </p>
+                <ul>
+                    <li class="bold grayColor">
+                        Deny you goods or services.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Charge you different prices or rates for goods or services, including through granting discounts
+                        or other benefits, or imposing penalties.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Provide you a different level or quality of goods or services.
+                    </li>
+                    <br>
+                    <li class="bold grayColor">
+                        Suggest that you may receive a different price or rate for goods or services or a different
+                        level or quality of goods or services.
+                    </li>
+                    <br>
+                </ul>
+                <p class="bold blackColor">
+                    Changes to Our Privacy Notice
+                </p>
+                <p class="bold">
+                    We reserve the right to amend this privacy notice at our discretion and at any time. When we make
+                    changes to this privacy notice, we will notify you by email or through a notice on our website
+                    homepage.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

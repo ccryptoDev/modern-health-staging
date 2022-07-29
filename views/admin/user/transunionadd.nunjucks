@@ -1,0 +1,138 @@
+<!-- /admin/transunionaddform -->
+<form action="" method="post" id="transunionaddform">
+	<input class="" type="hidden" id="transunionUserID" name="transunionUserID" value="{{ user.id }}">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="col-md-11">
+				<div class="row">&nbsp;</div>
+				<p>NAME</p>
+				<div class="form-group float-label-control">
+					<label for="">Title :</label>
+					<select class="form-control width120" name="name_title">
+						<option value="Mr">Mr</option>
+						<option value="Miss">Miss</option>
+						<option value="Mrs">Mrs</option>
+					</select>
+				</div>
+				<div class="form-group float-label-control">
+					<label for=""><b>First : <span class="clrRed">*</span></b> </label>
+					<input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ user_firstname }}" required="">
+				</div>
+				<div class="form-group float-label-control">
+					<label for="">Middle :</label>
+					<input type="text" name="middle_name" class="form-control" placeholder="Middle Name" value="">
+				</div>
+				<div class="form-group float-label-control">
+					<label for=""><b>Last : <span class="clrRed">*</span></b></label>
+					<input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ user_lastname }}" required="">
+				</div>        
+				<div class="form-group float-label-control">
+					<label for=""><b>Email Address : <span class="clrRed">*</span></b></label>
+					<input type="text" name="email" class="form-control" placeholder="Email Address" value="{{ user.email }}" required="">                
+				</div>
+				<div class="form-group float-label-control">
+					<label for="">Maternal Name :</label>
+					<input type="text" name="maternal_name" class="form-control" placeholder="Maternal Name" value="">
+					<span>(for residents of puerto Rico)</span>
+				</div>
+				<div class="row">&nbsp;</div>
+				<p>IDENTIFICATION</p>
+				<div class="form-group float-label-control">
+					<label for=""><b>Date of Birth <span class="clrRed">*</span></b></label>
+					<div class="input-group date">
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+						<input type="text" class="form-control pull-right" id="birthdatepicker" name="dob" value="{{ user.dateOfBirth }}" placeholder="(mm/dd/yyyy)">
+					</div>
+					<p id="error_dob"></p>
+				</div>
+				<div class="form-group float-label-control">
+					<label for="">Current Age</label>
+					<input type="text" name="age" class="form-control" placeholder="Age" value="">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-11">
+				<div class="row">&nbsp;</div>
+					<p>CURRENT ADDRESS</p>
+					<div class="form-group float-label-control">
+						<label for=""><b>Street : <span class="clrRed">*</span></b></label>
+						<input type="text" name="street_name" class="form-control" placeholder="Street" value="{{ user.addresses }}" required="">
+					</div>        
+					<div class="form-group float-label-control">
+						<label for=""><b>City : <span class="clrRed">*</span></b></label>
+						<input type="text" name="city" class="form-control" placeholder="City" value="{{ user.city }}" required="">
+					</div>
+					<div class="form-group float-label-control">
+						<div class="col-md-6 padleft">
+							<label for=""><b>State : <span class="clrRed">*</span></b></label>
+							<select name="state" class="form-control width120" required="">
+								<option value="">Select</option>
+								{% for stateDetails in stateData %}
+									<option value="{{stateDetails.stateCode}}" {% if user.state.stateCode==stateDetails.stateCode %} selected {% endif %} >{{stateDetails.stateName}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="col-md-6 padleft">
+							<label for=""><b>Zip Code : <span class="clrRed">*</span></b></label>
+							<input type="text" name="zip_code" class="form-control" placeholder="Zip code" value="{{ user.zipCode }}" required="">
+						</div>
+					</div>
+					<div class="row">&nbsp;</div>
+					<div class="row">&nbsp;</div>
+					<div class="row">&nbsp;</div>
+					<p>TELEPHONE</p>
+					<div class="form-group float-label-control">
+						<label for="">Type</label>
+						<select name="telephone_type" class="form-control">
+							<option value="">Select</option>
+							<option value="Telephone">01 - Telephone(voice,standard)</option>
+							<option value="Fax">02 - Fax</option>
+							<option value="Cellular">03 - Cellular</option>
+							<option value="Pager">04 - Pager</option>
+							<option value="Toll-free">05 - Toll-free</option>
+							<option value="Mobile-PCS">06 - Mobile/PCS</option>
+							<option value="Non-geographic">07 - Non - geographic</option>
+							<option value="Special-services">08 - Special services</option>
+							<option value="Undefined">09 - Undefined</option>
+							<option value="New">10 - New</option>
+							<option value="Pay phone">11 - Pay phone</option>
+						</select>
+					</div>
+					<div class="form-group float-label-control phone-number">
+						<div class="col-md-10 pl0">
+							<label for="">Phone Number</label>
+							<div class="col-md-12 pl0 phoneInput">
+								<div class="col-md-4 pl0"><input type="text" name="telephone_number[]" class="form-control width80"  value="" maxlength="3"></div>
+								<div class="col-md-4 pl0"><input type="text" name="telephone_number[]" class="form-control width80" value="" maxlength="3"></div>
+								<div class="col-md-4 pl0"><input type="text" name="telephone_number[]" class="form-control width80" value="" maxlength="4"></div>
+							</div>
+						</div>
+						<div class="col-md-2 pl0">
+							<label for="">Extn</label>
+							<div class="col-md-12 pl0">
+								<div class="col-md-4 pl0"> <input type="text" name="telephone_number_ext" class="form-control width50" value="" maxlength="3"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row"> &nbsp; </div>
+			<div class="col-md-12">
+				<input  type="checkbox" required=""  name="agree" /> &nbsp; I agree to the to Acknowledgment & Agreement
+				<p id="error_agree"></p>
+			</div>
+			<div class="row"> &nbsp; </div>
+			<div class="row"> &nbsp; </div>
+			<div class="col-md-3"><input class="form-control btn btn-primary" type="submit" /></div>
+			<div class="row"> &nbsp; </div>
+			<div class="row"> &nbsp; </div>
+			<div class="row">
+			<div class="col-md-11" id="transunionmessage">
+			</div>
+		</div>
+	</div>
+</form>
+

@@ -1,0 +1,82 @@
+<div id="signpadDiv"  style="float: none; padding: 0;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+	<p class="text-center"><strong>Please sign in the box below</strong></p>
+	<!-- <canvas id="signature-pad" width="700" height="100" style="width:100%;border:1px solid;border-radius: 7px; min-height: 60px;"> -->
+		<canvas id="signature-pad" width="700" class="back-sign-pad" height="100"></canvas>
+		<script>
+		document.addEventListener( "DOMContentLoaded", function() {
+			var sigpad = $( "#signature-pad" );
+			sigpad[ 0 ].width = sigpad.width();
+			sigpad[ 0 ].height = sigpad.height();
+		} );
+		</script>
+
+	<div id="save_signature_loading" class="text-center" style="display:none"><img src="/images/imgv3/ajax-loader.gif" class="img-responsive center-block" alt="Loader Image"></div>
+
+	<div class="btnMain text-center">
+ 		<button id="clear" type="button" class="btn btn-default fillBtn ActivefillBtn greenBtn back-butn">Clear Signature</button>
+		<!-- <span id="save_signature_loading" style="display:none"><img src="/images/img/loading.gif" class="img-responsive"></span> -->
+       <button id="save" type="button" class="btn btn-default fillBtn ActivefillBtn greenBtn back-butn">Accept Signature</button>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left nopadding" style="float: none;">
+	 <div class="checkbox" id="eftcheckbox">
+		  <input type="checkbox" id="eftagreement" class="singlecheck" name="ElectronicFundsConditions" value="203" onclick="removeElectronicFunds();">
+		  <label for="eftagreement">
+		  <a href="javascript:void(0)" onclick="openachpayment();"> <span class="greentext" style="font-size:16px;  color: #42B2FF;">Electronic Funds Transfer Authorization</span></a>
+		  </label>
+	 </div>
+	<div class="col-xs-12" id="eftconsentsign"></div>
+	<div class="mt1 nopadding bp-clr">By selecting this box, I have reviewed this authorization for having my contract payments made automatically and agree to its terms.</div>
+</div>
+
+
+<div id="signatureSuccessModal" class="modal fade financepagemodal" role="dialog">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="text-center">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	 		  <span class="stlbluetxt"><h3 class="greentext">Success</h3></span>
+			</div>
+			<div class="modal-body whitetext">
+				<p>Signature has been saved successfully</p>
+			</div>
+			<div class="btn-Main">
+			  <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="drawmodal" class="modal fade financepagemodal" role="dialog">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="text-center">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	 		  <span class="stlbluetxt"><h3 class="modal-title mTB-1 error mt2" id="storyinfopopupheader">Warning!</h3></span>
+			</div>
+			<div class="modal-body whitetext">
+				<p id="signatureError">Please draw signature</p>
+			</div>
+			<div class="btn-Main">
+			  <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="acceptsignature" class="modal fade financepagemodal" role="dialog">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="text-center">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	 		  <span class="stlbluetxt"><h3 class="modal-title mTB-1 error mt2" id="storyinfopopupheader">Warning!</h3></span>
+			</div>
+			<div class="modal-body whitetext">
+				<p id="signatureError">Please Accept Signature</p>
+			</div>
+			<div class="btn-Main">
+			  <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

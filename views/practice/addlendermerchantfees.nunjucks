@@ -1,0 +1,82 @@
+{% extends "practice/layout/layout.nunjucks" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="inner-content">
+		
+		<div class="row">
+			
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+
+				{% include "practice/layout/navigator.nunjucks" %}
+			</div>
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+					
+				<div class="content-tabs">
+					<h1>Add Lender Merchant Fees </h1>
+					<p class="stlbluetxt mb-5">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap. Hashtag typewriter banh mi, squid keffiyeh High Life Brooklyn twee craft beer tousled chillwave. PBR&B selfies chillwave, bespoke tote bag blog post-ironic. Single-origin coffee put a bird on it craft beer YOLO, Portland hella deep v Schlitz. Tumblr Bushwick post-ironic Thundercats. Vinyl 90's keytar, literally cardigan Williamsburg YOLO squid pickled Etsy salvia lo-fi locavore. Meh leggings retro narwhal Neutra.</p>
+
+					<form action="" method="post" name="LenderMerchantForm" id="LenderMerchantForm">
+						 <div class="block-content-box">
+                           
+                           <div id="lenderMerchantempty" class="text-center" style="display:none">
+                           	<p><label class="error">Atleast one lender setting is compulsory</label></p>
+                           </div>
+
+                           <input type="hidden" id="lenderMerchantCount" name="lenderMerchantCount" value="1">
+						   <input type="hidden" id="availLenderMerchantCount" name="availLenderMerchantCount" value="1">
+
+
+						   <div>	
+								<div class="row">
+									<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec nopaddingLR2">
+										<div class="form-group">
+										<label>LENDER</label>											
+										</div>
+									</div>
+								
+									
+									<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec nopaddingLR2">
+										<div class="form-group">
+										 <label>FINANCE PRODUCT</label>									
+										</div>
+									</div>
+								
+									<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 txtBoxSec nopaddingLR2">
+										<div class="form-group">
+										<label>MERCHANT PROCESSING FEE</label>							
+										</div>
+									</div>
+									
+								</div>
+							</div>
+
+							<!-- lender row starts here -->
+							<div id="lenderrowData">	
+									
+							</div>	
+							<!-- lender row ends here -->
+
+
+							<div class="clearfix"></div>
+							<!-- Append Procedure details -->
+							<div id="lenderappend"></div>
+
+							<div class="btn-Main">
+								<div class="text-center"><button type="button" name="addlendermerchant" class="btn btn-default lightBlueBtn bgtransparent nopaddingTB" onclick="addlendermerchantDetails(this.form);">+ Add Finance Product</button></div>
+							</div>
+							<div class="btn-Main ">
+								<button type="button" name="back" class="btn btn-default lightBlueBtn bgtransparent">Back</button>
+								<button type="button" name="next" class="btn btn-default lightBlueBtn">Next</button>
+							</div>
+
+						</div>
+					</form>	
+				</div>
+		    </div>				
+		</div>
+	</div>
+</div>	
+  
+{% endblock %}

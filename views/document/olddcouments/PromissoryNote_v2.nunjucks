@@ -1,0 +1,104 @@
+<style>
+      body {
+        background-color: white;
+        font-family:"Neo Sans fonts", Verdana, sans-serif;
+      }
+      h1 {
+        color: black;
+      }
+      p{
+         color: black;
+      }
+      .textstyle{
+        font-family:"Neo Sans fonts", Verdana, sans-serif;
+        font-size: 11px;
+      }
+	  table,th,td {
+		border: 1px solid black;
+		border-collapse: collapse;
+	  }
+	  th, td {
+		padding: 15px;
+	  }
+</style>
+ 
+  <h3> PROMISSORY NOTE ADDENDUM</h3>
+  
+  
+  
+  <P STYLE="margin-bottom: 0.11in"><B>Borrower Information</B></P>
+	<div style="margin-left: 0.25in; margin-bottom: 0.11in">
+	  <div style="display:inline-block;">First Name:</div>
+	  <div style="display:inline-block;border-bottom:1px solid #000000;width:200px;" id="borrowername">{{fname}}</div>
+	</div>
+	<div style="margin-left: 0.25in; margin-bottom: 0.11in">
+	  <div style="display:inline-block;">Last Name:</div>
+	  <div style="display:inline-block;border-bottom:1px solid #000000;width:200px;" id="borrowername1">{{lname}}</div>
+	</div>
+	<div style="margin-left: 0.25in; margin-bottom: 0.11in">
+	  <div style="display:inline-block;">Social Security Number:</div>
+	  <div style="display:inline-block;">{{socialnumber}}</div>
+	</div><br>
+	
+
+					<P STYLE="margin-bottom: 0.11in"><B>Financing You Request to Consolidate </B> </P>
+					
+					<div class="offer-loan-doc table-responsive">
+						<table class="offer-loan-doc table-responsive" width="100%" border="0" cellspacing="0" cellpadding="0">	
+						  <COL WIDTH=57>
+						  <COL WIDTH=352>
+						  <COL WIDTH=118>
+						  <COL WIDTH=87>
+						  <TR VALIGN=TOP>
+							<TD BGCOLOR="#c5e0b3" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Financing Type</B></FONT></P></TD>
+							<TD BGCOLOR="#c5e0b3" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Financing Holder/Servicer Name,
+								Address, and Area Code/ Telephone Number</B></FONT></P></TD>
+							<TD BGCOLOR="#c5e0b3" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Financing Account Number</B></FONT></P></TD>
+							<TD BGCOLOR="#c5e0b3" STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P ALIGN=CENTER><FONT SIZE=2><B>Pay Off Amount</B></FONT></P></TD>
+						  </TR>
+						  
+						 <TR VALIGN=TOP>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>{{addressobj.accountName}} </P></TD>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>{{addressobj.loanholderstreetname}} <br>{{addressobj.loanholdercity}}, {{addressobj.loanholderzipcode}} <br>
+								Phone: {{addressobj.phonenumber}} </P></TD>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>(last 4) - {{addressobj.accountNumberLastFour}}</P></TD>
+							<TD STYLE="border: 1px solid #00000a; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in"><P>${{obj.amount}}</P></TD>
+						  </TR>
+						  
+						  
+						  
+						  </table>
+					  </div>
+					  
+					  <P STYLE="margin-bottom: 0.11in"><BR></P>
+						<P STYLE="margin-bottom: 0.11in">Promissory Note Addendum</P>
+						<UL>
+							<LI><P STYLE="margin-bottom: 0.11in">I request Kuber Financial, LLC
+							to pay in full the credit accounts identified above in the Financing You
+							Request to Consolidate section.</P>
+							<LI><P STYLE="margin-bottom: 0.11in">My signature below certifies
+							that I have read, understand, and agree to the terms and conditions
+							of this Financing, including all terms and conditions specified on the
+							Financing Agreement and Promissory Note (Note) that I previously
+							submitted.</P>
+						</UL>
+						<P STYLE="margin-bottom: 0.11in"><BR>
+						</P>
+						<P ALIGN=CENTER STYLE="margin-left: 0.5in; margin-bottom:25px;"><B>I
+						UNDERSTAND THIS IS A FINANCING THAT I MUST REPAY</B></P>
+						  
+  
+  
+  
+
+
+{% if(type == 'pdf') %} 
+		
+<table style="border:0px;">
+	<tr style="border:0px;">
+		<td style="border:0px;">Borrowers Signature: <span style="border-bottom:1px solid #000;"><img style="width: 130px;" src="{{ agreementsignpath }}"></span></td><td style="border:0px;">Today&rsquo;s Date: <span style="border-bottom:1px solid #000;">{{obj.date}}</span></td>
+	</tr>
+</table>
+
+{% endif %}
+  

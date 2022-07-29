@@ -1,0 +1,88 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+  <section class="content-header">
+    <h1>
+      View Reconciliation Details
+      <small>preview of Reconciliation Details</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/managereconciliation"><i class="fa fa fa-building"></i>Maanage Reconciliation</a></li>
+      <li class="active">View Reconciliation Details</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">View Reconciliation Details</h3>
+		<span class="pull-right"><a href="/admin/managereconciliation"><button type="button" class="btn btn-primary">Back</button></a></span>
+      </div>
+      <div class="box-body">	  
+	  
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <th>Name</th>
+            <td>{{ achhistoryData.user.name }}</td>
+          </tr>
+          <tr>
+            <th>Screenname</th>
+            <td>{{ achhistoryData.user.screenName }}</td>
+          </tr>
+		      <tr>
+            <th>Email Address</th>
+            <td>{{ achhistoryData.user.email }}</td>
+          </tr>
+		      <tr>
+            <th>Phone Number</th>
+            <td>{{ achhistoryData.user.phoneNumber }}</td>
+          </tr>
+          <tr>
+            <th>Financing Reference</th>
+            <td>{{ achhistoryData.loanID}}</td>
+          </tr>
+          <tr>
+            <th>Financing Amount</th>
+            <td>{{ achhistoryData.achAmount }}</td>
+          </tr>
+		      <tr>
+            <th>Transaction Type</th>
+            <td>{{ achmethodType }} </td>
+          </tr>
+          <tr>
+            <th>Request Status</th>
+            <td>{{ achapiresponseStatus }} </td>
+          </tr>
+          <tr>
+            <th>Transaction Status</th>
+            <td>{{ apitransactiontatus }} </td>
+          </tr>
+          <tr>
+            <th>App Status</th>
+            <td>{{ achappStatus }} </td>
+          </tr>
+          <tr>
+            <th>Reason</th>
+            <td>{{ achdata.appfailuremessage }} </td>
+          </tr>
+          <tr>
+            <th>Api Request Details</th>
+            <td><pre id="apirequestjson" style="background:#FFF; border:none;">{{ apirequest }}</pre></td>
+          </tr>
+          <tr>
+            <th>Api Request Details</th>
+            <td><pre id="apiresponsejson" style="background:#FFF; border:none;">{{ apiresponse }}</pre></td>
+          </tr>
+          <tr>          
+           <th>Created Date</th>
+            <td>{{ achhistoryData.createdAt }}</td>
+          </tr>
+          </tbody>
+         </table>
+		   
+      </div>
+    </div>
+   
+    </div>
+  </section>
+{% endblock %}

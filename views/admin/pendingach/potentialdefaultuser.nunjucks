@@ -1,0 +1,60 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        Potential Default Financing User
+        <small>preview of Potential Default Financing User</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Potential Default Financing User</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Potential Default Financing User</h3>
+        </div>
+        <div class="box-body">
+
+         {% if (errorval)  %}
+         <div class="alert alert-danger">
+          {{errorval}}
+         </div>
+          <br>
+         {% endif %}
+         {% if (successmsg)  %}
+           <div class="alert alert-success">
+            {{successmsg}}
+          </div>
+          <br>
+         {% endif %}
+
+          <div class="container-fluid">
+            <table class="table table-striped table-bordered  dataTable" id="potentialdefaultuser_table">
+              <thead>
+              <tr>
+                <th style="width: 10px">#</th>
+				<th>Financing Reference</th>
+                <th>Application Reference</th>
+                <th>User Reference</th>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Financing Amount</th>
+                <th>Available Balance</th>
+                <th>Maturity Date</th>
+                <th>Created Date</th>
+                <th>ACH Application Status</th>
+				<th>Payment Status</th>
+              </tr>
+              </thead>
+              <tbody>
+            
+              </tbody>
+            </table>
+           </div>   
+        </div>
+      </div>
+    </section>
+{% endblock %}

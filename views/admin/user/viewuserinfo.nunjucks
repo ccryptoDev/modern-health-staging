@@ -1,0 +1,900 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+    <section class="content-header">
+      <h1>
+        View User Info
+        <small>preview of Manage Users</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">View User Info Details</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+			<script>
+				console.log({{ screentrackinginfo }})
+			</script>
+          <h3 class="box-title">{{ screentrackinginfo.practicemanagement.PracticeName}}</h3>
+          <span class="pull-right"><a href="/admin/manageusers"><button type="button" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>&nbsp;&nbsp;Back</button></a></span>
+        </div>
+        <div class="box-body" id="transuserinfo">
+
+
+         <input type="hidden" name="transcurrentTab" id="transcurrentTab" value=""/>
+
+		<div id="tabs">
+          <!--<input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">-->
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#userinfo">User Information</a></li>
+            <li><a data-toggle="tab" href="#userbankinfo">Financing Information</a></li>
+			<!-- <li><a data-toggle="tab" href="#useractivity">User Activity</a></li> -->
+			<!--<li><a data-toggle="tab" href="#useractivity">User Activity</a></li>
+			<li><a data-toggle="tab" href="#usertracking">User Tracking Information</a></li>
+			<li><a data-toggle="tab" href="#usercontacts">User Contacts Information</a></li>-->
+
+			{% if req.user.rolename != 'PracticeStaff' %}
+				<li><a data-toggle="tab" href="#transunioninfo">Trans Union Information</a></li>
+			{% endif %}
+			{% if req.user.rolename == 'Admin' %}
+              <li><a data-toggle="tab" href="#rawtransunionxml" id="xmltab">Raw Transunion JSON</a></li>
+            {% endif %}
+			
+			<!-- <li><a data-toggle="tab" href="#currentspend">Current Spend</a></li> -->
+			{% if (screentrackingdata) or (payment_id) %}
+			<li><a data-toggle="tab" href="#uploaddocuments">Document Center</a></li>
+			{% else %}
+			{% endif %}
+			<li><a data-toggle="tab" href="#Alluserscommentsection">Comments</a></li>
+          </ul>
+			<div class="tab-content">
+				<!-- raw xml tab start -->
+				<div id="rawtransunionxml" class="tab-pane fade">
+				<h3>Raw Transunion JSON</h3>
+					<textarea rows="40" cols="200" style="border:none;" disabled> 
+						{{transunionjson}}
+					</textarea> 
+				</div>
+			   <div id="userinfo" class="tab-pane fade in active">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <h3>User Information</h3>
+				 {% if (errorval)  %}
+				 <div class="alert alert-danger">
+				    <!-- <a href="#" class="cloAse" data-dismiss="alert">&times;</a> -->
+				  	{{errorval}}
+				 </div>
+				<br>
+				{% endif %}
+				{% if (successmsg)  %}
+					 <div class="alert alert-success">
+					     <!-- <a href="#" class="close" data-dismiss="alert">&times;</a> -->
+					 	 {{successmsg}}
+					</div>
+					<br>
+				 {% endif %}
+				  <div class="table-responsive">
+					<table class="table table-bordered">
+					  <tbody>
+
+					  	<tr>
+                        <th>User Reference </th>
+                        <td>
+                           <a href="/admin/viewUserDetails/{{user.id}}">
+                            {% if user.userReference %}
+                              {{ user.userReference }}
+                            {% else %}
+                               --
+                            {% endif %}
+                           </a>
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+					  <tr>
+						<th>Name</th>
+						<td>{{ user.firstname }} {{ user.lastname }}</td>
+						<td>
+							<!--{% if user.isScreenNameSet %}
+						  		<img style="width: 100px; height:100px" src="{{ profileImage.thumbnail }}" class="img-responsive center-block">
+							{% else %}
+								<img style="width: 100px; height:100px" src="/images/img/avatar04.png" class="img-responsive">
+							{% endif%}-->
+						</td>
+					  </tr>
+					  <!--<tr>
+						<th>Screen Name</th>
+						<td>{{ user.screenName }}</td>
+						<td>
+							{% if user.isScreenNameSet %}
+							  <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i>Screenname set</p>
+							{% else %}
+							  <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i>Screenname not set</p>
+							{% endif%}
+						</td>
+					  </tr>
+					  <tr>
+						<th>Active Story Name</th>
+						<td>{{ ActiveStoryName }}</td>
+						<td>
+						  --
+						</td>
+					  </tr>-->
+					  <tr>
+						<th>Email Address</th>
+						<td>{{ user.email }} &nbsp;&nbsp;( <i class="fa fa-edit" style="color:green;" aria-hidden="true"></i> <a href="javascript:void(0);" onclick="editemail();">Edit</a> )
+						<form name="resentemail" id="resentemail" method="post" action="/admin/newresentinviteemail">
+							<input type="hidden" name="userid" value="{{ user.id }}">
+							<button type="button" name="sendContinueAppEmail" id="sendContinueAppEmail" class="btn btn-primary" style="margin-top:10px;" onclick="window.location.href='/admin/sendContinueAppEmail/{{user.id}}/{{screentrackingdata.id}}';">Send Continue App Email</button>
+						</form>
+
+						  <div style="display:none;" id="changeemaildiv">
+						   <form name="changeemailform" id="changeemailform" method="post" action="/admin/changeemail">
+							 <input type="hidden" name="userid" value="{{ user.id }}">
+							 <input type="hidden" name="changeemailoption" id="changeemailoption" value="verify">
+							 <input type="text" id="emailaddress" name="emailaddress" value="" style="width:60%; padding:3px;" required><br>
+							 <span id="emailerror" style="display:none" class="error">Please enter valid email address<br></span>
+							 <button type="button" name="changeemail" id="changeemail" class="btn btn-primary" style="margin-top:10px;" id="emailCheck" onclick="changeemailoptionfn('verify','{{ user.id }}');">Submit</button>
+							 <button type="button" name="resentinvite" id="resentinvite" class="btn btn-primary" style="margin-top:10px;" id="inviteCheck" onclick="changeemailoptionfn('resentinvite','{{ user.id }}');">Resent invite</button>
+						   </form>
+						  </div>
+
+                          {% if(user.oldemaildata.length > 0) %}
+						    <div style="margin:10px 0px;">
+
+						    <b>Old Emails:</b><br/>
+
+						    {% for emaillist in user.oldemaildata %}
+							   {{emaillist}}<br>
+							{% endfor %}
+							</div>
+						  {% endif %}
+						  <!--<a href="/admin/resentinviteemail/{{ user.id }}"><button type="button" name="resentinvite" id="resentinvite" class="btn btn-primary" style="margin-top:10px;">Resent invite</button></a>-->
+						</td>
+						<td>
+							<!--{% if user.isValidEmail %}
+							  <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i>Valid Email</p>
+							{% else %}
+							  <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i>Invalid Email</p>
+							{% endif%}-->
+
+							{% if user.isEmailVerified %}
+							  <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i>Email verified</p>
+							{% else %}
+							  <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i>Email unverified</p>
+							{% endif%}
+
+							{% if user.emailverificationcode %}
+								<p> <b>Code:</b> {{user.emailverificationcode}}</p>
+							    {# <a href="/admin/changeverifystatus/{{ user.id }}"><button name="verifyemail" type="button" id="verifyemail" class="btn btn-primary">Verify Email</button></a> #}
+
+							    <input type="hidden" name="userid" id="userid" value="{{ user.id }}">
+							    <button type="button" name="verifyemailcode" id="verifyemailcode" class="btn btn-primary"  onclick="verifyemailcode();">Verify Email</button>
+
+							{% else %}
+							  {# <form name="" id="" method="post" action="/admin/sendverficationlink">
+								<input type="hidden" name="email" value="{{ user.email }}">
+								<input type="hidden" name="userid" value="{{ user.id }}">
+								<button name="verifyemail" id="verifyemail" class="btn btn-primary">Send verification code by Email</button>
+						   	  </form> #}
+
+
+						   	  <form name="verifyform" id="verifyform" method="post" action="/admin/sendverficationlink">
+								<input type="hidden" name="email" value="{{ user.email }}">
+								<input type="hidden" name="userid" value="{{ user.id }}">
+								<button type="button" name="verifyemail" id="verifyemail" class="btn btn-primary"  onclick="sendverficationlink();">Send verification code by Email</button>
+						   	  </form>
+
+							{% endif%}
+						</td>
+					  </tr>
+					  <tr>
+						<th>Phone Number</th>
+						<td>
+						  {% if user.phoneNumber %}
+						  {{ user.phoneNumber }} &nbsp;&nbsp;(<i class="fa fa-trash" style="color:red;" aria-hidden="true"></i> <a href="javascript:void(0);" id="removephone" data-toggle="modal" data-target="#deletephone">Delete</a> )
+						  (<i class="fa fa-edit" style="color:green;" aria-hidden="true"></i> <a href="javascript:void(0);" onclick="changephonenumber();">Edit</a>) <br>
+						  <div style="display:none;" id="editphonediv">
+						   <form name="changephoneform" id="changephoneform" method="post" action="/admin/changephone">
+							 <input type="hidden" name="userid" value="{{ user.id }}">
+							   <input type="hidden" id="sid" name="sid"  />
+							   <input type="hidden" id="isTwilioEnabled" name="isTwilioEnabled" value="{{ isTwilioEnabled }}"/>
+							   <input type="hidden" id="isPhoneVerified" name="isPhoneVerified" value="{{ user.isPhoneVerified }}"/>
+							 <input type="text" id="phone" name="userphone" value="" style="width:60%; padding:3px;" required>
+							 <button class="btn btn-primary" style="margin-top:-5px;"  onclick="checkIfVerificationNeeded(event)">Submit</button>
+						   </form>
+						  </div>
+						  {% else %}
+						   <form name="changephoneform" id="changephoneform" method="post" action="/admin/changephone">
+							 <input type="hidden" name="userid" value="{{ user.id }}">
+							   <input type="hidden" id="sid" name="sid"  />
+							   <input type="hidden" id="isTwilioEnabled" name="isTwilioEnabled" value="{{ isTwilioEnabled }}"/>
+							   <input type="hidden" id="isPhoneVerified" name="isPhoneVerified" value="{{ user.isPhoneVerified }}"/>
+							   <input type="text" id="phone" name="userphone" value="" style="width:60%; padding:3px;" required>
+							   <button class="btn btn-primary" style="margin-top:-5px;"  onclick="checkIfVerificationNeeded(event)">Submit</button>
+						   </form>
+						  {% endif%}
+
+						  {% if(user.oldphonedata.length > 0) %}
+							    <div style="margin:10px 0px;">
+							    <b>Old Phone Numbers:</b><br/>
+							    {% for phonelist in user.oldphonedata %}
+								   {{phonelist}}<br>
+								{% endfor %}
+								</div>
+						  {% endif %}
+
+						</td>
+						<td>
+						 {% if user.phoneNumber %}
+							{% if user.isPhoneVerified %}
+							  <p class="text-success"><i class="fa fa-bell" aria-hidden="true"></i>Phone verified</p>
+							{% else %}
+							  <p class="text-danger"><i class="fa fa-bell" aria-hidden="true"></i>Phone unverified</p>
+							{% endif%}
+
+							{% if user.phoneverificationcode %}
+							   {# <form name="" id="" method="post" action="/admin/changephoneverifystatus">
+							     <input type="hidden" name="phoneNumber" value="{{ user.phoneNumber }}">
+								 <input type="hidden" name="userid" value="{{ user.id }}">
+							     <input type="text" name="verificationCode" maxlength="4" value="" style="width:30%; padding:3px;" required>
+								 <button type="submit" name="verifyphone" id="verifyphone" class="btn btn-primary" style="margin-top:-5px;">Verify Phone</button>
+							   </form> #}
+
+							   {#  <form name="phoneverifyform" id="phoneverifyform" method="post" action="/admin/changephoneverifystatus">
+							     <input type="hidden" name="phoneNumber" value="{{ user.phoneNumber }}">
+								 <input type="hidden" name="userid" value="{{ user.id }}">
+							     <input type="text" name="verificationCode" maxlength="4" value="" style="width:30%; padding:3px;" required>
+							     <button type="button" name="verifyphone" id="verifyphone" class="btn btn-primary"  onclick="verifyphonesms();">Verify Phone</button>
+
+							   </form> #}
+
+							{% else %}
+							  	{# <form name="" id="" method="post" action="/admin/sendverficationcode">
+									<input type="hidden" name="userid" value="{{ user.id }}">
+									<button name="verifyemail" id="verifyemail" class="btn btn-primary">Send verification code by sms</button>
+							  	</form> #}
+
+							  	{# <form name="verifysmsform" id="verifysmsform" method="post" action="/admin/sendverficationcode">
+									<input type="hidden" name="userid" value="{{ user.id }}">
+									<button type="button" name="verifysms" id="verifysms" class="btn btn-primary"  onclick="sendverficationcode();">Send verification code by sms</button>
+							   	</form> #}
+
+						  	{% endif%}
+						 {% else %}
+						  --
+						 {% endif%}
+						</td>
+					  </tr>
+					   <tr>
+						<th>Date of Birth</th>
+						<td>{{ user.dateofBirth }}</td>
+						<td>&nbsp;</td>
+					  </tr>
+			               		  <tr>
+						<th>Address</th>
+						<td>{{ user.addresses }} <br/>
+		                      	{% if user.unitapt %}
+								{{user.unitapt}},
+								 {% endif%}
+							{% if user.street %}
+							{{ user.street }} <br/>
+							{% endif%}
+							{{ user.city }}, {{user.state}} <br/>
+							{{ user.zipCode }} <br/>
+						</td>
+						<td>&nbsp;</td>
+								  </tr>
+						<th>IP Address</th>
+						<td>{{ ip }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+
+					  {% if req.user.rolename != 'PracticeStaff' %}
+					  <tr>
+					  <th>Social Security Number</th>
+						<td>{{ user.ssn_number }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+					  {% endif %}
+
+					  <tr>
+						<th>Registered Date</th>
+						<td>{{ user.createdAt }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+					  <tr>
+						<th>Last Profile Update Date</th>
+						<td>{{ user.updatedAt }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+					  <tr>
+						<th>Application Created By</th>
+						<td>{{ user.underwriter }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr>
+					 <!--  <tr>
+						<th>Documents Uploaded By</th>
+						<td> ---
+						</td>
+						<td>&nbsp;</td>
+					  </tr> -->
+
+
+					  <!--  <tr>
+						<th>Financing Approved By</th>
+						<td>{{ userloandata[0].approvedunderwriter }}</td>
+						<td>&nbsp;</td>
+					  </tr>
+
+
+					<tr>
+		            <th> Plaid Re-send By</th>
+		            <td>{{ user.plaidresend }}</td>
+		            <td>&nbsp;</td>
+		            </tr>
+		            {% if user.offerlinksend != '' %}
+		            <tr>
+		            <th> Offer Link Send By</th>
+		            <td>{{ user.offerlinksend }}</td>
+		            <td>&nbsp;</td>
+		            </tr>
+		            {% else %}
+		             <tr>
+		            <th> Offer Link Send By</th>
+		            <td>---</td>
+		            <td>&nbsp;</td>
+		            </tr>
+		            {% endif %} -->
+
+
+
+					 <!--  <tr>
+						<th>Document Upload</th>
+						<td>{{ user.underwriter }}
+						</td>
+						<td>&nbsp;</td>
+					  </tr> -->
+
+					  <!--<tr>
+                        <th>App Version</th>
+                        <td>
+                        	 {% if user.appversion %}
+                       		   {{ user.appversion }}
+                       		 {% else %}
+                       		  --
+                       		 {% endif %}
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+                      <tr>
+                        <th>App Ios Version</th>
+                        <td>
+                        	 {% if user.systemVersion %}
+                       		   {{ user.systemVersion }}
+                       		 {% else %}
+                       		  --
+                       		 {% endif %}
+                        </td>
+                        <td>&nbsp;</td>
+                      </tr>-->
+
+					  </tbody>
+					</table>
+
+					 <div class="text-center" id="userdeletesection">
+					 	{% if req.user.rolename =='Admin' %}
+					 		 <!-- <button type="button" class="btn btn-primary" id="deleteuserdata" data-toggle="modal" data-target="#deleteUserModal">Delete User</button>
+					 		<br/> -->
+					 			<button type="button" class="btn btn-primary" id="releaseuserdata" data-toggle="modal" data-target="#resetUserModal">Reset User</button>
+					 		<br/>
+					 	{% endif %}
+					 </div>
+
+				  </div>
+
+
+
+
+			   </div>
+			  </div>
+			  <div id="userbankinfo" class="tab-pane fade">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <h3>Financing Information</h3>
+
+				  <div class="table-responsive">
+					  <table class="table table-striped table-bordered dataTable" id="loaninfo_table">
+						 <thead>
+						   <tr>
+							<th>#</th>
+							<th>Financing Reference</th>
+							<th>Financing Amount</th>
+							<th>Maturity Date</th>
+							<th>Created Date</th>
+							<th>Action </th>
+							<th>Status</th>
+						  </tr>
+						 </thead>
+						  <tbody>
+						  		{% set i = 1 %}
+                              {% for loandetails in userloandata %}
+								<tr>
+									<td>{{i}}</td>
+									<td><a href="/admin/getAchUserDetails/{{loandetails.id}}">{{loandetails.loanReference}} {{ req.session.userId }}</a></td>
+									<td>{{loandetails.payOffAmount}}</td>
+									<td>{{loandetails.maturityDate}}</td>
+									<td>{{loandetails.createdAt}}</td>
+									<td><a href="/admin/getAchUserDetails/{{loandetails.id}}">View</a></td>
+									{% if loandetails.achstatus == 0 %}
+										<td><i class="fa fa-circle text-message" aria-hidden="true"></i> Pending </td>
+									{% elseif loandetails.achstatus == 1 %}
+										<td><i class="fa fa-circle text-success" aria-hidden="true"></i> Funded </td>
+									{% elseif loandetails.achstatus == 2 %}
+										<td><i class="fa fa-circle text-danger" aria-hidden="true"></i> Denied </td>
+									{% elseif loandetails.achstatus == 3 %}
+										<td><i class="fa fa-circle text-warning" aria-hidden="true"></i> Blocked </td>
+									{% else %}
+										<td><i class="fa fa-circle text-detect" aria-hidden="true"></i> Incomplete </td>
+									{% endif %}
+								</tr>
+								{% set i = i+1 %}
+							  {% endfor %}
+
+							  {% for incompleteLoandetails in incompleteLoandata %}
+								<tr>
+									<td>{{i}}</td>
+									<td><a href="/admin/viewIncomplete/{{incompleteLoandetails.id}}">{{incompleteLoandetails.applicationReference}}</a></td>
+									<td> {% if incompleteLoandetails.requestedLoanAmount %}{{incompleteLoandetails.requestedLoanAmount | float}} {% else %}  -- {% endif %} </td>
+									<td> {% if incompleteLoandetails.maturityDate %}{{incompleteLoandetails.maturityDate}} {% else %}  -- {% endif %}</td>
+									<td>{{incompleteLoandetails.createdAt}}</td>
+									<td><a href="/admin/viewIncomplete/{{incompleteLoandetails.id}}">View</a></td>
+									<td><i class="fa fa-circle text-detect" aria-hidden="true"></i> Incomplete </td>
+								</tr>
+								{% set i = i+1 %}
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+
+			   </div>
+			  </div>
+
+			  <div id="useractivity" class="tab-pane fade">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <h3>User Activity Information</h3>
+
+				  <div class="table-responsive">
+					  <table class="table table-striped table-bordered dataTable" id="useractivity_table">
+						  <thead>
+						   <tr>
+							<th>#</th>
+							<th>Subject</th>
+							<th>Description</th>
+							<th>Activity data</th>
+							<th>Created Date</th>
+						  </tr>
+						  </thead>
+						  <tbody>
+						      {% for activitydetails in useractivitydata %}
+								<tr>
+								  <td>{{loop.index}}</td>
+								  <td>{{activitydetails.subject}}</td>
+								  <td>{{activitydetails.description}}</td>
+								  <td>{{activitydetails.logdata}}</td>
+								  <td>{{activitydetails.createdAt}}</td>
+								</tr>
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+
+			   </div>
+			  </div>
+
+			  <div id="usertracking" class="tab-pane fade">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <h3>User Tracking Information</h3>
+                  <input class="" type="hidden" id="trackingUserID" name="trackingUserID" value="{{ user.id }}">
+
+                  <br/>
+                  <div id="map_usertracking" style="width:100%;height:400px;display:none;">&nbsp;</div>
+                  <br/>
+
+
+				  <div class="table-responsive">
+					  <table class="table table-striped table-bordered dataTable" id="usertracking_table">
+						  <thead>
+						   <tr>
+							<th>#</th>
+							<th>Latitude</th>
+							<th>Longitude</th>
+							<th>Address</th>
+							<th>City</th>
+							<th>State</th>
+							<th>Country</th>
+							<th>Postal Code</th>
+							<th>Created Date</th>
+						  </tr>
+						  </thead>
+						  <tbody>
+
+						  </tbody>
+					  </table>
+				  </div>
+
+			   </div>
+			  </div>
+
+
+			  <div id="uploaddocuments" class="tab-pane fade">
+              <h3>Uploaded Documents</h3>
+			       <form role="form" method="post" enctype="multipart/form-data" action="/admin/uploadDocumentProof" id="desc">
+
+				     <input type="hidden" id="paymentID" name="paymentID" value="{{ payment_id }}">
+
+				     <input type="hidden" id="screenId" name="screenId" value="{{ screentrackingdata.id }}">
+
+					 <input type="hidden" id="categoryId" name="category" value="manageusers">
+
+					 <input type="hidden" id="userId" name="userId" value="{{user.id}}">
+
+      					<table class="table table-bordered">
+      					  <tbody>
+						  <div id="docuCheck" style="display:none;">
+						  	<p>Please select</p>
+						  </div>
+      					  <tr>
+        						<th> Document Type </th>
+        										<td>
+								<select name="docutype" id="docutype" required="">
+								 <option value="" >Select Document Type</option>
+							  <option value="{{ documenttype.documenttype1 }}" >{{ documenttype.documenttype1 }}</option>
+							  <option value="{{ documenttype.documenttype2 }}" >{{ documenttype.documenttype2 }}</option>
+							  <option value="{{ documenttype.documenttype3 }}" >{{ documenttype.documenttype3 }}</option>
+                                </select>
+								</td>
+      					  </tr>
+						  <div class="existsdoc">You have already uploaded selected doucment type!!!</div>
+
+							<tr id="docuNameCheck" style="display:none;">
+									<th> Document Name </th>
+									<td><input type="text" class="form-control" id="documentname" name="documentname" style="width:50%;" ></td>
+							 </tr>
+      					  <tr>
+        						<th>Document</th>
+        						<td>
+        						  <input  type="file"  id="proofdocument" name="proofdocument" required>
+
+        						</td>
+      					  </tr>
+      					  <tr>
+        					<td colspan="2" align="center">
+								<button type="submit"  class="btn btn-primary" id="updocs" value="Validate" onclick="Validate();">Submit</button>
+							</td>
+                         </tr>
+      				    </tbody>
+                </table>
+      		   </form>
+
+      				<div class="container-fluid ">
+
+      				 {% if achdocumentDetails.length>0 %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+            						  <th>Document Type</th>
+            						  <th>Document </th>
+            						  <th>Underwriter</th>
+            						  <th>Created Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% set lg = 0 %}
+                        {% for logsdata in  achdocumentDetails %}
+                           {% set lg = lg+1 %}
+                          <tr>
+                            <td>{{ lg }}</td>
+                            <td>{{ logsdata.docname }}</td>
+                            <td>
+							<a   href="{{ logsdata.proofdocument.standardResolution }}" target="_blank">View Document</a>
+                            </td>
+                            <td>{{ logsdata.underwriter }}</td>
+							 <td>{{ logsdata.createdAt }}</td>
+                        </tr>
+                        {% endfor %}
+                       </tbody>
+                     </table>
+                  </div>
+              {% else %}
+                  <p>No document added from system</p>
+              {% endif %}
+
+				      </div>
+            </div>
+
+			<div id="consolidationinfo" class="tab-pane fade">
+
+				 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% include "admin/screentracking/consolidationinfo.nunjucks"%}
+                </div>
+
+			  </div>
+
+
+			   <div id="Alluserscommentsection" class="tab-pane fade">
+              <h3>Comments Section</h3>
+
+      			   <form role="form" method="POST" enctype="multipart/form-data" action="">
+      				 <input class="" type="hidden" id="paymentID" name="paymentID" value="{{ paymentmanagementdata.id }}">
+					  <input type="hidden" id="screen_Id" name="screen_Id" value="{{ screentrackingdata.id }}">
+					  <input type="hidden" id="user_Id" name="user_Id" value="{{user.id}}">
+      					<table class="table table-bordered">
+      					  <tbody>
+      					  <tr>
+        						<th> Subject </th>
+        						<td><input type="text" class="form-control"  id="subject" name="subject" style="width:50%;" required></td>
+      					  </tr>
+      					  <tr>
+        						<th>Comments</th>
+        						<td>
+        						  <textarea class="form-control" id="comments" name="comments" required></textarea>
+        						</td>
+      					  </tr>
+      					  <tr>
+        						<td colspan="2" align="center">
+								  <button type="button" class="btn btn-primary" id="commentUser" onclick="addachcommnetalluser();">Submit</button>
+        						</td>
+                  </tr>
+      					  </tbody>
+                </table>
+      				</form>
+
+
+    				 <!-- Comments starts here -->
+    					<div class="tab-content faq-subcat-content">
+    					  <h3>Comments Details</h3>
+    					  <br/>
+    					   <div class="panel panel-default">
+        						<div class="panel-heading">Comments Details</div>
+        						<div class="panel-body">
+
+        						  <div class="container-fluid ">
+          							 <table class="table table-striped table-bordered dataTable" id="Allusers_table">
+          								<thead>
+          								<tr>
+          								  <th style="width: 10px">#</th>
+          								  <th>Subject</th>
+          								  <th>Comments</th>
+                             				<th>Created By</th>
+          								  <th>Created Date</th>
+          								</tr>
+          								</thead>
+          								<tbody>
+											  <!-- {% set z= 10 %}
+											  {% for kz in range(0, z) %}
+												<tr>
+												<td style="width: 10px">1</td>
+												<td>Subject</td>
+												<td>Comments</td>
+												<td>Created Date</td>
+												</tr>
+											  {% endfor %} -->
+          								</tbody>
+          							 </table>
+        							 </div>
+        						</div>
+    					   </div>
+    					</div>
+    					<!-- Comments ends here -->
+            </div>
+
+			  <div id="usercontacts" class="tab-pane fade">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <h3>User Contacts Information</h3>
+                  {% include "admin/user/usercontacts.nunjucks"%}
+			    </div>
+			  </div>
+
+
+			  <div id="transunioninfo" class="tab-pane fade">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  {% include "admin/user/transunion.nunjucks"%}
+			    </div>
+			  </div>
+
+			  <!-- <div id="currentspend" class="tab-pane fade">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  {% include "admin/user/currentspend.nunjucks"%}
+			    </div>
+			  </div>  -->
+
+			</div>
+		 </div>
+        </div>
+      </div>
+
+
+
+    </section>
+
+	<!-- Delete phone -->
+	 <div id="deletephone" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+          <!-- Modal content-->
+		  <form role="form" method="POST" enctype="multipart/form-data" action="/admin/removephone">
+		  <input class="" type="hidden" id="userID" name="userID" value="{{ user.id }}">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Delete Confirmation</h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+              <p><strong>Are you sure want to delete this phone number?</strong></p>
+            </div>
+            <div class="modal-footer bg-info">
+              <button type="submit"  class="btn btn-primary" id="deleteconfirm">Confirm</button>
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+     <!-- Delete user -->
+     <div id="deleteUserModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+			  <form role="form" method="GET" enctype="multipart/form-data" action="/admin/deleteUserDetails/{{user.id}}">
+	          <div class="modal-content">
+	            <div class="modal-header bg-primary">
+	              <button type="button" class="close" data-dismiss="modal">&times;</button>
+	              <h4 class="modal-title">Delete User Confirmation</h4>
+	            </div>
+	            <div class="modal-body bgColorWhite">
+	              <p><strong>Are you sure want to delete this user from {{LenderShortName}} system completely?</strong></p>
+	            </div>
+	            <div class="modal-footer bg-info">
+	              <button type="submit"  class="btn btn-primary" id="deleteuserconfirm">Confirm</button>
+	              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+	            </div>
+	          </div>
+	        </form>
+        </div>
+      </div>
+
+    <div id="resetUserModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+			  <form role="form" method="GET" enctype="multipart/form-data" action="/admin/resetUserDetails/{{user.id}}">
+	          <div class="modal-content">
+	            <div class="modal-header bg-primary">
+	              <button type="button" class="close" data-dismiss="modal">&times;</button>
+	              <h4 class="modal-title">Reset User Confirmation</h4>
+	            </div>
+	            <div class="modal-body bgColorWhite">
+	              <p><strong>Are you sure want to reset this user from {{LenderShortName}} system?</strong></p>
+	            </div>
+	            <div class="modal-footer bg-info">
+	              <button type="submit"  class="btn btn-primary" id="resetuserconfirm">Confirm</button>
+	              <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+	            </div>
+	          </div>
+	        </form>
+        </div>
+      </div>
+	{% include "twilio/twilioVerificationTemplate.nunjucks" %}
+	<style>
+
+		.btn-application {
+			background-color: #3c8dbc;
+			border-color: #367fa9;
+		}
+		.btn-application {
+			border-radius: 3px;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			border: 1px solid transparent;
+		}
+		.btn-application {
+			color: #fff;
+			background-color: #337ab7;
+			border-color: #2e6da4;
+		}
+		.btn-application {
+			display: inline-block;
+			padding: 6px 12px;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 4px;
+		}
+		.btn-application:disabled {
+			cursor: not-allowed;
+			filter: alpha(opacity=65);
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			opacity: .65;
+		}
+	</style>
+	  <script>
+$(document).ready(function() {
+  $("#docutype").change(function() {
+	//var end = this.value;
+	if (docutype.value == "Others") {
+		$("#docuNameCheck").show();
+	}else{
+		$("#docuNameCheck").hide();
+	}
+	});
+	});
+
+function Validate() {
+	var docutype = document.getElementById("docutype");
+	if (docutype.value == "Others") {
+		$("#documentname").show();
+
+		if(document.getElementById("documentname").value == ""){
+			$('#documentname').addClass('error');
+			$("#updocs").attr("disabled", false);
+			return false;
+		}else{
+
+			if(document.getElementById("proofdocument").value == "") {
+				$('#documentname').removeClass('error');
+				$("#updocs").attr("disabled", false);
+			}
+			else {
+			    $('#desc').submit();
+				$('#documentname').removeClass('error');
+				$("#updocs").attr("disabled", true);
+			}
+		}
+	}else{
+
+		if(document.getElementById("proofdocument").value == "") {
+			$("#updocs").attr("disabled", false);
+		}
+		else {
+		    $('#desc').submit();
+			$("#docuNameCheck").hide();
+			$("#updocs").attr("disabled", true);
+		}
+	}
+}
+
+
+
+</script>
+ <style>
+    .error{border-color:red;}
+	.existsdoc {display:none; text-align:center; color:red;}
+	.text-message{
+		color: #FF8C00;
+	}
+	.text-detect{
+		color:#000080;
+	}
+    </style>
+
+{% endblock %}
+
+

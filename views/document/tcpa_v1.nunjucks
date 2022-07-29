@@ -1,0 +1,61 @@
+<body>
+	<head>
+	<style> 
+		body { 
+			background-color: white; 
+			font-family:"Neo Sans fonts", Verdana, sans-serif;
+		}
+		h3 {
+			color: black;
+			font-family:helvetica;
+		}
+		p {
+			color: black;
+			font-family:helvetica;
+		} 
+		li {
+			color: black;
+			font-family:helvetica;
+		} 
+		p1 {
+			color: black;
+			font-family:helvetica;
+		} 
+	</style>
+	</head >
+	<br><br>
+	<p style="margin:0px; text-align: center; font-size: 220%; font-weight:500"> MODERN HEALTH FINANCE SMS Text Message Policy </p>
+	<br>
+	<p style="margin:0px; text-align: justify; font-size: 130%;"> By providing your cell phone number, you have given us consent to send text messages in conjunction with the services you have requested. According to FCC, CTIA, and TCPA regulations and guidelines you agree to the following: </p>
+	<br />
+	<ul style="list-style-type:disc; margin-left: 35px;">
+		<li style="margin:5px; text-align: left; font-size: 130%; color: black;"> Msg&amp;Data Rates may apply to confirmation and all subsequent messages. </li>
+		<li style="margin:5px; text-align: left; font-size: 130%; color: black;"> Take precautionary steps to safeguard your mobile device to encourage privacy. </li>
+		<li style="margin:5px; text-align: left; font-size: 130%; color: black;"> Notify <strong>MODERN HEALTH FINANCE</strong> if there is any change to your mobile number. </li>
+		<li style="margin:5px; text-align: left; font-size: 130%; color: black;"> Any Revisions to existing SMS Wireless Policy will be sent to you via text.</li>
+	</ul>
+	<br />
+	<p style="margin:0px; text-align: justify; font-size: 130%;"> You agree and consent to be contacted by the Company, Our agents, employees, attorneys, affiliates, subsequent creditors, financing servicing companies, and third-party collectors through the contact information provided.</p>
+	<br>
+	<h3 style="margin:0px; text-align: left; color: black;"> Opt-out or STOP </h3>
+	<p style="margin:0px; text-align: left; font-size: 130%;"> If you wish to stop receiving text messages from Modern Health Finance, reply STOP to any text message sent. </p>
+	<h3 style="margin:0px; text-align: left; color: black;"> Help or Support </h3>
+	<p style="margin:0px; text-align: left; font-size: 130%;"> If at any time you need contact information or information on how to stop text messages, reply to any text message sent by replying <strong>HELP</strong>.</p>
+	<br>
+	<p style="margin:0px; text-align: left; font-size: 130%;"> Any questions regarding this policy or to have a copy of the policy mailed to your address of record please contact: </p>
+	<p style="margin:0px; text-align: left; font-size: 130%;"> Modern Health Finance </p>
+	<p style="margin:0px; text-align: left; font-size: 130%;"> 23030 Lake Forest Dr 202, Laguna Hills CA 92653 </p>
+	<p style="margin:0px; text-align: left; font-size: 130%;"> contace@modernhealthfinance.com </p>
+	<p style="margin:0px; text-align: left; font-size: 130%;"> 619-403-9753 </p>
+	<br><br><br><br><br>
+	<p style="margin:0px; text-align: center; font-size: 130%;"> Modern Asset Management, Inc. dba Modern Health Finance is licensed by the California Department of Business Oversight pursuant to the California Financing Law. License number 605 4855. </p>
+	<br><br><br>
+	<p1 style="margin:0px; text-align: left; font-size: 130%; color: black">
+    	Date:&nbsp;{{ agreementObject.date }}
+	</p1>
+	<br><br>
+
+	<p1 style="margin:0px; text-align: left; font-size: 130%; color: black;"> 
+      	Ip:&nbsp;{{ ip }}
+	</p1>
+</body>

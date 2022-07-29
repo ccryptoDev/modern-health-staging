@@ -1,0 +1,309 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="userinformationfull">
+<div class="container">
+    <div class="inner-content">
+    	<div class="heading">
+            <div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" /></div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-10 col-lg-offset-1 personalInfoInner">
+            	{# {% include "frontend/layoutv3/navigator.nunjucks" %} #}
+                <h1 class="title">Verify your information below.</h1>
+                <div class="whitebox infoForm">
+                    <form class="formclass" id="userinfofulldata" name="userinfofullData" action="/userinformationfulldata" method="POST" data-validation="btnDisable" >
+                	<input type="hidden" id="practiceId" value="{{ practice.id }}">
+                	<input type="hidden" id="minloanamount" value="{{ minloanamount }}">
+                    <input type="hidden" id="maxloanamount" value="{{ maxloanamount }}">
+                    <input type="hidden" id="minincomeamount" value="{{ minincomeamount }}">
+                    <input type="hidden" value="0" id="popupsubmit">
+                    <input type="hidden" value="0" id="temploanamount">
+                    <div class="error text-center" id="userinfoError">{{ errormsg }}</div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="first_name">FIRST NAME</label>
+                                <input type="text" class="form-control form-rounded input-color" id="first_name" name="firstname" placeholder="Enter First Name" value="{{ userData.firstName }}" required>
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="last_name">LAST NAME</label>
+                                <input type="text" class="form-control form-rounded input-color" id="last_name" name="lastname" placeholder="Enter Last Name" value="{{ userData.lastName }}" required>
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="first_name">SOCIAL SECURITY NUMBER</label>
+                                <input type="text" class="form-control form-rounded input-color" id="ssnNumber" name="ssnNumber" placeholder="Enter Social Security Number" value="{{ userData.ssnNumber }}" required data-mask="000-00-0000">
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="last_name">DATE OF BIRTH</label>
+                                <input type="text" class="form-control form-rounded input-color" readonly="" id="dateofBirth" name="dateofBirth" value="{{req.dateofBirth}}" placeholder="mm/dd/yyyy" data-mask="00/00/0000">
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="first_name">PRIMARY PHONE</label>
+                                <input type="text" class="form-control form-rounded input-color" id="phoneNumber" name="phoneNumber" placeholder="Enter Primary Phone" value="{{ userData.phoneNumber }}" data-mask="(000) 000-0000" required>
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="last_name">WORK PHONE</label>
+                                <input type="text" class="form-control form-rounded input-color" id="work_phone" name="workphone" placeholder="Enter Work Phone" value="" data-mask="(000) 000-0000">
+                                <i class="tick-focus-img"></i>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="first_name">EMAIL ADDRESS</label>
+                                <input type="text" class="form-control form-rounded input-color" id="email" name="email" placeholder="Enter Email Address" value="{{userData.emailAddress}}" onblur="setemailinclicktosave(this.value)" required>
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="last_name">PRIMARY ADDRESS</label>
+                                <input type="text" class="form-control form-rounded input-color" id="street" name="street" placeholder="Enter Primary Address" value="{{userData.streetAddress}}" required>
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="first_name">ZIPCODE</label>
+                                <input type="text" class="form-control form-rounded input-color" id="zipCode" name="zipCode" placeholder="Enter Zip Code" value="{{userData.zipCode}}" required>
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 selectBox dropDown">
+                            <div class="form-group selectBox">
+                                <label class="col-xs-12" for="residencytype">Type of Residence</label>
+                                <select class="form-control form-rounded" id="residencytype" name="residencytype" placeholder="residencytype" required>
+                                    <option value="" selected="true" disabled="disabled">Select residency type</option>
+                                    <option value="own" {% if userData.residencytype=="own" %} selected {% endif %}>Own</option>
+                                    <option value="rent" {% if userData.residencytype=="rent" %} selected {% endif %}>Rent</option>
+                                    <option value="other" {% if userData.residencytype=="other" %} selected {% endif %}>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="last_name">CITY</label>
+                                <input type="text" class="form-control form-rounded input-color" id="city" name="city" placeholder="Enter City" value="{{userData.city}}" required>
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 selectBox dropDown">
+                            <div class="form-group selectBox">
+                                <label class="col-xs-12 text-left" for="last_name">STATE</label>
+                                <select class="form-control form-rounded" id="state" name="state" placeholder="state" required>
+                                    <option selected="true" disabled="disabled">Select state</option>
+                                    {% for state in states %}
+                                    <option value="{{ state.stateCode }}" {% if userData.state == state.stateCode %} selected {% endif %}>{{ state.stateName }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-12 col-md-6 selectBox col-md-offset-3 dropDown">
+					<div class="form-group">
+						<label class="col-xs-12 text-left" for="last_name">PRACTICE NAME</label>
+						<select class="form-control form-rounded" id="practicemanagement" name="practicemanagement" required >
+						<option class="defaultSelect" selected="true" disabled="disabled">Select practice</option>
+							{% for hosp in hospRes %}
+							<option value="{{hosp.id}}" {% if userData.practicemanagement==hosp.id %} selected {% endif %}>{{hosp.PracticeName}}</option>
+						{% endfor %}
+						</select>
+					</div>
+					</div> -->
+                    {% if  req.session.userfilloutmanually==1 %}
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-12" for="last_name">ANNUAL INCOME</label>
+                               <input type="text" class="form-control" placeholder="Enter Annual Income" name="annualincome" id="annualincome" value="{{annualincome}}" required />
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                               <label class="col-xs-12" for="last_name">ANTICIPATED FINANCED AMOUNT<span class="greentext">*</span></label>
+                               <input type="text" class="form-control form-rounded input-color" id="financedAmount" name="financedAmount" placeholder="Enter Anticipated Finance Amount" required value="{{financeAmount}}">
+                                <i class="tick-focus-img"></i>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <input type="hidden" class="form-control form-rounded input-color" id="practicemanagement" name="practicemanagement" value="{{hospRes.id}}">
+                    </div>
+                    <h6>Please make sure the information above is correct before proceeding.</h6>
+                    <div class="btnMain">
+                        {% if  req.session.userfilloutmanually==1 %}
+                            <a href="" class="btn btn-default borderBtn">Back</a>
+                        {% endif %}
+                        <button type="submit" name="formsubmit" class="btn btn-default fillBtn ActivefillBtn" id="userinfoBtn">Next</button>
+                    </div>
+                    </form>
+                </div>
+				{% if  req.session.userfilloutmanually==1 %}
+				<div class="mt1" style="margin-bottom:20px;"><span class="greentext">*</span>Anticipated Financed Amount will be based on the total cost LESS any fees due prior to treatment. Please contact the healthcare provider and confirm how much is due prior to treatment and how much is eligible for financing.</div>
+				{% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="ajaxLoaderPlaid" class="ajaxloadermodal modal fade" data-backdrop="static">
+    <div id="ajaxLoader"></div>
+</div>
+
+<div id="apllicationloanmodel" class="modal fade financepagemodal" role="dialog">
+    <div class="modal-dialog modal-md">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="text-center">
+          <span class="stlbluetxt"><h3 class="modal-title mTB-1 error mt2" id="storyinfopopupheader">Warning!</h3></span>
+        </div>
+        <div class="modal-body whitetext">
+             Sorry, that financed amount does not meet the minimum threshold.
+        </div>
+        <div class="btn-Main">
+          <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div id="clicktosave" class="modal clicktosavemodal" role="dialog">
+        <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+
+         <div class="modal-body whitetext">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!--You can apply minimum loan amount of ${{minloanamount}} and maximum loan amount of ${{maxloanamount}} in {{LenderShortName}}.-->
+             <form class="formclass" id="clicktosaveform" method="post" data-validation="btnDisable">
+                <input type="hidden" name="pagename" value="userinformationfull" id="pagename">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="last_name">EMAIL ADDRESS</label>
+                            <input type="text" class="form-control" placeholder="Enter Email Address" name="cemailAddress" id="cemailAddress" value="{{userData.emailAddress}}" required />
+                            <i class="tick-focus-img"></i>
+                        </div>
+                    </div>
+                     <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="col-xs-12">PASSWORD</label>
+                            <input type="password" class="form-control" placeholder="Enter Password" name="cpassword" id="cpassword" required />
+                         </div>
+                    </div>
+                     <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <label class="col-xs-12">CONFIRM PASSWORD</label>
+                           <input type="password" class="form-control" placeholder="Enter Confirm Password" name="conpassword" id="conpassword" required />
+                         </div>
+                    </div>
+                    <div class="btnMain text-center">
+                        <button type="submit" name="formsubmit" class="btn btn-default fillBtn ActivefillBtn" id="clicktosaveBtn">Save</button>
+                    </div>
+                    <div class="error text-center" id="errormsg"></div>
+                    <div class="text-center" id="successmsg" style="color: #63944C;     font-weight: bold;"></div>
+                </div>
+            </form>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+<div id="denyreasonlowincomemodel" class="modal fade financepagemodal" role="dialog">
+        <div class="modal-dialog modal-md">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="text-center">
+          <span class="stlbluetxt"><h3 class="modal-title mTB-1 error mt2" id="storyinfopopupheader">Warning!</h3></span>
+        </div>
+        <div class="modal-body whitetext">
+            <!--  You can apply minimum loan amount of ${{minloanamount}} and maximum loan amount of ${{maxloanamount}} in {{LenderShortName}}. -->
+            Sorry, that annual income does not meet the minimum income threshold.
+            </div>
+        <div class="btn-Main">
+          <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="modal fade" id="submitconfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content" style="">
+            <div class="modal-body text-center">
+                <h3 class="greentext">Confirmation</h3>
+                <p class="mt1">Did you make sure your information was correct?</p>
+            </div>
+            <div class="btnMain text-center">
+                <button type="submit" name="formsubmit" class="btn btn-default fillBtn ActivefillBtn" id="proceedsubmit" {% if  req.session.userfilloutmanually==1 %} onclick="submitmanualuserinfoform();" {% else %} onclick="submituserinfoform();" {% endif %}>Yes</button>
+            </div>
+			<div class="btnMain text-center" style="padding-top:0;">
+				<a href="javascript:void(0);" data-dismiss="modal" onclick="closepopup();" class="btn btn-default borderBtn" style="margin:0;">Let me check again</a>
+			</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="clicktosavesuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content" style="">
+            <div class="modal-body text-center">
+                <h3 class="greentext">Success</h3>
+                <p class="mt1">Your details are saved successfully.</p>
+            </div>
+            <div class="btnMain text-center">
+                <button type="button" data-dismiss="modal" class="btn btn-default fillBtn ActivefillBtn">Close</button>
+            </div>
+         </div>
+    </div>
+</div>
+
+<div id="denyreasonmodel" class="modal fade financepagemodal" role="dialog">
+        <div class="modal-dialog modal-md">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="text-center">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <span class="stlbluetxt">
+            <h3 class="greentext">Confirmation</h3>
+          </span>
+        </div>
+        <div class="modal-body whitetext">
+            <div>
+                You have registered successfully. Please check your email to activate your account.
+                <br/><br/>
+                <span id="maxloantxt">Oops the Anticipated Financed Amount exceeds the maximum.</span>
+                <span id="minloantxt" style="display: none;">Oops the Anticipated Financed Amount less than minimum amount.</span>
+                <br/><br/>
+                You have pre-qualified for a contract up to <span class="greentext">$ <span id="qualifiedAmount"></span></span>
+                <br>
+                <br>
+                Do you want to proceed with this contract using that amount?
+            </div>
+
+            </div>
+        <div class="btnMain text-center">
+            <button type="button" data-dismiss="modal" onclick="proceessusernextpage();" class="btn btn-default fillBtn ActivefillBtn">Yes</button>
+            <button type="button" data-dismiss="modal" onclick="proceesuserloanfailure()" class="btn btn-default fillBtn ActivefillBtn">No</button>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+
+<style>
+.tt-dataset.tt-dataset-countries {
+  max-height: 333px;
+  overflow: auto;
+}
+</style>
+
+<section class="content-header">
+    <h1>
+      Create New Practice Admin User
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="/admin/managepracticeadmin"><i class="fa fa fa-building"></i>Practice Admin User List</a></li>
+      <li class="active">Add Practice Admin User</li>
+    </ol>
+</section>
+<section class="content">
+  <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Practice Admin User Form </h3>
+      </div>
+      <div class="box-body">
+	      {% if (error)  %}
+         <div class="alert alert-danger">
+          {{error}}
+        </div>
+        <br>
+        {% endif %}
+    	  <form role="form" method="POST"  enctype="multipart/form-data" id="practiceAdminAddUser" name="schoolAdminAddUser" action="/admin/addnewpracticeAdminUser">
+            <table class="table table-bordered">
+              <tbody>
+    		  
+        		  <tr id="universityoption">
+        				<th widh="50%">Practice Name</th>
+        				<td style="position:relative;">
+
+                  <input type="hidden" class="form-control"  id="universityid" name="schoolId" value="{{schoolData.id}}" >
+
+                   {% if req.session.adminpracticeID %}
+          					   <input  type="text" class="form-control" id="schoolName" name="schoolName" value="{{schoolData.PracticeName}}" " style="width:50%;" required autocomplete="off" readonly>
+                   {% else %}
+                     <input type="text" class="form-control tt-query" id="university" name="schoolName" style="width:50%;"  autocomplete="off" onkeyup="searchuniversity(this.value);">
+                     <div class="tt-menu" style="position: absolute; top: 59%; left: 1%; z-index: 100; display: none; max-height:333px; overflow: auto;"><div class="tt-dataset tt-dataset-countries">   
+                     </div>
+                   {% endif %}
+        				</div>
+        				</td>
+        		  </tr>
+    		  
+              <div>
+                <tr class="schoolbranch">
+                    <th>Location Name</th>
+                    <td>
+                      <!--<select name="BranchName" required="" class="form-control" style="width:50%;" id="BranchName"></select>-->
+        			         <input type="text" class="form-control" id="BranchName" name="BranchName" value="{{req.form.BranchName}}" style="width:50%;" required autocomplete="off">
+                    </td>
+                  </tr>
+              </div>
+    		
+    		      <tr>
+                <th>Role</th>
+                <td>
+          			<select id="roleId" name="roleId" required="" class="form-control" style="width:50%;">
+          			  <option value="PracticeAdmin" {% if(roledetails.rolename=='PracticeAdmin') %} selected {% endif %}>Admin</option>
+          			  <option value="PracticeStaff" {% if(roledetails.rolename=='PracticeStaff') %} selected {% endif %}>Staff</option>
+          			  <option value="PracticeDoctor" {% if(roledetails.rolename=='PracticeDoctor') %} selected {% endif %}>Doctor</option>
+          			</select>
+               </tr>
+          		  <tr>
+                  <th>Username</th>
+                  <td><input type="text" class="form-control" id="Username" name="Username" value="{{req.form.Username}}" style="width:50%;" required autocomplete="off"></td>
+                </tr>
+          		  <tr>
+                <th>First Name</th>
+                <td><input type="text" class="form-control" id="firstname" name="firstname" value="{{req.form.firstname}}" style="width:50%;" required autocomplete="off"></td>
+              </tr>
+    		      <tr>
+                <th>Last Name</th>
+                <td><input type="text" class="form-control" id="lastname" name="lastname" value="{{req.form.lastname}}" style="width:50%;" required autocomplete="off"></td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td><input type="text" class="form-control" id="email" name="email" value="{{req.form.email}}" style="width:50%;" required autocomplete="off"></td>
+              </tr>
+              <tr>
+                <th>Phone Number</th>
+                <td><input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{req.form.phoneNumber}}" style="width:50%;" required autocomplete="off" data-mask="(000) 000-0000"></td>
+              </tr>
+    		      <tr>
+                <th>Status</th>
+                <td><select name="status" id="status" required><option value="1">Active</option><option value="0">In Active</option></select></td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>
+    			        <button type="submit" class="btn btn-primary">Submit</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+    		   </form>
+          </div>
+        </div>
+    </section>
+{% endblock %}

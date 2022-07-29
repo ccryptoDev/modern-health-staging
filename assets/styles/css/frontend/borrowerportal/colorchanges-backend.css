@@ -1,0 +1,23 @@
+.colorchange{
+color:#3c8dbc;
+}
+.img_rotate{
+    background-image: url(href); 
+    background-repeat: no-repeat;
+    background-size: contain;
+     height: 150px;
+    transform: rotate(50deg);
+        -moz-transform: rotate(50deg);
+        -ms-transform: rotate(50deg);
+        -o-transform: rotate(50deg);
+        -webkit-transform: rotate(50deg);
+    width: 100px;
+}
+
+/*.img_rotate {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}*/

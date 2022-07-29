@@ -1,0 +1,125 @@
+<style>
+	.main-sidebar {
+		padding-top: 15px;
+		position: fixed;
+	}
+	.main-sidebar hr {
+		width: 90%;
+		opacity: 0.54;
+		border-width: 2px;
+	}
+	.main-sidebar a {
+		color: #107189 !important;
+		font-size: 16px;
+		font-weight: 500;
+		margin-left: 20px;
+	}
+	#adminBtns {
+		background: #63944C;
+		border: 1px solid #63944C;
+		border-radius: 15px;
+		color: #FFF;
+	}
+	#pfiuser {
+		background: #5287B3;
+		border: 1px solid #5287B3 !important;
+		border-radius: 5px;
+		color: #FFF !important;
+		padding-left: 15px !important;
+		padding-right: 15px !important;
+		padding-top: 8px !important;
+		padding-bottom: 8px !important;
+		font-size: 18px;
+		margin-left: 10px !important;
+		margin-right: 10px !important;
+	}
+</style>
+<aside class="main-sidebar" style="background-image: linear-gradient( #38A6FF, #29DBC2 ); font-color: #107189">
+  <div style="text-align: center; padding-bottom: 10px;"><img src="/images/img/sidebarLogo.svg" alt="Logo" height="40" width="120"></div>
+	<section class="sidebar">
+		<ul class="sidebar-menu">
+			{% if req.user.rolename =='Underwriter' or req.user.rolename =='Customer service' or  req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeStaff' or req.user.rolename =='Admin' or req.user.rolename =='PracticeDoctor' %}
+			<br>
+			{# <li><hr /></li> #}
+			<li class="treeview">
+				<a href="#" id="pfiuser">
+					<div>
+						{# <i class="fa fa-user pull-left" style="font-size:16px; padding:5px; color: #63944C"></i> #}
+						<img src="/images/img/shape.png" alt="Logo" height="25" width="25">&nbsp;&nbsp;
+						{{ req.user.name }}
+						<span><i class="fa fa-angle-down pull-right" style="font-size:16px; padding:5px;"></i></span>
+					</div>
+				</a>
+				<ul class="treeview-menu" style="font-size: 18px; margin-left: 10px;">
+					<li><a href="#"><span>Role: {{ req.session.adminroleName }}</span></a></li>
+					<li><a href="/admin/changepassword"><button id="adminBtns">Change Password</button></a></li>
+					<li><a href="/admin/logout"><button id="adminBtns">Sign Out</button></a></li>
+				</ul>
+			</li>
+			{# <li><hr /></li> #}
+			<br>
+			<li><a href="/admin/dashboard"><img src="/images/img/sidebarSpeedometer.svg" alt="Logo" height="20" width="25">&nbsp;&nbsp;<span>&nbsp;&nbsp;Dashboard</span></a></li>
+				<li><a href="/admin/showAllInprogress"><i class="fa fa-folder"></i><span>&nbsp;&nbsp;In Progress Contracts</span></a></li>
+				<li><a href="/admin/showFundedContracts"><i class="fa fa-folder"></i><span>&nbsp;&nbsp;Funded Contracts</span></a></li>
+				<li><a href="/admin/getArchivedOpenDetails"><i class="fa fa-folder"></i><span>&nbsp;&nbsp;Archived Open Applications</span></a></li>
+				<li><hr /></li>
+			{% if req.user.rolename =='Admin' %}
+				<li class="treeview">
+					<a href="#">
+						<i class="fa fa-th"></i> <span>&nbsp;&nbsp;Settings</span>
+						<span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="/admin/managelogactivity"><i class="fa  fa-history"></i><span>&nbsp;&nbsp;Audit Log</span></a></li>
+						<li><a href="/admin/adminuserlist"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Admin Manage Users</span></a></li>
+					</ul>
+				</li>
+				<li><hr /></li>
+			{% endif %}
+
+				{% if req.user.rolename =='PracticeAdmin' %}
+					<li class="treeview">
+						<a href="#">
+							<i class="fa fa-th"></i> <span>&nbsp;&nbsp;Settings</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="/admin/editpractice/{{req.session.adminpracticeID}}"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Practice Rules</span></a></li>
+{#							<li><a href="/admin/proceduresettings/{{req.session.adminpracticeID}}"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Procedure Settings</span></a></li>#}
+						</ul>
+					</li>
+					<li><hr /></li>
+				{% endif %}
+
+				<li><a href="/admin/manageusers"><i class="fa fa-user"></i><span>&nbsp;&nbsp;All Patients</span></a></li>
+
+				{% if req.user.rolename =='Admin' %}
+					{# <li><a href="/admin/resetusers"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Reset Patients</span></a></li> #}
+					<li><a href="/admin/managepractice"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Practice Management</span></a></li>
+				{% endif %}
+
+				{% if req.user.rolename =='Admin' or req.user.rolename =='PracticeAdmin' or req.user.rolename =='PracticeDoctor' %}
+					<li><a href="/admin/managepracticeadmin"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Practice Admin</span></a></li>
+				{% endif %}
+
+				<li><a href="/admin/addApplication"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Create Application</span></a></li>
+
+				{% if req.user.rolename =='Admin' %}
+					<li><a href="/admin/practiceCreditReportList"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Credit Reports</span></a></li>
+					<li><a href="/admin/providerlist"><i class="fa fa-user"></i><span>&nbsp;&nbsp;Practice Referrals</span></a></li>
+				{% endif %}
+
+			{% endif %}
+			<li>&nbsp;</li>
+		</ul>
+		<p>&nbsp;</p>
+	</section>
+	<script>
+		/*function toggleSelect( showli, hideli ) {
+			//console.log("show",showli," hide",hideli);
+			//alert("show"+showli+" hide"+hideli);
+			$( showli ).css( "display", "block");
+			$( hideli ).css( "display", "none" );
+		}*/
+	</script>
+</aside>

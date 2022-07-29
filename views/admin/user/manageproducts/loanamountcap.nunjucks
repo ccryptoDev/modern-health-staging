@@ -1,0 +1,84 @@
+<div id="amountcap" class="tab-pane fade">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					
+						<section class="content" style="margin-top:25px;">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+									<h3 class="box-title">Create/Update Amountcap</h3>
+									</div>
+									<form class="form-horizontal" id="loan_amount_cap" method="POST" action="">
+										<div class="box-body">
+											<div class="form-group">
+												<div class="succ-notification" style="text-align:center;color:green;font-size:20px;"></div>
+											</div>
+											<div class="form-group">
+												<div class="fail-notification" style="text-align:center;color:red;font-size:20px;"></div>
+											</div>
+											<div class="form-group">
+												<label for="minimumcreditscore" class="col-sm-2 control-label">Minimum Creditscore</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="minimumcreditscore" name="minimumcreditscore" placeholder="Input minimum creditscore">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="maximumcreditscore" class="col-sm-2 control-label">Maximum Creditscore</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="maximumcreditscore" name="maximumcreditscore" placeholder="Input maximum creditscore">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="cap" class="col-sm-2 control-label">Cap</label>
+												<div class="col-sm-8">
+													<input class="form-control" id="cap" name="cap" placeholder="Input cap">
+												</div>
+											</div>
+										</div>
+											<input type="hidden" name="product_id" id="amountcap_product_id" value="{{ productid }}"/>
+											<input type="hidden" name="loanamountcap_id" id="loanamountcap_id" value=""/>
+											<input type="hidden" name="amountcap_action" id="amountcap_action" value="create"/>
+											<div class="box-footer">
+											<button type="button" id="createupdateamountcaps" class="btn btn-info" style="margin-left:17%">Submit</button>
+											<button type="button" id="clearamountcap" class="btn btn-info" style="margin-left:1%">Clear</button>
+											</div>
+									</form>
+								</div>
+							</div>
+						</section>
+						
+						<section class="content">
+							<div class="box-wrapper">
+								<div class="box box-info">
+									<div class="box-header with-border">
+										<h3 class="box-title">Amountcap Lists</h3>
+									</div>
+									<div class="inner-cont-table">
+									<table class="table table-bordered" style="margin-top: 25px;margin-bottom: 25px;">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Product Name</th>
+												<th>Minimum Maximum Creditscore</th>
+												<th>Cap</th>
+												<th>Action</th>
+											<tr>
+										<thead>
+										<tbody>
+											{% for loanamountcap in loanamountcaps %}
+											<tr>
+												<td>{{loop.index}}</td>
+												<td>{{ productname }}</td>
+												<td>{{ loanamountcap.mincreditscore }} - {{ loanamountcap.maxcreditscore }}</td>
+												<td>$ {{ loanamountcap.cap }}</td>
+												<td><a href="javascript:void(0)" value="{{ loanamountcap.id }}" class="loanamountcap-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+									</div>
+								</div>
+							</div>
+						</section>
+					
+					</div>
+				</div>

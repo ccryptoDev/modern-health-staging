@@ -1,0 +1,73 @@
+{% extends "frontend/layout/layout.nunjucks" %}
+
+{% block body %}
+    <div class="container">
+	<div class="inner-content">
+		
+		<div class="row">
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+						{% include "frontend/layout/navigator.nunjucks" %}
+							<div class="content-tabs">
+								<h1> Financial Information</h1>
+								<form class="formclass" id="financedata" action="" method="post" data-validation="btnDisable" name="co_financedata">
+								<div class="block-content-box">									
+									<div class="row nomargin">
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txtBoxSec">
+											<div class="form-group">
+												<label>ANNUAL INCOME</label>
+												<input type="text" class="form-control" placeholder="Enter Annual Income" name="annualincome" required />
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txtBoxSec" >
+											<div class="form-group">
+												<label>BANK NAME</label>
+												<input type="text" name="bankname" id="bankname" class="form-control" onkeyup="searchbank(this.value);" placeholder="Enter Bank Name"/>
+												<div class="tt-menu" style="position: absolute;top: 47px;left: 15px;z-index: 100;max-height: 50px;max-height: 300px;overflow-y: scroll;display: none;"><div class="tt-dataset tt-dataset-bank"></div></div>
+												<input type="hidden" class="form-control"  id="bankid" name="bankid" >
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txtBoxSec">
+											<div class="form-group">
+												<label>BANK ACCOUNT NUMBER</label>
+												<input type="text" name="bankaccno" id="bankaccno" class="form-control" placeholder="Enter Bank Account Number" required/>
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txtBoxSec">
+											<div class="form-group">
+												<label>CONFIRM BANK ACCOUNT NUMBER</label>
+												<input type="text" name="cbankaccno" id="cbankaccno" class="form-control" placeholder="Enter Bank Account Number" required/>
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txtBoxSec">
+											<div class="form-group">
+												<label>BANK ROUTING INFORMATION</label>
+												<input type="text" name="routingno" id="routingno" class="form-control" placeholder="Enter Bank Routing Information" required/>
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txtBoxSec">
+											<div class="form-group">
+												<label>PRIMARY BANK ACCOUNT HOLDER</label>
+												<input type="text" name="accountholder" id="accountholder" class="form-control" placeholder="Enter Bank Account Holder" required/>
+												<i class="arrow-focus-img"></i>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+
+									</div>
+									<div class="btn-Main">
+										<a href="/userinformation"><button type="button" class="btn blueBtn4">Back</button></a>
+										<button type="submit" name="formsubmit" class="btn btn-default blueBtn">Submit</button>
+									</div>
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}

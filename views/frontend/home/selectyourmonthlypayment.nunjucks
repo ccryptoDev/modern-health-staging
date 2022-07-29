@@ -1,0 +1,225 @@
+{% extends "frontend/layout/layout.nunjucks" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="inner-content">
+		
+		<div class="row">
+			<div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+				{% include "frontend/layout/navigator.nunjucks" %}
+			</div>
+		</div>
+	</div>
+</div>				
+
+<div class="container-fluid">
+	<div class="">
+		
+		<div class="content-tabs">
+			<h1>Select Your Monthly Payment.</h1>
+			<div class="text-center mTB-2">
+				<img src="/images/img/toalitas{{LenderIcon3}}">
+			</div>
+			<div class="block-content-box boxSize-5 col-xs-12 col-md-3">
+				<div class="" id="backDetail_1">
+					<div class="float-right detailsMB-5">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailSec_1">DETAILS</button>
+					</div>
+					<div><h1 class=""><sup>$</sup>49<sub>.58/month</sub></h1></div>
+					<h5 class="text-center">48 month</h5>
+				<div class="btn-Main">
+					<button type="submit" name="" class="btn btn-default blueBtn">Select Offer</button>
+				</div>
+				</div>
+				
+				<div class="" id="showDetail_1" style="display: none;">
+					<div class="float-right">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailBack_1"><</button>
+					</div>
+					<div class="float-left mTB-2">
+						<img src="/images/img/{{LenderIcon4}}">
+						<span class="stlbluetxt">APPROVED</span>
+					</div>
+						<table>
+							<tr>
+								<td>
+									<p>FINANCING AMOUNT</p>
+									<p>$2,800</p>
+								</td>
+								<td>
+									<p>PAYMENT EST*</p>
+									<p>$99.16</p>
+								</td>
+								<td>
+									<p>APR*</p>
+									<p>17.99%</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>TERM LENGTH</p>
+									<p>48 months</p>
+								</td>
+								<td colspan="2">
+									<p>INTERST & FEES EST*</p>
+									<p>$1,960</p>
+								</td>
+							</tr>
+						</table>
+						<P class="mTB-3">Show rate disclosure and lender detauils </P>
+					
+				</div>
+			</div>
+			<div class="block-content-box boxSize-5 col-xs-12 col-md-3">
+				<div class="" id="backDetail_2">
+					<div class="float-right detailsMB-5">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailSec_2">DETAILS</button>
+					</div>
+					<div><h1 class=""><sup>$</sup>82<sub>.77/month</sub></h1></div>
+					<h5 class="text-center">24 month</h5>
+				<div class="btn-Main">
+					<button type="submit" name="" class="btn btn-default blueBtn">Select Offer</button>
+				</div>
+				</div>
+				<div class="" id="showDetail_2" style="display: none;">
+					<div class="float-right">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailBack_2"><</button>
+					</div>
+					<div class="float-left mTB-2">
+						<img src="/images/img/{{LenderIcon4}}">
+						<span class="stlbluetxt">APPROVED</span>
+					</div>
+						<table>
+							<tr>
+								<td>
+									<p>FINANCING AMOUNT</p>
+									<p>$2,800</p>
+								</td>
+								<td>
+									<p>PAYMENT EST*</p>
+									<p>$99.16</p>
+								</td>
+								<td>
+									<p>APR*</p>
+									<p>17.99%</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>TERM LENGTH</p>
+									<p>48 months</p>
+								</td>
+								<td colspan="2">
+									<p>INTERST & FEES EST*</p>
+									<p>$1,960</p>
+								</td>
+							</tr>
+						</table>
+						<P class="mTB-3">Show rate disclosure and lender detauils </P>
+				</div>
+			</div>
+			<div class="block-content-box boxSize-5 col-xs-12 col-md-3">
+				<div class="" id="backDetail_3">
+					<div class="float-right detailsMB-5">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailSec_3">DETAILS</button>
+					</div>
+					<div><h1 class=""><sup>$</sup>88<sub>.75/month</sub></h1></div>
+					<h5 class="text-center">12 month</h5>
+				<div class="btn-Main">
+					<button type="submit" name="" class="btn btn-default blueBtn">Select Offer</button>
+				</div>
+				</div>
+				<div class="" id="showDetail_3" style="display: none;">
+					<div class="float-right">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailBack_3"><</button>
+					</div>
+					<div class="float-left mTB-2">
+						<img src="/images/img/{{LenderIcon4}}">
+						<span class="stlbluetxt">APPROVED</span>
+					</div>
+						<table>
+							<tr>
+								<td>
+									<p>FINANCING AMOUNT</p>
+									<p>$2,800</p>
+								</td>
+								<td>
+									<p>PAYMENT EST*</p>
+									<p>$99.16</p>
+								</td>
+								<td>
+									<p>APR*</p>
+									<p>17.99%</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>TERM LENGTH</p>
+									<p>48 months</p>
+								</td>
+								<td colspan="2">
+									<p>INTERST & FEES EST*</p>
+									<p>$1,960</p>
+								</td>
+							</tr>
+						</table>
+						<P class="mTB-3">Show rate disclosure and lender detauils </P>
+				</div>
+			</div>
+			<div class="block-content-box boxSize-5 col-xs-12 col-md-3">
+				<div class="" id="backDetail_4">
+					<div class="float-right detailsMB-5">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailSec_4">DETAILS</button>
+					</div>
+					<div><h1 class=""><sup>$</sup>88<sub>.75/month</sub></h1></div>
+					<h5 class="text-center">12 month</h5>
+					<div class="btn-Main">
+						<button type="submit" name="" class="btn btn-default blueBtn">Select Offer</button>
+					</div>
+				</div>
+				<div class="" id="showDetail_4" style="display: none;">
+					<div class="float-right">
+						<button type="submit" class="btn btn-default lightBlueBtn2" id="detailBack_4"><</button>
+					</div>
+					<div class="float-left mTB-2">
+						<img src="/images/img/{{LenderIcon4}}">
+						<span class="stlbluetxt">APPROVED</span>
+					</div>
+						<table>
+							<tr>
+								<td>
+									<p>FINANCING AMOUNT</p>
+									<p>$2,800</p>
+								</td>
+								<td>
+									<p>PAYMENT EST*</p>
+									<p>$99.16</p>
+								</td>
+								<td>
+									<p>APR*</p>
+									<p>17.99%</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>TERM LENGTH</p>
+									<p>48 months</p>
+								</td>
+								<td colspan="2">
+									<p>INTERST & FEES EST*</p>
+									<p>$1,960</p>
+								</td>
+							</tr>
+						</table>
+						<P class="mTB-3">Show rate disclosure and lender detauils </P>
+				</div>
+			</div>
+		</div>
+				
+		<br/><br/>
+	</div>
+</div>	
+    
+{% endblock %}

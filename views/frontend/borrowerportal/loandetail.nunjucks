@@ -1,0 +1,93 @@
+<div class="table-responsive">
+<table class="table table-bordered"  style="font-size: 14px">
+	<thead>
+		<tr>
+			<th>Reference Number</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Financing Amount</th>
+			<th>Credit Score</th>
+			<th>Status</th>
+			<th>To do</th>
+		</tr>
+	</thead>
+	{% if(paymentmanagementdata) %}
+		<tr>
+			<td>{{paymentmanagementdata.loanReference}}</td>
+			<td>{{paymentmanagementdata.user.firstname}}</td>
+			<td>{{paymentmanagementdata.user.email}}</td>
+			<td> {% if paymentmanagementdata.payOffAmount %} $ {{paymentmanagementdata.payOffAmount}}{% else %}--{% endif %}</td>
+			<td>{% if creditscore %} {{creditscore}}{% else %}--{% endif %}</td>
+			<td>
+				{% if paymentmanagementdata.achstatus==1 %}
+				  {% if paymentmanagementdata.status =='PAID OFF' %}
+						 <a class="status-complete">PAID OFF</a>
+
+				  {% elseif paymentmanagementdata.status =='CLOSED' %}
+						 <a class="status-incomplete">CLOSED</a>
+
+				  {% else %}
+					{% if paymentmanagementdata.transferstatus==2 %}
+						 <a class="status-complete">FUNDED</a>
+					{% else %}
+						 <a class="status-process">IN PROGRESS</a>
+					{% endif %}
+				  {% endif %}
+				{% elseif paymentmanagementdata.achstatus==2 %}
+				   <a class="status-incomplete">DENIED</a>
+				{% elseif paymentmanagementdata.achstatus==4 %}
+				   <a class="status-incomplete">INCOMPLETE</a>
+				{% else %}
+				  {% if todocount==0 %}
+				   <a class="status-process">PENDING</a>
+				  {% else %}
+				   <a class="status-process">PENDING</a>
+				  {% endif %}
+				{% endif %}
+			</a></td>
+			<td>
+				<!-- onclick="opentodolist(5);" -->
+				<a href="javascript:void(0);" onclick="triggerTodoList('{{divContentId}}','{{appmenuName}}');" >
+					({{todocount}})
+				</a>
+			</td>
+
+		</tr>
+	{% elseif(screentrackingdetails) %}
+
+		{% for screentrackingdetails in screentrackingdetails %}
+			<tr>
+					{% if screentrackingdetails.user.isBankAdded==true %}
+					  <td>
+					  		{% if screentrackingdetails.isoffercompleted==1 %}
+					  			<a href="/userpromissorynote/{{user.id}}">{{screentrackingdetails.applicationReference}}</a>
+					  		{% else %}
+					  			<a href="/emailmyoffer/{{screentrackingdetails.id}}">{{screentrackingdetails.applicationReference}}</a>
+					  		{% endif %}
+					  </td>
+					{% else %}
+					  <td><a href="/addbankaccount/{{user.id}}">{{screentrackingdetails.applicationReference}}</a></td>
+					{% endif %}
+					<td>{{user.firstname}}</td>
+					<td>{{user.email}}</td>
+					{% if(screentrackingdetails.offerdata[0].financedAmount) %}
+					<td>$ {{screentrackingdetails.offerdata[0].financedAmount}}</td>
+					{% else %}
+					<td> <B>--</B></td>
+					{% endif %}
+					<td>{{creditscore}}</td>
+					<td><a class="status-incomplete">INCOMPLETE</a></td>
+					<td>
+						<a href="javascript:void(0);" onclick="triggerTodoList('{{divContentId}}','{{appmenuName}}');">
+						({{todocount}})
+						</a>
+					</td>
+				</tr>
+		{% endfor %}
+  {% else %}
+	<tr>
+		<td colspan="8" align="center" >No Loan Found</td>
+	</tr>
+{% endif %}
+</table>
+</div>

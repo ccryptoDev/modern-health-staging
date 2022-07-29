@@ -1,0 +1,58 @@
+<!doctype html>
+  <html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- Favicon -->
+	<link href="/images/img/favicon.ico" rel="shortcut icon">
+    <!-- meta View port tag -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <!-- Title -->
+    <title>{{LenderShortName}}</title>
+
+    <!-- Font awesome css -->
+    <link href="/styles/css/frontend/font-awesome.css" rel="stylesheet" type="text/css" />
+    <!-- General Font CSS -->
+    <link href="/styles/css/frontend/fonts.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap Css -->
+    <link href="/styles/css/frontend/bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- Common & Responsive CSS -->
+    <link href="/styles/css/frontend/common_practice2.css?ver=4" rel="stylesheet" type="text/css" />
+	<link href="/styles/css/frontend/style.css?ver=4" rel="stylesheet" type="text/css" />
+    <link href="/styles/css/frontend/responsive_practice.css?ver=4" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<h1>wsdfvowbhd</h1>
+    {% if req.path !='/' and req.path !='/home' %}
+     {% include "practice/layout/header.nunjucks" %}
+    {% endif %}
+
+	<!-- Body Section -->
+	<section id="content" class="">
+		<!--Content section -->
+		 <div class="content-wrapper">
+		    {% block body %}
+		    {% endblock %}
+		 </div>
+	  	<!--End of Content section -->
+	</section>
+	<!-- End of Body Section -->
+
+    {% include "practice/layout/footer.nunjucks" %}
+
+	 <div id="alertmsg" class="modal fade" role="dialog" >
+		<div class="modal-dialog modal-sm">
+		  <!-- Modal content-->
+		  <div class="modal-content" style="background-color:#243748">
+			<div class="modal-header bg-tcpa" style="border:0">
+			  <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+			  <h4 class="modal-title" style="color:#FFF;" >Message</h4>
+			</div>
+			<div class="modal-body bgColorWhite" id="alertmsgbody" style="color:#FFF; border:0" >
+			</div>
+
+		  </div>
+		</div>
+	  </div>
+
+</body>
+</html>

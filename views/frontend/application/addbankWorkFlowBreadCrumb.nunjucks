@@ -1,0 +1,121 @@
+<div class="workflow_breadcrumb">
+<ul class="flex-box-table-row">
+    <li class="select-item flex-box-item flex-box-table-row {% if req.options.addbankWorkflowStep == 1 %} active {% endif %}">
+        <div class="flex-box-item workflow-indicator">
+            <div class="complete-icon"><div class="icon-wrapper {% if req.options.addbankWorkflowStep > 1 %}workflow-completed{% endif %}"><i class="{% if req.options.addbankWorkflowStep > 1 %}fas fa-check-circle{% endif %}"></i></div></div>
+            <div class="workflow-display text">Log In</div>
+           <div class="workflow-display mobileTxt">1</div>
+        </div>
+        <div class="line flex-box-item"><span class="draw-line"></span></div>
+    </li>
+    <li class="select-item flex-box-item flex-box-table-row {% if req.options.addbankWorkflowStep == 3 %} active {% endif %}">
+        <div class="flex-box-item workflow-indicator">
+            <div class="complete-icon"><div class="icon-wrapper {% if req.options.addbankWorkflowStep > 3 %}workflow-completed{% endif %}"><i class="{% if req.options.addbankWorkflowStep > 3 %}fas fa-check-circle{% endif %}"></i></div></div>
+            <div class="workflow-display text">Bank Information</div>
+           <div class="workflow-display mobileTxt">3</div>
+        </div>
+        <div class="line flex-box-item"><span class="draw-line"></span></div>
+    </li>
+    <li class="select-item flex-box-item flex-box-table-row {% if req.options.addbankWorkflowStep == 5 %} active {% endif %}">
+        <div class="flex-box-item workflow-indicator">
+            <div class="complete-icon"><div class="icon-wrapper {% if req.options.addbankWorkflowStep > 5 %}workflow-completed{% endif %}"><i class="{% if req.options.addbankWorkflowStep > 5 %}fas fa-check-circle{% endif %}"></i></div></div>
+            <div class="workflow-display text">Agreements and Consents</div>
+           <div class="workflow-display mobileTxt">5</div>
+        </div>
+        <div class="line flex-box-item"><span class="draw-line"></span></div>
+    </li>
+    <li class="select-item flex-box-item flex-box-table-row {% if req.options.addbankWorkflowStep == 7 %} active {% endif %}">
+        <div class="flex-box-item workflow-indicator">
+            <div class="complete-icon"><div class="icon-wrapper {% if req.options.addbankWorkflowStep > 7 %}workflow-completed{% endif %}"><i class="{% if req.options.addbankWorkflowStep > 7 %}fas fa-check-circle{% endif %}"></i></div></div>
+            <div class="workflow-display text">Thank you</div>
+           <div class="workflow-display mobileTxt">7</div>
+        </div>
+        <div class="line flex-box-item"><span class="draw-line"></span></div>
+    </li>
+    <li class="select-item flex-box-item flex-box-table-row {% if req.options.addbankWorkflowStep == 8 %} active {% endif %}">
+        <div class="flex-box-item workflow-indicator">
+            <div class="complete-icon"><div class="icon-wrapper {% if req.options.addbankWorkflowStep > 8 %}workflow-completed{% endif %}"><i class="{% if req.options.addbankWorkflowStep > 8 %}fas fa-check-circle{% endif %}"></i></div></div>
+            <div class="workflow-display text">{% if applicationIncomplete %}Finish Application{% else %}Dashboard{% endif %}</div>
+           <div class="workflow-display mobileTxt">8</div>
+        </div>
+    </li>
+</ul>
+</div>
+
+<style>
+    .workflow_breadcrumb li {
+        margin: 0;
+    }
+    .workflow_breadcrumb *  {
+        color: #3F576C;
+    }
+    .workflow_breadcrumb{
+        margin: 120px auto 0 auto;
+    }
+    .mobileTxt {
+        display: none;
+    }
+    .workflow_breadcrumb .complete-icon {
+        padding: 0;
+        margin-bottom: 5px;
+    }
+    .workflow_breadcrumb .complete-icon i {
+        font-size: 10px;
+        border-radius: 15px;
+        display: inline-block;
+    }
+    .workflow_breadcrumb .complete-icon .icon-wrapper {
+        border: 1px solid #3F576C;
+        border-radius: 15px;
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+    }
+    .workflow_breadcrumb .select-item .complete-icon .icon-wrapper.workflow-completed{
+        border:0;
+        display: block;
+        width: unset;
+        height: unset;
+    }
+    .workflow_breadcrumb .select-item {
+    }
+    .workflow_breadcrumb .select-item:last-child {
+        flex: 0 0 83.7px;
+    }
+    .workflow_breadcrumb .select-item.active .complete-icon i {
+        background: #3F576C;
+        height: 10px;
+        width: 10px;
+        margin-top: 5px;
+    }
+    .workflow_breadcrumb .select-item:not(.active) .complete-icon i.fas {
+        font-size: 22px;
+    background-color: transparent;
+        color: #3F576C;
+    }
+    .workflow_breadcrumb .workflow-indicator{
+        align-items: center;
+        flex: 1 0 83.7px;
+    }
+    .workflow_breadcrumb .workflow-indicator:last-child {
+        flex: 0 0 83.7px;
+    }
+    .workflow_breadcrumb .flex-box-table-row, .workflow_breadcrumb .flex-box-table-col {
+        text-align: center;
+    }
+    .workflow_breadcrumb .line {
+        height: 22px;
+        display: flex;
+        align-items: center;
+        min-width: 22px;
+    }
+    .workflow_breadcrumb .line .draw-line {
+        display: inline-block;
+        border-top: 1px solid #3F576C;
+        width: 100%;
+    }
+    .workflow_breadcrumb .workflow-display {
+        min-width: 40px;
+    }
+
+</style>

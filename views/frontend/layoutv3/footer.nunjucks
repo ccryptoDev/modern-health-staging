@@ -1,0 +1,61 @@
+<footer id="footer" class="footerBg">
+	<div class="container">
+		<ul class="footerMenu">
+			{% if practice.poweredLogo %}
+				<li><a href="/apply"><img src="/images/logos/{{ practice.poweredLogo }}" class="img-res" /></a></li>
+			{% else %}
+				<li><a href="/apply"><img src="/images/imgv3/MHF_LogoDraft_2.png" class="img-res" /></a></li>
+			{% endif %}
+			<li><a href="/termsconditions"><span>Terms & Conditions</span></a></li>
+			<li><a href="/privacypolicy"><span>Privacy Policy</a></span></li>
+			<li><a href="/californiaconsumer"><span>California Consumer Privacy Act Notice</a></span></li>
+			<li><a href="/contactus"><span>Contact Us</a></span></li>
+			<li><a href="#"><span><i class="fab fa-twitter"></i></span></a>&nbsp;&nbsp;<a href="#"><span><i class="fab fa-instagram"></i></span></a></li>
+		</ul>
+	</div>
+</footer>
+
+<!-- End of Footer section -->
+<!-- Comment js Section-->
+<!-- <script src="/js/frontend/jquery.js" type="text/javascript"></script> -->
+
+<script src="/js/frontend/jquery.js"></script>
+<script src="/js/frontend/jquery-ui.js"></script>
+
+<!-- Bootstrap Js Section-->
+<script src="/js/frontend/bootstrap.js" type="text/javascript"></script>
+<!-- <script src="/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script> -->
+<script src="/plugins/inputmask/jquery.inputmask.bundle.min.js"></script>
+<script src="/js/js/jquery.validate.js"></script>
+<script src="/js/frontend/jquery.cookie.js"></script>
+<!--  <script src="/js/js/jquery.mask.js" type="text/javascript"></script> -->
+<script src="/js/js/jquery.maskMoney.js" type="text/javascript"></script>
+<script src="/js/js/loaderplaid.js" type="text/javascript"></script>
+<!-- <script src="/js/frontend/moment.js" type="text/javascript"></script> -->
+<script src="/js/frontend/allcommon.js?ver=4" type="text/javascript"></script>
+<script src="/js/frontend/custom.js" type="text/javascript"></script>
+<script src="/js/frontend/validation.js" type="text/javascript"></script>
+<script src="/js/js/validate.js" type="text/javascript"></script>
+<script src="/js/js/underscore-min.js"></script>
+<!-- <script src="/js/js/signaturepad.js" type="text/javascript"></script> -->
+
+<script>
+$('#privacyClose').on('click',function(event, data) {
+	//$('#privacynotice').hide();
+	var date = new Date();
+    date.setTime(date.getTime() + (30 * 60 * 1000));
+	$.cookie("privacynotice", "yes", {
+		expires: 365
+	});
+	$("#privacynotice").remove();
+});
+</script>
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112758211-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-112758211-1');
+</script>
+-->

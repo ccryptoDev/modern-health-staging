@@ -1,0 +1,30 @@
+{% extends "frontend/layoutv3/layout.nunjucks" %}
+{% block body %}
+<div id="providersuccess">
+<div class="container-fluid">
+	<div class="heading">
+		<div class="logoMiddle"><img src="images/imgv3/logo.png" class="img-reponsive" />
+		</div>
+		<h1 class="title">Refer your medical provider to enroll in {{LenderShortName}}.</h1>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+			<div class="whitebox applysearch-box">
+				<div class="v-center">
+					<div class="h-center">
+						<h4 class="greentext">Thank you!</h4>
+						<div id="success-tick">
+							<img src="images/imgv3/active-tick-icon.png" class="img-reponsive" />
+						</div>
+						<div class="mt2">We will contact you when your provider has been added.</div>
+						<div class="btnMain mt2">
+							<a href="/applysearch" class="btn btn-default borderBtn">Back to provider Search</a>
+ 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}

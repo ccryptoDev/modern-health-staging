@@ -1,0 +1,33 @@
+{% extends "emailTemplates/emaillayout.nunjucks" %}
+{% block body %}
+	<div class="emailBodyOuterDiv" style="color: #60666d; font-size: 16px; text-align: center;">
+        <h2>Hello {{ user.firstname | capitalize }}!</h2>
+        <h2>Are you trying to finish your Incomplete Application for {{practicedetail.PracticeName}}?</h2>
+
+        <h2>Simply follow these <u>3 Easy Steps!</u></h2>
+        <ol style="text-align: left;">
+        <li><a href="{{ hostName }}/login">Click Here</a> to login or go to {{ hostName }}/login</li>
+        <li>Enter the Email Address & Password you created with your application. Click the green Login button to continue!</li>
+        <li>Finally, you’re almost done: You will instantly be taken through any incomplete steps needed to finalize your financing application.</li>
+        </ol>
+
+        <p style="text-align: center;"></p>
+
+        <div class="emailBodyMessage">
+            Simply follow the instructions on the screen as shown!<br><br>
+            <a href="{{ hostName }}/login"><button class="btn-application">Continue Application</button></a>
+        </div>
+        <br />
+        <br />
+
+        <p><strong><u>*Important Tips*:</u></strong></p>
+        <ul style="text-align: left;">
+        <li>Make sure you have finished the secure Bank Verification, Selected an Offer & digitally signed your Financing Contract.</li>
+        <li>When you’re all finished, a confirmation page displaying “Thank You” will appear! (That’s it!)</li>
+        </ul>
+
+        <p>Your financing is ready & waiting. To start a {{practicedetail.PracticeName}} medical eligibility form click on this link - <a href="{{practicedetail.LinkForm}}">{{practicedetail.LinkForm}}</a></p>
+
+        <p>We are happy to answer any financing-related questions quickly by <a href="{{practicedetail.PracticeEmail}}">email</a>!</p>
+    </div>
+{% endblock %}

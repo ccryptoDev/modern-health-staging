@@ -1,0 +1,50 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="padding: 10px 20px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4>Import Applications</h4>
+			</div>
+			<div class="panel-body">
+				<form id="fileuploadform" enctype="multipart/form-data" method="POST" class="form-horizontal" >
+					<div class="form-group">
+						<label for="fileupload" class="control-label col-md-1">Import CSV</label>
+						<div class="col-md-4">
+							<input type="file" id="fileupload" name="fileupload" accept=".csv,text/csv" class="form-control" />
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Import</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$( function() {
+	$( "#fileuploadform" ).on( "submit", function( event ) {
+		event.preventDefault ? event.preventDefault() : ( event.returnValue = false );
+		$( ".loading-spinner" ).show();
+		$.ajax( {
+			url: "/admin/import/applications",
+			method: "POST",
+			data: new FormData( $( "#fileuploadform" )[ 0 ] ),
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function( data ) {
+				console.log( "data:", data );
+			},
+			complete: function() {
+				$( ".loading-spinner" ).hide();
+			}
+		} );
+	} );
+} );
+</script>
+{% endblock %}

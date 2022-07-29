@@ -1,0 +1,284 @@
+{% extends "layout/layout.nunjucks" %}
+{% block body %}
+<section class="content-header">
+    <h1>Create New Practice</h1>
+    <ol class="breadcrumb">
+		<li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li><a href="/admin/managepractice"><i class="fa fa fa-building"></i>Practice List</a></li>
+		<li class="active">Add Practice</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+		<div class="box-header with-border">
+			<h3 class="box-title">Practice Form</h3>
+			<span class="pull-right"><a href="/admin/managepractice"> <button type="button" class="btn btn-primary">Back</button> </a></span>
+		</div>
+      	<div class="box-body">
+			{% if (error)  %}
+				<div class="alert alert-danger">
+					{{error}}
+				</div>
+				<br>
+			{% endif %}
+	 		<div id="practicemsg"></div>
+	  		<form id="addPractice" role="form" method="POST" name="addSchool" action="/admin/addnewpractice">
+			  	<input type="hidden" name="siteUrl" id="siteUrl" value="{{ siteUrl }}">
+        		<table class="table table-bordered">
+          		<tbody>
+		      		<tr>
+            			<th colspan="2"><h3>Practice Information</h3></th>
+          			</tr>
+					<tr>
+						<th>Contact Name</th>
+						<td><input type="text" class="form-control" id="ContactNames" name="ContactName" value="{{req.form.ContactName}}" style="width:50%;" required autocomplete="off"></td>
+					</tr>
+		      		<tr>
+						<th>Email Address</th>
+						<td><input type="email" class="form-control" id="PracticeEmail" name="PracticeEmail" value="{{req.form.PracticeEmail}}" style="width:50%;" required autocomplete="off"></td>
+					</tr>
+		     		<tr>
+						<th>Practice Name</th>
+						<td><input type="text" class="form-control" id="PracticeName" name="PracticeName"
+						{% if providername!='' %}
+						value="{{providername}}"
+						{% else %}
+						value="{{req.form.PracticeName}}"
+						{% endif %}
+						value="{{req.form.PracticeName}}" style="width:50%;" required  autocomplete="off"></td>
+					</tr>
+		      		<tr>
+            			<th>Practice Url</th>
+			       		<td>
+      				 		<div class="input-group">
+								<span class="input-group-addon" id="basic-addon3">{{siteUrl}}</span>
+								<input type="text" class="form-control" aria-describedby="basic-addon3" name="PracticeUrl" id="practiceUrl" style="width:37%;">
+							</div>
+          	 			</td>
+			    	</tr>
+					<tr>
+						<th>Practice Home Url</th>
+						<td><input type="text" class="form-control" id="PracticeHome" name="PracticeHome" value="{{req.form.PracticeHome}}" style="width:50%;" autocomplete="off"></td>
+					</tr>
+					<tr>
+						<th>Practice Link to Form</th>
+						<td><input type="text" class="form-control" id="LinkForm" name="LinkForm" value="{{req.form.LinkForm}}" style="width:50%;" autocomplete="off"></td>
+					</tr>
+					<tr>
+						<th>Location Name</th>
+						<td><input type="text" class="form-control" id="LocationName" name="LocationName" value="{{req.form.LocationName}}" style="width:50%;" required  autocomplete="off"></td>
+					</tr>
+					<tr>
+						<th>Street Address</th>
+						<td><input type="text" class="form-control" id="StreetAddress" name="StreetAddress" value="{{req.form.StreetAddress}}" style="width:50%;" required autocomplete="off"></td>
+					</tr>
+					<tr>
+						<th>City</th>
+						<td><input type="text" class="form-control" id="City" name="City"
+						{% if City!='' %}
+						value="{{City}}"
+						{% else %}
+						value="{{req.form.City}}"
+						{% endif %}
+						style="width:50%;" required autocomplete="off"></td>
+					</tr>
+					<tr>
+						<th>State Code</th>
+						<td>
+								<select name="StateCode" id="StateCode" class="form-control selectBox" required="" style="width:50%;">
+									<option value="">State</option>
+									{% for stateDetails in stateData %}
+									<option value="{{stateDetails.stateCode}}" {% if StateCode==stateDetails.stateCode %} selected {% endif %}>{{stateDetails.stateName}}</option>
+									{% endfor %}
+								</select>
+
+							</td>
+					</tr>
+					<tr>
+						<th>Zip Code</th>
+						<td><input type="text" class="form-control" id="ZipCode" name="ZipCode" value="{{req.form.ZipCode}}" style="width:50%;" required autocomplete="off"></td>
+					</tr>
+					<tr>
+						<th>Phone Number</th>
+						<td><input type="text" class="form-control" id="PhoneNo" name="PhoneNo" value="{{req.form.PhoneNo}}" style="width:50%;" required autocomplete="off"></td>
+					</tr>
+					
+					<tr>
+            			<th>Practice Rules</th>
+						<td>
+							<select name="PracticeSettings" id="PracticeSettings" class="form-control selectBox" required="" style="width:50%;">
+								<option value="">Settings</option>
+								{% for settings in practiceSettings %}
+								<option value="{{settings.id}}" {% if settings.isDefault == true %} selected {% endif %}>{{settings.SettingName}}</option>
+								{% endfor %}
+							</select>
+						</td>
+          			</tr>
+
+					{# {% if req.user.rolename =='Admin' %}
+						<tr>
+							<th>Select month terms</th>
+							<td>
+								<table class="table">
+								<tbody>
+									{% for termData in interestTermsArr %}
+										<tr>
+											<td style="width:5%">
+												<div class="checkbox">
+													<label>
+														<input type="checkbox"
+														{% if termData.loanactivestatus == 1 %} checked {% endif %} name="loanTerm[]" value="{{ termData }}">{{ termData }}</label>
+													</label>
+												</div>
+											</td>
+											<td>
+												<div class="form-group row">
+													<div class="col-xs-2">
+													<input type="text" class="form-control input-sm col-xs-2 loanTermAmt" id="loanTermAmt_{{termData}}" name="loanTermAmt[]" value="0" required autocomplete="off">
+													</div>
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+								</table>
+							</td>
+						</tr>
+					{% endif %}
+					<tr>
+						<th colspan="2">
+							<h3>Transunion Information</h3>
+						</th>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<h4>Credit Report Codes</h4>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered" style="font-weight:normal;">
+								<tr>
+									<th><span>Industry Code</span></th>
+									<td>
+										<small>Ex: M</small>
+										<input type="text" class="form-control" id="industryCode" name="industryCode" value="{{req.form.industryCode}}" style="width:90%;" required autocomplete="off" />
+									</td>
+									<th>Member Code</th>
+									<td>
+										<small>Ex: 01234567 (always inculde zero at beginning)</small>
+										<input type="text" class="form-control" id="memberCode" name="memberCode" value="{{req.form.memberCode}}" style="width:90%;" required autocomplete="off" />
+									</td>
+								</tr>
+								<tr>
+									<th>Prefix Code</th>
+									<td>
+										<small>Ex: 1234</small>
+										<input type="text" class="form-control" id="prefixCode" name="prefixCode" value="{{req.form.prefixCode}}" style="width:90%;" required autocomplete="off" />
+									</td>
+									<th>Password</th>
+									<td>
+										<span>&nbsp;</span>
+										<input type="password" class="form-control" id="apiPassword" name="apiPassword" value="{{req.form.apiPassword}}" style="width:92%;" required autocomplete="off">
+										<span toggle="#apiPassword" class="fa fa-fw fa-eye field-icon toggle-password" onclick="maskInputvalue(this)"></span>
+									</td>
+								</tr>
+							</table>
+							<hr />
+							<h4>Prescreen Codes</h4>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered" style="font-weight:normal;">
+								<tr>
+									<th><span>Industry Code</span></th>
+									<td>
+										<small>Ex: M</small>
+										<input type="text" class="form-control" id="prescreen_industryCode" name="prescreen[industryCode]" value="{{req.form.industryCode}}" style="width:90%;" required autocomplete="off" />
+									</td>
+									<th>Member Code</th>
+									<td>
+										<small>Ex: 01234567 (always inculde zero at beginning)</small>
+										<input type="text" class="form-control" id="prescreen_memberCode" name="prescreen[memberCode]" value="{{req.form.memberCode}}" style="width:90%;" required autocomplete="off" />
+									</td>
+								</tr>
+								<tr>
+									<th>Prefix Code</th>
+									<td>
+										<small>Ex: 1234</small>
+										<input type="text" class="form-control" id="prescreen_prefixCode" name="prescreen[prefixCode]" value="{{req.form.prefixCode}}" style="width:90%;" required autocomplete="off" />
+									</td>
+									<th>Password</th>
+									<td>
+										<span>&nbsp;</span>
+										<input type="password" class="form-control" id="prescreen_password" name="prescreen[password]" value="{{req.form.apiPassword}}" style="width:92%;" required autocomplete="off">
+										<span toggle="#prescreen_password" class="fa fa-fw fa-eye field-icon toggle-password" onclick="maskInputvalue(this)"></span>
+									</td>
+								</tr>
+							</table>
+						</th>
+					</tr>
+					<tr>
+						<th colspan="2"><h3>Practice Funding Receipts - Banking Information</h3></th>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered" style="font-weight:normal;">
+								<tr>
+								<th>Bank Name</th>
+								<td><input type="text" class="form-control" id="Bankname" name="Bankname" value="{{req.form.Bankname}}" style="width:90%;" required autocomplete="off"></td>
+								<th>Primary Bank Account Holder</th>
+								<td><input type="text" class="form-control" id="Accountholder" name="Accountholder" value="{{req.form.Accountholder}}" style="width:90%;" required autocomplete="off"></td>
+								</tr>
+								<tr>
+								<th>Account Number</th>
+								<td><input type="password" class="form-control" id="Accountnumber" name="Accountnumber" value="{{req.form.Accountnumber}}" style="width:90%;" required autocomplete="off"><span toggle="#Accountnumber" class="fa fa-fw fa-eye field-icon toggle-password" onclick="maskInputvalue(this)"></span></td>
+								<th>Verify Account Number</th>
+								<td><input type="password" class="form-control" id="Verifyaccountnumber" name="Verifyaccountnumber" value="{{req.form.Verifyaccountnumber}}" style="width:90%;" required autocomplete="off"><span toggle="#Verifyaccountnumber" class="fa fa-fw fa-eye field-icon toggle-password" onclick="maskInputvalue(this)"></span></td>
+								</tr>
+								<tr>
+								<th>Routing Number</th>
+								<td><input type="password" class="form-control" id="Routingnumber" name="Routingnumber" value="{{req.form.Routingnumber}}" style="width:90%;" required autocomplete="off"><span toggle="#Routingnumber" class="fa fa-fw fa-eye field-icon toggle-password" onclick="maskInputvalue(this)"></span></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								</tr>
+							</table>
+						</th>
+					</tr>
+					<tr>
+						<th colspan="2"><h3>{{LenderShortName}} Service Payment - Credit Card Information</h3></th>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered" style="font-weight:normal;">
+								<tr>
+									<th>Cardholder Name</th>
+									<td><input type="text" class="form-control" id="Cardholdername" name="Cardholdername" value="{{req.form.Cardholdername}}" style="width:90%;" required autocomplete="off"></td>
+									<th>Credit Card Number </th>
+									<td><input type="password" class="form-control" id="CreditCardNumber" name="CreditCardNumber" value="{{req.form.CreditCardNumber}}" style="width:90%;" required autocomplete="off" maxlength="16"><span toggle="#CreditCardNumber" class="fa fa-fw fa-eye field-icon toggle-password" onclick="maskInputvalue(this)"></span></td>
+								</tr>
+								<tr>
+									<th>Card Expiry Date</th>
+									<td><input type="text" class="form-control date-range-filter"   id="CardExpiryDate" name="CardExpiryDate" value="{{req.form.CardExpiryDate}}" style="width:90%;" required autocomplete="off"></td>
+									<th>Cvv Code</th>
+									<td><input type="password" class="form-control" id="CvvCode" name="CvvCode" value="{{req.form.CvvCode}}" style="width:90%;" required autocomplete="off" maxlength="4"><span toggle="#CvvCode" class="fa fa-fw fa-eye field-icon toggle-password" onclick="maskInputvalue(this)"></span></td>
+								</tr>
+								</table>
+							</th>
+					</tr> #}
+
+					<tr>
+						<th>&nbsp;</th>
+						<td>
+							<button type="submit" class="btn btn-primary" id="addnewpractice" name="submit1" id="submit1">Submit</button>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+  	/* Number divider and prefix dollar symbol starts here */
+    jQuery(function($){
+        $(".money").maskMoney({prefix:'$ ',precision:0});
+    });
+    /* Number divider and prefix dollar symbol ends here */
+</script>
+{% endblock %}

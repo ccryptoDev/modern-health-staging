@@ -1,0 +1,192 @@
+/* Media Quiries */
+@media only screen and (max-width:1920px) and (min-width: 992px){
+	.landing-content-box{width: 104%;}
+}
+@media only screen and (max-width:1920px){
+
+}
+@media only screen and (max-width:1680px){	
+
+}
+@media only screen and (max-width:1440px){
+
+}
+@media only screen and (max-width:1366px){
+
+}
+@media only screen and (max-width:1280px){
+
+}
+@media only screen and (max-width : 1200px) {
+
+}
+@media only screen and (max-width:1080px){ 
+.head-wrapper .container-fluid{padding:0 15px;}
+
+}
+@media only screen and (max-width:1024px){
+
+}
+@media only screen and (max-width : 992px) {
+
+}
+@media only screen and (max-width : 991px) {
+.content-wrapper .container{width:100%;}
+.navbar-default > .nav > li{display:inline-block;}
+.navbar-nav{text-align:center;}
+.navbrand {text-align:center;display:inline-table;}
+.navbrand .navbar-brand{float:none;display:inline-table;padding:20px 10px 10px;vertical-align:middle;}
+.navbrand .appid{float:none;display:inline-table;vertical-align:middle;}
+}
+@media only screen and (max-width : 980px) {
+	
+}
+@media only screen and (max-width : 960px) {
+
+}
+@media only screen and (max-width : 950px) {
+
+}
+@media only screen and (max-width:900px){
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:60px;}
+}
+@media only screen and (max-width:800px){
+/*.list-of-tabs > ul > li{padding:0 10%;}
+.list-of-tabs > ul > li > i.line:after{width:150px;}
+.list-of-tabs > ul > li:nth-child(3) > i.line:after{width:140px;}
+.list-of-tabs > ul > li:first-child > i.line:after{width:140px;}
+.list-of-tabs > ul > li.completed > span:before{left:2px;top:1px;}*/
+
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:55px;}
+.list-of-tabs > ul > li.completed > span:before{left:2px;top:1px;}
+}
+@media only screen and (max-width:773px){
+	.procesBtn{text-align: center;}
+	.landing-content-box{width: 94%;}
+	.modal-dialog{width: 94%}
+	.modal-content .close{opacity: 1; color: rgb(221, 221, 221); margin: 1%;}
+}
+@media only screen and (max-width:768px){	
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:50px;}
+.boxSize-5 .blueBtn {    padding: 8px 40px !important;}
+.landingpage .center-block { width: 35%;}
+.addCircleBtn{margin: 120px auto;} 
+}
+@media only screen and (max-width : 767px) {
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:60px;}
+}
+@media only screen and (max-width:736px){
+}
+@media only screen and (max-width:731px){
+
+}
+@media only screen and (max-width:667px){
+
+/*.navbar-default > .nav > li{margin:0 2px 15px;}
+.navbar-default > .nav > li > a{padding:0px 10px;}*/
+.boxSize-5{width: 100%;margin: 5% 0;}
+.boxSize-5 .blueBtn{padding: 8 40px;}
+.navbar-default > .nav > li{margin:0 5px 15px;}
+.navbar-default > .nav > li > a{padding:0px 10px;}
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:54px;}
+}
+@media only screen and (max-width:640px){
+
+}
+@media only screen and (max-width:600px){
+/*.list-of-tabs > ul > li{padding:0 8%;}
+.list-of-tabs > ul > li > i.line:after{width:110px;}
+.list-of-tabs > ul > li:nth-child(3) > i.line:after{width:100px;}
+.list-of-tabs > ul > li:first-child > i.line:after{width:100px;}*/
+
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:45px;width:55%;}
+.list-of-tabs > ul > li{width:11%;}
+.list-of-tabs > ul > li > a.TapMenuDesktop{display:none;}
+.list-of-tabs > ul > li > a.TapMenuMobile{display:block;}
+}
+@media only screen and (max-width:568px){
+
+}
+@media only screen and (max-width:540px){
+
+}
+@media only screen and (max-width:480px){
+/*.list-of-tabs > ul > li{padding:0 6%;}
+.list-of-tabs > ul > li > i.line:after{width:80px;}
+.list-of-tabs > ul > li:nth-child(3) > i.line:after{width:70px;}
+.list-of-tabs > ul > li:first-child > i.line:after{width:70px;}*/
+.content-tabs h1{font-size:24px;}
+.landingpage h1{font-size:24px;}
+.landingpage .center-block { width: auto;}
+.userloginform{margin: 15% 0; padding: 4%;}
+.user-token{margin-left: 55%;}
+.modal-dialog{width: 94%}
+.modal-content .close{opacity: 1; color: rgb(221, 221, 221); margin: 3%;}
+.checkbox label span{display: initial;}
+.checkbox a i { margin-left: 0;}
+.block-content-consent{padding-bottom: 7%;}
+.consent-ul{padding-bottom: 7%;}
+.secoundform{height: 243px;}
+.plaid-img{height: 241px;}
+.addCircleBtn{width:60px; height:60px; margin: 160px auto;} 
+.addCircleBtn span{font-size: 10px;}
+#ui-datepicker-div{width: 390px;}
+
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{width:40%;left:35px;}
+}
+@media only screen and (max-width:435px){
+
+}
+@media only screen and (max-width:414px){
+#ui-datepicker-div{width: 335px;}
+}
+@media only screen and (max-width:411px){
+/* new Update Tabs */
+.list-of-tabs > ul > li > a{font-size:10px;}
+}
+@media only screen and (max-width:384px){
+/*.list-of-tabs > ul > li{padding:0 5%;}
+.list-of-tabs > ul > li > i.line:after{width:60px;}
+.list-of-tabs > ul > li:nth-child(3) > i.line:after{width:50px;}
+.list-of-tabs > ul > li:first-child > i.line:after{width:50px;}*/
+
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:33px;width:35%;}
+}
+@media only screen and (max-width:375px){
+.secoundform{height: 213px;}
+.plaid-img { height: 210px;}
+.addCircleBtn { width:55px; height:55px; margin : 210px auto;}
+#ui-datepicker-div{width: 290px;}
+#ElectronicFundsConditions-error{margin-left: 0}
+#applicationoffer .box{width: 80%;}
+}
+@media only screen and (max-width:360px){
+.secoundform{height: 203px;}
+.plaid-img { height: 200px;}
+.appid p{padding:10px 0 10px;}
+#ui-datepicker-div{width: 280px;}
+}
+@media only screen and (max-width:320px){
+.secoundform{height: 174px;}
+.secoundform .blueBtn2 {font-size: 10px;}
+.plaid-img {height: 171px;}
+.addCircleBtn{ margin: 230px auto;}
+.addCircleBtn span{font-size: 8px;}
+/*.list-of-tabs > ul > li{padding:0 3%;}
+.list-of-tabs > ul > li > i.line:after{width:40px;}
+.list-of-tabs > ul > li:nth-child(3) > i.line:after{width:30px;}
+.list-of-tabs > ul > li:first-child > i.line:after{width:30px;}*/
+
+#ui-datepicker-div{width: 240px;}
+
+/* new Update Tabs */
+.list-of-tabs > ul > li > i.line:after{left:30px;width:20%;}
+}

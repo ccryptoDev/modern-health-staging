@@ -1,0 +1,25 @@
+
+<div class="container-fluid">
+  <p><strong>Linked Practice Staff/Doctor</strong></p>
+  <table class="table table-striped table-bordered  dataTable" id="linkstaff_table">
+    <thead>
+      <tr>
+       <th>Name</th>
+       <th>Email</th>
+       <th>Role</th>
+       </tr>
+    </thead>
+    <tbody>
+      {% for linkedpractice in linkedpractices %}
+      <tr>
+        <td>{{linkedpractice.firstname}} {{linkedpractice.lastname}}</td>
+        <td>{{linkedpractice.email}}</td>
+        <td>{{linkedpractice.type}}</td>
+       </tr>
+
+      {% else %}
+
+      {% endfor %}
+    </tbody>
+    </table>
+</div>

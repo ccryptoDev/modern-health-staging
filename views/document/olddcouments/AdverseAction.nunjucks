@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <head>
+    <style>
+      body {
+        background-color: white;
+        font-family:"Neo Sans fonts", Verdana, sans-serif ;
+      }
+
+      h1 {
+        color: black;
+      }
+
+      p {
+         color: black;
+      }
+    </style>
+  </head>
+  <h1> Notice of Action Taken and Statement of Reasons </h1>
+  <p1>Name:{{obj.name}}</p1>
+  <br>
+  <p1>Address:{{obj.address}}</p1>
+  <br>
+  <p1>Dear {{obj.name}},
+  </p1>
+  <br>
+  <p1>
+Thank you for applying for a financing through Kuber Financial. We are unable to accept your financing request for the following reason(s):</p1>
+<br>
+<ul>
+  <li>{{obj.message}}</li>
+</ul>
+<br>
+<p1>
+  Key factors that adversely affected your credit score:
+</p1>
+<br>
+<p1>
+The consumer reporting agency contacted, which provided information that influenced our decision in whole or in part, was:</p1>
+<br>
+<p1>
+Name:
+{{BureauLongName}}
+</p1>
+<br>
+<p1>
+Address:
+{{BureauMailingAddress}}
+</p1>
+<br>
+<p1>
+Telephone number:
+{{BureauPhone}}
+</p1>
+<br>
+<p1>
+Web Address:
+{{BureauWebAddress}}
+</p1>
+<br>
+<p1>
+  We also obtained your score from this consumer-reporting agency and used it in making our credit decision. Your credit score is a number that reflects the information in your credit report. Your credit score can change, depending on how the information in your credit report changes.</p1>
+  <br>
+<p1>
+Your Credit Score:
+Xxx
+</p1>
+<br>
+<p1>
+Date:
+xx/xx/xxxx xx:xx:xx AM/PM
+<p1>
+<br>
+<p1>
+Scores range from a low of 300 to a high of 850
+</p1>
+<br>
+<br>
+<p1>
+  The reporting agency played no part in our decision and is unable to supply specific reasons why we have denied credit to you. You have a right under the Fair Credit Reporting Act to know the information contained in your credit file at the consumer reporting agency. You also have a right to a free copy of your report from the reporting agency if you request it no later than 60 days after you receive this notice. In addition, if you find that any information contained in a report you receive is inaccurate or incomplete, you have the right to dispute the matter with the reporting agency. Any questions regarding such information should be directed to {{BureauShortName}}.</p1>
+  <br>
+  <p>
+    {%set href='/api/v1/agreementDetail/KuberPrivacyNotice/0001'%}
+    If you have further questions regarding this notice, please click here for more details.
+
+    <a href={{getBaseUrl + href}} >FAQs</a></p>
+    <br>
+    <p1>
+  Kuber Financial, LLC, dba Fluid
+</p1>
+  <br>
+  <p1>
+200 Spectrum Center Drive, Suite 400
+</p1>
+<br>
+<p1>
+Irvine, CA 92618
+</p1>
+<br>
+<p1>
+Toll Free: 1-888-4-FluidFi
+</p1>
+<br>
+
+<h3>NOTICE:</h3>
+<p1>The Federal Equal Credit Opportunity Act prohibits creditors from discriminating against credit applicants on the basis of race, color, religion, national origin, sex, marital status, age (provided the applicant has the capacity to enter into a binding contract); because all or part of the applicant€™s income derives from any public assistance program; or because the applicant has in good faith exercised any right under the Consumer Credit Protection Act. The Federal agency that administers compliance with this law concerning this creditor is: FDIC Consumer Response Center, 1100 Walnut Street, Box #11, Kansas City, MO 64106</p1>
+<br>
+
+</body>
+
+</html>

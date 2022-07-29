@@ -1,0 +1,531 @@
+{% extends "frontend/layout/portallayout.nunjucks" %}
+
+{% block body %}
+
+ <section class="content">
+    <h1 class="text-center">  Account information  </h1>
+    <div class="box text-center">
+	          <div class="col-xs-offset-1 col-xs-11">
+              {% if errorval  %}
+                  <div class="alert alert-danger">
+                      {{errorval}}
+                  </div>
+              {% endif %}
+              {% if status==400  %}
+                  <div class="alert alert-danger">
+                      {{message}}
+                  </div>
+              {% endif %}
+					  </div>
+					<div class="tab-content">
+						<h4>Congratulations, you've been pre-approved for up to $30,000! Please login to your bank account to see your offer.</h4>
+		            </div>
+
+                    <div class="row" id="loaderid" style="padding-top:20px; padding-bottom:20px; display:none;">
+                      <div class="col-lg-12" align="center" style="text-align:center;">
+                        <pre id="plaidresponse"><img src="/images/img/ajaxloader.gif"></pre>
+                      </div>
+                    </div>
+
+                    {% if userBankAccount.length > 0 %}
+                    <form name="emailchangebank1" id="payrollAmount" method="post" action="/emailselectedAccount" data-validation="btnDisable">
+                    	<input type="hidden" value="0" id="temploanamount">
+                    	<input type="hidden" value="0" id="popupsubmit">
+                    	<input type="hidden" id="minloanamount" value="{{minloanamount}}">
+                        <div class="payrollSec" >
+                            <h2 class="text-left" style="padding-left:50px;"> &nbsp;Payroll</h2>
+
+                            <div class="emptyPaypoll" >
+
+                                {% if payRollArray.length>0 %}
+                                    <table class="dashboard-table table text-center"  style="font-size: 14px">
+                                        <tr class="accountlisthead">
+                                           <th>Date</th>
+                                           <th>Account</th>
+                                           <th>Description</th>
+                                           <th>Amount</th>
+                                        </tr>
+                                        {% for payRoll in  payRollArray %}
+                                        <tr class="listtxt">
+                                           <td>{{payRoll.date}}</td>
+                                           <td>{{payRoll.category}}</td>
+                                           <td>{{payRoll.name}}</td>
+                                           <td>${{payRoll.amount}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+
+                                    <div class="row">
+
+                                       <div class="col-md-6 col-sm-6 col-xs-12 padding">
+                                            <label>
+                                                <b>Financed Amount : &nbsp;&nbsp;</b>
+                                                <input type="text" class="formcontrol" value="0" name="loan_amount" id="loan_amount" style="outline: none;">
+                                                <span style="display:none; color:#FF0000; font-weight: 400; float: left;" id="user_loanamountpayroll_error" required>Enter financed amount</span>
+                                            </label>
+                                        </div>
+
+                                       <div class="checkbox text-right col-md-6 col-sm-6 col-xs-12" style="padding-left:15px;">
+    										<input type="hidden" value="yes" id="payroll_exist">
+    					                     <label><b>Annual income : &nbsp;&nbsp;</b>
+    					                     <input type="text"  value="{{totalpayroll}}" name="user_income" id="user_income" class="formcontrol" style="outline: none;" required> <br><span style="display:none;color:#FF0000;float: left;" id="user_income_error">Enter annual income</span>OR <a  onClick="serviceopenlinkaccount();" style="border-radius:25px; border:none; padding:5px 30px; font-size:18px; cursor:pointer;"><span>+ Add Bank</span>	</a></p></label>
+    									</div>
+
+                                    </div>
+                                {% else %}
+                                    <h5>Hello {{user.firstname}} {{user.lastname}},</h5>
+                                     <table class="dashboard-table table text-center"  style="font-size: 14px">
+                                        <tr class="accountlisthead">
+                                           <th>Date</th>
+                                           <th>Account</th>
+                                           <th>Description</th>
+                                           <th>Amount</th>
+                                        </tr>
+                                        <tr class="listtxt">
+                                           <td colspan="4">We could not find any direct deposit associated to this account.</td>
+                                        </tr>
+                                    </table>
+                                    <div class="row">
+
+                                       <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <label>
+                                                <b>ANTICIPATED AMOUNT : &nbsp;&nbsp;</b>
+                                                <input type="text" class="formcontrol" value="0" name="loan_amount" id="loan_amount" style="outline: none;" >
+                                                <span style="display:none; color:#FF0000;" id="user_loanamountpayroll_error">Enter Anticipated amount</span>
+                                            </label>
+                                        </div>
+
+                                       <div class="checkbox col-md-6 col-sm-12 col-xs-12 incomeLable2">
+                                            <input type="hidden" value="yes" id="payroll_exist">
+                                             <label><b>Annual income : &nbsp;&nbsp;</b> <input type="text"  value="{{totalpayroll}}" name="user_income" id="user_income" class="formcontrol" style="outline: none;"> <br><span style="display:none;color:#FF0000;" id="user_income_error">Enter annual income</span>OR <a  onClick="serviceopenlinkaccount();" style="border-radius:25px; border:none; padding:5px 30px; font-size:18px; cursor:pointer;"><span>+ Add Bank</span>   </a></p></label>
+                                        </div>
+
+                                    </div>
+                                    <!-- <div class="checkbox" style="margin-bottom: -25px;">
+                                        <p><b style=" width:100%; float:left;">Please Enter Your Income</b><br> <input type="hidden" value="no" id="payroll_exist"><input type="text" class="money formcontrol" value="" name="user_income" id="user_income" > <span style="display:none;color:#FF0000;" id="user_income_error">Enter income</span></p> <span style="padding-left:15px";></span> OR <a  onClick="serviceopenlinkaccount();" style="border-radius:25px; border:none; padding:5px 30px; font-size:18px; cursor:pointer;"> <span>+ Add Bank</span>  </a></p>
+                                    </div> -->
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="bankDetails" style="margin-top:10px;">
+							<div class="table-reponsive" style="margin:0 auto; width:85%;">
+								<input type="hidden" name="emailuserid" value="{{user.id}}">
+
+								{% if userBankAccount.length>0 %}
+								  {% set b = 1 %}
+									 <div class="panel-group" id="accordion">
+										{% for bankdetails in  userBankAccount %}
+											{% if(b==1) %}
+											  <input type="hidden" name="defaultbankid" id="defaultbankid" value="{{bankdetails.id}}">
+											  <input type="hidden" name="bankid" id="bankid" value="{{bankdetails.id}}">
+											{% endif %}
+											<div class="panel panel-default" style="background:none;">
+												<div class="panel-heading" >
+													<h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{b}}" style="color: #fff;"> + {{bankdetails.institutionName}}</a>
+													</h4>
+												</div>
+												<div id="collapse{{b}}" class="panel-collapse collapse {% if b==1 %}in {% else %}{% endif %}">
+													<div class="table-responsive panel-body">
+														<table class="dashboard-table table"  style="font-size: 14px">
+															  <thead>
+																<tr>
+																  <th>#</th>
+																  <th>Account Name</th>
+																  <th>Account Type</th>
+																  <th>Account Subtype</th>
+																  <th>Account Number<br/> (Last 4 Digit)</th>
+																  <th>Balance<br/> Available</th>
+																  <th>Balance<br/> Current</th>
+																</tr>
+															  </thead>
+															  <tbody>
+
+																{% if bankdetails.accounts.length>0 %}
+
+																	{% set k = 1 %}
+																	{% for accountDetail in  bankdetails.accounts %}
+																		{% if accountDetail.subtype !== 'credit card' %}
+																		   {% if(k==1 and b==1) %}
+																			  <input type="hidden" name="selectitemid" id="selectitemid" value="{{accountDetail._id}}">
+																		   {% endif %}
+																		<tr {% if accountDetail.subtype != 'checking' %} style="opacity:0.4;" {% endif %}>
+																			 <td class="tname">
+																			  <div class="checkbox">
+																				<input type="radio" name="bankaccount" id="checkboxOne_{{b}}_{{k}}" value="{{accountDetail._id}}" onclick="checkaccount('{{k}}','{{b}}');" {% if(k==1 and b==1) %} checked {% endif %} {% if accountDetail.subtype != 'checking' %} disabled {% endif %} />
+																				<label class="check-box" for="checkboxOne_{{b}}_{{k}}"></label>
+																			  </div>
+																			  <input type="hidden" name="rowbankid_{{b}}_{{k}}" id="rowbankid_{{b}}_{{k}}" value="{{bankdetails.id}}">
+																			</td>
+																			<td>{{ accountDetail.meta.name }}</td>
+																			<td>{{ accountDetail.type }}</td>
+																			<td>{{ accountDetail.subtype }}</td>
+																			<td>{{ accountDetail.meta.number }}</td>
+																		{% if(accountDetail.balance.available) %}
+																			<td>{{ accountDetail.balance.available }}</td>
+																		{% else %}
+																			<td>{{ accountDetail.balance.available }}</td>
+																		{% endif %}
+																		{% if(accountDetail.balance.current) %}
+																			<td>{{ accountDetail.balance.current }}</td>
+																		{% else %}
+																			<td>{{ accountDetail.balance.current }}</td>
+																		{% endif %}
+																		</tr>
+																		{% set k = k+1 %}
+																		{% endif %}
+																	{% endfor %}
+																{% else %}
+
+																<tr>
+																  <td colspan="8"><p>No account found</p></td>
+																</tr>
+															  {% endif %}
+															  </tbody>
+
+															</table>
+														</div>
+													</div>
+												</div>
+
+										{% set b = b+1 %}
+										{% endfor %}
+										 </div>
+										{% else %}
+											 <div class="panel-group" id="accordion">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<h4 class="panel-title">
+															<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Bank Details</a>
+														</h4>
+													</div>
+													<div id="collapseOne" class="panel-collapse collapse in">
+														<div class="panel-body">
+														   No Bank found
+														</div>
+													 </div>
+												</div>
+											 </div>
+										{% endif %}
+
+							</div>
+
+							<div class="col-md-12  col-sm-12 col-lg-12" style="text-align:center;">
+							   <div class="addBankBtn">
+							         <input type="checkbox" name="eft_consent" checked id="eft_consent" style="visibility:hidden;">
+									<button type="submit" class="gform_button btn btn-default createapplication" onclick="return emailselectaccount();" style="font-size: 14px; min-width: 145px;">CONTINUE</button>
+								</div>
+							</div>
+							<p>&nbsp;</p>
+
+
+						</div>
+						  </form>
+
+
+
+					{% else %}
+
+                    <!-- <div class="emptyAccountDiv emptyAccountDiv-custom">
+                        <div class="img-Div"><img src="/images/img/add-bank-screens.png" class="img-responsive img-full center-block" /></div>
+                        <button class="btn btn-default addCircleBtn" onClick="serviceopenlinkaccount();" style="top:375px;left:0; right:0; margin:0 auto;">
+
+                            <span>Login<br>to<br>Bank</span>
+                        </button>
+                    </div> -->
+
+                       <div class="emptyAccountDiv">
+                            <img src="/images/img/add-bank-screens.png" class="img-full" />
+                            <button class="btn btn-default addCircleBtn" onClick="serviceopenlinkaccount();">
+                                <!--<i class="glyphicon glyphicon-plus-sign plusicon"></i>-->
+                                <span>Login <br>to<br> Bank</span>
+                            </button>
+                        </div>
+                        <br>
+                        {% if screencount == 1 %}
+                        	{% include "customerService/incomeandloandata.nunjucks" %}
+	                    {% endif %}
+                    {% endif %}
+
+
+
+     <p>&nbsp;</p>
+
+	</div>
+ </section>
+
+
+    <div id="apllicationloanmodel" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-md">
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="text-center">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Confirmation</h3></span>
+				</div>
+				<div class="modal-body whitetext">
+					 Sorry, that financed amount does not meet the minimum threshold.
+				</div>
+				<div class="btn-Main">
+				  <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Close</button>
+				</div>
+				<br>
+			  </div>
+			</div>
+		</div>
+    <div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+                <div class="modal-body">Please check atleast one account</div>
+                    <button type="button" id="closebutton" class="btn btn-default" data-dismiss="modal" style="font-size:16px; padding:6px 10px;">OK</button>
+            </div>
+        </div>
+    </div>
+	<div class="modal fade" id="apierror" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content" style="padding: 37px 15px;margin-top: 220px;text-align: center;">
+                <div class="modal-body">We are sorry that we weren't able to link your account. Please click on Add Bank and try again.</div>
+                    <button type="button" id="closebutton" class="btn btn-default" data-dismiss="modal" style="font-size:16px; padding:6px 10px;" onclick="closeapierror();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div id="eftconsentservice" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header bg-tcpa">
+              <button type="button" class="close" data-dismiss="modal" style="color:#FFF; opacity:1;">&times;</button>
+              <h4 class="modal-title" id="storyinfopopupheader">EFT Consent </h4>
+            </div>
+            <div class="modal-body bgColorWhite">
+
+            </div>
+            <div class="modal-footer bg-info-tcpa">
+              <button type="button" data-dismiss="modal" onclick="checkdocstatus();" class="btn bg-tcpa createapplication">Continue</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div id="denyreasonlowincomemodel" class="modal fade" role="dialog">
+       		<div class="modal-dialog modal-md">
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="text-center">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Confirmation</h3></span>
+				</div>
+				<div class="modal-body whitetext">
+					<!--  You can apply minimum financing amount of ${{minloanamount}} and maximum financing amount of ${{maxloanamount}} in {{LenderShortName}}. -->
+					Sorry, that annual income does not meet the minimum income threshold.
+  				</div>
+				<div class="btn-Main">
+				  <button type="button" class="btn btn-default blueBtn" data-dismiss="modal">Cancel</button>
+				</div>
+				<br>
+			  </div>
+			</div>
+      	</div>
+
+      	<div id="denyreasonmodel" class="modal fade" role="dialog">
+       		<div class="modal-dialog modal-md">
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="text-center">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <span class="stlbluetxt"><h3 class="modal-title mTB-1" id="storyinfopopupheader">Confirmation</h3></span>
+				</div>
+				<div class="modal-body whitetext">
+		              <div><strong>
+		              	<span id="maxloantxt">Oops the Anticipated Financed Amount exceeds the maximum.</span>
+		              	<span id="minloantxt" style="display: none;">Oops the Anticipated Financed Amount less than minimum amount.</span>
+		              	<br>
+		              	<br>
+		                You have pre-qualified for a contract up to <span class="stlbluetxt">$ <span id="qualifiedAmount" style="font-size: 14px;"></span></span>
+		                <br>
+		                <br>
+		                Do you want to proceed with this contract using that amount?
+		              </strong></div>
+
+		            </div>
+				<div class="btn-Main">
+	             	<button type="button" data-dismiss="modal" onclick="serviceproceessnextpage();" class="btn btn-default blueBtn">Yes</button> &nbsp;&nbsp;
+	              	<button type="button" data-dismiss="modal" onclick="serviceproceesloanfailure()" class="btn btn-default blueBtn">No</button>
+	            </div>
+	            <br>
+			  </div>
+			</div>
+      	</div>
+
+
+	<style type="text/css">
+     .img-full {
+            display: inline-block;
+            margin:20px;
+            width:70%;
+        }
+     .emptyAccountDiv {
+            margin: 0 auto;
+            position: relative;
+            width: 35%;
+        }
+    </style>
+
+
+
+<link href="/styles/css/frontend/borrowerportal/addbank.css" rel="stylesheet" type="text/css" />
+<script>
+
+function checkaccount(rowbankid,bankid){
+ var rowid= $("#rowbankid_"+bankid+"_"+rowbankid).val();
+ $("#bankid").val(rowid);
+ $("#defaultbankid").val(rowid);
+ var selitemid= $("#checkboxOne_"+bankid+"_"+rowbankid).val();
+ $("#selectitemid").val(selitemid);
+}
+</script>
+
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script>
+
+    var appScheme = 'linkApp';
+    var linkHandler = Plaid.create({
+    env: "{{ sails.config.plaid.envType }}",
+    apiVersion: 'v2',
+    clientName: "{{ sails.config.plaid.clientName }}",
+    key: "{{ sails.config.plaid.publicKey }}",
+    product: ["auth","transactions"],
+    webhook: "{{sails.config.getBaseUrl}}/api/v1/getPlaidTransactions",
+    onLoad: function () {
+
+
+    },
+    onSuccess: function (public_token, metadata) {
+
+    // Send the public_token to your app server here.
+    // The metadata object contains info about the institution the
+    // user selected and the account ID, if selectAccount is enabled.
+    // alert(public_token)
+    // console.log('account_id is', metadata);
+
+    var action = 'handlePublicToken';
+
+    $('#loaderid').show();
+    $('#changebankbtn').hide();
+    $('#filloutsection').hide();
+
+    $.ajax({
+        url     : '/servicesaveincomedetails',
+        method  : 'post',
+        data    : {
+            public_token  : public_token,
+            account_id    : metadata,
+            userId  : '{{user.id}}'
+        },
+        headers:
+        {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+
+           //alert(response);
+
+           $('#loaderid').hide();
+
+           if(response.status==200){
+		       $('#apierror').modal('hide');
+               window.location.href='/servicetransaction/{{user.id}}';
+           }else{
+		      $('#apierror').modal('show');
+              //alert(response.message);
+           }
+
+        }
+    });
+
+    },
+    onExit: function (err, metadata) {
+
+        /*alert("error :"+err);
+        console.log("metadata :"+metadata);
+
+        for (var key in metadata) {
+
+        if (metadata.hasOwnProperty(key)) {
+            alert("keyvalue: "+key)
+            var submetadata = metadata[key];
+            alert("key length: "+submetadata.length);
+            alert("key value: "+submetadata);
+        }
+        }*/
+
+        $('#plaidloader').html('');
+        // The user exited the Link flow.
+        var action = 'handleOnExit';
+
+
+        if (err != null) {
+            // The user encountered a Plaid API error prior to exiting.
+        }
+        // metadata contains information about the institution
+        // that the user selected and the most recent API request IDs.
+        // Storing this information can be helpful for support.
+
+    }
+    });
+
+    //If we use other bank short code ,it's loading html data
+    //not working for simple
+
+    function serviceopenlinkaccount(){
+       setTimeout(function(){linkHandler.open();},1000);
+    }
+
+    /*if({{checkExpiration}} < 1) {
+        serviceopenlinkaccount();
+    }*/
+
+    /* Number divider and prefix dollar symbol starts here */
+/*    jQuery(function($){
+        $(".money").maskMoney({prefix:'$ ',precision:0});
+    });*/
+    /* Number divider and prefix dollar symbol ends here */
+
+
+    function openeftconsentservice(){
+
+		 var defaultbankid = document.getElementById("defaultbankid").value;
+	     var selectitemid= $("#selectitemid").val();
+
+		 $.ajax({
+			url: '/ajaxlinkedbank',
+			data: {
+				'slectbankid': defaultbankid,
+				'selectitemid':selectitemid
+			},
+			type: 'POST',
+			success: function(res) {
+
+				// alert('2423423423');
+				$('#linkedaccountid').html(res.listdata);
+				$('#eftconsentservice').modal('show');
+				$('#eft_consent').prop('checked', true);
+			 }
+		 });
+
+	 }
+
+    function closeapierror(){
+
+	    $('#apierror').modal('hide');
+		 window.location.href='/servicetransaction/{{user.id}}';
+	}
+
+</script>
+<!--Get plaid transaction ends here-->
+
+{% endblock %}

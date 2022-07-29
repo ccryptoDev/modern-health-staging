@@ -1,0 +1,279 @@
+
+<div id="verifyPhoneNumberModal" class="modal fade mh-modal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content" style="float:left;width: 100%;">
+            <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+                <div class="row sell-contract-modal-content">
+                    <h3 class="mh-modal-title mh-verify-phone-title">Please verify your phone number</h3>
+                    <h3 class="mh-modal-title mh-verify-phone-title-customer-service" style="display: none">Please verify this phone number</h3>
+                    <span class="mh-verify-phone-explain">A verification code was sent to your phone number. Please enter that code below:</span>
+                    <span class="mh-verify-phone-explain-customer-service"  style="display: none">A verification code was sent to this phone number. Please enter that code below:</span>
+                    <div class="row" style="display: flex;padding-left: 20px; flex-wrap: wrap">
+                        <div class="verify-code-input" style="flex: 0 0 133px;">
+                            <label><span>Verification Code:</span></label>
+                        </div>
+                        <div class="verify-code-input">
+                            <input type="text"  class="form-control form-application" id="txtVerifyPhoneCode" name="txtVerifyPhoneCode" placeholder="Ex: 123456"/>
+                        </div>
+                        <div class="verify-code-input">
+                            <button class="btn-application verify-code-button" id="verifyButton" disabled onclick="verifyCode()">Verify</button>
+                        </div>
+                    </div>
+                    <div class="error error-modal" style="display: none;"></div>
+                    <div class="resend-code-section">
+                        <div id="validVerification">Note: This verification is only valid for<p id="countdown" style="display:inline;color:red;"></p>.</div>
+
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <div class="modal-footer twilio-verify-modal-footer" style="float: left;width: 100%;">
+                <button type="button" class="btn-application resend-phone-verification"  onclick="resendVerificationCode()">Send Verification Again</button>
+                <button type="button" data-dismiss="modal" class="btn-application">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="verifyPhoneConfirmedModal" class="modal fade mh-modal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content" style="float:left;width: 100%;">
+            <div class="modal-body bgColorWhite" style="float: left;width: 100%;">
+                <div class="row sell-contract-modal-content">
+                    <h3 class="mh-modal-title" style="margin-bottom: 20px">Verification Completed</h3>
+                    <span class="mh-verify-phone-explain">Your phone is now verified.</span>
+                </div>
+
+            </div>
+            <br>
+            <div class="modal-footer" style="float: left;width: 100%;">
+                <button type="button" class="btn-application" onclick="submitUserInformation()">Dismiss</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .mh-modal .modal-content {
+        padding: 20px;
+    }
+    .mh-modal .btn-application {
+        width: unset;
+    }
+    .mh-modal .mh-modal-title {
+        margin-bottom: 10px;
+    }
+    .mh-modal .mh-verify-phone-explain {
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+    .mh-modal .resend-code-section .btn-application {
+        margin-top: 10px;
+    }
+    .mh-modal .modal-footer {
+        border: 0;
+        padding: 10px 0;
+    }
+    .mh-modal .verify-code-input {
+        padding-right: 10px;
+        /* width: 100%; */
+        /*margin-bottom: 20px;*/
+        /*height: 50px;*/
+        flex: 1 1 auto;
+        align-self: center;
+        margin-right: 10px;
+        margin-top: 10px;
+        height: 50px;
+    }
+    .mh-modal .verify-code-input label {
+        eight: 50px;
+        margin-top: 13px;
+    }
+    .error-message, .error-modal {
+        margin-bottom: 20px;
+    }
+    .resend-code-section {
+        margin-top: 20px;
+    }
+
+    @media (max-width: 394px) {
+        .twilio-verify-modal-footer .btn-application {
+            margin-top:10px;
+            width: 100%;
+        }
+    }
+
+</style>
+<script>
+    function time_remaining(endtime){
+        var t = Date.parse(endtime) - Date.parse(new Date());
+        var seconds = Math.floor( (t/1000) % 60 );
+        var minutes = Math.floor( (t/1000/60) % 60 );
+        var hours = Math.floor( (t/(1000*60*60)) % 24 );
+        var days = Math.floor( t/(1000*60*60*24) );
+        return {'total':t, 'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds};
+    }
+
+    function startCountdown(endtime) {
+        $("#verifyButton").prop("disabled", false);
+        function update_clock() {
+            var remaining = time_remaining(endtime);
+            $("#countdown").text(' '+remaining.minutes+':'+remaining.seconds);
+            if(remaining.total <= 0) {
+                $("#verifyButton").prop("disabled", true);
+                $("#validVerification").text("Verification Code Expired, Please Try Again.");
+                clearInterval(timeinterval);
+            }
+        }
+        update_clock();
+        var timeinterval = setInterval(update_clock, 1000);
+    }
+
+    function timer10() {
+        var time_in_minutes = 10;
+        var current_time= Date.parse(new Date());
+        var deadline = new Date(current_time + time_in_minutes*60*1000);
+        $("#verifyButton").prop("disabled", false);
+        $("#validVerification").html('Note: This verification is only valid for<p id="countdown" style="display:inline;color:red;"></p>.</div>');
+        startCountdown(deadline);
+    }
+
+    $(document).ready(function() {
+
+        io.sails.reconnection = true;
+
+        $("#verifyPhoneNumberModal").on("show.bs.modal", function() {
+            $(".error-modal").css("display","none").html("");
+            $("#txtVerifyPhoneCode").val("");
+            $(".verify-code-button").val("").prop("disabled", true);
+            timer10();
+        });
+
+        $("#txtVerifyPhoneCode").on("keyup paste drop",
+            function (event) {
+                if ($("#txtVerifyPhoneCode").val().length >= 6) {
+                    $(".verify-code-button").prop("disabled", false);
+                    if(event.keyCode === 13){
+                        verifyCode();
+                    }
+                } else {
+                    $(".verify-code-button").prop("disabled", true);
+                }
+
+
+                console.error("stopped changing");
+                hideError(".error-modal");
+            }
+        );
+
+        $("#phone").on("keyup paste drop", function(){
+            $(this).val(formatUSPhoneNumber($(this).val()));
+        });
+
+
+
+        io.socket.on("startVerification", function(msg)  {
+            if(msg && Object.keys(msg).indexOf("sid") >= 0 ){
+                $("#sid").val(msg.sid);
+
+                var verifyPhoneModal = $("#verifyPhoneNumberModal");
+
+                if(!verifyPhoneModal.is(":visible")){
+                    verifyPhoneModal.modal("show");
+                }
+            }else {
+                $("#verifyPhoneNumberModal").modal("hide");
+                var errorMessage = msg.errorMessage;
+
+                if(!errorMessage) {
+                    errorMessage = "There was a problem sending the phone verification code.";
+                }
+                showError(".error-message", errorMessage);
+            }
+            $(".resend-phone-verification").removeAttr("disabled");
+        });
+
+        io.socket.on("verifyPhoneCode", function(msg) {
+            if (msg && !!msg.status && msg.status === "approved") {
+                $("#isPhoneVerified").val("true");
+                $("#verifyPhoneNumberModal").modal("hide");
+                $("#verifyPhoneConfirmedModal").modal("show");
+
+            } else {
+                var errorMessage = msg.errorMessage;
+
+                if(!errorMessage) {
+                    errorMessage = "The code you have entered is invalid.";
+                }
+                showError(".error-modal", errorMessage);
+            }
+        });
+    });
+    function resendVerificationCode() {
+        $(".resend-phone-verification").prop("disabled", true);
+        checkIfVerificationNeeded();
+        timer10();
+    }
+    function checkIfVerificationNeeded(event = null, isCustomerServiceEntered = false)
+    {
+        if(event) {
+            event.preventDefault();
+        }
+        hideError(".error-message");
+        hideError(".error-modal");
+
+        var formToUse = $("#phone").closest("form");
+        if(formToUse.valid()) {
+            if(isCustomerServiceEntered) {
+                $(".mh-verify-phone-title, .mh-verify-phone-explain").css("display", "none");
+                $(".mh-verify-phone-title-customer-service, .mh-verify-phone-explain-customer-service").css("display", "block");
+            }else {
+                $(".mh-verify-phone-title, .mh-verify-phone-explain").css("display", "block");
+                $(".mh-verify-phone-title-customer-service, .mh-verify-phone-explain-customer-service").css("display", "none");
+            }
+            //send verification
+            if($("#isTwilioEnabled").val().toLowerCase()==="true") {
+                const number = $("#phone").val();
+                io.socket.post( '/twilio/startverification', {phoneNumber: number}, function( res ) {} );
+            }else {
+                submitUserInformation();
+            }
+        }
+    }
+    function verifyCode() {
+
+        var verifySid = $("#sid").val();
+        var verificationCode = $("#txtVerifyPhoneCode").val();
+        var phoneNumber = $("#phone").val();
+        hideError(".error-modal");
+        if(!!verifySid && !!verificationCode && !!phoneNumber) {
+            io.socket.post('/twilio/validateCode', {phoneNumber: phoneNumber, verificationCode: verificationCode}, function (res) {});
+        } else {
+            showError(".error-modal", "There is missing data used to verify this phone.");
+        }
+    }
+    function submitUserInformation() {
+        $("#verifyPhoneConfirmedModal").modal("hide");
+
+        var formToUse = $("#phone").closest("form");
+		if( formToUse.find( "#preventsubmit" ).length == 0 ) {
+			if(formToUse.valid()) {
+			    $("#loaderIdCreateAppCustomerService").show();
+				formToUse.submit();
+			}
+		} else {
+			updateMobileNumber();
+		}
+    }
+    function showError(selector, message){
+        if(!!message){
+            $(selector).html(message);
+        }
+        $(selector).css("display", "block");
+    }
+    function hideError(selector) {
+        $(selector).css("display", "none").html("");
+    }
+</script>
