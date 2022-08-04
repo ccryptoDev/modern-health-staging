@@ -106,7 +106,7 @@
 					<tr>
             			<th>Practice Rules</th>
 						<td>
-							<select name="PracticeSettings" id="PracticeSettings" class="form-control selectBox" required="" style="width:50%;">
+							<select name="PracticeSettings" id="PracticeSettings" class="form-control selectBox" style="width:50%;">
 								<option value="">Settings</option>
 								{% for settings in practiceSettings %}
 								<option value="{{settings.id}}" {% if settings.isDefault == true %} selected {% endif %}>{{settings.SettingName}}</option>
